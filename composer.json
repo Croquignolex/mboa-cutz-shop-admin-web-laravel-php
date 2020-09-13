@@ -2,7 +2,7 @@
     "license": "MIT",
     "type": "project",
     "version": "1.0.0",
-    "name": "MBOA CUTZ",
+    "name": "Mboacutz",
     "description": "Baber shop",
     "keywords": ["mboa", "cutz", "baber", "hair", "cut"],
     "require": {
@@ -11,7 +11,8 @@
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^6.3",
         "laravel/framework": "^7.24",
-        "laravel/tinker": "^2.0"
+        "laravel/tinker": "^2.0",
+        "laravel/ui": "2.4"
     },
     "require-dev": {
         "facade/ignition": "^2.0",

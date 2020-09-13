@@ -13,8 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Non localized routes
-Route::post('/timezone', 'HomeController@timezoneAjax');
+//Route::post('/timezone', 'HomeController@timezoneAjax');
 
-// Localized routes
-Route::get('/{language?}', 'HomeController@index')->name('home');
+Route::group(['namespace' => 'Auth'], function() {
+    // Auth GET routes
+    Route::get('/', 'LoginController@showLoginForm')->name('login');
+    // Auth POST routes
+    Route::post('/', 'LoginController@login');
+    Route::post('/logout', 'LoginController@logout')->name('logout');
+});
