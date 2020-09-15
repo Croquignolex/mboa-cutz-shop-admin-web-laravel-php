@@ -41,7 +41,7 @@
         <script src="{{ js_asset('nprogress') }}" type="application/javascript"></script>
     </head>
 
-    <body class="bg-light-gray" id="body">
+    <body class="bg-theme-dark" id="body">
         @yield('master.body')
         @stack('master.script')
         <script src="{{ js_asset('master') }}" type="application/javascript"></script>

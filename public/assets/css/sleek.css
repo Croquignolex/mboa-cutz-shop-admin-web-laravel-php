@@ -8872,17 +8872,7 @@ div.copied {
 /* App brand */
 .app-brand {
   position: relative;
-  display: block;
-  background-color: #000; }
-  .app-brand a {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    height: 75px;
-    line-height: 75px;
-    width: 250px;
-    transition: width 0.3s ease-in-out;
-    padding-left: 1.56rem; }
+  display: block; }
     @media screen and (prefers-reduced-motion: reduce) {
       .app-brand a {
         transition: none; } }

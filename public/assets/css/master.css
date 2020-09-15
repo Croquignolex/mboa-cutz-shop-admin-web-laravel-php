@@ -1,0 +1,14 @@
+.bg-theme-dark {
+    background-color: #181818;
+}
+
+.btn-theme-dark {
+    background-color: #181818;
+    color: white;
+}
+
+.btn-theme-dark:hover {
+    background-color: white;
+    color: #181818;
+    border-color: #181818;;
+}
