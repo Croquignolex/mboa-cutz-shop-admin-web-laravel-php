@@ -28,20 +28,13 @@
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500|Poppins:400,500,600,700|Roboto:400,500" rel="stylesheet"/>
         <link href="https://cdn.materialdesignicons.com/3.0.39/css/materialdesignicons.min.css" rel="stylesheet" />
 
-        @stack('master.style')
+        <link rel="stylesheet" href="{{ css_asset('toastr.min') }}" type="text/css">
         <link rel="stylesheet" href="{{ css_asset('sleek') }}" type="text/css">
         <link rel="stylesheet" href="{{ css_asset('master') }}" type="text/css">
-
-        <!--HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries-->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-        <![endif]-->
-        <script src="{{ js_asset('nprogress') }}" type="application/javascript"></script>
+        @stack('master.style')
     </head>
 
-    <body class="bg-theme-dark" id="body">
+    <body class="@yield("master.class")" id="body">
         @yield('master.body')
         @stack('master.script')
         <script src="{{ js_asset('master') }}" type="application/javascript"></script>

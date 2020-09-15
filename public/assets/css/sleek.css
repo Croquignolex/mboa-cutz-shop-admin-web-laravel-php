@@ -8356,11 +8356,9 @@ div.copied {
     .navbar {
       transition: none; } }
   @media (min-width: 992px) {
-    .navbar {
-      padding-right: 1rem; } }
+    .navbar { } }
   @media (min-width: 1200px) {
-    .navbar {
-      padding-right: 1.89rem; } }
+    .navbar {} }
   .navbar .sidebar-offcanvas-toggle,
   .navbar .sidebar-toggle {
     background-color: transparent;
@@ -8852,7 +8850,7 @@ div.copied {
   top: 0;
   width: .19rem;
   height: 100%;
-  background: #4c84ff;
+  background: #ec008c;
   opacity: 0; }
 
 .sidebar .sidebar-inner .section-title {
@@ -8872,7 +8870,16 @@ div.copied {
 /* App brand */
 .app-brand {
   position: relative;
-  display: block; }
+  display: block;  }
+.app-brand a {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 75px;
+  line-height: 75px;
+  width: 250px;
+  transition: width 0.3s ease-in-out;
+  padding-left: 1.56rem; }
     @media screen and (prefers-reduced-motion: reduce) {
       .app-brand a {
         transition: none; } }
@@ -8897,7 +8904,7 @@ div.copied {
   font-size: 1.5rem; }
 
 .sidebar .nav > li.active > a i {
-  color: #4c84ff; }
+  color: #ec008c; }
 
 /* Caret styles */
 .sidebar li > a .caret {
@@ -9327,7 +9334,7 @@ div.copied {
 
 /* Sidebar Bg Dark */
 .sidebar-dark .left-sidebar {
-  background-color: #212a39; }
+  background-color: #181818; }
 
 .sidebar-dark .sidebar .sub-menu {
   background: #1d2531; }

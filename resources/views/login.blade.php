@@ -2,13 +2,15 @@
 
 @section('master.title', 'Connexion')
 
+@section('master.class', 'bg-theme-dark')
+
 @section('master.body')
     <div class="container d-flex flex-column justify-content-between vh-100">
         <div class="row justify-content-center mt-5">
             <div class="col-xl-5 col-lg-6 col-md-10">
                 <div class="card">
                     <div class="card-header bg-theme-dark">
-                        <div class="app-brand text-center">
+                        <div class="app-brand">
                             <img src="{{ img_asset('logo', 'jpg') }}" alt="..." width="70">
                         </div>
                     </div>
@@ -46,13 +48,3 @@
         </div>
     </div>
 @endsection
-
-@push('master.style')
-    <link rel="stylesheet" href="{{ css_asset('toastr.min') }}" type="text/css">
-    <link rel="stylesheet" href="{{ css_asset('nprogress') }}" type="text/css">
-    <link rel="stylesheet" href="{{ css_asset('flag-icon.min') }}" type="text/css">
-    <link rel="stylesheet" href="{{ css_asset('jquery-jvectormap-2.0.3') }}" type="text/css">
-    <link rel="stylesheet" href="{{ css_asset('ladda.min') }}" type="text/css">
-    <link rel="stylesheet" href="{{ css_asset('select2.min') }}" type="text/css">
-    <link rel="stylesheet" href="{{ css_asset('daterangepicker') }}" type="text/css">
-@endpush
