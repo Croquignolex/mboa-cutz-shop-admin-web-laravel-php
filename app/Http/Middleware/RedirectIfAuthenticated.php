@@ -22,7 +22,7 @@ class RedirectIfAuthenticated
         if (Auth::guard($guard)->check())
         {
             if(Auth::user()->role->type !== Role::USER) {
-                return redirect(route('dashboard'));
+                return redirect(route('dashboard.index'));
             }
             else return redirect(route('login'));
         }

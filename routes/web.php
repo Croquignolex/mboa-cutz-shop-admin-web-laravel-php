@@ -13,12 +13,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::post('/timezone', 'HomeController@timezoneAjax');
-
 Route::group(['namespace' => 'Auth'], function() {
     // Auth GET routes
     Route::get('/', 'LoginController@showLoginForm')->name('login');
+
     // Auth POST routes
     Route::post('/', 'LoginController@login');
     Route::post('/logout', 'LoginController@logout')->name('logout');
+});
+
+Route::group(['namespace' => 'App'], function() {
+    // App GET routes
+    Route::get('/dashboard', 'DashboardController@index')->name('dashboard.index');
+
+    // App POST routes
+//    Route::post('/timezone', 'DashboardController@timezoneAjax');
 });
