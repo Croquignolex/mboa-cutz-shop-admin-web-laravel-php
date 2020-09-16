@@ -18,10 +18,11 @@ if(!function_exists('toast_message'))
 {
     /**
      * @param $message
+     * @param string $title
      */
-    function toast_message($message)
+    function toast_message($message, $title = 'Information')
     {
-        session()->flash('toast.title', 'Information');
+        session()->flash('toast.title', $title);
         session()->flash('toast.message', $message);
     }
 }

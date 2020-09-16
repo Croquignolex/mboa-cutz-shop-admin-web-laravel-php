@@ -16,13 +16,28 @@
                     </div>
                     <div class="card-body p-4">
                         <h4 class="text-dark mb-3">Connexion</h4>
-                        <form action="">
+                        <form action="" method="POST">
+                            {{ csrf_field() }}
                             <div class="row">
                                 <div class="form-group col-md-12 mb-4">
-                                    <input type="email" class="form-control input-lg" id="email" aria-describedby="emailHelp" placeholder="Username">
+                                    <input type="text" class="form-control input-lg" id="email" placeholder="Email" value="{{ old('email') }}" name="email"/>
+                                    <label for="email">
+                                        @if ($errors->has('email'))
+                                            <small class="text-danger">
+                                                {{ $errors->first('email') }}
+                                            </small>
+                                        @endif
+                                    </label>
                                 </div>
                                 <div class="form-group col-md-12 ">
-                                    <input type="password" class="form-control input-lg" id="password" placeholder="Password">
+                                    <input type="password" class="form-control input-lg" id="password" placeholder="Mot de passe" value="{{ old('password') }}" name="password"/>
+                                    <label for="password">
+                                        @if ($errors->has('password'))
+                                            <small class="text-danger">
+                                                {{ $errors->first('password') }}
+                                            </small>
+                                        @endif
+                                    </label>
                                 </div>
                                 <div class="col-md-12">
                                     <button type="submit" class="btn btn-lg btn-theme-dark btn-block mb-4">
@@ -48,3 +63,9 @@
         </div>
     </div>
 @endsection
+
+@push('master.style')
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500|Poppins:400,500,600,700|Roboto:400,500" rel="stylesheet"/>
+    <link href="https://cdn.materialdesignicons.com/3.0.39/css/materialdesignicons.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ css_asset('sleek') }}" type="text/css">
+@endpush

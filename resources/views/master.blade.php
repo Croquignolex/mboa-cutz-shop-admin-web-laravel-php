@@ -24,14 +24,8 @@
         <meta name="msapplication-TileColor" content="#ffffff">
         <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
         <meta name="theme-color" content="#ffffff">
-
-        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500|Poppins:400,500,600,700|Roboto:400,500" rel="stylesheet"/>
-        <link href="https://cdn.materialdesignicons.com/3.0.39/css/materialdesignicons.min.css" rel="stylesheet" />
-
-        <link rel="stylesheet" href="{{ css_asset('toastr.min') }}" type="text/css">
-        <link rel="stylesheet" href="{{ css_asset('sleek') }}" type="text/css">
-        <link rel="stylesheet" href="{{ css_asset('master') }}" type="text/css">
         @stack('master.style')
+        <link rel="stylesheet" href="{{ css_asset('master') }}" type="text/css">
     </head>
 
     <body class="@yield("master.class")" id="body">

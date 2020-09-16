@@ -36,7 +36,7 @@
                                 </div>
                             </li>
                             <li class="{{ active_page(collect(['profile.index'])) === 'active' ? 'bg-light' : '' }}">
-                                <a href="{{ route('account.index') }}">
+                                <a href="{{ route('profile.index') }}">
                                     <i class="mdi mdi-account"></i> Mon Profil
                                 </a>
                             </li>

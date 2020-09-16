@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @property mixed id
+ * @property mixed role
  * @property mixed email
  * @property mixed avatar
  * @property mixed full_name

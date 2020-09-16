@@ -2,25 +2,26 @@
 
 @section('master.title')@yield('error.master.title')@endsection
 
-@section('master.body')
-    <div id="notfound">
-        <div id="particles-js" class="home-particles"></div>
-        <div class="notfound home-particles" id="particles-js">
-            <div class="notfound-404">@yield('error.code')</div>
-            <p class="jump"><strong>@yield('error.title')</strong></p>
-            <p>@yield('error.message')</p>
-            <a href="{{ route('dashboard.index') }}">Retour</a>
-        </div>
-        <div id="particles-js" class="home-particles"></div>
-    </div>
-@endsection
-
 @push('master.style')
     <link rel="stylesheet" href="{{ css_asset('error') }}" type="text/css">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
 @endpush
 
-@push('master.script')
-    <script src="{{ js_asset('jquery-3.2.1.min') }}" type="text/javascript"></script>
-    <script src="{{ js_asset('plugins') }}" type="text/javascript"></script>
-    <script src="{{ js_asset('polygons') }}" type="text/javascript"></script>
-@endpush
+@section('master.body')
+    <div id="notfound">
+        <div class="notfound-bg"></div>
+        <div class="notfound">
+            <div class="notfound-404">
+                <h1>@yield('error.code')</h1>
+            </div>
+            <h2>@yield('error.title')</h2>
+            <p class="text-white">@yield('error.message')</p>
+            <a href="{{ route('dashboard.index') }}" class="contact-btn">Retour</a>
+        </div>
+    </div>
+@endsection

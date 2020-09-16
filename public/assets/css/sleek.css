@@ -7059,9 +7059,6 @@ button {
   overflow: hidden; }
 
 /*===== ALERT =====*/
-label {
-  text-transform: capitalize; }
-
 .alert {
   font-size: 0.98rem;
   font-weight: 500;
