@@ -5,8 +5,8 @@
 @section('master.class', 'bg-theme-dark')
 
 @section('master.body')
-    <div class="container d-flex flex-column justify-content-between vh-100">
-        <div class="row justify-content-center mt-5">
+    <div class="container d-flex flex-column justify-content-center vh-100">
+        <div class="row justify-content-center">
             <div class="col-xl-5 col-lg-6 col-md-10">
                 <div class="card">
                     <div class="card-header bg-theme-dark">

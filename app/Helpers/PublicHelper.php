@@ -37,16 +37,16 @@ if(!function_exists('img_asset'))
     }
 }
 
-if(!function_exists('about_img_asset'))
+if(!function_exists('user_img_asset'))
 {
     /**
      * @param $img_file
      * @param $extension
      * @return string
      */
-    function about_img_asset($img_file, $extension = 'jpg')
+    function user_img_asset($img_file, $extension = 'png')
     {
-        return config('app.folder') . '/assets/img/about/' . $img_file . '.' . $extension;
+        return config('app.folder') . '/assets/img/users/' . $img_file . '.' . $extension;
     }
 }
 
@@ -86,3 +86,4 @@ if(!function_exists('flag_img_asset'))
         return config('app.folder') . '/assets/img/flags/' . $flag . '.png';
     }
 }
+

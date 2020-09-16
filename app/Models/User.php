@@ -2,15 +2,28 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Auth\User as Authenticate;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
+ * @property mixed id
+ * @property mixed email
+ * @property mixed avatar
+ * @property mixed full_name
  * @property mixed last_name
  * @property mixed first_name
+ * @property mixed avatar_src
+ * @property mixed format_last_name
+ * @property mixed avatar_extension
+ * @property mixed format_first_name
  */
 class User extends Authenticate
 {
+    const USER_DEFAULT_IMAGE = 'default';
+    const USER_DEFAULT_IMAGE_EXTENSION = 'png';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -18,7 +31,8 @@ class User extends Authenticate
      */
     protected $fillable = [
         'first_name', 'last_name', 'phone', 'role_id',
-        'image', 'description', 'email', 'is_confirmed', 'password'
+        'description', 'email', 'is_confirmed', 'password',
+        'avatar', 'avatar_extension',
     ];
 
     /**
@@ -41,6 +55,19 @@ class User extends Authenticate
     ];
 
     /**
+     * Boot functions
+     */
+    protected static function boot()
+    {
+        parent::boot();
+        static::creating(function ($user) {
+            $user->password = Hash::make($user->password);
+        });
+    }
+
+    /**
+     * User role
+     *
      * @return BelongsTo
      */
     public function role()
@@ -55,6 +82,87 @@ class User extends Authenticate
      */
     public function getFullNameAttribute()
     {
-        return "{$this->first_name} {$this->last_name}";
+        return "{$this->format_first_name} {$this->format_last_name}";
+    }
+
+    /**
+     * User formatted first name
+     *
+     * @return mixed
+     */
+    public function getFormatFirstNameAttribute()
+    {
+        return ucfirst(mb_strtolower($this->first_name));
+    }
+
+    /**
+     * User formatted last name
+     *
+     * @return mixed
+     */
+    public function getFormatLastNameAttribute()
+    {
+        return mb_strtoupper($this->last_name);
+    }
+
+    /**
+     * User avatar image src
+     *
+     * @return string
+     */
+    public function getAvatarSrcAttribute() {
+        // Update une avatar with default if avatar file is not found
+        if(!file_exists(user_img_asset($this->avatar, $this->avatar_extension))) {
+            $this->update([
+                'avatar' => self::USER_DEFAULT_IMAGE,
+                'avatar_extension' => self::USER_DEFAULT_IMAGE_EXTENSION,
+            ]);
+        }
+
+        return user_img_asset($this->avatar, $this->avatar_extension);
+    }
+
+    /**
+     * Check if user can be deleted
+     *
+     * @return mixed
+     */
+    public function getCanDeleteUserAttribute()
+    {
+        return (
+            (Auth::user()->id !== $this->id) &&
+            (
+                ($this->role->type === Role::USER && Auth::user()->role->type !== Role::USER) ||
+                ($this->role->type === Role::ADMIN && Auth::user()->role->type === Role::SUPER_ADMIN)
+            )
+        );
+    }
+
+    /**
+     * Check if user can grand admin privileges
+     *
+     * @return mixed
+     */
+    public function getCanGrantAdminUserAttribute()
+    {
+        return (
+            (Auth::user()->id !== $this->id) &&
+            ($this->role->type === Role::USER) &&
+            (Auth::user()->role->type !== Role::USER)
+        );
+    }
+
+    /**
+     * Check if user can grand super admin privileges
+     *
+     * @return mixed
+     */
+    public function getCanGrantSuperAdminUserAttribute()
+    {
+        return (
+            (Auth::user()->id !== $this->id) &&
+            ($this->role->type !== Role::SUPER_ADMIN) &&
+            (Auth::user()->role->type === Role::SUPER_ADMIN)
+        );
     }
 }

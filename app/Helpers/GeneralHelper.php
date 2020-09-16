@@ -14,6 +14,18 @@ if(!function_exists('text_format'))
     }
 }
 
+if(!function_exists('toast_message'))
+{
+    /**
+     * @param $message
+     */
+    function toast_message($message)
+    {
+        session()->flash('toast.title', 'Information');
+        session()->flash('toast.message', $message);
+    }
+}
+
 if(!function_exists('info_flash_message'))
 {
     /**
