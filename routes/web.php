@@ -24,8 +24,9 @@ Route::group(['namespace' => 'Auth'], function() {
 
 Route::group(['namespace' => 'App'], function() {
     // App GET routes
-    Route::get('/dashboard', 'DashboardController@index')->name('dashboard.index');
+    Route::get('/blog', 'BlogController@index')->name('blog.index');
     Route::get('/profile', 'ProfileController@index')->name('profile.index');
+    Route::get('/dashboard', 'DashboardController@index')->name('dashboard.index');
 
     // App POST routes
 //    Route::post('/timezone', 'DashboardController@timezoneAjax');

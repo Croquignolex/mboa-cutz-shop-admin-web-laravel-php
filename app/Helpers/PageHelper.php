@@ -19,17 +19,30 @@ if(!function_exists('active_page'))
 {
     /**lightSpeedOut
      * @param Collection $routes
-     * @param string $type
      * @return string
      */
-    function active_page(Collection $routes, $type = '')
+    function active_page(Collection $routes)
     {
-        foreach ($routes as $route)
-        {
-            if(Illuminate\Support\Facades\Route::is($route))
-            {
-                return $type == 'expend'
-                    ? 'show' : 'active';
+        foreach ($routes as $route) {
+            if(Illuminate\Support\Facades\Route::is($route)) {
+                return 'active';
+            }
+        }
+        return '';
+    }
+}
+
+if(!function_exists('active_page_group'))
+{
+    /**lightSpeedOut
+     * @param Collection $routes
+     * @return string
+     */
+    function active_page_group(Collection $routes)
+    {
+        foreach ($routes as $route) {
+            if(Illuminate\Support\Facades\Route::is($route)) {
+                return 'show';
             }
         }
         return '';
@@ -55,5 +68,16 @@ if(!function_exists('seo_description'))
     function seo_description()
     {
         return 'Baber shop';
+    }
+}
+
+if(!function_exists('blog_pages'))
+{
+    /**
+     * @return Collection
+     */
+    function blog_pages()
+    {
+        return collect(['blog.index']);
     }
 }
