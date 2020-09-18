@@ -7,10 +7,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\Foundation\Application;
 
-class ProfileController extends Controller
+class SettingsController extends Controller
 {
     /**
-     * ProfileController constructor.
+     * SettingsController constructor.
      */
     public function __construct()
     {
@@ -22,6 +22,6 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        return view('app.profile');
+        return view('app.settings');
     }
 }

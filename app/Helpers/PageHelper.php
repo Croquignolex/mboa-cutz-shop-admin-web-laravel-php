@@ -71,13 +71,24 @@ if(!function_exists('seo_description'))
     }
 }
 
-if(!function_exists('blog_pages'))
+if(!function_exists('articles_pages'))
 {
     /**
      * @return Collection
      */
-    function blog_pages()
+    function articles_pages()
     {
-        return collect(['blog.index']);
+        return collect(['articles.index', 'articles.show', 'articles.edit']);
+    }
+}
+
+if(!function_exists('products_pages'))
+{
+    /**
+     * @return Collection
+     */
+    function products_pages()
+    {
+        return collect(['products.index', 'products.show', 'products.edit']);
     }
 }

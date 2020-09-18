@@ -15,19 +15,54 @@
                         <span class="nav-text">Tableau de board</span>
                     </a>
                 </li>
-                {{--Blog--}}
-                <li class="has-sub expand {{ active_page(blog_pages()) }}">
-                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#blog" aria-expanded="false" aria-controls="blog">
+                {{--Produits--}}
+                <li class="has-sub expand {{ active_page(products_pages()) }}">
+                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#products" aria-expanded="false" aria-controls="products">
                         <i class="mdi mdi-format-float-left"></i>
-                        <span class="nav-text">Blog</span> <b class="caret"></b>
+                        <span class="nav-text">Produits</span> <b class="caret"></b>
                     </a>
-                    <ul class="collapse {{ active_page_group(blog_pages()) }}" id="blog" data-parent="#sidebar-menu">
+                    <ul class="collapse {{ active_page_group(products_pages()) }}" id="products" data-parent="#sidebar-menu">
                         <div class="sub-menu">
-                            <li class="{{ active_page(collect('blog.index')) }}">
-                                <a class="sidenav-item-link" href="{{ route('blog.index') }}">
+                            <li class="{{ active_page(collect('products.index')) }}">
+                                <a class="sidenav-item-link" href="{{ route('products.index') }}">
+                                    <span class="nav-text">
+                                        <i class="mdi mdi-format-align-left"></i>
+                                        Tous les produits
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="{{ active_page(collect('products.create')) }}">
+                                <a class="sidenav-item-link" href="{{ route('products.create') }}">
+                                    <span class="nav-text">
+                                        <i class="mdi mdi-format-align-left"></i>
+                                        Nouveau produit
+                                    </span>
+                                </a>
+                            </li>
+                        </div>
+                    </ul>
+                </li>
+                {{--Articles--}}
+                <li class="has-sub expand {{ active_page(articles_pages()) }}">
+                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#articles" aria-expanded="false" aria-controls="articles">
+                        <i class="mdi mdi-format-float-left"></i>
+                        <span class="nav-text">Articles</span> <b class="caret"></b>
+                    </a>
+                    <ul class="collapse {{ active_page_group(articles_pages()) }}" id="articles" data-parent="#sidebar-menu">
+                        <div class="sub-menu">
+                            <li class="{{ active_page(collect('articles.index')) }}">
+                                <a class="sidenav-item-link" href="{{ route('articles.index') }}">
                                     <span class="nav-text">
                                         <i class="mdi mdi-format-align-left"></i>
                                         Tous les articles
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="{{ active_page(collect('articles.create')) }}">
+                                <a class="sidenav-item-link" href="{{ route('articles.create') }}">
+                                    <span class="nav-text">
+                                        <i class="mdi mdi-format-align-left"></i>
+                                        Nouvel article
                                     </span>
                                 </a>
                             </li>

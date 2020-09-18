@@ -7,10 +7,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\Foundation\Application;
 
-class BlogController extends Controller
+class CommentsController extends Controller
 {
     /**
-     * DashboardController constructor.
+     * ArticlesController constructor.
      */
     public function __construct()
     {
@@ -22,6 +22,7 @@ class BlogController extends Controller
      */
     public function index()
     {
-        return view('app.blog.index');
+        return view('app.comments.index');
     }
+
 }

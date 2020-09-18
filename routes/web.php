@@ -24,8 +24,11 @@ Route::group(['namespace' => 'Auth'], function() {
 
 Route::group(['namespace' => 'App'], function() {
     // App GET routes
-    Route::get('/blog', 'BlogController@index')->name('blog.index');
+    Route::resource('/articles', 'ArticlesController');
+    Route::resource('/products', 'ProductsController');
+//    Route::resource('/{article}/comments', 'CommentsController');
     Route::get('/profile', 'ProfileController@index')->name('profile.index');
+    Route::get('/settings', 'SettingsController@index')->name('settings.index');
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard.index');
 
     // App POST routes

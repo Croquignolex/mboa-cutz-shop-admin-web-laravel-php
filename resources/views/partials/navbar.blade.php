@@ -40,6 +40,11 @@
                                     <i class="mdi mdi-account"></i> Mon Profil
                                 </a>
                             </li>
+                            <li class="{{ active_page(collect(['settings.index'])) === 'active' ? 'bg-light' : '' }}">
+                                <a href="{{ route('settings.index') }}">
+                                    <i class="mdi mdi-account"></i> Paramètres
+                                </a>
+                            </li>
                             <li class="dropdown-footer">
                                 <a class="nav-link logout" href="javascript: void(0);" role="button"
                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
