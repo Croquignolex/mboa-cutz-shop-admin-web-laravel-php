@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -20,8 +21,8 @@ class CreateUsersTable extends Migration
             $table->string('token', 255)->nullable();
             $table->string('first_name', 255);
             $table->string('last_name', 255);
-            $table->string('avatar', 255)->default('default');
-            $table->string('avatar_extension', 50)->default('png');
+            $table->string('avatar', 255)->default(User::USER_DEFAULT_IMAGE);
+            $table->string('avatar_extension', 50)->default(User::USER_DEFAULT_IMAGE_EXTENSION);
             $table->string('address', 255)->nullable();
             $table->string('post_code', 255)->nullable();
             $table->string('city', 255)->nullable();

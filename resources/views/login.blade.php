@@ -10,7 +10,7 @@
             <div class="col-xl-5 col-lg-6 col-md-10">
                 <div class="card">
                     <div class="card-header bg-theme-dark">
-                        <div class="app-brand">
+                        <div class="app-brand text-center">
                             <img src="{{ img_asset('logo', 'jpg') }}" alt="..." width="70">
                         </div>
                     </div>

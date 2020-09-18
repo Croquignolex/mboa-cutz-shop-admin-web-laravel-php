@@ -8868,6 +8868,8 @@ div.copied {
 .app-brand {
   position: relative;
   display: block;  }
+.app-brand img {
+  border-radius: 30px;  }
 .app-brand a {
   display: flex;
   flex-direction: row;
