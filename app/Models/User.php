@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\Constants;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Auth\User as Authenticate;
@@ -22,9 +23,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class User extends Authenticate
 {
-    const USER_DEFAULT_IMAGE = 'default';
-    const USER_DEFAULT_IMAGE_EXTENSION = 'png';
-
     /**
      * The attributes that are mass assignable.
      *
@@ -115,8 +113,8 @@ class User extends Authenticate
         // Update une avatar with default if avatar file is not found
         if(!file_exists(user_img_asset($this->avatar, $this->avatar_extension))) {
             $this->update([
-                'avatar' => self::USER_DEFAULT_IMAGE,
-                'avatar_extension' => self::USER_DEFAULT_IMAGE_EXTENSION,
+                'avatar' => Constants::DEFAULT_IMAGE,
+                'avatar_extension' => Constants::DEFAULT_IMAGE_EXTENSION,
             ]);
         }
 
