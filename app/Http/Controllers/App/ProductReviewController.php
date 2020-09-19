@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\App;
 
+use App\Models\Review;
 use App\Models\Product;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
@@ -12,10 +13,10 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\Foundation\Application;
 
-class ProductController extends Controller
+class ProductReviewController extends Controller
 {
     /**
-     * ProductsController constructor.
+     * ProductReviewController constructor.
      */
     public function __construct()
     {
@@ -25,80 +26,86 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
+     * @param Product $product
      * @return Application|Factory|Response|View
      */
-    public function index()
+    public function index(Request $request, Product $product)
     {
-        return view('app.products.index');
+        return view('app.products.reviews.index', compact('product'));
     }
 
     /**
      * Show the form for creating a new resource.
      *
+     * @param Request $request
+     * @param Product $product
      * @return Application|Factory|Response|View
      */
-    public function create()
+    public function create(Request $request, Product $product)
     {
-        return view('app.products.create');
+        return view('app.products.reviews.create', compact('product'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param Request $request
+     * @param Product $product
      * @return Application|RedirectResponse|Response|Redirector
      */
-    public function store(Request $request)
+    public function store(Request $request, Product $product)
     {
         // TODO: store
-        return redirect(route('products.index'));
+        return redirect(route('products.reviews.index', compact('product')));
     }
 
     /**
      * Display the specified resource.
      *
      * @param Request $request
-     * @param Product $product
+     * @param Review $review
      * @return Application|Factory|Response|View
      */
-    public function show(Request $request, Product $product)
+    public function show(Request $request, Review $review)
     {
-        return view('app.products.show', compact('product'));
+        return view('app.products.reviews.show', compact('review'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
      * @param Request $request
-     * @param Product $product
+     * @param Review $review
      * @return Application|RedirectResponse|Response|Redirector
      */
-    public function edit(Request $request, Product $product)
+    public function edit(Request $request, Review $review)
     {
-        return view('app.products.edit', compact('product'));
+        return view('app.products.reviews.edit', compact('review'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param Product $product
+     * @param Review $review
      * @return Application|RedirectResponse|Response|Redirector
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, Review $review)
     {
         // TODO: store
-        return redirect(route('products.edit', compact('product')));
+        return redirect(route('products.reviews.edit', compact('review')));
     }
 
     /**
      * @param Request $request
-     * @param Product $product
+     * @param Review $review
      * @return Application|Factory|View
      */
-    public function destroy(Request $request, Product $product)
+    public function destroy(Request $request, Review $review)
     {
         // TODO: delete
-        return redirect(route('products.index'));
+        $product = $review->product;
+        return redirect(route('products.reviews.index', compact('product')));
     }
 }

@@ -27,7 +27,7 @@ Route::group(['namespace' => 'App'], function() {
     Route::resources([
         'articles' => 'ArticleController',
         'products' => 'ProductController',
-        'products.comments' => 'ProductCommentController',
+        'products.reviews' => 'ProductReviewController',
     ]);
 
     // App GET routes

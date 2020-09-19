@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @property mixed type
  */
-class Article extends Model
+class Product extends Model
 {
 
 }

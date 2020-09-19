@@ -8461,7 +8461,7 @@ div.copied {
       border-color: #e5e9f2; }
     @media (min-width: 992px) {
       .navbar .navbar-right .navbar-nav .user-menu {
-        min-width: 160px; } }
+        min-width: 8rem; } }
     .navbar .navbar-right .navbar-nav .user-menu .user-image {
       width: 40px;
       border-radius: .25rem; }
@@ -8878,7 +8878,7 @@ div.copied {
   line-height: 75px;
   width: 250px;
   transition: width 0.3s ease-in-out;
-  padding-left: 1.56rem; }
+  padding-left: 1rem; }
     @media screen and (prefers-reduced-motion: reduce) {
       .app-brand a {
         transition: none; } }
@@ -9336,7 +9336,7 @@ div.copied {
   background-color: #181818; }
 
 .sidebar-dark .sidebar .sub-menu {
-  background: #0f0f0f; }
+  background: #181818; }
   .sidebar-dark .sidebar .sub-menu > li > a {
     color: #b7c0cd; }
 
