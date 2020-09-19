@@ -5,14 +5,17 @@ namespace App\Http\Controllers\App;
 use App\Models\Article;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Routing\Redirector;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\Foundation\Application;
 
-class ProductsController extends Controller
+class ProductController extends Controller
 {
     /**
-     * ArticlesController constructor.
+     * ProductsController constructor.
      */
     public function __construct()
     {
@@ -20,7 +23,9 @@ class ProductsController extends Controller
     }
 
     /**
-     * @return Application|Factory|View
+     * Display a listing of the resource.
+     *
+     * @return Application|Factory|Response|View
      */
     public function index()
     {
@@ -28,7 +33,9 @@ class ProductsController extends Controller
     }
 
     /**
-     * @return Application|Factory|View
+     * Show the form for creating a new resource.
+     *
+     * @return Application|Factory|Response|View
      */
     public function create()
     {
@@ -36,8 +43,10 @@ class ProductsController extends Controller
     }
 
     /**
+     * Store a newly created resource in storage.
+     *
      * @param Request $request
-     * @return Application|Factory|View
+     * @return Application|RedirectResponse|Response|Redirector
      */
     public function store(Request $request)
     {
@@ -46,9 +55,11 @@ class ProductsController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     *
      * @param Request $request
      * @param Article $article
-     * @return Application|Factory|View
+     * @return Application|Factory|Response|View
      */
     public function show(Request $request, Article $article)
     {
@@ -56,14 +67,28 @@ class ProductsController extends Controller
     }
 
     /**
+     * Show the form for editing the specified resource.
+     *
      * @param Request $request
      * @param Article $article
-     * @return Application|Factory|View
+     * @return Application|RedirectResponse|Response|Redirector
      */
     public function edit(Request $request, Article $article)
     {
-        // TODO: edit
-        return redirect(route('products.show'));
+        return view('app.products.edit', compact('article'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param Request $request
+     * @param Article $article
+     * @return Application|RedirectResponse|Response|Redirector
+     */
+    public function update(Request $request, Article $article)
+    {
+        // TODO: store
+        return redirect(route('products.edit', compact('article')));
     }
 
     /**
@@ -71,10 +96,9 @@ class ProductsController extends Controller
      * @param Article $article
      * @return Application|Factory|View
      */
-    public function delete(Request $request, Article $article)
+    public function destroy(Request $request, Article $article)
     {
         // TODO: delete
         return redirect(route('products.index'));
     }
-
 }

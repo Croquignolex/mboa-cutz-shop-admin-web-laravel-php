@@ -89,7 +89,7 @@ if(!function_exists('articles_pages'))
      */
     function articles_pages()
     {
-        return collect(['articles.index', 'articles.show', 'articles.edit']);
+        return collect(['articles.index', 'articles.create', 'articles.show', 'articles.edit']);
     }
 }
 
@@ -100,6 +100,6 @@ if(!function_exists('products_pages'))
      */
     function products_pages()
     {
-        return collect(['products.index', 'products.show', 'products.edit']);
+        return collect(['products.index', 'products.create', 'products.show', 'products.edit']);
     }
 }

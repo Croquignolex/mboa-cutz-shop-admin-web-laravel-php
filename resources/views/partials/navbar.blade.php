@@ -42,7 +42,7 @@
                             </li>
                             <li class="{{ active_page(collect(['settings.index'])) === 'active' ? 'bg-light' : '' }}">
                                 <a href="{{ route('settings.index') }}">
-                                    <i class="mdi mdi-account"></i> Paramètres
+                                    <i class="mdi mdi-settings"></i> Paramètres
                                 </a>
                             </li>
                             <li class="dropdown-footer">

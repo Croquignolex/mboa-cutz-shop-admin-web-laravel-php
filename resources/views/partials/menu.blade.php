@@ -18,7 +18,7 @@
                 {{--Produits--}}
                 <li class="has-sub expand {{ active_page(products_pages()) }}">
                     <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#products" aria-expanded="false" aria-controls="products">
-                        <i class="mdi mdi-format-float-left"></i>
+                        <i class="mdi mdi-basket"></i>
                         <span class="nav-text">Produits</span> <b class="caret"></b>
                     </a>
                     <ul class="collapse {{ active_page_group(products_pages()) }}" id="products" data-parent="#sidebar-menu">
@@ -26,7 +26,7 @@
                             <li class="{{ active_page(collect('products.index')) }}">
                                 <a class="sidenav-item-link" href="{{ route('products.index') }}">
                                     <span class="nav-text">
-                                        <i class="mdi mdi-format-align-left"></i>
+                                        <i class="mdi mdi-playlist-check"></i>
                                         Tous les produits
                                     </span>
                                 </a>
@@ -34,7 +34,7 @@
                             <li class="{{ active_page(collect('products.create')) }}">
                                 <a class="sidenav-item-link" href="{{ route('products.create') }}">
                                     <span class="nav-text">
-                                        <i class="mdi mdi-format-align-left"></i>
+                                        <i class="mdi mdi-playlist-plus"></i>
                                         Nouveau produit
                                     </span>
                                 </a>
@@ -53,7 +53,7 @@
                             <li class="{{ active_page(collect('articles.index')) }}">
                                 <a class="sidenav-item-link" href="{{ route('articles.index') }}">
                                     <span class="nav-text">
-                                        <i class="mdi mdi-format-align-left"></i>
+                                        <i class="mdi mdi-playlist-check"></i>
                                         Tous les articles
                                     </span>
                                 </a>
@@ -61,7 +61,7 @@
                             <li class="{{ active_page(collect('articles.create')) }}">
                                 <a class="sidenav-item-link" href="{{ route('articles.create') }}">
                                     <span class="nav-text">
-                                        <i class="mdi mdi-format-align-left"></i>
+                                        <i class="mdi mdi-playlist-plus"></i>
                                         Nouvel article
                                     </span>
                                 </a>
