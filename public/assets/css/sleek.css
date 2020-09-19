@@ -3272,6 +3272,11 @@ input[type="button"].btn-block {
   width: 100%;
   border-radius: calc(0.25rem - 1px); }
 
+.widget-profile .card-img img {
+  width: 100px;
+  height: 100px;
+}
+
 .card-img-top {
   width: 100%;
   border-top-left-radius: calc(0.25rem - 1px);
@@ -6591,9 +6596,6 @@ button.bg-dark:focus {
 .text-uppercase {
   text-transform: uppercase !important; }
 
-.text-capitalize {
-  text-transform: capitalize !important; }
-
 .font-weight-light {
   font-weight: 300 !important; }
 
@@ -7116,12 +7118,8 @@ button {
     font-size: 1.63rem;
     font-weight: 500; }
 
-.breadcrumb .breadcrumb-item {
-  font-size: 0.98rem;
-  text-transform: capitalize; }
-  .breadcrumb .breadcrumb-item a {
-    color: #8a909d;
-    text-transform: capitalize; }
+.breadcrumb .breadcrumb-item {font-size: 0.98rem;}
+  .breadcrumb .breadcrumb-item a { color: #8a909d; }
 
 .breadcrumb.breadcrumb-inverse {
   border-color: #4c84ff;
@@ -8768,10 +8766,9 @@ div.copied {
 
 /*===== PROFILE =====*/
 @media (min-width: 992px) {
-  .profile-content-right {
-    border-top: 0px;
-    border-left: 1px solid #e5e9f2; } }
-
+  .profile-content-right {border-top: 0;  }
+  .profile-content-left {border-top: 0; border-right: 1px solid #e5e9f2; }
+}
 .profile-content-right .nav-style-border.nav-tabs .nav-link {
   padding: 0 0 0.94rem; }
 
@@ -11103,8 +11100,7 @@ tbody tr td:first-child {
     padding: 0.3125rem 1.25rem; }
     .widget-dropdown .dropdown-menu .dropdown-item a {
       font-size: 0.875rem;
-      color: #8a909d;
-      text-transform: capitalize; }
+      color: #8a909d;  }
     .widget-dropdown .dropdown-menu .dropdown-item:hover {
       background-color: transparent; }
       .widget-dropdown .dropdown-menu .dropdown-item:hover a {
@@ -11136,5 +11132,3 @@ tbody tr td:first-child {
 /*===== REBOOT =====*/
 html[dir="rtl"] .sidebar li > a .caret:before {
   content: '\f141'; }
-
-/*# sourceMappingURL=sleek.css.map */

@@ -13,10 +13,18 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property mixed role
  * @property mixed email
  * @property mixed avatar
+ * @property mixed phone
+ * @property mixed post_code
+ * @property mixed city
+ * @property mixed country
+ * @property mixed profession
+ * @property mixed address
+ * @property mixed description
  * @property mixed full_name
  * @property mixed last_name
  * @property mixed first_name
  * @property mixed avatar_src
+ * @property mixed format_full_name
  * @property mixed format_last_name
  * @property mixed avatar_extension
  * @property mixed format_first_name
@@ -31,7 +39,8 @@ class User extends Authenticate
     protected $fillable = [
         'first_name', 'last_name', 'phone', 'role_id',
         'description', 'email', 'is_confirmed', 'password',
-        'avatar', 'avatar_extension',
+        'avatar', 'avatar_extension', 'address', 'post_code', 'city',
+        'country', 'phone', 'profession', 'role_id'
     ];
 
     /**

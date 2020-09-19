@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property mixed type
+ * @property mixed name
  */
 class Role extends Model
 {
@@ -46,5 +47,15 @@ class Role extends Model
         if($this->type === Role::ADMIN) return "Administrateur";
         if($this->type === Role::SUPER_ADMIN) return "Super admin";
         else return "Utilisateur";
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBadgeColorAttribute()
+    {
+        if($this->type === Role::ADMIN) return "success";
+        if($this->type === Role::SUPER_ADMIN) return "danger";
+        else return "primary";
     }
 }
