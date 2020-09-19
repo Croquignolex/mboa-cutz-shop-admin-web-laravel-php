@@ -13,8 +13,8 @@ return [
     '404_title' => 'Page introuvable',
     '404_message' => 'Désolé, la page demandé est inaccéssible',
 
-    '419_title' => 'Page Expired',
-    '419_message' => 'The page has expired due to inactivity',
+    '419_title' => 'Page expirée',
+    '419_message' => 'La page a expirée du faite de l\'inactivité',
 
     '429_title' => 'Error',
     '429_message' => 'Too many requests',

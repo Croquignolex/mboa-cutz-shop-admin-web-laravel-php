@@ -11,7 +11,7 @@ if(!function_exists('page_title'))
     function page_title($page)
     {
         $base_name = config('app.name');
-        return $page === '' ? $base_name : $page . ' - ' .  $base_name;
+        return $page === '' ? $base_name : "$page - $base_name";
     }
 }
 
@@ -68,6 +68,17 @@ if(!function_exists('seo_description'))
     function seo_description()
     {
         return 'Baber shop';
+    }
+}
+
+if(!function_exists('seo_authors'))
+{
+    /**
+     * @return string
+     */
+    function seo_authors()
+    {
+        return 'MBOACUTZ,Alex NGOMBOL';
     }
 }
 

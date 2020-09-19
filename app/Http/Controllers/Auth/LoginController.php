@@ -118,7 +118,7 @@ class LoginController extends Controller
     protected function sendFailedLoginResponse(Request $request)
     {
         $message = "Combinaison email et mot de passe incorrect ou votre à été bloqué";
-        danger_flash_message($message);
+        danger_toast_alert($message);
         throw ValidationException::withMessages([$this->username() => [$message]]);
     }
 
@@ -128,7 +128,7 @@ class LoginController extends Controller
      */
     protected function authenticated(Request $request, $user)
     {
-        toast_message("Bienvenue {$user->name}");
+        info_toast_alert("Bienvenue {$user->name}");
     }
 
     /**

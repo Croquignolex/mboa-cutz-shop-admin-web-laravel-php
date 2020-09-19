@@ -1,8 +1,17 @@
 <!DOCTYPE html>
 <html lang="{{ Illuminate\Support\Facades\App::getLocale() }}">
     <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="utf-8" />
+        <meta name="author" content="{{ seo_authors() }}">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="{{ seo_description() }}"/>
+        <meta name="keywords" content="{{ seo_keywords() }}"/>
+
+        <meta name="robots" content="noindex">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="base-url" content="{{ config('app.url') }}">
+        <meta name="locale" content="{{ Illuminate\Support\Facades\App::getLocale() }}">
 
         <title>@yield('master.title')</title>
         <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -24,6 +33,20 @@
         <meta name="msapplication-TileColor" content="#ffffff">
         <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
         <meta name="theme-color" content="#ffffff">
+
+        <meta name="apple-mobile-web-app-title" content="{{ seo_authors() }}">
+        <meta name="application-name" content="{{ seo_authors() }}">
+
+        <meta property="og:title" content="{{ seo_authors() }}" />
+        <meta property="og:type" content="website" />
+        <meta property="og:locale" content="{{ Illuminate\Support\Facades\App::getLocale() }}"/>
+        <meta property="og:ttl" content="0" />
+
+        <meta property="og:description" content="{{ seo_description() }}">
+        <meta property="og:url" content="{{ config('app.url') }}" />
+        <meta property="og:image" content="{{ img_asset('logo', 'jpg') }}" />
+        <meta property="twitter:image" content="{{ img_asset('logo', 'jpg') }}" />
+
         @stack('master.style')
         <link rel="stylesheet" href="{{ css_asset('master') }}" type="text/css">
     </head>
@@ -32,5 +55,15 @@
         @yield('master.body')
         @stack('master.script')
         <script src="{{ js_asset('master') }}" type="application/javascript"></script>
+        @if(session()->has('toast.alert'))
+            <script>
+                callToaster(
+                    "{{ session('toast.title') }}",
+                    "{{ session('toast.message') }}",
+                    "{{ session('toast.type') }}",
+                    "{{ session('toast.delay') }}"
+                );
+            </script>
+        @endif
     </body>
 </html>

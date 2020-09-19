@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('app.master.title', 'Tableau de bord')
+@section('app.master.title', page_title('Profil'))
 
 @section('app.master.body')
 

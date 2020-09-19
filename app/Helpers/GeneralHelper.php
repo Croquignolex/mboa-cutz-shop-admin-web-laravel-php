@@ -14,115 +14,76 @@ if(!function_exists('text_format'))
     }
 }
 
-if(!function_exists('toast_message'))
+if(!function_exists('info_toast_alert'))
 {
     /**
      * @param $message
      * @param string $title
-     */
-    function toast_message($message, $title = 'Information')
-    {
-        session()->flash('toast.title', $title);
-        session()->flash('toast.message', $message);
-    }
-}
-
-if(!function_exists('info_flash_message'))
-{
-    /**
-     * @param $message
-     * @param string $icon
-     * @param string $enter
-     * @param string $exit
      * @param int $delay
-     */
-    function info_flash_message($message,
-                                $delay = 8000,
-                                $icon = 'fa fa-info-circle',
-                                $enter = 'flipInX',
-                                $exit = 'flipOutX')
-    {
-        flash_message("Information", $message, $icon, 'info', $enter, $exit, $delay);
-    }
-}
-
-if(!function_exists('success_flash_message'))
-{
-    /**
-     * @param $message
-     * @param string $icon
-     * @param string $enter
-     * @param string $exit
-     * @param int $delay
-     */
-    function success_flash_message($message,
-                                   $delay = 5000,
-                                   $icon = 'fa fa-check',
-                                   $enter = 'lightSpeedIn',
-                                   $exit = 'lightSpeedOut')
-    {
-        flash_message("Succès", $message, $icon, 'success', $enter, $exit, $delay);
-    }
-}
-
-if(!function_exists('warning_flash_message'))
-{
-    /**
-     * @param $message
-     * @param string $icon
-     * @param string $enter
-     * @param string $exit
-     * @param int $delay
-     */
-    function warning_flash_message($message,
-                                   $delay = 8000,
-                                   $icon = 'fa fa-exclamation-triangle',
-                                   $enter = 'flash',
-                                   $exit = 'fadeOut')
-    {
-        flash_message("Avertissement", $message, $icon, 'warning', $enter, $exit, $delay);
-    }
-}
-
-if(!function_exists('danger_flash_message'))
-{
-    /**
-     * @param $title
-     * @param $message
-     * @param string $icon
-     * @param string $enter
-     * @param string $exit
-     * @param int $delay
-     */
-    function danger_flash_message($message,
-                                  $delay = 10000,
-                                  $icon = 'fa fa-times',
-                                  $enter = 'bounceIn',
-                                  $exit = 'bounceOut')
-    {
-        flash_message("Danger", $message, $icon, 'danger', $enter, $exit, $delay);
-    }
-}
-
-if(!function_exists('flash_message'))
-{
-    /**
-     * @param $title
-     * @param $message
      * @param string $type
-     * @param string $icon
-     * @param string $enter
-     * @param string $exit
-     * @param int $delay
      */
-    function flash_message($title, $message, $icon, $type, $enter, $exit, $delay)
+    function info_toast_alert($message, $title = "Information", $delay = 8000, $type = "info")
     {
-        session()->flash('popup.icon', $icon);
-        session()->flash('popup.type', $type);
-        session()->flash('popup.title', $title);
-        session()->flash('popup.delay', $delay);
-        session()->flash('popup.message', $message);
-        session()->flash('popup.animate.exit', $exit);
-        session()->flash('popup.animate.enter', $enter);
+        toast_alert($title, $message, 'info', $delay);
+    }
+}
+
+if(!function_exists('success_toast_alert'))
+{
+    /**
+     * @param $message
+     * @param string $title
+     * @param int $delay
+     * @param string $type
+     */
+    function success_toast_alert($message, $title = "Succès", $delay = 5000, $type = "success")
+    {
+        toast_alert($title, $message, $type, $delay);
+    }
+}
+
+if(!function_exists('warning_toast_alert'))
+{
+    /**
+     * @param $message
+     * @param string $title
+     * @param int $delay
+     * @param string $type
+     */
+    function warning_toast_alert($message, $title = "Avertissement", $delay = 8000, $type = "warning")
+    {
+        toast_alert($title, $message, $type, $delay);
+    }
+}
+
+if(!function_exists('danger_toast_alert'))
+{
+    /**
+     * @param $message
+     * @param string $title
+     * @param int $delay
+     * @param string $type
+     */
+    function danger_toast_alert($message, $title = "Danger", $delay = 10000, $type = "danger")
+    {
+        toast_alert($title, $message, $type, $delay);
+    }
+}
+
+if(!function_exists('toast_alert'))
+{
+    /**
+     * @param $title
+     * @param $message
+     * @param $type
+     * @param $delay
+     */
+    function toast_alert($title, $message, $type, $delay)
+    {
+        session()->flash('toast.alert', true);
+        session()->flash('toast.type', $type);
+        session()->flash('toast.title', $title);
+        session()->flash('toast.delay', $delay);
+        session()->flash('toast.message', $message);
     }
 }

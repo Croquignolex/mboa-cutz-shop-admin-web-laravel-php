@@ -1,6 +1,6 @@
 @extends('master')
 
-@section('master.title', 'Connexion')
+@section('master.title', page_title('Connexion'))
 
 @section('master.class', 'bg-theme-dark')
 

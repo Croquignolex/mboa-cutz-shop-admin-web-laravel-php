@@ -4,4 +4,4 @@
 
 @section('error.code', '419')
 @section('error.title', trans('error.419_title'))
-@section('error.message', trans('error.419message'))
+@section('error.message', trans('error.419_message'))
