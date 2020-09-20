@@ -36,4 +36,5 @@ Route::group(['namespace' => 'App'], function() {
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard.index');
 
     // App POST routes
+    Route::post('/profile/update-info', 'ProfileController@updateInfo')->name('profile.update.info');
 });

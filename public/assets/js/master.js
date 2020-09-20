@@ -1,3 +1,10 @@
+$(document).ready(function() {
+    // Disable submit button while submit
+    $('button[type="submit"]').click(function() {
+        $(this).addClass('disabled')
+    })
+});
+
 // Call toaster
 function callToaster(title, message, type, delay) {
     toastr.options = {
@@ -22,3 +29,4 @@ function callToaster(title, message, type, delay) {
     else if(type === 'success') toastr.success(message, title);
     else if(type === 'warning') toastr.warning(message, title);
 }
+

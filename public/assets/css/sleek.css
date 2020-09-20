@@ -8766,7 +8766,7 @@ div.copied {
 
 /*===== PROFILE =====*/
 @media (min-width: 992px) {
-  .profile-content-right {border-top: 0;  }
+  .profile-content-right {border-top: 0; border-left: 1px solid #e5e9f2; }
   .profile-content-left {border-top: 0; border-right: 1px solid #e5e9f2; }
 }
 .profile-content-right .nav-style-border.nav-tabs .nav-link {
