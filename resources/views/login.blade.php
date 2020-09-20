@@ -15,6 +15,7 @@
                         </div>
                     </div>
                     <div class="card-body p-4">
+                        @include('partials.error-message')
                         <h4 class="text-dark mb-3">Connexion</h4>
                         <form action="" method="POST">
                             {{ csrf_field() }}

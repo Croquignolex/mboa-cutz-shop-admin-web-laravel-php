@@ -6,7 +6,7 @@ use App\Traits\RequestTrait;
 use Illuminate\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserUpdateProfileRequest extends FormRequest
+class UserUpdatePasswordRequest extends FormRequest
 {
     use RequestTrait;
 
@@ -18,8 +18,8 @@ class UserUpdateProfileRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name' => $this->required_string,
-            'last_name' => $this->required_string
+            'old_password' => $this->required_string,
+            'password' => "$this->required_string|confirmed",
         ];
     }
 

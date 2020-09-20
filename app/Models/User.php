@@ -24,6 +24,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property mixed last_name
  * @property mixed first_name
  * @property mixed avatar_src
+ * @property mixed password
  * @property mixed format_full_name
  * @property mixed format_last_name
  * @property mixed avatar_extension
