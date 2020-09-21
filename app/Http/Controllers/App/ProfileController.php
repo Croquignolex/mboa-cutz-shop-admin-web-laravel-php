@@ -31,6 +31,8 @@ class ProfileController extends Controller
     }
 
     /**
+     * Update user information
+     *
      * @param UserUpdateInfoRequest $request
      * @return RedirectResponse
      */
@@ -44,6 +46,12 @@ class ProfileController extends Controller
         return back();
     }
 
+    /**
+     * Update user password
+     *
+     * @param UserUpdatePasswordRequest $request
+     * @return RedirectResponse
+     */
     public function updatePassword(UserUpdatePasswordRequest $request)
     {
         $user = Auth::user();
@@ -62,5 +70,14 @@ class ProfileController extends Controller
         $user->update(['password' => Hash::make($password)]);
         success_toast_alert('Mot de passe mis à jour avec succès');
         return back();
+    }
+
+    /**
+     * Update user avatar
+     *
+     *
+     */
+    public function updateAvatar() {
+        dd('ok, here i am');
     }
 }

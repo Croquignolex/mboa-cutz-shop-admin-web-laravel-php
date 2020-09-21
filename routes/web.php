@@ -38,4 +38,5 @@ Route::group(['namespace' => 'App'], function() {
     // App POST routes
     Route::post('/profile/update-info', 'ProfileController@updateInfo')->name('profile.update.info');
     Route::post('/profile/update-password', 'ProfileController@updatePassword')->name('profile.update.password');
+    Route::post('/profile/update-avatar', 'ProfileController@updateAvatar')->name('profile.update.avatar');
 });

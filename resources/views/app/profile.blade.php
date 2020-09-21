@@ -24,9 +24,6 @@
                             <a class="nav-link active" id="info-tab" data-toggle="tab" href="#info" role="tab" aria-controls="info" aria-selected="true">Informations</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="avatar-tab" data-toggle="tab" href="#avatar" role="tab" aria-controls="avatar" aria-selected="false">Photo de profile</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" id="password-tab" data-toggle="tab" href="#password" role="tab" aria-controls="password" aria-selected="false">Mot de passe</a>
                         </li>
                     </ul>
@@ -34,11 +31,6 @@
                         <div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="info-tab">
                             <div class="mt-4">
                                 @include('partials.profile.edit-info')
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="avatar" role="tabpanel" aria-labelledby="avatar-tab">
-                            <div class="mt-4">
-                                @include('partials.profile.edit-avatar')
                             </div>
                         </div>
                         <div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab">
@@ -52,3 +44,12 @@
         </div>
     </div>
 @endsection
+
+@push('app.master.style')
+    <link rel="stylesheet" href="{{ css_asset('cropper.min') }}" type="text/css">
+@endpush
+
+@push('app.master.script')
+    <script src="{{ js_asset('cropper.min') }}" type="application/javascript"></script>
+    <script src="{{ js_asset('image-crouping') }}" type="application/javascript"></script>
+@endpush

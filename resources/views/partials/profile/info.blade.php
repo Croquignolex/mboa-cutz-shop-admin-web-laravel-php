@@ -3,6 +3,12 @@
         <div class="card-img mx-auto rounded-circle">
             <img src="{{ auth()->user()->avatar_src }}" alt="...">
         </div>
+        <div class="my-1">
+            <button class="btn btn-sm btn-primary" type="button">
+                Modifier
+            </button>
+            <input type="file" class="upload-image-input" data-ratio="square" data-url="{{ route('profile.update.avatar') }}">
+        </div>
         <div class="card-body">
             <h4 class="py-2 text-dark">{{ auth()->user()->full_name }}</h4>
             <p>{{ auth()->user()->email }}</p>
@@ -44,3 +50,11 @@
         <p>{{ auth()->user()->description }}</p>
     </div>
 </div>
+
+@component('components.modal', ['id_modal' => 'upload-modal'])
+    <div><img id="avatar" class="overflow-auto mw-100 img-responsive" src="#" alt="..."/></div>
+    <div class="flex">
+        <button type="button" class="btn btn-light ml-1 mr-1" data-dismiss="modal">Annuler</button>
+        <button type="button" class="btn btn-success ml-1 mr-1" id="save-image">Enrégistrer</button>
+    </div>
+@endcomponent
