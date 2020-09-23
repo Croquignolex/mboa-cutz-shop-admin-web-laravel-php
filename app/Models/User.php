@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Auth\User as Authenticate;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * @property mixed id
@@ -121,7 +122,7 @@ class User extends Authenticate
      */
     public function getAvatarSrcAttribute() {
         // Update une avatar with default if avatar file is not found
-        if(!file_exists(user_img_asset($this->avatar, $this->avatar_extension))) {
+        if(!Storage::exists(user_img_asset($this->avatar, $this->avatar_extension))) {
             $this->update([
                 'avatar' => Constants::DEFAULT_IMAGE,
                 'avatar_extension' => Constants::DEFAULT_IMAGE_EXTENSION,

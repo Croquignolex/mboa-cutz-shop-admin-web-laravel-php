@@ -10,6 +10,7 @@ class Constants
 
     const USER_DEFAULT_IMAGE_PATH = 'users';
     const PRODUCT_DEFAULT_IMAGE_PATH = 'products';
+    const BASE_IMAGAE_PATH = 'products';
 
     const DEFAULT_INTEGER = 0;
     const DEFAULT_TYPE_INTEGER = 0;

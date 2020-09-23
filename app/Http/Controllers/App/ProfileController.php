@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers\App;
 
-use App\Http\Requests\Base64ImageRequest;
-use Illuminate\Support\Facades\Storage;
+use App\Enums\Constants;
 use Illuminate\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\Base64ImageRequest;
 use App\Http\Requests\UserUpdateInfoRequest;
 use App\Http\Requests\UserUpdatePasswordRequest;
 use Illuminate\Contracts\Foundation\Application;
@@ -79,22 +81,25 @@ class ProfileController extends Controller
      * Update user avatar
      *
      * @param Base64ImageRequest $request
+     * @return JsonResponse
      */
     public function updateAvatar(Base64ImageRequest $request) {
         // Get current user
-        $user =  Auth::user();
-        $user_avatar_path_name = $user->avatar;
+        $user = Auth::user();
+        $user_avatar_src = $user->avatar_src;
 
         //Delete old file before storing new file
-        if(Storage::exists($user_avatar_path_name) && $user_avatar_path_name != 'users/default.png')
-            Storage::delete($user_avatar_path_name);
+        if(Storage::exists($user_avatar_src) && $user->avatar !== Constants::DEFAULT_IMAGE)
+            Storage::delete($user_avatar_src);
 
         // Convert base 64 image to normal image for the server and the data base
-        $server_image_name_path = imageFromBase64AndSave($request->input('base_64_image'),
-            'images/avatars/');
+        $user_avatar_to_save = imageFromBase64AndSave($request->input('base_64_image'), Constants::USER_DEFAULT_IMAGE_PATH);
 
         // Save image name in database
-        Auth::user()->update(['avatar' => $server_image_name_path]);
+        $user->update([
+            'avatar' => $user_avatar_to_save['name'],
+            'avatar_extension' => $user_avatar_to_save['extension'],
+        ]);
 
         return response()->json(['message' => 'Photo de profil mise à jour avec succès']);
     }

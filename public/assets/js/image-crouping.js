@@ -74,14 +74,10 @@ $("#modal-save-image").click(function () {
     ajaxRequest({ base_64_image: base64Image }, currentUploadImageInput.data('url'))
         .then((data) => {
             previewImage(base64Image, currentUploadImageInput);
-            toggleCroupModalLoader(false)
             croupModal.modal("hide");
             successToaster(data.message);
         })
-        .catch(() => {
-            toggleCroupModalLoader(false)
-            croupModal.modal("hide");
-        })
+        .catch(() => {croupModal.modal("hide");})
 });
 
 // Extra image object into input while croup

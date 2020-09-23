@@ -7,6 +7,12 @@ $(document).ready(function() {
 
 // Ajax request
 function ajaxRequest(requestData, requestUrl, requestType = 'POST') {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
     return new Promise((resolve, reject) => {
         $.ajax({
             type: requestType,
