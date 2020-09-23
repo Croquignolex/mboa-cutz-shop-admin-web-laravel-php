@@ -7,6 +7,7 @@ use App\Traits\SlugRouteTrait;
 use App\Enums\ProductAvailability;
 use App\Traits\LocaleSlugSaveTrait;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
@@ -20,7 +21,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class Product extends Model
 {
-    use SlugRouteTrait, LocaleSlugSaveTrait;
+    use SoftDeletes, SlugRouteTrait, LocaleSlugSaveTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -29,16 +30,30 @@ class Product extends Model
      */
     protected $fillable = [
         'image', 'fr_name', 'en_name', 'fr_description', 'en_description',
-        'price', 'discount', 'ranking', 'is_featured', 'is_new',
+        'price', 'discount', 'ranking', 'is_featured', 'is_new', 'is_activated',
         'is_most_sold', 'stock', 'extension', 'product_category_id'
     ];
 
     /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = ['is_activated'];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = ['is_activated' => 'boolean'];
+
+    /**
      * @return BelongsTo
      */
-    public function product_category()
+    public function category()
     {
-        return $this->belongsTo('App\Models\ProductCategory');
+        return $this->belongsTo('App\Models\Category');
     }
 
     /**

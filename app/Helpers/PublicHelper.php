@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\Constants;
+use App\Enums\ImagePath;
 
 if(!function_exists('favicon_file_asset'))
 {
@@ -76,7 +77,7 @@ if(!function_exists('user_img_asset'))
      */
     function user_img_asset($img_file, $extension = Constants::DEFAULT_IMAGE_EXTENSION)
     {
-        $path = Constants::USER_DEFAULT_IMAGE_PATH;
+        $path = ImagePath::USER_DEFAULT_IMAGE_PATH;
         $public_folder = config('app.folder');
         return "$public_folder/assets/img/$path/$img_file.$extension";
     }
@@ -94,7 +95,7 @@ if(!function_exists('product_img_asset'))
     function product_img_asset($img_file, $extension = Constants::DEFAULT_IMAGE_EXTENSION)
     {
         $public_folder = config('app.folder');
-        $path = Constants::PRODUCT_DEFAULT_IMAGE_PATH;
+        $path = ImagePath::PRODUCT_DEFAULT_IMAGE_PATH;
         return "$public_folder/assets/img/$path/$img_file.$extension";
     }
 }

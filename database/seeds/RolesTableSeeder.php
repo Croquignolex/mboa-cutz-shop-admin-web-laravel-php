@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Role;
+use App\Enums\UserRole;
 use Illuminate\Database\Seeder;
 
 class RolesTableSeeder extends Seeder
@@ -12,8 +13,8 @@ class RolesTableSeeder extends Seeder
      */
     public function run()
     {
-        Role::create(['type' => Role::USER]);
-        Role::create(['type' => Role::ADMIN]);
-        Role::create(['type' => Role::SUPER_ADMIN]);
+        Role::create(['type' => UserRole::USER]);
+        Role::create(['type' => UserRole::ADMIN]);
+        Role::create(['type' => UserRole::SUPER_ADMIN]);
     }
 }

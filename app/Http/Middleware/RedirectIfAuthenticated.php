@@ -3,7 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use App\Models\Role;
+use App\Enums\UserRole;
 use Illuminate\Support\Facades\Auth;
 
 class RedirectIfAuthenticated
@@ -20,7 +20,7 @@ class RedirectIfAuthenticated
     {
         if (Auth::guard($guard)->check())
         {
-            if(Auth::user()->role->type !== Role::USER) {
+            if(Auth::user()->role->type !== UserRole::USER) {
                 return redirect(route('dashboard.index'));
             }
             else return redirect(route('login'));

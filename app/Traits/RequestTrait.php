@@ -4,6 +4,7 @@ namespace App\Traits;
 
 trait RequestTrait
 {
+    private $string = 'nullable|string';
     private $required_string = 'required|string';
     private $required_numeric = 'required|numeric';
     private $required_email = 'required|string|email';
