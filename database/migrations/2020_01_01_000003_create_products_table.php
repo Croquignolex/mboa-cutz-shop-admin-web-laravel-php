@@ -29,12 +29,12 @@ class CreateProductsTable extends Migration
             $table->boolean('is_new')->default(false);
             $table->boolean('is_most_sold')->default(false);
             $table->unsignedInteger('stock')->default(0);
-            $table->unsignedInteger('product_category_id');
+            $table->unsignedInteger('category_id');
             $table->timestamps();
 
-            $table->foreign('product_category_id')
+            $table->foreign('category_id')
                 ->references('id')
-                ->on('product_categories')
+                ->on('categories')
                 ->onDelete('cascade');
         });
     }

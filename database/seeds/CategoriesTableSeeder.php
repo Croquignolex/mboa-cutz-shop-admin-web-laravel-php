@@ -1,9 +1,9 @@
 <?php
 
-use App\Models\ProductCategory;
+use App\Models\Category;
 use Illuminate\Database\Seeder;
 
-class ProductCategoriesTableSeeder extends Seeder
+class CategoriesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,12 +12,12 @@ class ProductCategoriesTableSeeder extends Seeder
      */
     public function run()
     {
-        ProductCategory::create([
+        Category::create([
             'fr_name' => 'Locale',
             'en_name' => 'Local'
         ]);
 
-        ProductCategory::create([
+        Category::create([
             'fr_name' => 'Globale',
             'en_name' => 'Global'
         ]);
