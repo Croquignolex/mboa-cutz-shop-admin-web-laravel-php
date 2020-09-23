@@ -9,6 +9,5 @@ class Constants
 
     const DEFAULT_INTEGER = 0;
     const DEFAULT_TYPE_INTEGER = 0;
-    const DEFAULT_STRING_LENGTH = 255;
-    const DEFAULT_PASSWORD = '000000';
+    const DEFAULT_PASSWORD = 'mboacutz';
 }

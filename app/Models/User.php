@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use App\Enums\UserRole;
 use App\Enums\Constants;
 use App\Traits\SlugRouteTrait;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticate;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -32,6 +34,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property mixed format_last_name
  * @property mixed avatar_extension
  * @property mixed format_first_name
+ * @property mixed slug
  */
 class User extends Authenticate
 {
@@ -43,14 +46,7 @@ class User extends Authenticate
      *
      * @var array
      */
-    protected $guarded = ['id', 'is_confirmed', 'role_id'];
-
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = ['id', 'password', 'is_confirmed', 'email', 'role_id'];
+    protected $guarded = ['slug', 'id', 'is_confirmed', 'role_id'];
 
     /**
      * The attributes that should be cast.
@@ -60,17 +56,6 @@ class User extends Authenticate
     protected $casts = ['is_confirmed' => 'boolean', 'created_at' => 'datetime:d-m-Y'];
 
     /**
-     * Boot functions
-     */
-    protected static function boot()
-    {
-        parent::boot();
-        static::creating(function ($user) {
-            $user->password = Hash::make($user->password);
-        });
-    }
-
-    /**
      * User role
      *
      * @return BelongsTo
@@ -78,6 +63,26 @@ class User extends Authenticate
     public function role()
     {
         return $this->belongsTo('App\Models\Role');
+    }
+
+    /**
+     * User logs
+     *
+     * @return HasMany
+     */
+    public function logs()
+    {
+        return $this->hasMany('App\Models\Log');
+    }
+
+    /**
+     * Slug mutator
+     *
+     * @param $value
+     */
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = Hash::make($value);
     }
 
     /**
@@ -134,11 +139,12 @@ class User extends Authenticate
      */
     public function getCanDeleteUserAttribute()
     {
+        $connected_user = Auth::user();
         return (
-            (Auth::user()->id !== $this->id) &&
+            ($connected_user->id !== $this->id) &&
             (
-                ($this->role->type === Role::USER && Auth::user()->role->type !== Role::USER) ||
-                ($this->role->type === Role::ADMIN && Auth::user()->role->type === Role::SUPER_ADMIN)
+                (($this->role->type === UserRole::USER) && ($connected_user->role->type !== UserRole::USER)) ||
+                (($this->role->type === UserRole::ADMIN) && ($connected_user->role->type === UserRole::SUPER_ADMIN))
             )
         );
     }
@@ -150,10 +156,11 @@ class User extends Authenticate
      */
     public function getCanGrantAdminUserAttribute()
     {
+        $connected_user = Auth::user();
         return (
-            (Auth::user()->id !== $this->id) &&
-            ($this->role->type === Role::USER) &&
-            (Auth::user()->role->type !== Role::USER)
+            ($connected_user->id !== $this->id) &&
+            ($this->role->type === UserRole::USER) &&
+            ($connected_user->role->type !== UserRole::USER)
         );
     }
 
@@ -164,10 +171,11 @@ class User extends Authenticate
      */
     public function getCanGrantSuperAdminUserAttribute()
     {
+        $connected_user = Auth::user();
         return (
-            (Auth::user()->id !== $this->id) &&
-            ($this->role->type !== Role::SUPER_ADMIN) &&
-            (Auth::user()->role->type === Role::SUPER_ADMIN)
+            ($connected_user->id !== $this->id) &&
+            ($this->role->type !== UserRole::SUPER_ADMIN) &&
+            ($connected_user->role->type === UserRole::SUPER_ADMIN)
         );
     }
 }

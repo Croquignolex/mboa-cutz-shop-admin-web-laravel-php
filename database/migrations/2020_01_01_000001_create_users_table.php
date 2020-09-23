@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\User;
 use App\Enums\Constants;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
@@ -18,21 +17,23 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('email', Constants::DEFAULT_STRING_LENGTH)->unique();
-            $table->string('password',Constants::DEFAULT_STRING_LENGTH)->default(Hash::make(Constants::DEFAULT_PASSWORD));
-            $table->string('first_name', Constants::DEFAULT_STRING_LENGTH);
-            $table->string('last_name', Constants::DEFAULT_STRING_LENGTH);
-            $table->string('avatar', Constants::DEFAULT_STRING_LENGTH)->default(Constants::DEFAULT_IMAGE);
-            $table->string('avatar_extension', Constants::DEFAULT_STRING_LENGTH)->default(Constants::DEFAULT_IMAGE_EXTENSION);
-            $table->string('address', Constants::DEFAULT_STRING_LENGTH)->nullable();
-            $table->string('post_code', Constants::DEFAULT_STRING_LENGTH)->nullable();
-            $table->string('city', Constants::DEFAULT_STRING_LENGTH)->nullable();
-            $table->string('country', Constants::DEFAULT_STRING_LENGTH)->nullable();
-            $table->string('phone', Constants::DEFAULT_STRING_LENGTH)->nullable();
-            $table->string('profession', Constants::DEFAULT_STRING_LENGTH)->nullable();
+            $table->string('slug')->unique();
+            $table->string('email')->unique();
+            $table->string('password')->default(Hash::make(Constants::DEFAULT_PASSWORD));
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->string('avatar')->default(Constants::DEFAULT_IMAGE);
+            $table->string('avatar_extension')->default(Constants::DEFAULT_IMAGE_EXTENSION);
+            $table->string('address')->nullable();
+            $table->string('post_code')->nullable();
+            $table->string('city')->nullable();
+            $table->string('country')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('profession')->nullable();
             $table->text('description')->nullable();
             $table->boolean('is_confirmed')->default(false);
             $table->unsignedInteger('role_id');
+            $table->softDeletes();
             $table->timestamps();
 
             $table->foreign('role_id')
@@ -49,6 +50,8 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
     }
 }

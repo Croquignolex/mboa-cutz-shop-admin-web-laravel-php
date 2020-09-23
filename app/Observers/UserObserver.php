@@ -12,30 +12,8 @@ class UserObserver
      * @param User $user
      * @return void
      */
-    public function created(User $user)
+    public function creating(User $user)
     {
-        //
-    }
-
-    /**
-     * Handle the user "updated" event.
-     *
-     * @param  User $user
-     * @return void
-     */
-    public function updated(User $user)
-    {
-        //
-    }
-
-    /**
-     * Handle the user "deleted" event.
-     *
-     * @param  User $user
-     * @return void
-     */
-    public function deleted(User $user)
-    {
-        //
+        $user->slug = $user->full_name;
     }
 }

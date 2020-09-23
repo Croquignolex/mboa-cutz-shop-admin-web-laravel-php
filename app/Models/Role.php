@@ -11,10 +11,18 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 /**
  * @property mixed type
  * @property mixed name
+ * @property mixed slug
  */
 class Role extends Model
 {
     use SoftDeletes, SlugRouteTrait;
+
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = ['slug', 'id'];
 
     /**
      * @return HasMany
