@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\UserRole;
 use App\Traits\SlugRouteTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -14,17 +15,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Role extends Model
 {
     use SoftDeletes, SlugRouteTrait;
-
-    const USER = 'user';
-    const ADMIN = 'admin';
-    const SUPER_ADMIN = 'super admin';
-
-    /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var array
-     */
-    protected $guarded = ['id', 'slug'];
 
     /**
      * @return HasMany
@@ -39,8 +29,8 @@ class Role extends Model
      */
     public function getNameAttribute()
     {
-        if($this->type === Role::ADMIN) return "Administrateur";
-        if($this->type === Role::SUPER_ADMIN) return "Super admin";
+        if($this->type === UserRole::ADMIN) return "Administrateur";
+        if($this->type === UserRole::SUPER_ADMIN) return "Super admin";
         else return "Utilisateur";
     }
 
@@ -49,8 +39,8 @@ class Role extends Model
      */
     public function getBadgeColorAttribute()
     {
-        if($this->type === Role::ADMIN) return "success";
-        if($this->type === Role::SUPER_ADMIN) return "danger";
+        if($this->type === UserRole::ADMIN) return "success";
+        if($this->type === UserRole::SUPER_ADMIN) return "danger";
         else return "primary";
     }
 }

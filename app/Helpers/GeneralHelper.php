@@ -1,8 +1,9 @@
 <?php
 
 use App\Enums\Constants;
-use Illuminate\Support\Facades\Storage;
+use App\Enums\ImagePath;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 if(!function_exists('text_format'))
 {
@@ -109,13 +110,13 @@ if(!function_exists('imageFromBase64AndSave'))
 
         $image_name = getUniqueImageName(Str::random(40), $image_type, $folder);
         switch ($folder) {
-            case Constants::USER_DEFAULT_IMAGE_PATH:
+            case ImagePath::USER_DEFAULT_IMAGE_PATH:
                 Storage::put(user_img_asset($image_name, $image_type), $original_file);
                 return [
                     'name' => $image_name,
                     'extension' => $image_type
                 ];
-            case Constants::PRODUCT_DEFAULT_IMAGE_PATH:
+            case ImagePath::PRODUCT_DEFAULT_IMAGE_PATH:
                 Storage::put(product_img_asset($image_name, $image_type), $original_file);
                 return [
                     'name' => $image_name,
@@ -140,12 +141,12 @@ if(!function_exists('getUniqueFileName'))
     function getUniqueImageName($image_name, $image_type, $folder)
     {
         switch ($folder) {
-        case Constants::USER_DEFAULT_IMAGE_PATH:
+        case ImagePath::USER_DEFAULT_IMAGE_PATH:
             if(Storage::exists(user_img_asset($image_name, $image_type))) {
                 getUniqueImageName(Str::random(40), $image_type, $folder);
             }
             return $image_name;
-        case Constants::PRODUCT_DEFAULT_IMAGE_PATH:
+        case ImagePath::PRODUCT_DEFAULT_IMAGE_PATH:
             if(Storage::exists(product_img_asset($image_name, $image_type))) {
                 getUniqueImageName(Str::random(40), $image_type, $folder);
             }
