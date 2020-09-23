@@ -1,13 +1,21 @@
 <div class="profile-content-left pt-5 pb-3 px-3 px-xl-4">
     <div class="card text-center widget-profile px-0 border-0">
         <div class="card-img mx-auto rounded-circle">
-            <img src="{{ auth()->user()->avatar_src }}" alt="...">
+            <img src="{{ auth()->user()->avatar_src }}" alt="..." class="async-image img-responsive">
         </div>
         <div class="my-1">
-            <button class="btn btn-sm btn-primary" type="button">
+            <button class="btn btn-sm btn-primary"
+                    type="button"
+                    onclick="document.getElementById('upload-image-input').click();"
+            >
                 Modifier
             </button>
-            <input type="file" class="upload-image-input" data-ratio="square" data-url="{{ route('profile.update.avatar') }}">
+            <input type="file"
+                   data-ratio="square"
+                   data-url="{{ route('profile.update.avatar') }}"
+                   hidden
+                   id="upload-image-input"
+            >
         </div>
         <div class="card-body">
             <h4 class="py-2 text-dark">{{ auth()->user()->full_name }}</h4>
@@ -50,11 +58,4 @@
         <p>{{ auth()->user()->description }}</p>
     </div>
 </div>
-
-@component('components.modal', ['id_modal' => 'upload-modal'])
-    <div><img id="avatar" class="overflow-auto mw-100 img-responsive" src="#" alt="..."/></div>
-    <div class="flex">
-        <button type="button" class="btn btn-light ml-1 mr-1" data-dismiss="modal">Annuler</button>
-        <button type="button" class="btn btn-success ml-1 mr-1" id="save-image">Enrégistrer</button>
-    </div>
-@endcomponent
+@include('partials.croup-modal')

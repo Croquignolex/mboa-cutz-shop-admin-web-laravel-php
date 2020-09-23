@@ -1,27 +1,24 @@
 // initialize data
 let $uploadCrop;
 let croupModal = $('#upload-modal');
-let loader = $('#image-croup-loader');
 let copperAspectRatioWidth = undefined;
 let currentUploadImageInput = undefined;
 let copperAspectRatioHeight = undefined;
 let croupModalImgID = 'croup-modal-image';
 
+// Default appearance
 croupModal.modal("hide");
+toggleCroupModalLoader(false)
 
 // Action the upload input
-$(".upload-image-input").change(function () {
+$("#upload-image-input").change(function () {
     currentUploadImageInput = $(this);
+    toggleCroupModalLoader(true)
 
-    readImageFileFromInput(this, croupModal, croupModalImgID).then(() => {
+    readImageFileFromInput(this).then(() => {
         let input = this;
         let aspectRadio = undefined;
         let avatar = document.getElementById(croupModalImgID);
-
-        // Loading indicators
-        let saveButton = $("#save-image");
-        loader.show();
-        saveButton.attr("disabled", true);
 
         croupModal.on("shown.bs.modal", function() {
 
@@ -52,27 +49,106 @@ $(".upload-image-input").change(function () {
                     aspectRatio: aspectRadio,
                     toggleDragModeOnDblclick: false,
                     ready: function () {
-                        loader.hide();
+                        console.log('is ready')
+                        toggleCroupModalLoader(false)
                         input.value = '';
-                        saveButton.attr("disabled", false);
                     }
                 });
             }
         }).on("hidden.bs.modal", function() {
             //Destroy the cropper instance
             if($uploadCrop) {
-                loader.hide();
+                toggleCroupModalLoader(false)
                 $uploadCrop.destroy();
                 $uploadCrop = undefined;
-                saveButton.attr("disabled", false);
             }
         });
     });
 });
 
 // Action on the image modal validation
-$("#save-image").click(function () {
-    let base64Image = resizeImage(copperAspectRatioWidth, copperAspectRatioHeight, croupModal, $uploadCrop);
-    cropperAjaxRequest(base64Image, croupModal, currentUploadImageInput, { base_64_image: base64Image }, 'PUT').then();
+$("#modal-save-image").click(function () {
+    toggleCroupModalLoader(true)
+    let base64Image = resizeImage(copperAspectRatioWidth, copperAspectRatioHeight, $uploadCrop);
+    // Save crouped image into backend
+    ajaxRequest({ base_64_image: base64Image }, currentUploadImageInput.data('url'))
+        .then((data) => {
+            previewImage(base64Image, currentUploadImageInput);
+            toggleCroupModalLoader(false)
+            croupModal.modal("hide");
+            successToaster(data.message);
+        })
+        .catch(() => {
+            toggleCroupModalLoader(false)
+            croupModal.modal("hide");
+        })
 });
+
+// Extra image object into input while croup
+function readImageFileFromInput(input) {
+    return new Promise((resolve) => {
+        if (input.files && input.files[0]) {
+            // Get image type
+            const fileType = input.files[0]['type'];
+            // The /1024/1024 is to have the size in megabytes
+            const fileSize = input.files[0].size/1024/1024;
+            // Valid image types array
+            const validImageTypes = ['image/jpeg', 'image/JPEG', 'image/png', 'image/PNG', 'image/jpg', 'image/JPG'];
+
+            if (validImageTypes.includes(fileType)) {
+                // valid image size
+                if (fileSize < 10) {
+                    // initialize the image reader
+                    let reader = new FileReader();
+
+                    // When the reader is loaded
+                    // asynchronous function so it will execute after
+                    reader.onload = function (e) {
+                        // Show the cropper modal
+                        croupModal.modal("show");
+                        $(`#${croupModalImgID}`).attr('src', e.target.result);
+                        resolve();
+                    };
+
+                    reader.readAsDataURL(input.files[0]);
+                } else dangerToaster("Image trop loude, choisissez une image de moins de 3Mo")
+            } else dangerToaster("Type de fichier non réconnu, l'image doit être de type: gif, jpg, jpeg ou png")
+        } else dangerToaster("Action annulé ou navigateur internet incompatible")
+    });
+}
+
+// Resize image base on canvas
+function resizeImage(imageWith, imageHeight, $uploadCrop) {
+    let resultFile = undefined;
+
+    // Load image if the is a preview
+    if($uploadCrop) {
+        // Get the image result
+        try { resultFile = (imageWith && imageHeight)
+            ? $uploadCrop.getCroppedCanvas({ width: imageWith, height: imageHeight }).toDataURL('image/png')
+            : $uploadCrop.getCroppedCanvas().toDataURL('image/png');
+        }
+        catch (e) {}
+        // Get only if the image src exist
+        if (!resultFile) dangerToaster("Une erreur s'est produite, réessayez plus tard', 'danger")
+    } else dangerToaster("Il vous faut d'abord choisir une image")
+
+    return resultFile;
+}
+
+// Toggle croup modal loader
+function toggleCroupModalLoader(toggleStatus) {
+    if(toggleStatus) {
+        // Show loader
+        $("#croup-modal-image-canvas").css('opacity', .2)
+        $("#croup-modal-action-buttons").hide();
+        $("#croup-modal-loader").show();
+    } else {
+        // Hide loaderç
+        $("#croup-modal-image-canvas").css('opacity', 1);
+        $("#croup-modal-loader").hide();
+        $("#croup-modal-action-buttons").show();
+    }
+}
+
 

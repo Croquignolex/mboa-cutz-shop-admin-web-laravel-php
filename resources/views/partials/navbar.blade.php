@@ -25,7 +25,7 @@
                 </li>--}}
                 <li class="dropdown user-menu">
                     <button href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                        <img src="{{ auth()->user()->avatar_src }}" class="user-image" alt="..." />
+                        <img src="{{ auth()->user()->avatar_src }}" class="async-image img-responsive" alt="..." />
                     </button>
                     <ul class="dropdown-menu dropdown-menu-right">
                         <li class="dropdown-header">
@@ -46,7 +46,7 @@
                         </li>
                         <li class="dropdown-footer">
                             <a class="nav-link logout" href="javascript: void(0);" role="button"
-                               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                               onclick="document.getElementById('logout-form').submit();">
                                 <i class="mdi mdi-logout"></i>
                                 Déconnexion
                             </a>

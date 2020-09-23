@@ -37,3 +37,11 @@
 .text-theme {
     color: #ec008c;
 }
+
+.bg-theme {
+    background-color: #ec008c;
+}
+
+.hand-cursor {
+    cursor: progress;
+}
