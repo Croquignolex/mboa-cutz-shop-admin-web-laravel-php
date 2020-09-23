@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\App;
 
 use App\Enums\Constants;
+use App\Enums\ImagePath;
 use Illuminate\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
@@ -72,7 +73,7 @@ class ProfileController extends Controller
             return back();
         }
 
-        $user->update(['password' => Hash::make($password)]);
+        $user->update(compact('password'));
         success_toast_alert('Mot de passe mis à jour avec succès');
         return back();
     }
@@ -93,7 +94,7 @@ class ProfileController extends Controller
             Storage::delete($user_avatar_src);
 
         // Convert base 64 image to normal image for the server and the data base
-        $user_avatar_to_save = imageFromBase64AndSave($request->input('base_64_image'), Constants::USER_DEFAULT_IMAGE_PATH);
+        $user_avatar_to_save = imageFromBase64AndSave($request->input('base_64_image'), ImagePath::USER_DEFAULT_IMAGE_PATH);
 
         // Save image name in database
         $user->update([
