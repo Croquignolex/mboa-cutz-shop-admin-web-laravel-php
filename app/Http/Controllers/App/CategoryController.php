@@ -31,7 +31,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('app.categories.index');
+        $categories = Category::all()->sortByDesc('created_at');
+        return view('app.categories.index', compact('categories'));
     }
 
     /**

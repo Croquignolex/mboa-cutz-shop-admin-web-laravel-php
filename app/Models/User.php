@@ -39,10 +39,14 @@ class User extends Authenticate
      * @var array
      */
     protected $fillable = [
-        'first_name', 'last_name', 'phone', 'role_id',
-        'description', 'email', 'is_confirmed', 'password',
-        'avatar', 'avatar_extension', 'address', 'post_code', 'city',
-        'country', 'phone', 'profession', 'role_id'
+        'id',
+        'first_name', 'last_name',
+        'phone', 'email',
+        'phone', 'profession',
+        'address', 'post_code', 'city','country',
+        'avatar', 'avatar_extension',
+        'password', 'description',
+        'role_id', 'is_confirmed',
     ];
 
     /**
@@ -50,19 +54,14 @@ class User extends Authenticate
      *
      * @var array
      */
-    protected $hidden = [
-        'password', 'is_confirmed', 'email', 'role_id'
-    ];
+    protected $hidden = ['id', 'password', 'is_confirmed', 'email', 'role_id'];
 
     /**
      * The attributes that should be cast.
      *
      * @var array
      */
-    protected $casts = [
-        'is_confirmed' => 'boolean',
-        'created_at' => 'datetime:d-m-Y',
-    ];
+    protected $casts = ['is_confirmed' => 'boolean', 'created_at' => 'datetime:d-m-Y'];
 
     /**
      * Boot functions

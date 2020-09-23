@@ -20,7 +20,14 @@ class CreateCategoriesTable extends Migration
             $table->string('en_name', 255);
             $table->text('fr_description')->nullable();
             $table->text('en_description')->nullable();
+            $table->boolean('is_activated')->default(true);
+            $table->unsignedInteger('created_by');
             $table->timestamps();
+
+            $table->foreign('created_by')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
         });
     }
 

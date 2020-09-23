@@ -29,6 +29,7 @@ class CreateProductsTable extends Migration
             $table->boolean('is_new')->default(false);
             $table->boolean('is_most_sold')->default(false);
             $table->unsignedInteger('stock')->default(0);
+            $table->boolean('is_activated')->default(true);
             $table->unsignedInteger('category_id');
             $table->timestamps();
 

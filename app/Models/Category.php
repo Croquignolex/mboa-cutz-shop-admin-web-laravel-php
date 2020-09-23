@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 /**
  * @property mixed type
  */
-class ProductCategory extends Model
+class Category extends Model
 {
     use SlugRouteTrait, LocaleSlugSaveTrait;
 
@@ -19,7 +19,21 @@ class ProductCategory extends Model
      *
      * @var array
      */
-    protected $fillable = ['fr_name', 'en_name', 'fr_description', 'en_description'];
+    protected $fillable = ['id', 'fr_name', 'en_name', 'fr_description', 'en_description', 'is_activated'];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = ['id', 'is_activated'];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = ['is_activated' => 'boolean', 'created_at' => 'datetime:d-m-Y'];
 
     /**
      * @return HasMany

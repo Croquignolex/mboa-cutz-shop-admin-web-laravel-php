@@ -29,9 +29,23 @@ class Product extends Model
      */
     protected $fillable = [
         'image', 'fr_name', 'en_name', 'fr_description', 'en_description',
-        'price', 'discount', 'ranking', 'is_featured', 'is_new',
+        'price', 'discount', 'ranking', 'is_featured', 'is_new', 'is_activated',
         'is_most_sold', 'stock', 'extension', 'product_category_id'
     ];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = ['is_activated'];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = ['is_activated' => 'boolean'];
 
     /**
      * @return BelongsTo
