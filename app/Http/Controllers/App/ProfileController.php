@@ -2,12 +2,18 @@
 
 namespace App\Http\Controllers\App;
 
+use App\Enums\Constants;
+use App\Enums\ImagePath;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\Base64ImageRequest;
 use App\Http\Requests\UserUpdateInfoRequest;
 use App\Http\Requests\UserUpdatePasswordRequest;
 use Illuminate\Contracts\Foundation\Application;
@@ -20,6 +26,7 @@ class ProfileController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('ajax')->only(['updateAvatar']);
     }
 
     /**
@@ -27,7 +34,16 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        return view('app.profile');
+        return view('app.profile.index');
+    }
+
+    /**
+     * @return Application|Factory|View
+     */
+    public function logs()
+    {
+        $logs = Auth::user()->logs()->orderBy('created_at', 'desc')->paginate(10)->onEachSide(0);
+        return view('app.profile.logs', compact("logs"));
     }
 
     /**
@@ -67,7 +83,7 @@ class ProfileController extends Controller
             return back();
         }
 
-        $user->update(['password' => Hash::make($password)]);
+        $user->update(compact('password'));
         success_toast_alert('Mot de passe mis à jour avec succès');
         return back();
     }
@@ -75,9 +91,27 @@ class ProfileController extends Controller
     /**
      * Update user avatar
      *
-     *
+     * @param Base64ImageRequest $request
+     * @return JsonResponse
      */
-    public function updateAvatar() {
-        dd('ok, here i am');
+    public function updateAvatar(Base64ImageRequest $request) {
+        // Get current user
+        $user = Auth::user();
+        $user_avatar_src = $user->avatar_src;
+
+        //Delete old file before storing new file
+        if(Storage::exists($user_avatar_src) && $user->avatar !== Constants::DEFAULT_IMAGE)
+            Storage::delete($user_avatar_src);
+
+        // Convert base 64 image to normal image for the server and the data base
+        $user_avatar_to_save = imageFromBase64AndSave($request->input('base_64_image'), ImagePath::USER_DEFAULT_IMAGE_PATH);
+
+        // Save image name in database
+        $user->update([
+            'avatar' => $user_avatar_to_save['name'],
+            'avatar_extension' => $user_avatar_to_save['extension'],
+        ]);
+
+        return response()->json(['message' => 'Photo de profil mise à jour avec succès']);
     }
 }

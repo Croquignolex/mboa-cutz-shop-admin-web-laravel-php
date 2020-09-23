@@ -93,6 +93,17 @@ if(!function_exists('articles_pages'))
     }
 }
 
+if(!function_exists('categories_pages'))
+{
+    /**
+     * @return Collection
+     */
+    function categories_pages()
+    {
+        return collect(['categories.index', 'categories.create', 'categories.show', 'categories.edit']);
+    }
+}
+
 if(!function_exists('products_pages'))
 {
     /**

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Models\Role;
 use App\Models\User;
+use App\Enums\UserRole;
 use Illuminate\View\View;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
@@ -76,7 +76,7 @@ class LoginController extends Controller
         $user = User::where(['email' => $credentials['email']])->first();
         if($user !== null)
         {
-            if($user->role->type !== Role::USER) {
+            if($user->role->type !== UserRole::USER) {
                 return $this->guard()->attempt($this->credentials($request));
             }
         }
@@ -117,9 +117,8 @@ class LoginController extends Controller
      */
     protected function sendFailedLoginResponse(Request $request)
     {
-        $message = "Combinaison email et mot de passe incorrect ou votre à été bloqué";
-        danger_toast_alert($message);
-        throw ValidationException::withMessages([$this->username() => [$message]]);
+        danger_toast_alert("Combinaison email et mot de passe incorrect ou votre à été bloqué");
+        throw ValidationException::withMessages([]);
     }
 
     /**

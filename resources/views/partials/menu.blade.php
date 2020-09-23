@@ -15,8 +15,35 @@
                         <span class="nav-text">Tableau de board</span>
                     </a>
                 </li>
+                {{--Categoris--}}
+                <li class="has-sub expand {{ active_page(categories_pages()) }}">
+                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#categories" aria-expanded="false" aria-controls="categories">
+                        <i class="mdi mdi-database"></i>
+                        <span class="nav-text">Categories</span> <b class="caret"></b>
+                    </a>
+                    <ul class="collapse {{ active_page_group(categories_pages()) }}" id="categories" data-parent="#sidebar-menu">
+                        <div class="sub-menu">
+                            <li class="{{ active_page(collect('categories.index')) }}">
+                                <a class="sidenav-item-link" href="{{ route('categories.index') }}">
+                                    <span class="nav-text">
+                                        <i class="mdi mdi-playlist-check"></i>
+                                        Tous les categories
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="{{ active_page(collect('categories.create')) }}">
+                                <a class="sidenav-item-link" href="{{ route('categories.create') }}">
+                                    <span class="nav-text">
+                                        <i class="mdi mdi-playlist-plus"></i>
+                                        Nouvelle categorie
+                                    </span>
+                                </a>
+                            </li>
+                        </div>
+                    </ul>
+                </li>
                 {{--Produits--}}
-                {{--<li class="has-sub expand {{ active_page(products_pages()) }}">
+                <li class="has-sub expand {{ active_page(products_pages()) }}">
                     <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#products" aria-expanded="false" aria-controls="products">
                         <i class="mdi mdi-basket"></i>
                         <span class="nav-text">Produits</span> <b class="caret"></b>
@@ -41,7 +68,7 @@
                             </li>
                         </div>
                     </ul>
-                </li>--}}
+                </li>
                 {{--Articles--}}
                {{-- <li class="has-sub expand {{ active_page(articles_pages()) }}">
                     <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#articles" aria-expanded="false" aria-controls="articles">

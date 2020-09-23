@@ -61,8 +61,8 @@
     <body class="@yield("master.class")" id="body">
         @yield('master.body')
 
-        <script src="{{ js_asset('plugins/jquery/jquery.min') }}" type="application/javascript"></script>
-        <script src="{{ js_asset('plugins/toaster/toastr.min') }}" type="application/javascript"></script>
+        <script src="{{ js_asset('jquery.min') }}" type="application/javascript"></script>
+        <script src="{{ js_asset('toastr.min') }}" type="application/javascript"></script>
 
         @stack('master.script')
 

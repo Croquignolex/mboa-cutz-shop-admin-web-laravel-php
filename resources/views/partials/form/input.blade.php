@@ -7,15 +7,10 @@
             </span>
         @endif
     </label>
-    <div class="input-group">
-        <div class="input-group-prepend">
-            <span class="input-group-text">
-                <i class="{{ $icon }}"></i>
-            </span>
-        </div>
-        <input id="{{ $id }}" name="{{ $id }}"
-               type="{{ $type }}" value="{{ $value }}"
-               class="form-control" {{ $attribute ?? '' }}
-        >
-    </div>
+    <input id="{{ $id }}"
+           name="{{ $id }}"
+           type="{{ $type }}"
+           value="{{ $value }}"
+           class="form-control border border-secondary"
+    />
 </div>

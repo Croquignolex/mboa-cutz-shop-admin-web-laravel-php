@@ -7,15 +7,9 @@
             </span>
         @endif
     </label>
-    <div class="input-group">
-        <div class="input-group-prepend">
-            <span class="input-group-text">
-                <i class="{{ $icon }}"></i>
-            </span>
-        </div>
-        <textarea rows="5"
-                  id="{{ $id }}"
-                  name="{{ $id }}"
-                  class="form-control">{{ $value }}</textarea>
-    </div>
+    <textarea rows="5"
+              id="{{ $id }}"
+              name="{{ $id }}"
+              class="form-control border border-secondary"
+    >{{ $value }}</textarea>
 </div>

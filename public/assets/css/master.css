@@ -37,3 +37,15 @@
 .text-theme {
     color: #ec008c;
 }
+
+.bg-theme {
+    background-color: #ec008c;
+}
+
+.hand-cursor {
+    cursor: progress;
+}
+
+.bootstrap-select .dropdown-toggle:focus {
+    outline: 0 !important;
+}
