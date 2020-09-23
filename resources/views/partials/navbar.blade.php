@@ -39,9 +39,9 @@
                                 <i class="mdi mdi-account"></i> Mon Profil
                             </a>
                         </li>
-                        <li class="{{ active_page(collect(['settings.index'])) === 'active' ? 'bg-light' : '' }}">
-                            <a href="{{ route('settings.index') }}">
-                                <i class="mdi mdi-settings"></i> Paramètres
+                        <li class="{{ active_page(collect(['profile.logs'])) === 'active' ? 'bg-light' : '' }}">
+                            <a href="{{ route('profile.logs') }}">
+                                <i class="mdi mdi-newspaper"></i> Mon journal
                             </a>
                         </li>
                         <li class="dropdown-footer">

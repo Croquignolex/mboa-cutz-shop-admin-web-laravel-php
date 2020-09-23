@@ -35,6 +35,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property mixed avatar_extension
  * @property mixed format_first_name
  * @property mixed slug
+ * @property mixed logs
  */
 class User extends Authenticate
 {
@@ -47,13 +48,6 @@ class User extends Authenticate
      * @var array
      */
     protected $guarded = ['slug', 'id', 'is_confirmed', 'role_id'];
-
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array
-     */
-    protected $casts = ['is_confirmed' => 'boolean', 'created_at' => 'datetime:d-m-Y'];
 
     /**
      * User role

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('app.master.title', page_title('Profil'))
+@section('app.master.title', page_title('Mon profil'))
 
 @section('app.breadcrumb')
     @include('partials.breadcrumb', [

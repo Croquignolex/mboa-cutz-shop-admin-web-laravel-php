@@ -4,6 +4,7 @@ namespace App\Http\Controllers\App;
 
 use App\Enums\Constants;
 use App\Enums\ImagePath;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
@@ -33,7 +34,16 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        return view('app.profile');
+        return view('app.profile.index');
+    }
+
+    /**
+     * @return Application|Factory|View
+     */
+    public function logs()
+    {
+        $logs = Auth::user()->logs()->orderBy('created_at', 'desc')->paginate(10)->onEachSide(0);
+        return view('app.profile.logs', compact("logs"));
     }
 
     /**
