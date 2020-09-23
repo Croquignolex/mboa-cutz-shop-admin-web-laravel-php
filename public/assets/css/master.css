@@ -45,3 +45,7 @@
 .hand-cursor {
     cursor: progress;
 }
+
+.bootstrap-select .dropdown-toggle:focus {
+    outline: 0 !important;
+}
