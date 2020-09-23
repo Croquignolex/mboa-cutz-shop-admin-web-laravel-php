@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\App;
 
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
@@ -9,6 +10,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Redirector;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\CategoryRequest;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\Foundation\Application;
 
@@ -39,19 +41,21 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('app.products.create');
+        return view('app.categories.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param CategoryRequest $request
      * @return Application|RedirectResponse|Response|Redirector
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
-        // TODO: store
-        return redirect(route('products.index'));
+        Category::create($request->all());
+        $name = $request->input('fr_name');
+        success_toast_alert("Catégorie $name créer avec succès");
+        return redirect(route('categories.index'));
     }
 
     /**
