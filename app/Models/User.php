@@ -3,11 +3,13 @@
 namespace App\Models;
 
 use App\Enums\Constants;
+use App\Traits\SlugRouteTrait;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticate;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Support\Facades\Storage;
 
 /**
  * @property mixed id
@@ -33,21 +35,15 @@ use Illuminate\Support\Facades\Storage;
  */
 class User extends Authenticate
 {
+
+    use SoftDeletes, SlugRouteTrait;
+
     /**
-     * The attributes that are mass assignable.
+     * The attributes that aren't mass assignable.
      *
      * @var array
      */
-    protected $fillable = [
-        'id',
-        'first_name', 'last_name',
-        'phone', 'email',
-        'phone', 'profession',
-        'address', 'post_code', 'city','country',
-        'avatar', 'avatar_extension',
-        'password', 'description',
-        'role_id', 'is_confirmed',
-    ];
+    protected $guarded = ['id', 'is_confirmed', 'role_id'];
 
     /**
      * The attributes that should be hidden for arrays.

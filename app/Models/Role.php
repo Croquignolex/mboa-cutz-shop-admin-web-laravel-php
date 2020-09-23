@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use App\Traits\SlugRouteTrait;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
@@ -11,25 +13,18 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 class Role extends Model
 {
+    use SoftDeletes, SlugRouteTrait;
+
     const USER = 'user';
     const ADMIN = 'admin';
     const SUPER_ADMIN = 'super admin';
 
     /**
-     * The attributes that are mass assignable.
+     * The attributes that aren't mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['type'];
-
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'created_at' => 'datetime:d-m-Y',
-    ];
+    protected $guarded = ['id', 'slug'];
 
     /**
      * @return HasMany

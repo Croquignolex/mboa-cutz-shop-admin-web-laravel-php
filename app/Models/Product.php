@@ -7,6 +7,7 @@ use App\Traits\SlugRouteTrait;
 use App\Enums\ProductAvailability;
 use App\Traits\LocaleSlugSaveTrait;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
@@ -20,7 +21,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class Product extends Model
 {
-    use SlugRouteTrait, LocaleSlugSaveTrait;
+    use SoftDeletes, SlugRouteTrait, LocaleSlugSaveTrait;
 
     /**
      * The attributes that are mass assignable.
