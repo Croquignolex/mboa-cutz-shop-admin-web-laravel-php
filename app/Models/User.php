@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\UserRole;
 use App\Enums\Constants;
+use App\Traits\DateTrait;
 use App\Traits\SlugRouteTrait;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -40,7 +41,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class User extends Authenticate
 {
 
-    use SoftDeletes, SlugRouteTrait;
+    use SoftDeletes, SlugRouteTrait, DateTrait;
 
     /**
      * The attributes that aren't mass assignable.

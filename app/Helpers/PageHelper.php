@@ -104,6 +104,17 @@ if(!function_exists('categories_pages'))
     }
 }
 
+if(!function_exists('admins_pages'))
+{
+    /**
+     * @return Collection
+     */
+    function admins_pages()
+    {
+        return collect(['admins.index', 'admins.create', 'admins.show', 'admins.edit']);
+    }
+}
+
 if(!function_exists('products_pages'))
 {
     /**
