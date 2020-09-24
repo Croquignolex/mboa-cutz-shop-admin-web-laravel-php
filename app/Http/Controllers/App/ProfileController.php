@@ -41,7 +41,11 @@ class ProfileController extends Controller
      */
     public function logs()
     {
-        $logs = Auth::user()->logs()->orderBy('created_at', 'desc')->paginate(10)->onEachSide(0);
+        $logs = Auth::user()
+            ->logs()
+            ->orderBy('created_at', 'desc')
+            ->paginate(Constants::DEFAULT_PAGE_PAGINATION_ITEMS)
+            ->onEachSide(Constants::DEFAULT_PAGE_PAGINATION_ITEMS);
         return view('app.profile.logs', compact("logs"));
     }
 
