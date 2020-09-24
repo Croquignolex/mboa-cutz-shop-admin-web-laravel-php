@@ -3,14 +3,15 @@
 namespace App\Http\Controllers\App;
 
 use App\Models\Role;
+use App\Models\User;
 use App\Enums\UserRole;
 use App\Models\Product;
 use App\Enums\Constants;
-use App\Models\User;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\Factory;
@@ -36,8 +37,9 @@ class AdminController extends Controller
         $admins = User::where('role_id', Role::where('type', UserRole::ADMIN)->first()->id)
             ->orWhere('role_id', Role::where('type', UserRole::SUPER_ADMIN)->first()->id)
             ->orderBy('created_at', 'desc')
-            ->paginate(3)
-            ->onEachSide(Constants::DEFAULT_PAGE_PAGINATION_ITEMS);
+            ->paginate(Constants::DEFAULT_PAGE_PAGINATION_ITEMS)
+            ->onEachSide(Constants::DEFAULT_PAGE_PAGINATION_EACH_SIDE);
+
         return view('app.admins.index', compact('admins'));
     }
 
@@ -48,7 +50,10 @@ class AdminController extends Controller
      */
     public function create()
     {
-        return view('app.products.create');
+        if(Auth::user()->role->name === UserRole::SUPER_ADMIN) $roles = [UserRole::ADMIN, UserRole::SUPER_ADMIN];
+        else $roles = [UserRole::ADMIN];
+
+        return view('app.admins.create', compact('roles'));
     }
 
     /**

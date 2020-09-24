@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('app.master.title', page_title('Nouveau produit'))
+@section('app.master.title', page_title('Nouvel administrateur'))
 
 @section('app.breadcrumb')
     @include('partials.breadcrumb', [
-        'title' => 'Nouveau produit',
-        'icon' => 'mdi mdi-basket',
-        'chain' => ['Produits', 'Nouveau produit']
+        'title' => 'Nouvel administrateur',
+        'icon' => 'mdi mdi-account-multiple',
+        'chain' => ['Administrateurs', 'Nouvel administrateur']
     ])
 @endsection
 
@@ -15,92 +15,101 @@
         <div class="col-12">
             <div class="card card-default">
                 <div class="card-header card-header-border-bottom d-flex justify-content-between">
-                    <h2>Nouvel intervenant</h2>
+                    <h2>Ajouter un nouvel administrateur</h2>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('products.store') }}" method="POST">
+                    <form action="{{ route('admins.store') }}" method="POST">
                         @csrf
                         @method('PUT')
                         <div class="row">
-                            <div class="col-sm-6 col-xs-12">
+                            <div class="col-sm-4 col-xs-12">
                                 @include('partials.form.select', [
-                                    'name' => 'Nom (français)',
-                                    'id' => 'fr_name',
-                                    'icon' => 'mdi mdi-format-align-top',
+                                    'name' => 'Role',
+                                    'id' => 'role',
                                     'value' => old('fr_name')
                                 ])
                             </div>
-                            <div class="col-sm-6 col-xs-12">
-
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6 col-xs-12">
-                                @include('partials.form.input', [
-                                    'name' => 'Nom (français)',
-                                    'id' => 'fr_name',
-                                    'icon' => 'mdi mdi-format-align-top',
-                                    'type' => 'text',
-                                    'value' => old('fr_name')
-                                ])
-                            </div>
-                            <div class="col-sm-6 col-xs-12">
-                                @include('partials.form.input', [
-                                    'name' => 'Nom (anglais)',
-                                    'id' => 'en_name',
-                                    'icon' => 'mdi mdi-format-align-top',
-                                    'type' => 'text',
-                                    'value' => old('en_name')
-                                ])
-                            </div>
-                        </div>
-                        <div class="row">
                             <div class="col-sm-4 col-xs-12">
                                 @include('partials.form.input', [
-                                   'name' => 'Prix',
-                                   'id' => 'price',
-                                   'icon' => 'mdi mdi-cash-multiple',
-                                   'type' => 'number',
-                                   'value' => old('price')
+                                    'name' => 'Prénom',
+                                    'id' => 'first_name',
+                                    'type' => 'text',
+                                    'value' => old('first_name'),
+                                ])
+                            </div>
+                            <div class="col-sm-4 col-xs-12">
+                                @include('partials.form.input', [
+                                    'name' => 'Nom',
+                                    'id' => 'last_name',
+                                    'type' => 'text',
+                                    'value' => old('last_name'),
+                                ])
+                            </div>
+                            <div class="col-sm-4 col-xs-12">
+                                @include('partials.form.input', [
+                                   'name' => 'Email',
+                                   'id' => 'email',
+                                   'type' => 'email',
+                                   'value' => old('email'),
                                ])
                             </div>
                             <div class="col-sm-4 col-xs-12">
                                 @include('partials.form.input', [
-                                    'name' => 'Réduction',
-                                    'id' => 'discount',
-                                    'icon' => 'mdi mdi-percent',
-                                    'type' => 'number',
-                                    'value' => old('discount')
+                                   'name' => 'Téléphone',
+                                   'id' => 'phone',
+                                   'type' => 'text',
+                                   'value' =>  old('phone'),
+                               ])
+                            </div>
+                            <div class="col-sm-4 col-xs-12">
+                                @include('partials.form.input', [
+                                    'name' => 'Code postal',
+                                    'id' => 'post_code',
+                                    'type' => 'text',
+                                    'value' =>  old('post_code'),
                                 ])
                             </div>
                             <div class="col-sm-4 col-xs-12">
                                 @include('partials.form.input', [
-                                    'name' => 'Stock',
-                                    'id' => 'stock',
-                                    'icon' => 'mdi mdi-buffer',
-                                    'type' => 'number',
-                                    'value' => old('stock')
+                                    'name' => 'Ville',
+                                    'id' => 'city',
+                                    'type' => 'text',
+                                    'value' =>  old('city'),
                                 ])
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6 col-xs-12">
-                                @include('partials.form.textarea', [
-                                    'name' => 'Description (français)',
-                                    'id' => 'fr_description',
-                                    'icon' => 'mdi mdi-format-align-justify',
-                                    'value' => old('fr_description')
+                            <div class="col-sm-4 col-xs-12">
+                                @include('partials.form.input', [
+                                    'name' => 'Pays',
+                                    'id' => 'country',
+                                    'type' => 'text',
+                                    'value' =>  old('country'),
                                 ])
                             </div>
-                            <div class="col-sm-6 col-xs-12">
-                                @include('partials.form.textarea', [
-                                   'name' => 'Description (anglais)',
-                                   'id' => 'en_description',
-                                   'icon' => 'mdi mdi-format-align-justify',
-                                   'value' => old('en_description')
+                            <div class="col-sm-4 col-xs-12">
+                                @include('partials.form.input', [
+                                    'name' => 'Profession',
+                                    'id' => 'profession',
+                                    'type' => 'text',
+                                    'value' =>  old('profession'),
+                                ])
+                            </div>
+                            <div class="col-sm-4 col-xs-12">
+                                @include('partials.form.input', [
+                                   'name' => 'Adresse',
+                                   'id' => 'address',
+                                   'type' => 'text',
+                                   'value' =>  old('address'),
                                ])
                             </div>
+                            <div class="col-sm-4 col-xs-12">
+                                @include('partials.form.textarea', [
+                                   'name' => 'Description',
+                                   'id' => 'description',
+                                   'value' => old('description'),
+                                ])
+                            </div>
                         </div>
+                        @include('partials.form.submit')
                     </form>
                 </div>
             </div>

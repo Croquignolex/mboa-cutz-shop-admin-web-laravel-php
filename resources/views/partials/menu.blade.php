@@ -16,7 +16,7 @@
                     </a>
                 </li>
                 {{--Categoris--}}
-                <li class="has-sub expand {{ active_page(categories_pages()) }}">
+                {{--<li class="has-sub expand {{ active_page(categories_pages()) }}">
                     <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#categories" aria-expanded="false" aria-controls="categories">
                         <i class="mdi mdi-database"></i>
                         <span class="nav-text">Categories</span> <b class="caret"></b>
@@ -41,9 +41,9 @@
                             </li>
                         </div>
                     </ul>
-                </li>
+                </li>--}}
                 {{--Produits--}}
-                <li class="has-sub expand {{ active_page(products_pages()) }}">
+                {{--<li class="has-sub expand {{ active_page(products_pages()) }}">
                     <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#products" aria-expanded="false" aria-controls="products">
                         <i class="mdi mdi-basket"></i>
                         <span class="nav-text">Produits</span> <b class="caret"></b>
@@ -68,7 +68,7 @@
                             </li>
                         </div>
                     </ul>
-                </li>
+                </li>--}}
                 {{--Admins--}}
                 <li class="has-sub expand {{ active_page(admins_pages()) }}">
                     <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#admins" aria-expanded="false" aria-controls="admins">

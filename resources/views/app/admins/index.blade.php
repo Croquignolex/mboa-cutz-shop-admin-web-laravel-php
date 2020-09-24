@@ -16,7 +16,7 @@
             <div class="col">
                 <div class="card card-default">
                     <div class="card-header card-header-border-bottom">
-                        <h2>Les administrateur</h2>
+                        <h2>Les administrateurs</h2>
                     </div>
                     <div class="card-body">
                         <div class="mb-3">

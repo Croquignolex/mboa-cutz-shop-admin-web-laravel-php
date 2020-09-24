@@ -45,7 +45,8 @@ class ProfileController extends Controller
             ->logs()
             ->orderBy('created_at', 'desc')
             ->paginate(Constants::DEFAULT_PAGE_PAGINATION_ITEMS)
-            ->onEachSide(Constants::DEFAULT_PAGE_PAGINATION_ITEMS);
+            ->onEachSide(Constants::DEFAULT_PAGE_PAGINATION_EACH_SIDE);
+
         return view('app.profile.logs', compact("logs"));
     }
 
@@ -61,8 +62,10 @@ class ProfileController extends Controller
             'first_name', 'last_name', 'phone', 'description',
             'post_code', 'city', 'country', 'profession', 'address',
         ]));
+
         success_toast_alert('Profil mis à jour avec succès');
         log_activity("Profil", "Mise à jour des informations personnelles");
+
         return back();
     }
 
@@ -90,6 +93,7 @@ class ProfileController extends Controller
         $user->update(compact('password'));
         success_toast_alert('Mot de passe mis à jour avec succès');
         log_activity("Profil", "Mise à jour du mot de passe");
+
         return back();
     }
 

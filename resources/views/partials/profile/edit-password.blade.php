@@ -1,12 +1,14 @@
 <form method="POST" action="{{ route('profile.update.password') }}">
     @csrf
-    @include('partials.form.input', [
-        'name' => 'Ancien mot de passe',
-        'id' => 'old_password',
-        'type' => 'password',
-        'value' =>  old('old_password'),
-    ])
     <div class="row">
+        <div class="col-sm-12 col-xs-12">
+            @include('partials.form.input', [
+                'name' => 'Ancien mot de passe',
+                'id' => 'old_password',
+                'type' => 'password',
+                'value' =>  old('old_password'),
+            ])
+        </div>
         <div class="col-sm-6 col-xs-12">
             @include('partials.form.input', [
                'name' => 'Nouveau mot de passe',

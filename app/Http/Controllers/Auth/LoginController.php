@@ -96,6 +96,7 @@ class LoginController extends Controller
         log_activity("Authentification", "Deconnexion de la plateforme");
         $this->guard()->logout();
         $request->session()->invalidate();
+
         return redirect(route('login'));
     }
 
@@ -107,6 +108,7 @@ class LoginController extends Controller
     {
         $credentials = $request->only($this->username(), 'password');
         Arr::add($credentials, 'is_confirmed', true);
+
         return $credentials;
     }
 
