@@ -4,7 +4,6 @@ namespace App\Http\Controllers\App;
 
 use App\Enums\Constants;
 use App\Enums\ImagePath;
-use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
@@ -59,6 +58,7 @@ class ProfileController extends Controller
             'post_code', 'city', 'country', 'profession', 'address',
         ]));
         success_toast_alert('Profil mis à jour avec succès');
+        log_activity("Profil", "Mise à jour des informations personnelles");
         return back();
     }
 
@@ -85,6 +85,7 @@ class ProfileController extends Controller
 
         $user->update(compact('password'));
         success_toast_alert('Mot de passe mis à jour avec succès');
+        log_activity("Profil", "Mise à jour du mot de passe");
         return back();
     }
 
@@ -112,6 +113,7 @@ class ProfileController extends Controller
             'avatar_extension' => $user_avatar_to_save['extension'],
         ]);
 
+        log_activity("Profil", "Mise à jour de la photo de profil");
         return response()->json(['message' => 'Photo de profil mise à jour avec succès']);
     }
 }
