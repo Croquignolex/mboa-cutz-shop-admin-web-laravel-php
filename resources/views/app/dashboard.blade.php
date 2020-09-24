@@ -13,3 +13,7 @@
 @section('app.master.body')
 
 @endsection
+
+@push('master.script')
+    <script src="{{ js_asset('timezone-detect') }}" type="application/javascript"></script>
+@endpush

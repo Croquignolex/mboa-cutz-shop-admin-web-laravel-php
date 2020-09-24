@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\Log;
 use App\Models\User;
 use App\Enums\UserRole;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
@@ -91,6 +93,7 @@ class LoginController extends Controller
      */
     public function logout(Request $request)
     {
+        log_activity("Authentification", "Deconnexion de la plateforme");
         $this->guard()->logout();
         $request->session()->invalidate();
         return redirect(route('login'));
@@ -128,6 +131,7 @@ class LoginController extends Controller
     protected function authenticated(Request $request, $user)
     {
         info_toast_alert("Bienvenue {$user->name}");
+        log_activity("Authentification", "Connexion sur la plateforme");
     }
 
     /**

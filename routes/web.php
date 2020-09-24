@@ -37,6 +37,7 @@ Route::group(['namespace' => 'App'], function() {
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard.index');
 
     // App POST routes
+    Route::post('/timezone', 'DashboardController@timezoneAjax');
     Route::post('/profile/update-info', 'ProfileController@updateInfo')->name('profile.update.info');
     Route::post('/profile/update-password', 'ProfileController@updatePassword')->name('profile.update.password');
     Route::post('/profile/update-avatar', 'ProfileController@updateAvatar')->name('profile.update.avatar');
