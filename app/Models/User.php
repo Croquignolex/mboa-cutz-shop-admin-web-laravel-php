@@ -47,7 +47,7 @@ class User extends Authenticate
      *
      * @var array
      */
-    protected $guarded = ['slug', 'id', 'is_confirmed', 'role_id'];
+    protected $guarded = ['slug', 'id', 'is_confirmed', 'role_id', 'creator_id'];
 
     /**
      * User role
@@ -57,6 +57,26 @@ class User extends Authenticate
     public function role()
     {
         return $this->belongsTo('App\Models\Role');
+    }
+
+    /**
+     * User role
+     *
+     * @return BelongsTo
+     */
+    public function creator()
+    {
+        return $this->belongsTo('App\Models\User', 'creator_id');
+    }
+
+    /**
+     * User logs
+     *
+     * @return HasMany
+     */
+    public function created_users()
+    {
+        return $this->hasMany('App\Models\User', 'creator_id');
     }
 
     /**

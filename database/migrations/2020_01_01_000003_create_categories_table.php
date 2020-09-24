@@ -21,10 +21,11 @@ class CreateCategoriesTable extends Migration
             $table->text('fr_description')->nullable();
             $table->text('en_description')->nullable();
             $table->boolean('is_activated')->default(true);
-            $table->unsignedInteger('created_by');
+            $table->unsignedInteger('creator_id');
+            $table->softDeletes();
             $table->timestamps();
 
-            $table->foreign('created_by')
+            $table->foreign('creator_id')
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
@@ -38,6 +39,8 @@ class CreateCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categories');
+        Schema::table('categories', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
     }
 }

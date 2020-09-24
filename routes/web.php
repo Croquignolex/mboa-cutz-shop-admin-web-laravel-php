@@ -25,10 +25,8 @@ Route::group(['namespace' => 'Auth'], function() {
 Route::group(['namespace' => 'App'], function() {
     // App resources routes
     Route::resources([
-        'articles' => 'ArticleController',
         'products' => 'ProductController',
-        'categories' => 'CategoryController',
-//        'products.reviews' => 'ProductReviewController',
+        'categories' => 'CategoryController'
     ]);
 
     // App GET routes
