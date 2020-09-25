@@ -2,6 +2,8 @@
 
 use App\Enums\Constants;
 use App\Enums\ImagePath;
+use App\Enums\UserRole;
+use App\Models\Role;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -88,7 +90,6 @@ if(!function_exists('text_format'))
         return $text;
     }
 }
-
 
 if(!function_exists('log_activity'))
 {

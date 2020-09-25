@@ -28,8 +28,9 @@
 
                         <div class="mb-3">{{ $admins->links() }}</div>
 
-                        <table class="table table-bordered table-hover">
-                            <thead>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover">
+                                <thead>
                                 <tr>
                                     <th scope="col">DATE</th>
                                     <th scope="col">AVATAR</th>
@@ -40,8 +41,8 @@
                                     <th scope="col">NOM</th>
                                     <th scope="col">ACTIONS</th>
                                 </tr>
-                            </thead>
-                            <tbody>
+                                </thead>
+                                <tbody>
                                 @foreach ($admins as $admin)
                                     <tr>
                                         <td>{{ $admin->creation_date }}</td>
@@ -60,8 +61,10 @@
                                         <td></td>
                                     </tr>
                                 @endforeach
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        </div>
+
 
                         <div>{{ $admins->links() }}</div>
                     </div>

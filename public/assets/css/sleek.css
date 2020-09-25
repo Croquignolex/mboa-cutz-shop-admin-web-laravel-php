@@ -7058,7 +7058,7 @@ button {
 
 /* Over Flow Hidden */
 .overflow-hidden {
-  overflow: hidden; }
+  overflow: scroll !important; }
 
 /*===== ALERT =====*/
 .alert {
@@ -10943,8 +10943,7 @@ tbody tr td:first-child {
   .table-responsive-large {
     display: inline-table; } }
 
-.table-responsive {
-  display: table; }
+/*.table-responsive {display: table;}*/
 
 /* Customer Table */
 .customer-table .media-image {

@@ -18,20 +18,24 @@
                     <h2>Ajouter un nouvel administrateur</h2>
                 </div>
                 <div class="card-body">
+                    <div class="mx-5">@include('partials.error-message')</div>
                     <form action="{{ route('admins.store') }}" method="POST">
                         @csrf
-                        @method('PUT')
                         <div class="row">
                             <div class="col-sm-4 col-xs-12">
                                 @include('partials.form.select', [
-                                    'name' => 'Role',
+                                    'name' => 'Role*',
                                     'id' => 'role',
-                                    'value' => old('fr_name')
+                                    'title' => 'Choisir un role',
+                                    'value' => old('role'),
+                                    'options' => $roles
                                 ])
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col-sm-4 col-xs-12">
                                 @include('partials.form.input', [
-                                    'name' => 'Prénom',
+                                    'name' => 'Prénom*',
                                     'id' => 'first_name',
                                     'type' => 'text',
                                     'value' => old('first_name'),
@@ -39,7 +43,7 @@
                             </div>
                             <div class="col-sm-4 col-xs-12">
                                 @include('partials.form.input', [
-                                    'name' => 'Nom',
+                                    'name' => 'Nom*',
                                     'id' => 'last_name',
                                     'type' => 'text',
                                     'value' => old('last_name'),
@@ -47,7 +51,15 @@
                             </div>
                             <div class="col-sm-4 col-xs-12">
                                 @include('partials.form.input', [
-                                   'name' => 'Email',
+                                    'name' => 'Profession',
+                                    'id' => 'profession',
+                                    'type' => 'text',
+                                    'value' =>  old('profession'),
+                                ])
+                            </div>
+                            <div class="col-sm-4 col-xs-12">
+                                @include('partials.form.input', [
+                                   'name' => 'Email*',
                                    'id' => 'email',
                                    'type' => 'email',
                                    'value' => old('email'),
@@ -59,6 +71,14 @@
                                    'id' => 'phone',
                                    'type' => 'text',
                                    'value' =>  old('phone'),
+                               ])
+                            </div>
+                            <div class="col-sm-4 col-xs-12">
+                                @include('partials.form.input', [
+                                   'name' => 'Adresse',
+                                   'id' => 'address',
+                                   'type' => 'text',
+                                   'value' =>  old('address'),
                                ])
                             </div>
                             <div class="col-sm-4 col-xs-12">
@@ -85,23 +105,7 @@
                                     'value' =>  old('country'),
                                 ])
                             </div>
-                            <div class="col-sm-4 col-xs-12">
-                                @include('partials.form.input', [
-                                    'name' => 'Profession',
-                                    'id' => 'profession',
-                                    'type' => 'text',
-                                    'value' =>  old('profession'),
-                                ])
-                            </div>
-                            <div class="col-sm-4 col-xs-12">
-                                @include('partials.form.input', [
-                                   'name' => 'Adresse',
-                                   'id' => 'address',
-                                   'type' => 'text',
-                                   'value' =>  old('address'),
-                               ])
-                            </div>
-                            <div class="col-sm-4 col-xs-12">
+                            <div class="col-sm-8 col-xs-12">
                                 @include('partials.form.textarea', [
                                    'name' => 'Description',
                                    'id' => 'description',

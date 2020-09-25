@@ -37,6 +37,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property mixed format_first_name
  * @property mixed slug
  * @property mixed logs
+ * @property mixed can_grant_super_admin_user
+ * @property mixed can_grant_admin_user
  */
 class User extends Authenticate
 {
@@ -174,8 +176,21 @@ class User extends Authenticate
         $connected_user = Auth::user();
         return (
             ($connected_user->id !== $this->id) &&
-            ($this->role->type === UserRole::USER) &&
-            ($connected_user->role->type !== UserRole::USER)
+            (
+                (
+                    ($this->role->type === UserRole::USER) &&
+                    (
+                        (
+                            $connected_user->role->type === UserRole::ADMIN ||
+                            $connected_user->role->type === UserRole::SUPER_ADMIN
+                        )
+                    )
+                ) ||
+                (
+                    ($this->role->type === UserRole::SUPER_ADMIN) &&
+                    ($connected_user->role->type === UserRole::SUPER_ADMIN)
+                )
+            )
         );
     }
 

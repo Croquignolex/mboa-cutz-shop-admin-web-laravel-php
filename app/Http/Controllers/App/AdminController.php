@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\App;
 
+use App\Http\Requests\AdminCreateRequest;
 use App\Models\Role;
 use App\Models\User;
 use App\Enums\UserRole;
@@ -50,8 +51,24 @@ class AdminController extends Controller
      */
     public function create()
     {
-        if(Auth::user()->role->name === UserRole::SUPER_ADMIN) $roles = [UserRole::ADMIN, UserRole::SUPER_ADMIN];
-        else $roles = [UserRole::ADMIN];
+        $admin_role = Role::where('type', UserRole::ADMIN)->first();
+        $super_admin_role = Role::where('type', UserRole::SUPER_ADMIN)->first();
+
+        $roles =  [
+            [
+                "value" => $admin_role->type,
+                "label" => $admin_role->name,
+                'class' => "badge badge-pill badge-$admin_role->badge_color"
+            ]
+        ];
+
+        if(Auth::user()->role->type === UserRole::SUPER_ADMIN)  {
+            $roles[] = [
+                "value" => $super_admin_role->type,
+                "label" => $super_admin_role->name,
+                'class' => "badge badge-pill badge-$super_admin_role->badge_color"
+            ];
+        }
 
         return view('app.admins.create', compact('roles'));
     }
@@ -59,13 +76,27 @@ class AdminController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param AdminCreateRequest $request
      * @return Application|RedirectResponse|Response|Redirector
      */
-    public function store(Request $request)
+    public function store(AdminCreateRequest $request)
     {
-        // TODO: store
-        return redirect(route('products.index'));
+        $role = Role::where('type', $request->input('role'))->first();
+        $user = Role::where('type', UserRole::USER)->first()->users()->create($request->only([
+            'first_name', 'last_name', 'phone', 'description', 'post_code',
+            'city', 'country', 'profession', 'address', 'email'
+        ]));
+
+        if($this->can_grant_privileges($user, $role)) {
+            $user->role()->associate($role);
+            $user->save();
+        } else {
+            danger_toast_alert("Vous n'avez pas le droit d'éffectuer cette opération");
+            return back();
+        }
+
+        success_toast_alert("Utitlisateur {$request->input('first_name')} créer avec success");
+        return redirect(route('admins.index'));
     }
 
     /**
@@ -114,5 +145,22 @@ class AdminController extends Controller
     {
         // TODO: delete
         return redirect(route('products.index'));
+    }
+
+    /**
+     * User can grant required privilege
+     *
+     * @param User $user
+     * @param $role
+     * @return bool
+     */
+    private function can_grant_privileges(User $user, $role) {
+        return (
+            ($role !== null) &&
+            (
+                (($role->type === UserRole::SUPER_ADMIN) && $user->can_grant_super_admin_user) ||
+                (($role->type === UserRole::ADMIN) && $user->can_grant_admin_user)
+            )
+        );
     }
 }

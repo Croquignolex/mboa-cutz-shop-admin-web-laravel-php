@@ -12,7 +12,7 @@
         <div class="col-sm-6 col-xs-12">
             @include('partials.form.input', [
                 'name' => 'Nom',
-                'id' => 'last_name',,
+                'id' => 'last_name',
                 'type' => 'text',
                 'value' =>  old('last_name') ?? auth()->user()->last_name,
             ])
