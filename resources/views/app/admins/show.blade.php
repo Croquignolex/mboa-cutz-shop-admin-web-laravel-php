@@ -27,8 +27,11 @@
                                 </a>
                             @endif
                             @if($admin->can_delete)
-                                <button class="btn btn-danger">
-                                    <i class="mdi mdi-delete"></i>
+                                <button class="btn btn-danger"
+                                        data-toggle="modal"
+                                        data-target="{{ "#archive-admin-modal" }}"
+                                >
+                                    <i class="mdi mdi-archive"></i>
                                     Supprimer
                                 </button>
                             @endif
@@ -55,4 +58,17 @@
             </div>
         </div>
     </div>
+
+    @if($admin->can_delete)
+        @component('components.archive-confirmation-modal', [
+            'modal_id' => "archive-admin-modal",
+            'delete_url' => route('admins.destroy', compact('admin'))
+        ])
+            <p>
+                Voulez-vous archiver <strong>{{ $admin->full_name }}</strong>?<br><br>
+                Vous pouvez toujours le consulter dans la section des archives
+                et le restaurer à tous moment.
+            </p>
+        @endcomponent
+    @endif
 @endsection

@@ -2,7 +2,7 @@ $(document).ready(function() {
     // Disable submit button while submit
     $('button[type="submit"]').click(function() {
         $(this).addClass('disabled')
-    })
+    });
 });
 
 // Ajax request

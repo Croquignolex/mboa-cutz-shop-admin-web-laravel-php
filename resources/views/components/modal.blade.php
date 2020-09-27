@@ -4,12 +4,11 @@
         <div class="modal-content">
             {{-- Modal header --}}
             <div class="modal-header">
-                <h5 class="modal-title">{{ $modal_title }}</h5>
+                <strong class="modal-title">{{ $modal_title }}</strong>
                 <span aria-hidden="true" class="close" data-dismiss="modal" aria-label="Close">&times;</span>
             </div>
 
-            {{-- Modal body --}}
-            <div class="modal-body">{{ $slot }}</div>
+            {{ $slot }}
         </div>
     </div>
 </div>

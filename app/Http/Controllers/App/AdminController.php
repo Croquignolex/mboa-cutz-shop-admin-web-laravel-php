@@ -153,15 +153,19 @@ class AdminController extends Controller
     }
 
     /**
-     * @param Request $request
      * @param User $admin
      * @return Application|Factory|RedirectResponse|View
+     * @throws \Exception
      */
-    public function destroy(Request $request, User $admin)
+    public function destroy(User $admin)
     {
         if(!$admin->can_delete) return $this->unauthorizedToast();
 
-        // TODO: delete
+        $admin->delete();
+
+        success_toast_alert("Administrateur $admin->full_name archivé avec success");
+        log_activity("Administrateur", "Archivage de l'administrateur $admin->full_name");
+
         return redirect(route('admins.index'));
     }
 

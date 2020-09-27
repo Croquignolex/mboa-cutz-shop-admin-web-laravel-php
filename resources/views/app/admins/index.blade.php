@@ -74,30 +74,26 @@
                                             @if($admin->can_delete)
                                                 <button class="btn btn-sm btn-danger"
                                                         data-toggle="modal"
-                                                        data-target="{{ "#$admin->slug-delete-admin-modal" }}"
+                                                        data-target="{{ "#$admin->slug-archive-admin-modal" }}"
                                                 >
-                                                    <i class="mdi mdi-delete"></i>
+                                                    <i class="mdi mdi-archive"></i>
                                                 </button>
                                             @endif
                                         </td>
                                     </tr>
 
-                                    @component('components.modal', [
-                                        'modal_id' => "$admin->slug-delete-admin-modal",
-                                        'modal_size' => '',
-                                        'modal_title' => "Supprimer $admin->full_name",
-                                    ])
-                                        <div class="bg-danger text-white p-3 mb-3">
-                                             description
-                                        </div>
-                                        <div class="text-right">
-                                            <button type="button" class="btn btn-light ml-1 mr-1" data-dismiss="modal">Annuler</button>
-                                            <button type="button" class="btn btn-primary ml-1 mr-1" id="modal-save-image">
-                                                <i class="mdi mdi-check"></i>
-                                                Enrégistrer
-                                            </button>
-                                        </div>
-                                    @endcomponent
+                                    @if($admin->can_delete)
+                                        @component('components.archive-confirmation-modal', [
+                                            'modal_id' => "$admin->slug-archive-admin-modal",
+                                            'delete_url' => route('admins.destroy', compact('admin'))
+                                        ])
+                                            <p>
+                                                Voulez-vous archiver <strong>{{ $admin->full_name }}</strong>?<br><br>
+                                                Vous pouvez toujours le consulter dans la section des archives
+                                                et le restaurer à tous moment.
+                                            </p>
+                                        @endcomponent
+                                    @endif
                                 @endforeach
                                 </tbody>
                             </table>
