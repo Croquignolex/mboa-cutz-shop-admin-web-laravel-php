@@ -2,17 +2,21 @@
 
 namespace App\Models;
 
+use App\Traits\DateTrait;
+use App\Traits\CreatorTrait;
 use App\Traits\SlugRouteTrait;
+use App\Traits\RestorationTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
- * @property mixed type
+ * @property mixed fr_name
+ * @property mixed slug
  */
 class Category extends Model
 {
-    use SoftDeletes, SlugRouteTrait;
+    use SoftDeletes, SlugRouteTrait, DateTrait, RestorationTrait, CreatorTrait;
 
     /**
      * The attributes that should be cast.
@@ -27,5 +31,15 @@ class Category extends Model
     public function products()
     {
         return $this->hasMany('App\Models\Product');
+    }
+
+    /**
+     * Check if category can be deleted
+     *
+     * @return mixed
+     */
+    public function getCanDeleteAttribute()
+    {
+        return true;
     }
 }

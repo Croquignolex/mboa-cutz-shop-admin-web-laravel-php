@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\App;
 
-use App\Enums\Constants;
 use App\Models\Product;
+use App\Enums\Constants;
 use App\Models\Category;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
@@ -32,12 +32,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all()
-            ->orderBy('created_at', 'desc')
+        $categories = Category::orderBy('created_at', 'desc')
             ->paginate(Constants::DEFAULT_PAGE_PAGINATION_ITEMS)
             ->onEachSide(Constants::DEFAULT_PAGE_PAGINATION_EACH_SIDE);
-//        $categories = Category::all()->sortByDesc('created_at');
-        dd($categories);
+
         return view('app.categories.index', compact('categories'));
     }
 

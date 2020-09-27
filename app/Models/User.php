@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\UserRole;
 use App\Enums\Constants;
 use App\Traits\DateTrait;
+use App\Traits\CreatorTrait;
 use App\Traits\SlugRouteTrait;
 use App\Traits\RestorationTrait;
 use Illuminate\Support\Facades\Auth;
@@ -48,7 +49,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class User extends Authenticate
 {
 
-    use SoftDeletes, SlugRouteTrait, DateTrait, RestorationTrait;
+    use SoftDeletes, SlugRouteTrait, DateTrait, RestorationTrait, CreatorTrait;
 
     /**
      * The attributes that aren't mass assignable.
@@ -65,16 +66,6 @@ class User extends Authenticate
     public function role()
     {
         return $this->belongsTo('App\Models\Role');
-    }
-
-    /**
-     * User role
-     *
-     * @return BelongsTo
-     */
-    public function creator()
-    {
-        return $this->belongsTo('App\Models\User', 'creator_id');
     }
 
     /**
