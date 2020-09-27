@@ -16,7 +16,7 @@
             <div class="col">
                 <div class="card card-default">
                     <div class="card-header card-header-border-bottom">
-                        <h2>Journal d'activités</h2>
+                        <h2>Journal d'activités ({{ $logs->total() }})</h2>
                     </div>
                     <div class="card-body">
                         @include('partials.user-logs', compact('logs'))

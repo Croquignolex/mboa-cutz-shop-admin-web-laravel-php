@@ -6,6 +6,7 @@ use App\Enums\UserRole;
 use App\Enums\Constants;
 use App\Traits\DateTrait;
 use App\Traits\SlugRouteTrait;
+use App\Traits\RestorationTrait;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -40,13 +41,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property mixed creator
  * @property mixed can_edit
  * @property mixed can_delete
+ * @property mixed can_restore
  * @property mixed can_grant_super_admin_user
  * @property mixed can_grant_admin_user
  */
 class User extends Authenticate
 {
 
-    use SoftDeletes, SlugRouteTrait, DateTrait;
+    use SoftDeletes, SlugRouteTrait, DateTrait, RestorationTrait;
 
     /**
      * The attributes that aren't mass assignable.

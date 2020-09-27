@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('app.master.title', page_title('Administrateurs'))
+@section('app.master.title', page_title('Administrateurs archivés'))
 
 @section('app.breadcrumb')
     @include('partials.breadcrumb', [
-        'title' => 'Administrateurs',
+        'title' => 'Administrateurs archivés',
         'icon' => 'mdi mdi-account-multiple',
-        'chain' => ['Administrateurs']
+        'chain' => ['Archives', 'Administrateurs archivés']
     ])
 @endsection
 
@@ -16,15 +16,9 @@
             <div class="col">
                 <div class="card card-default">
                     <div class="card-header card-header-border-bottom">
-                        <h2>Les administrateurs ({{ $admins->total() }})</h2>
+                        <h2>Les administrateurs archivés ({{ $admins->total() }})</h2>
                     </div>
                     <div class="card-body">
-                        <div class="mb-3">
-                            <a class="btn btn-primary" href="{{ route('admins.create') }}">
-                                <i class="mdi mdi-plus"></i>
-                                Nouvel administrateur
-                            </a>
-                        </div>
 
                         <div class="mb-3">{{ $admins->links() }}</div>
 
@@ -61,36 +55,25 @@
                                         <td>{{ $admin->phone }}</td>
                                         <td>{{ $admin->creator_name}}</td>
                                         <td class="text-center">
-                                            @if($admin->can_show)
-                                                <a href="{{ route('admins.show', compact('admin')) }}" class="btn btn-sm btn-primary">
-                                                    <i class="mdi mdi-eye"></i>
-                                                </a>
-                                            @endif
-                                            @if($admin->can_edit)
-                                                <a href="{{ route('admins.edit', compact('admin')) }}" class="btn btn-sm btn-warning">
-                                                    <i class="mdi mdi-pencil"></i>
-                                                </a>
-                                            @endif
                                             @if($admin->can_delete)
-                                                <button class="btn btn-sm btn-danger"
+                                                <button class="btn btn-sm btn-success"
                                                         data-toggle="modal"
-                                                        data-target="{{ "#$admin->slug-archive-admin-modal" }}"
+                                                        data-target="{{ "#$admin->slug-restore-admin-modal" }}"
                                                 >
-                                                    <i class="mdi mdi-archive"></i>
+                                                    <i class="mdi mdi-backup-restore"></i>
                                                 </button>
                                             @endif
                                         </td>
                                     </tr>
 
-                                    @if($admin->can_delete)
-                                        @component('components.archive-confirmation-modal', [
-                                            'modal_id' => "$admin->slug-archive-admin-modal",
-                                            'url' => route('admins.destroy', compact('admin'))
+                                    @if($admin->can_restore)
+                                        @component('components.restore-confirmation-modal', [
+                                            'modal_id' => "$admin->slug-restore-admin-modal",
+                                            'url' => route('archives.admins.restore', compact('admin'))
                                         ])
                                             <p>
-                                                Voulez-vous archiver <strong>{{ $admin->full_name }}</strong>?<br><br>
-                                                Vous pouvez toujours le consulter dans la section des archives
-                                                et le restaurer à tous moment.
+                                                Voulez-vous restorer <strong>{{ $admin->full_name }}</strong>?<br><br>
+                                                Une fois restoré, vous pourrez effectuer toutes opératons possible.
                                             </p>
                                         @endcomponent
                                     @endif

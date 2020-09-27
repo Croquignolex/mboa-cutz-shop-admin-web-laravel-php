@@ -48,7 +48,7 @@
                             </div>
                             <div class="col-lg-7 col-xl-8">
                                 <div class="profile-content-right p-4">
-                                    <h5>Journal d'activités</h5>
+                                    <h5>Journal d'activités ({{ $logs->total() }})</h5>
                                     @include('partials.user-logs', compact('logs'))
                                 </div>
                             </div>
@@ -62,7 +62,7 @@
     @if($admin->can_delete)
         @component('components.archive-confirmation-modal', [
             'modal_id' => "archive-admin-modal",
-            'delete_url' => route('admins.destroy', compact('admin'))
+            'url' => route('admins.destroy', compact('admin'))
         ])
             <p>
                 Voulez-vous archiver <strong>{{ $admin->full_name }}</strong>?<br><br>

@@ -1,8 +1,8 @@
 @component('components.modal', [
     'modal_id' => $modal_id,
-    'modal_title' => "Confirmer l'archivage",
+    'modal_title' => "Confirmer la restoration",
 ])
-    <div class="modal-body bg-danger text-white">
+    <div class="modal-body bg-success text-white">
         {{ $slot }}
     </div>
 
@@ -13,8 +13,7 @@
         </button>
         <form action="{{ $url }}" method="POST">
             {{ csrf_field() }}
-            {{ method_field('DELETE') }}
-            <button type="submit" class="btn btn-danger ml-1 mr-1">
+            <button type="submit" class="btn btn-success ml-1 mr-1">
                 <i class="mdi mdi-check"></i>
                 Confirmer
             </button>

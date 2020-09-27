@@ -1,7 +1,7 @@
 <form method="POST" action={{ route('profile.update.info') }}>
     @csrf
     <div class="row">
-        <div class="col-sm-6 col-xs-12">
+        <div class="col-sm-6">
             @include('partials.form.input', [
                 'name' => 'Prénom',
                 'id' => 'first_name',
@@ -9,7 +9,7 @@
                 'value' =>  old('first_name') ?? auth()->user()->first_name,
             ])
         </div>
-        <div class="col-sm-6 col-xs-12">
+        <div class="col-sm-6">
             @include('partials.form.input', [
                 'name' => 'Nom',
                 'id' => 'last_name',
@@ -17,7 +17,7 @@
                 'value' =>  old('last_name') ?? auth()->user()->last_name,
             ])
         </div>
-        <div class="col-sm-6 col-xs-12">
+        <div class="col-sm-6">
             @include('partials.form.input', [
                'name' => 'Téléphone',
                'id' => 'phone',
@@ -25,7 +25,7 @@
                'value' =>  old('phone') ?? auth()->user()->phone,
            ])
         </div>
-        <div class="col-sm-6 col-xs-12">
+        <div class="col-sm-6">
             @include('partials.form.input', [
                 'name' => 'Code postal',
                 'id' => 'post_code',
@@ -33,7 +33,7 @@
                 'value' =>  old('post_code') ?? auth()->user()->post_code,
             ])
         </div>
-        <div class="col-sm-6 col-xs-12">
+        <div class="col-sm-6">
             @include('partials.form.input', [
                 'name' => 'Ville',
                 'id' => 'city',
@@ -41,7 +41,7 @@
                 'value' =>  old('city') ?? auth()->user()->city,
             ])
         </div>
-        <div class="col-sm-6 col-xs-12">
+        <div class="col-sm-6">
             @include('partials.form.input', [
                 'name' => 'Pays',
                 'id' => 'country',
@@ -49,7 +49,7 @@
                 'value' =>  old('country') ?? auth()->user()->country,
             ])
         </div>
-        <div class="col-sm-6 col-xs-12">
+        <div class="col-sm-6">
             @include('partials.form.input', [
                 'name' => 'Profession',
                 'id' => 'profession',
@@ -65,7 +65,7 @@
                'value' =>  old('address') ?? auth()->user()->address,
            ])
         </div>
-        <div class="col-sm-12 col-xs-12">
+        <div class="col-sm-12">
             @include('partials.form.textarea', [
                 'name' => 'Description',
                 'id' => 'description',

@@ -41,3 +41,14 @@ Route::group(['namespace' => 'App'], function() {
     Route::post('/profile/update-password', 'ProfileController@updatePassword')->name('profile.update.password');
     Route::post('/profile/update-avatar', 'ProfileController@updateAvatar')->name('profile.update.avatar');
 });
+
+Route::group(['namespace' => 'Archive'], function() {
+    // App resources routes
+
+    // App GET routes
+    Route::get('/archives', 'ArchiveController@index')->name('archives.index');
+    Route::get('/archives/admins', 'AdminController@index')->name('archives.admins.index');
+
+    // App POST routes
+    Route::post('/archives/admins/{admin}/restore', 'AdminController@restore')->name('archives.admins.restore');
+});

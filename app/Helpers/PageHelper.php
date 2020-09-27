@@ -125,3 +125,14 @@ if(!function_exists('products_pages'))
         return collect(['products.index', 'products.create', 'products.show', 'products.edit']);
     }
 }
+
+if(!function_exists('archives_pages'))
+{
+    /**
+     * @return Collection
+     */
+    function archives_pages()
+    {
+        return collect(['archives.index', 'archives.admins.index']);
+    }
+}

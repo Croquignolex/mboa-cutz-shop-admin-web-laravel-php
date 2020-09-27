@@ -96,6 +96,13 @@
                         </div>
                     </ul>
                 </li>
+                {{--Dashboard--}}
+                <li  class="{{ active_page(archives_pages()) }}">
+                    <a class="sidenav-item-link" href="{{ route('archives.index') }}">
+                        <i class="mdi mdi-archive"></i>
+                        <span class="nav-text">Archives</span>
+                    </a>
+                </li>
                 {{--Articles--}}
                {{-- <li class="has-sub expand {{ active_page(articles_pages()) }}">
                     <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#articles" aria-expanded="false" aria-controls="articles">

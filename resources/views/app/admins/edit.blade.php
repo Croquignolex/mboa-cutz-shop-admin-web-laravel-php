@@ -23,7 +23,7 @@
                         @csrf
                         @method('PUT')
                         <div class="row">
-                            <div class="col-sm-4 col-xs-12">
+                            <div class="col-sm-4">
                                 @include('partials.form.select', [
                                     'name' => 'Role*',
                                     'id' => 'role',
@@ -34,7 +34,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-4 col-xs-12">
+                            <div class="col-sm-4">
                                 @include('partials.form.input', [
                                     'name' => 'Prénom*',
                                     'id' => 'first_name',
@@ -42,7 +42,7 @@
                                     'value' => old('first_name') ?? $admin->first_name,
                                 ])
                             </div>
-                            <div class="col-sm-4 col-xs-12">
+                            <div class="col-sm-4">
                                 @include('partials.form.input', [
                                     'name' => 'Nom*',
                                     'id' => 'last_name',
@@ -50,7 +50,7 @@
                                     'value' => old('last_name') ?? $admin->last_name,
                                 ])
                             </div>
-                            <div class="col-sm-4 col-xs-12">
+                            <div class="col-sm-4">
                                 @include('partials.form.input', [
                                     'name' => 'Profession',
                                     'id' => 'profession',
@@ -58,7 +58,7 @@
                                     'value' =>  old('profession') ?? $admin->profession,
                                 ])
                             </div>
-                            <div class="col-sm-4 col-xs-12">
+                            <div class="col-sm-4">
                                 @include('partials.form.input', [
                                    'name' => 'Téléphone',
                                    'id' => 'phone',
@@ -66,7 +66,7 @@
                                    'value' =>  old('phone') ?? $admin->phone,
                                ])
                             </div>
-                            <div class="col-sm-4 col-xs-12">
+                            <div class="col-sm-4">
                                 @include('partials.form.input', [
                                    'name' => 'Adresse',
                                    'id' => 'address',
@@ -74,7 +74,7 @@
                                    'value' =>  old('address') ?? $admin->address,
                                ])
                             </div>
-                            <div class="col-sm-4 col-xs-12">
+                            <div class="col-sm-4">
                                 @include('partials.form.input', [
                                     'name' => 'Code postal',
                                     'id' => 'post_code',
@@ -82,7 +82,7 @@
                                     'value' =>  old('post_code') ?? $admin->post_code,
                                 ])
                             </div>
-                            <div class="col-sm-4 col-xs-12">
+                            <div class="col-sm-4">
                                 @include('partials.form.input', [
                                     'name' => 'Ville',
                                     'id' => 'city',
@@ -90,7 +90,7 @@
                                     'value' =>  old('city') ?? $admin->city,
                                 ])
                             </div>
-                            <div class="col-sm-4 col-xs-12">
+                            <div class="col-sm-4">
                                 @include('partials.form.input', [
                                     'name' => 'Pays',
                                     'id' => 'country',
@@ -98,7 +98,7 @@
                                     'value' =>  old('country') ?? $admin->country,
                                 ])
                             </div>
-                            <div class="col-sm-8 col-xs-12">
+                            <div class="col-sm-8">
                                 @include('partials.form.textarea', [
                                    'name' => 'Description',
                                    'id' => 'description',
