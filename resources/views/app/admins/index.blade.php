@@ -35,10 +35,11 @@
                                     <th scope="col">DATE</th>
                                     <th scope="col">AVATAR</th>
                                     <th scope="col">ROLE</th>
-                                    <th scope="col">EMAIL</th>
-                                    <th scope="col">TELEPHONE</th>
                                     <th scope="col">PRENOM</th>
                                     <th scope="col">NOM</th>
+                                    <th scope="col">EMAIL</th>
+                                    <th scope="col">TELEPHONE</th>
+                                    <th scope="col">CREER PAR</th>
                                     <th scope="col">ACTIONS</th>
                                 </tr>
                                 </thead>
@@ -54,10 +55,11 @@
                                                 {{ $admin->role->name }}
                                             </span>
                                         </td>
-                                        <td>{{ $admin->email }}</td>
-                                        <td>{{ $admin->phone }}</td>
                                         <td>{{ $admin->format_first_name }}</td>
                                         <td>{{ $admin->format_last_name }}</td>
+                                        <td>{{ $admin->email }}</td>
+                                        <td>{{ $admin->phone }}</td>
+                                        <td>{{ $admin->creator_name}}</td>
                                         <td class="text-center">
                                             @if($admin->can_show)
                                                 <a href="{{ route('admins.show', compact('admin')) }}" class="btn btn-sm btn-primary">

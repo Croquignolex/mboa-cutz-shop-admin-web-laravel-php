@@ -37,7 +37,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property mixed format_first_name
  * @property mixed slug
  * @property mixed logs
- * @property mixed can_show
+ * @property mixed creator
  * @property mixed can_edit
  * @property mixed can_delete
  * @property mixed can_grant_super_admin_user
@@ -133,6 +133,16 @@ class User extends Authenticate
     public function getFormatLastNameAttribute()
     {
         return mb_strtoupper($this->last_name);
+    }
+
+    /**
+     * User save creator name
+     *
+     * @return mixed
+     */
+    public function getCreatorNameAttribute()
+    {
+        return $this->creator->full_name ?? '';
     }
 
     /**

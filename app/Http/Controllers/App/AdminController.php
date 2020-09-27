@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers\App;
 
-use App\Http\Requests\AdminCreateRequest;
-use App\Http\Requests\AdminUpdateRequest;
 use App\Models\Role;
 use App\Models\User;
 use App\Enums\UserRole;
-use App\Models\Product;
 use App\Enums\Constants;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
@@ -17,6 +14,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\Factory;
+use App\Http\Requests\AdminUpdateRequest;
+use App\Http\Requests\AdminCreateRequest;
 use Illuminate\Contracts\Foundation\Application;
 
 class AdminController extends Controller
@@ -74,6 +73,7 @@ class AdminController extends Controller
         if(!$this->can_grant_privileges($user, $role)) return $this->unauthorizedToast();
 
         $user->role()->associate($role);
+        $user->creator()->associate(Auth::user());
         $user->save();
 
         success_toast_alert("Administrateur $user->full_name créer avec success");
