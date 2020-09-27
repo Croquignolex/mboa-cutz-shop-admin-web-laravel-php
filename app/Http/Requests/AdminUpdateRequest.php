@@ -6,7 +6,7 @@ use App\Traits\RequestTrait;
 use Illuminate\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserUpdateInfoRequest extends FormRequest
+class AdminUpdateRequest extends FormRequest
 {
     use RequestTrait;
 
@@ -25,6 +25,7 @@ class UserUpdateInfoRequest extends FormRequest
             'post_code' => $this->string,
             'profession' => $this->string,
             'description' => $this->string,
+            'role' => $this->required_string,
             'last_name' => $this->required_string,
             'first_name' => $this->required_string,
         ];

@@ -49,6 +49,7 @@
     <p class="text-dark font-weight-medium pt-4 mb-2">Description</p>
     <p>{{ $user->description }}</p>
 </div>
+
 @if($can_update_avatar)
     @include('partials.croup-modal')
 @endif

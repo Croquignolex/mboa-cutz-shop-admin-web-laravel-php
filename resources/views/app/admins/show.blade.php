@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('app.master.title', page_title('Détail administrateur'))
+@section('app.master.title', page_title('Détails administrateur'))
 
 @section('app.breadcrumb')
     @include('partials.breadcrumb', [
-        'title' => 'Détail administrateur',
+        'title' => 'Détails administrateur',
         'icon' => 'mdi mdi-account-multiple',
-        'chain' => ['Administrateurs', 'Détail administrateur']
+        'chain' => ['Administrateurs', 'Détails administrateur']
     ])
 @endsection
 
@@ -16,18 +16,22 @@
             <div class="col">
                 <div class="card card-default">
                     <div class="card-header card-header-border-bottom">
-                        <h2>{{ $admin->full_name }}</h2>
+                        <h2>Details {{ $admin->full_name }}</h2>
                     </div>
                     <div class="card-body">
                         <div class="mb-3 text-right">
-                            <a class="btn btn-warning" href="{{ route('admins.edit', compact('admin')) }}">
-                                <i class="mdi mdi-pencil"></i>
-                                Modifier
-                            </a>
-                            <button class="btn btn-danger">
-                                <i class="mdi mdi-delete"></i>
-                                Supprimer
-                            </button>
+                            @if($admin->can_edit)
+                                <a class="btn btn-warning" href="{{ route('admins.edit', compact('admin')) }}">
+                                    <i class="mdi mdi-pencil"></i>
+                                    Modifier
+                                </a>
+                            @endif
+                            @if($admin->can_delete)
+                                <button class="btn btn-danger">
+                                    <i class="mdi mdi-delete"></i>
+                                    Supprimer
+                                </button>
+                            @endif
                         </div>
 
                         <div class="row no-gutters">

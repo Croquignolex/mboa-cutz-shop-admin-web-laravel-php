@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\App;
 
 use App\Http\Requests\AdminCreateRequest;
+use App\Http\Requests\AdminUpdateRequest;
 use App\Models\Role;
 use App\Models\User;
 use App\Enums\UserRole;
@@ -37,7 +38,7 @@ class AdminController extends Controller
     {
         $admins = User::where('role_id', Role::where('type', UserRole::ADMIN)->first()->id)
             ->orWhere('role_id', Role::where('type', UserRole::SUPER_ADMIN)->first()->id)
-            ->orderBy('created_at', 'desc')
+            ->orderBy('updated_at', 'desc')
             ->paginate(Constants::DEFAULT_PAGE_PAGINATION_ITEMS)
             ->onEachSide(Constants::DEFAULT_PAGE_PAGINATION_EACH_SIDE);
 
@@ -51,6 +52,142 @@ class AdminController extends Controller
      */
     public function create()
     {
+        $roles = $this->user_accessible_roles();
+
+        return view('app.admins.create', compact('roles'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param AdminCreateRequest $request
+     * @return Application|RedirectResponse|Response|Redirector
+     */
+    public function store(AdminCreateRequest $request)
+    {
+        $role = Role::where('type', $request->input('role'))->first();
+        $user = Role::where('type', UserRole::USER)->first()->users()->create($request->only([
+            'first_name', 'last_name', 'phone', 'description', 'post_code',
+            'city', 'country', 'profession', 'address', 'email'
+        ]));
+
+        if(!$this->can_grant_privileges($user, $role)) return $this->unauthorizedToast();
+
+        $user->role()->associate($role);
+        $user->save();
+
+        success_toast_alert("Administrateur $user->full_name créer avec success");
+        log_activity("Administrateur", "Création de l'administrateur $user->full_name");
+
+        return redirect(route('admins.index'));
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param User $admin
+     * @return Application|Factory|RedirectResponse|View
+     */
+    public function show(User $admin)
+    {
+        if(!$admin->can_show) return $this->unauthorizedToast();
+
+        $logs = $admin
+            ->logs()
+            ->orderBy('created_at', 'desc')
+            ->paginate(Constants::DEFAULT_PAGE_PAGINATION_ITEMS)
+            ->onEachSide(Constants::DEFAULT_PAGE_PAGINATION_EACH_SIDE);
+
+        return view('app.admins.show', compact('admin', 'logs'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param User $admin
+     * @return Application|RedirectResponse|Response|Redirector
+     */
+    public function edit(User $admin)
+    {
+        if(!$admin->can_edit) return $this->unauthorizedToast();
+
+        $roles = $this->user_accessible_roles();
+
+        $role = $admin->role->type;
+
+        return view('app.admins.edit', compact('admin', 'roles', 'role'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param AdminUpdateRequest $request
+     * @param User $admin
+     * @return Application|RedirectResponse|Response|Redirector
+     */
+    public function update(AdminUpdateRequest $request, User $admin)
+    {
+        if(!$admin->can_edit) return $this->unauthorizedToast();
+
+        $admin->update(
+            $request->only([
+                'first_name', 'last_name', 'phone', 'description', 'post_code',
+                'city', 'country', 'profession', 'address'
+            ])
+        );
+
+        if($admin->role->type !== $request->input('role')) {
+            $role = Role::where('type', $request->input('role'))->first();
+
+            if(!$this->can_grant_privileges($admin, $role)) return $this->unauthorizedToast();
+
+            $admin->role()->associate($role);
+            $admin->save();
+
+        }
+
+        success_toast_alert("Administrateur $admin->full_name mis à jour avec success");
+        log_activity("Administrateur", "Mise à jour de l'administrateur $admin->full_name");
+
+        return redirect(route('admins.show', compact('admin')));
+    }
+
+    /**
+     * @param Request $request
+     * @param User $admin
+     * @return Application|Factory|RedirectResponse|View
+     */
+    public function destroy(Request $request, User $admin)
+    {
+        if(!$admin->can_delete) return $this->unauthorizedToast();
+
+        // TODO: delete
+        return redirect(route('admins.index'));
+    }
+
+    /**
+     * User can grant required privilege
+     *
+     * @param User $user
+     * @param $role
+     * @return bool
+     */
+    private function can_grant_privileges(User $user, $role) {
+        return (
+            ($role !== null) &&
+            (
+                (($role->type === UserRole::SUPER_ADMIN) && $user->can_grant_super_admin_user) ||
+                (($role->type === UserRole::ADMIN) && $user->can_grant_admin_user)
+            )
+        );
+    }
+
+    /**
+     * Get user accessible roles
+     *
+     * @return array[]
+     */
+    private function user_accessible_roles() {
         $admin_role = Role::where('type', UserRole::ADMIN)->first();
         $super_admin_role = Role::where('type', UserRole::SUPER_ADMIN)->first();
 
@@ -70,102 +207,6 @@ class AdminController extends Controller
             ];
         }
 
-        return view('app.admins.create', compact('roles'));
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param AdminCreateRequest $request
-     * @return Application|RedirectResponse|Response|Redirector
-     */
-    public function store(AdminCreateRequest $request)
-    {
-        $role = Role::where('type', $request->input('role'))->first();
-        $user = Role::where('type', UserRole::USER)->first()->users()->create($request->only([
-            'first_name', 'last_name', 'phone', 'description', 'post_code',
-            'city', 'country', 'profession', 'address', 'email'
-        ]));
-
-        if($this->can_grant_privileges($user, $role)) {
-            $user->role()->associate($role);
-            $user->save();
-        } else {
-            danger_toast_alert("Vous n'avez pas le droit d'éffectuer cette opération");
-            return back();
-        }
-
-        success_toast_alert("Utitlisateur {$request->input('first_name')} créer avec success");
-        return redirect(route('admins.index'));
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param User $admin
-     * @return Application|Factory|Response|View
-     */
-    public function show(User $admin)
-    {
-        $logs = $admin
-            ->logs()
-            ->orderBy('created_at', 'desc')
-            ->paginate(Constants::DEFAULT_PAGE_PAGINATION_ITEMS)
-            ->onEachSide(Constants::DEFAULT_PAGE_PAGINATION_EACH_SIDE);
-
-        return view('app.admins.show', compact('admin', 'logs'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param Request $request
-     * @param Product $product
-     * @return Application|RedirectResponse|Response|Redirector
-     */
-    public function edit(Request $request, Product $product)
-    {
-        return view('app.products.edit', compact('product'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param Request $request
-     * @param Product $product
-     * @return Application|RedirectResponse|Response|Redirector
-     */
-    public function update(Request $request, Product $product)
-    {
-        // TODO: store
-        return redirect(route('products.edit', compact('product')));
-    }
-
-    /**
-     * @param Request $request
-     * @param Product $product
-     * @return Application|Factory|View
-     */
-    public function destroy(Request $request, Product $product)
-    {
-        // TODO: delete
-        return redirect(route('products.index'));
-    }
-
-    /**
-     * User can grant required privilege
-     *
-     * @param User $user
-     * @param $role
-     * @return bool
-     */
-    private function can_grant_privileges(User $user, $role) {
-        return (
-            ($role !== null) &&
-            (
-                (($role->type === UserRole::SUPER_ADMIN) && $user->can_grant_super_admin_user) ||
-                (($role->type === UserRole::ADMIN) && $user->can_grant_admin_user)
-            )
-        );
+        return $roles;
     }
 }
