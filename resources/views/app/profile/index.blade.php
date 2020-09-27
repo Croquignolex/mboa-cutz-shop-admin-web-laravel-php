@@ -14,7 +14,12 @@
     <div class="bg-white border rounded">
         <div class="row no-gutters">
             <div class="col-lg-5 col-xl-4">
-                @include('partials.profile.info')
+                <div class="profile-content-left pt-5 pb-3 px-3 px-xl-4">
+                    @include('partials.user-info', [
+                        'user' => auth()->user(),
+                        'can_update_avatar' => true
+                    ])
+                </div>
             </div>
             <div class="col-lg-7 col-xl-8">
                 <div class="profile-content-right py-4">

@@ -58,13 +58,22 @@
                                         <td>{{ $admin->phone }}</td>
                                         <td>{{ $admin->format_first_name }}</td>
                                         <td>{{ $admin->format_last_name }}</td>
-                                        <td></td>
+                                        <td>
+                                            <a href="{{ route('admins.show', compact('admin')) }}" class="btn btn-sm btn-primary">
+                                                <i class="mdi mdi-eye"></i>
+                                            </a>
+                                            <a href="" class="btn btn-sm btn-warning">
+                                                <i class="mdi mdi-pencil"></i>
+                                            </a>
+                                            <button class="btn btn-sm btn-danger">
+                                                <i class="mdi mdi-delete"></i>
+                                            </button>
+                                        </td>
                                     </tr>
                                 @endforeach
                                 </tbody>
                             </table>
                         </div>
-
 
                         <div>{{ $admins->links() }}</div>
                     </div>

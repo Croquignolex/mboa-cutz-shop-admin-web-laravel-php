@@ -1,7 +1,54 @@
 @extends('layouts.app')
 
-@section('app.master.title', page_title('Modifer un produit'))
+@section('app.master.title', page_title('Détail administrateur'))
+
+@section('app.breadcrumb')
+    @include('partials.breadcrumb', [
+        'title' => 'Détail administrateur',
+        'icon' => 'mdi mdi-account-multiple',
+        'chain' => ['Administrateurs', 'Détail administrateur']
+    ])
+@endsection
 
 @section('app.master.body')
+    <div class="bg-white border rounded">
+        <div class="row no-gutters">
+            <div class="col">
+                <div class="card card-default">
+                    <div class="card-header card-header-border-bottom">
+                        <h2>{{ $admin->full_name }}</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3 text-right">
+                            <a class="btn btn-warning" href="{{ route('admins.edit', compact('admin')) }}">
+                                <i class="mdi mdi-pencil"></i>
+                                Modifier
+                            </a>
+                            <button class="btn btn-danger">
+                                <i class="mdi mdi-delete"></i>
+                                Supprimer
+                            </button>
+                        </div>
 
+                        <div class="row no-gutters">
+                            <div class="col-lg-5 col-xl-4">
+                                <div class="profile-content-left p-4">
+                                    @include('partials.user-info', [
+                                        'user' => $admin,
+                                        'can_update_avatar' => false
+                                    ])
+                                </div>
+                            </div>
+                            <div class="col-lg-7 col-xl-8">
+                                <div class="profile-content-right p-4">
+                                    <h5>Journal d'activités</h5>
+                                    @include('partials.user-logs', compact('logs'))
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection

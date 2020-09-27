@@ -19,28 +19,7 @@
                         <h2>Journal d'activités</h2>
                     </div>
                     <div class="card-body">
-                        <div class="mb-3">{{ $logs->links() }}</div>
-
-                        <table class="table table-bordered table-hover">
-                            <thead>
-                                <tr>
-                                    <th scope="col">DATE</th>
-                                    <th scope="col">TITRE</th>
-                                    <th scope="col">DESCRIPTION</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($logs as $log)
-                                    <tr>
-                                        <td>{{ $log->creation_date }}</td>
-                                        <td>{{ $log->title }}</td>
-                                        <td>{{ $log->description }}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-
-                        <div>{{ $logs->links() }}</div>
+                        @include('partials.user-logs', compact('logs'))
                     </div>
                 </div>
             </div>

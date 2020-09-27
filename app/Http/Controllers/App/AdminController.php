@@ -102,13 +102,18 @@ class AdminController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Request $request
-     * @param Product $product
+     * @param User $admin
      * @return Application|Factory|Response|View
      */
-    public function show(Request $request, Product $product)
+    public function show(User $admin)
     {
-        return view('app.products.show', compact('product'));
+        $logs = $admin
+            ->logs()
+            ->orderBy('created_at', 'desc')
+            ->paginate(Constants::DEFAULT_PAGE_PAGINATION_ITEMS)
+            ->onEachSide(Constants::DEFAULT_PAGE_PAGINATION_EACH_SIDE);
+
+        return view('app.admins.show', compact('admin', 'logs'));
     }
 
     /**
