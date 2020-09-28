@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Archive;
 use App\Models\Role;
 use App\Models\User;
 use App\Enums\UserRole;
+use App\Models\Category;
 use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\View\Factory;
@@ -32,6 +33,8 @@ class ArchiveController extends Controller
             })
             ->count();
 
-        return view('archive.index', compact('admins'));
+        $categories = Category::onlyTrashed()->count();
+
+        return view('archive.index', compact('admins', 'categories'));
     }
 }

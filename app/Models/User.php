@@ -47,7 +47,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class User extends Authenticate
 {
-
     use SoftDeletes, SlugRouteTrait, DateTrait, CreatorTrait;
 
     /**

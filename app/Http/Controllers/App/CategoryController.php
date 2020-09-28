@@ -20,7 +20,7 @@ use Illuminate\Contracts\Foundation\Application;
 class CategoryController extends Controller
 {
     /**
-     * ProductsController constructor.
+     * CategoryController constructor.
      */
     public function __construct()
     {

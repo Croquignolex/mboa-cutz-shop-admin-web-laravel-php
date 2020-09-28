@@ -48,7 +48,9 @@ Route::group(['namespace' => 'Archive'], function() {
     // App GET routes
     Route::get('/archives', 'ArchiveController@index')->name('archives.index');
     Route::get('/archives/admins', 'AdminController@index')->name('archives.admins.index');
+    Route::get('/archives/categories', 'CategoryController@index')->name('archives.categories.index');
 
     // App POST routes
     Route::post('/archives/admins/{admin}/restore', 'AdminController@restore')->name('archives.admins.restore');
+    Route::post('/archives/categories/{category}/restore', 'CategoryController@restore')->name('archives.categories.restore');
 });

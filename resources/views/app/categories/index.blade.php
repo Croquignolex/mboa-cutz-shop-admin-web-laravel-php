@@ -5,7 +5,7 @@
 @section('app.breadcrumb')
     @include('partials.breadcrumb', [
         'title' => 'Categories',
-        'icon' => 'mdi mdi-basket',
+        'icon' => 'mdi mdi-database',
         'chain' => ['Categories']
     ])
 @endsection
@@ -40,43 +40,43 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach ($categories as $category)
-                                    <tr>
-                                        <td>{{ $category->creation_date }}</td>
-                                        <td>{{ $category->fr_name }}</td>
-                                        <td>{{ $category->en_name }}</td>
-                                        <td>{{ $category->creator_name}}</td>
-                                        <td class="text-center">
-                                            <a href="{{ route('categories.show', compact('category')) }}" class="btn btn-sm btn-primary">
-                                                <i class="mdi mdi-eye"></i>
-                                            </a>
-                                            <a href="{{ route('categories.edit', compact('category')) }}" class="btn btn-sm btn-warning">
-                                                <i class="mdi mdi-pencil"></i>
-                                            </a>
-                                            @if($category->can_delete)
-                                                <button class="btn btn-sm btn-danger"
-                                                        data-toggle="modal"
-                                                        data-target="{{ "#$category->slug-archive-category-modal" }}"
-                                                >
-                                                    <i class="mdi mdi-archive"></i>
-                                                </button>
-                                            @endif
-                                        </td>
-                                    </tr>
+                                    @foreach ($categories as $category)
+                                        <tr>
+                                            <td>{{ $category->creation_date }}</td>
+                                            <td>{{ $category->fr_name }}</td>
+                                            <td>{{ $category->en_name }}</td>
+                                            <td>{{ $category->creator_name}}</td>
+                                            <td class="text-center">
+                                                <a href="{{ route('categories.show', compact('category')) }}" class="btn btn-sm btn-primary">
+                                                    <i class="mdi mdi-eye"></i>
+                                                </a>
+                                                <a href="{{ route('categories.edit', compact('category')) }}" class="btn btn-sm btn-warning">
+                                                    <i class="mdi mdi-pencil"></i>
+                                                </a>
+                                                @if($category->can_delete)
+                                                    <button class="btn btn-sm btn-danger"
+                                                            data-toggle="modal"
+                                                            data-target="{{ "#$category->slug-archive-category-modal" }}"
+                                                    >
+                                                        <i class="mdi mdi-archive"></i>
+                                                    </button>
+                                                @endif
+                                            </td>
+                                        </tr>
 
-                                    @if($category->can_delete)
-                                        @component('components.archive-confirmation-modal', [
-                                            'modal_id' => "$category->slug-archive-category-modal",
-                                            'url' => route('categories.destroy', compact('category'))
-                                        ])
-                                            <p>
-                                                Voulez-vous archiver <strong>{{ $category->fr_name }}</strong>?<br><br>
-                                                Vous pouvez toujours le consulter dans la section des archives
-                                                et le restaurer à tous moment.
-                                            </p>
-                                        @endcomponent
-                                    @endif
-                                @endforeach
+                                        @if($category->can_delete)
+                                            @component('components.archive-confirmation-modal', [
+                                                'modal_id' => "$category->slug-archive-category-modal",
+                                                'url' => route('categories.destroy', compact('category'))
+                                            ])
+                                                <p>
+                                                    Voulez-vous archiver <strong>{{ $category->fr_name }}</strong>?<br><br>
+                                                    Vous pouvez toujours le consulter dans la section des archives
+                                                    et le restaurer à tous moment.
+                                                </p>
+                                            @endcomponent
+                                        @endif
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

@@ -21,7 +21,7 @@ use Illuminate\Contracts\Foundation\Application;
 class AdminController extends Controller
 {
     /**
-     * ProductsController constructor.
+     * AdminController constructor.
      */
     public function __construct()
     {

@@ -17,7 +17,7 @@ use Illuminate\Contracts\Foundation\Application;
 class AdminController extends Controller
 {
     /**
-     * ProductsController constructor.
+     * AdminController constructor.
      */
     public function __construct()
     {
@@ -51,7 +51,7 @@ class AdminController extends Controller
     public function restore(String $admin)
     {
         $trashed_admin = User::withTrashed()->whereSlug($admin)->first();
-        if(!$trashed_admin->can_restore) return $this->unauthorizedToast();
+        if(!$trashed_admin->can_delete) return $this->unauthorizedToast();
 
         $trashed_admin->restore();
 
