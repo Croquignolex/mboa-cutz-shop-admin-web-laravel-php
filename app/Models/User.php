@@ -73,9 +73,9 @@ class User extends Authenticate
      *
      * @return HasMany
      */
-    public function created_users()
+    public function logs()
     {
-        return $this->hasMany('App\Models\User', 'creator_id');
+        return $this->hasMany('App\Models\Log');
     }
 
     /**
@@ -83,9 +83,19 @@ class User extends Authenticate
      *
      * @return HasMany
      */
-    public function logs()
+    public function created_users()
     {
-        return $this->hasMany('App\Models\Log');
+        return $this->hasMany('App\Models\User', 'creator_id');
+    }
+
+    /**
+     * User categories
+     *
+     * @return HasMany
+     */
+    public function created_categories()
+    {
+        return $this->hasMany('App\Models\Category', 'creator_id');
     }
 
     /**
@@ -126,16 +136,6 @@ class User extends Authenticate
     public function getFormatLastNameAttribute()
     {
         return mb_strtoupper($this->last_name);
-    }
-
-    /**
-     * User save creator name
-     *
-     * @return mixed
-     */
-    public function getCreatorNameAttribute()
-    {
-        return $this->creator->full_name ?? '';
     }
 
     /**

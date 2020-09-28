@@ -23,7 +23,7 @@ class Category extends Model
      *
      * @var array
      */
-    protected $guarded = ['slug', 'id', 'creator_id', 'is_activated'];
+    protected $guarded = ['slug', 'id', 'creator_id'];
 
     /**
      * @return HasMany

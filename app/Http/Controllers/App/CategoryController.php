@@ -5,6 +5,7 @@ namespace App\Http\Controllers\App;
 use App\Models\Product;
 use App\Enums\Constants;
 use App\Models\Category;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -47,7 +48,6 @@ class CategoryController extends Controller
     {
         return view('app.categories.create');
     }
-     *
 
     /**
      * Store a newly created resource in storage.
@@ -57,9 +57,14 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
-        Category::create($request->all());
+        Auth::user()->created_categories()->create($request->only([
+            'fr_name', 'en_name', 'fr_decription', 'en_description'
+        ]));
+
         $name = $request->input('fr_name');
         success_toast_alert("Catégorie $name créer avec succès");
+        log_activity("Catégorie", "Création de la catégorie $name");
+
         return redirect(route('categories.index'));
     }
 

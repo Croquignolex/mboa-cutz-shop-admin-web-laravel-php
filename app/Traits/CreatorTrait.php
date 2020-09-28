@@ -15,4 +15,14 @@ trait CreatorTrait
     {
         return $this->belongsTo('App\Models\User', 'creator_id');
     }
+
+    /**
+     * User save creator name
+     *
+     * @return mixed
+     */
+    public function getCreatorNameAttribute()
+    {
+        return $this->creator->full_name ?? '';
+    }
 }
