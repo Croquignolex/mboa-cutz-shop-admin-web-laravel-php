@@ -58,7 +58,7 @@ class CategoryController extends Controller
     public function store(CategoryRequest $request)
     {
         Auth::user()->created_categories()->create($request->only([
-            'fr_name', 'en_name', 'fr_decription', 'en_description'
+            'fr_name', 'en_name', 'fr_description', 'en_description'
         ]));
 
         $name = $request->input('fr_name');
@@ -83,26 +83,29 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Request $request
-     * @param Product $product
+     * @param Category $category
      * @return Application|RedirectResponse|Response|Redirector
      */
-    public function edit(Request $request, Product $product)
+    public function edit(Category $category)
     {
-        return view('app.products.edit', compact('product'));
+        return view('app.categories.edit', compact('category'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param Product $product
+     * @param Category $category
      * @return Application|RedirectResponse|Response|Redirector
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, Category $category)
     {
-        // TODO: store
-        return redirect(route('products.edit', compact('product')));
+        $category->update($request->only(['fr_name', 'en_name', 'fr_decription', 'en_description']));
+
+        success_toast_alert("Catégorie $category->fr_name mis à jour avec success");
+        log_activity("Catégorie", "Mise à jour de la catégorie $category->fr_name");
+
+        return redirect(route('categories.show', compact('category')));
     }
 
     /**

@@ -18,6 +18,7 @@
                     <h2>Ajouter une nouvelle categorie</h2>
                 </div>
                 <div class="card-body">
+                    <div class="mx-5">@include('partials.error-message')</div>
                     <form action="{{ route('categories.store') }}" method="POST">
                         @csrf
                         <div class="row">
