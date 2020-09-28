@@ -66,7 +66,7 @@
                                         </td>
                                     </tr>
 
-                                    @if($admin->can_restore)
+                                    @if($admin->can_delete)
                                         @component('components.restore-confirmation-modal', [
                                             'modal_id' => "$admin->slug-restore-admin-modal",
                                             'url' => route('archives.admins.restore', compact('admin'))

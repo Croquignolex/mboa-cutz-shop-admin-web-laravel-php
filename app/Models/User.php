@@ -7,7 +7,6 @@ use App\Enums\Constants;
 use App\Traits\DateTrait;
 use App\Traits\CreatorTrait;
 use App\Traits\SlugRouteTrait;
-use App\Traits\RestorationTrait;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -49,7 +48,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class User extends Authenticate
 {
 
-    use SoftDeletes, SlugRouteTrait, DateTrait, RestorationTrait, CreatorTrait;
+    use SoftDeletes, SlugRouteTrait, DateTrait, CreatorTrait;
 
     /**
      * The attributes that aren't mass assignable.

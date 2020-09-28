@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers\App;
 
+use Exception;
 use App\Models\Product;
 use App\Enums\Constants;
 use App\Models\Category;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Redirector;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\CategoryRequest;
 use Illuminate\Contracts\View\Factory;
@@ -109,13 +110,19 @@ class CategoryController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @param Product $product
-     * @return Application|Factory|View
+     * @param Category $category
+     * @return RedirectResponse
+     * @throws Exception
      */
-    public function destroy(Request $request, Product $product)
+    public function destroy(Category $category)
     {
-        // TODO: delete
-        return redirect(route('products.index'));
+        if(!$category->can_delete) return $this->unauthorizedToast();
+
+        $category->delete();
+
+        success_toast_alert("Catégorie $category->fr_name archivé avec success");
+        log_activity("Catégorie", "Archivage de  la catégorie $category->fr_name");
+
+        return redirect(route('categories.index'));
     }
 }
