@@ -59,6 +59,7 @@
                                                 <button class="btn btn-sm btn-success"
                                                         data-toggle="modal"
                                                         data-target="{{ "#$admin->slug-restore-admin-modal" }}"
+                                                        title="Restorer"
                                                 >
                                                     <i class="mdi mdi-backup-restore"></i>
                                                 </button>
@@ -67,15 +68,11 @@
                                     </tr>
 
                                     @if($admin->can_delete)
-                                        @component('components.restore-confirmation-modal', [
+                                        @include('partials.restore-confirmation', [
+                                            'name' => $admin->full_name,
                                             'modal_id' => "$admin->slug-restore-admin-modal",
                                             'url' => route('archives.admins.restore', compact('admin'))
                                         ])
-                                            <p>
-                                                Voulez-vous restorer <strong>{{ $admin->full_name }}</strong>?<br><br>
-                                                Une fois restoré, vous pourrez effectuer toutes opératons possible.
-                                            </p>
-                                        @endcomponent
                                     @endif
                                 @endforeach
                                 </tbody>

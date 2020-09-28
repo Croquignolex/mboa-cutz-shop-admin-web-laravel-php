@@ -90,16 +90,11 @@
                                     </tr>
 
                                     @if($admin->can_delete)
-                                        @component('components.archive-confirmation-modal', [
+                                        @include('partials.archive-confirmation', [
+                                            'name' => $admin->full_name,
                                             'modal_id' => "$admin->slug-archive-admin-modal",
                                             'url' => route('admins.destroy', compact('admin'))
                                         ])
-                                            <p>
-                                                Voulez-vous archiver <strong>{{ $admin->full_name }}</strong>?<br><br>
-                                                Vous pouvez toujours le consulter dans la section des archives
-                                                et le restaurer à tous moment.
-                                            </p>
-                                        @endcomponent
                                     @endif
                                 @endforeach
                                 </tbody>

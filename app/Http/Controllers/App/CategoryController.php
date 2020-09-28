@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\App;
 
 use Exception;
-use App\Models\Product;
 use App\Enums\Constants;
 use App\Models\Category;
 use Illuminate\View\View;
@@ -70,13 +69,18 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Request $request
-     * @param Product $product
+     * @param Category $category
      * @return Application|Factory|Response|View
      */
-    public function show(Request $request, Product $product)
+    public function show(Category $category)
     {
-        return view('app.products.show', compact('product'));
+        $products = $category
+            ->products()
+            ->orderBy('created_at', 'desc')
+            ->paginate(Constants::DEFAULT_PAGE_PAGINATION_ITEMS)
+            ->onEachSide(Constants::DEFAULT_PAGE_PAGINATION_EACH_SIDE);
+
+        return view('app.categories.show', compact('category', 'products'));
     }
 
     /**

@@ -45,6 +45,7 @@
                                                 <button class="btn btn-sm btn-success"
                                                         data-toggle="modal"
                                                         data-target="{{ "#$category->slug-restore-category-modal" }}"
+                                                        title="Restorer"
                                                 >
                                                     <i class="mdi mdi-backup-restore"></i>
                                                 </button>
@@ -53,16 +54,11 @@
                                     </tr>
 
                                     @if($category->can_delete)
-                                        @component('components.restore-confirmation-modal', [
+                                        @include('partials.restore-confirmation', [
+                                            'name' => $category->fr_name,
                                             'modal_id' => "$category->slug-restore-category-modal",
                                             'url' => route('archives.categories.restore', compact('category'))
                                         ])
-                                            <p>
-                                                Voulez-vous archiver <strong>{{ $category->fr_name }}</strong>?<br><br>
-                                                Vous pouvez toujours le consulter dans la section des archives
-                                                et le restaurer à tous moment.
-                                            </p>
-                                        @endcomponent
                                     @endif
                                 @endforeach
                                 </tbody>

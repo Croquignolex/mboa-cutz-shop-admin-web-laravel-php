@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 /**
  * @property mixed fr_name
  * @property mixed slug
+ * @property mixed products
  * @property mixed creator
  * @property mixed can_delete
  */
@@ -52,9 +53,11 @@ class Category extends Model
     {
         $connected_user = Auth::user();
         return (
-            ($connected_user->role->type === UserRole::SUPER_ADMIN) ||
-            ($this->creator === null) ||
-            (Auth::user()->id === $this->creator->id)
+            ($this->products->count() === 0) && (
+                ($connected_user->role->type === UserRole::SUPER_ADMIN) ||
+                ($this->creator === null) ||
+                (Auth::user()->id === $this->creator->id)
+            )
         );
     }
 }

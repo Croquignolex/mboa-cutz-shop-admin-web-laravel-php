@@ -12,18 +12,7 @@ class ProductsTableSeeder extends Seeder
      */
     public function run()
     {
-        Category::first()->products()->create([
-            'fr_name' => 'Mousse à raser',
-            'en_name' => 'Shaving cream',
-            'price' => 3000,
-            'stock' => 10,
-        ]);
-
-        Category::first()->products()->create([
-            'fr_name' => 'Poudre à raser',
-            'en_name' => 'Shaving powder',
-            'price' => 2000,
-            'stock' => 10,
-        ]);
+        Category::first()->products()->create(['fr_name' => 'Mousse à raser', 'en_name' => 'Shaving cream']);
+        Category::first()->products()->create(['fr_name' => 'Poudre à raser', 'en_name' => 'Shaving powder']);
     }
 }

@@ -3,7 +3,6 @@
 namespace App\Observers;
 
 use App\Models\Category;
-use App\Models\User;
 
 class CategoryObserver
 {
