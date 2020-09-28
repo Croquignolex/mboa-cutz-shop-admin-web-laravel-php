@@ -15,7 +15,7 @@
         <div class="col-12">
             <div class="card card-default">
                 <div class="card-header card-header-border-bottom d-flex justify-content-between">
-                    <h2>Nouvel categorie</h2>
+                    <h2>Ajouter une nouvelle categorie</h2>
                 </div>
                 <div class="card-body">
                     <form action="{{ route('categories.store') }}" method="POST">

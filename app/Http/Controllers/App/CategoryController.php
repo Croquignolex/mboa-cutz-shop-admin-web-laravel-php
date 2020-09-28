@@ -41,13 +41,13 @@ class CategoryController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
      * @return Application|Factory|Response|View
      */
     public function create()
     {
         return view('app.categories.create');
     }
+     *
 
     /**
      * Store a newly created resource in storage.
