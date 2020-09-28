@@ -38,17 +38,24 @@
                         <div class="row no-gutters">
                             <div class="col-lg-5 col-xl-4">
                                 <div class="profile-content-left p-4">
-                                    @include('partials.user-info', [
-                                        'user' => $admin,
-                                        'can_update_avatar' => false
-                                    ])
+                                    <div class="contact-info">
+                                        <p class="text-dark font-weight-medium pt-4 mb-2">Nom (français)</p>
+                                        <p>{{ $category->fr_name }}</p>
+
+                                        <p class="text-dark font-weight-medium pt-4 mb-2">Nom (anglais)</p>
+                                        <p>{{ $category->en_name }}</p>
+
+                                        <p class="text-dark font-weight-medium pt-4 mb-2">Description (français)</p>
+                                        <p>{{ $category->fr_description }}</p>
+
+                                        <p class="text-dark font-weight-medium pt-4 mb-2">Description (anglais)</p>
+                                        <p>{{ $category->en_decription }}</p>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-lg-7 col-xl-8">
                                 <div class="profile-content-right p-4">
-{{--                                    <h5>Produits ({{ $products->total() }})</h5>--}}
-                                    <h5>Produits (0)</h5>
-                                    @include('partials.user-logs', compact('logs'))
+                                    <h5>Produits ({{ $products->total() }})</h5>
                                 </div>
                             </div>
                         </div>

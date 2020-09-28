@@ -46,7 +46,7 @@
                                             <td>{{ $category->creation_date }}</td>
                                             <td>{{ $category->fr_name }}</td>
                                             <td>{{ $category->en_name }}</td>
-                                            <td class="text-right">0</td>
+                                            <td class="text-right">{{ $category->products->count() }}</td>
                                             <td>{{ $category->creator_name}}</td>
                                             <td class="text-center">
                                                 <a href="{{ route('categories.show', compact('category')) }}"
