@@ -65,10 +65,7 @@ class AdminController extends Controller
     public function store(AdminCreateRequest $request)
     {
         $role = Role::where('type', $request->input('role'))->first();
-        $user = Role::where('type', UserRole::USER)->first()->users()->create($request->only([
-            'first_name', 'last_name', 'phone', 'description', 'post_code',
-            'city', 'country', 'profession', 'address', 'email'
-        ]));
+        $user = Role::where('type', UserRole::USER)->first()->users()->create($request->all());
 
         if(!$this->can_grant_privileges($user, $role)) return $this->unauthorizedToast();
 
@@ -129,12 +126,7 @@ class AdminController extends Controller
     {
         if(!$admin->can_edit) return $this->unauthorizedToast();
 
-        $admin->update(
-            $request->only([
-                'first_name', 'last_name', 'phone', 'description', 'post_code',
-                'city', 'country', 'profession', 'address'
-            ])
-        );
+        $admin->update($request->all());
 
         if($admin->role->type !== $request->input('role')) {
             $role = Role::where('type', $request->input('role'))->first();

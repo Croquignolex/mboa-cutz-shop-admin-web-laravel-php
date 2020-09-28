@@ -58,10 +58,7 @@ class ProfileController extends Controller
      */
     public function updateInfo(UserUpdateInfoRequest $request)
     {
-        Auth::user()->update($request->only([
-            'first_name', 'last_name', 'phone', 'description',
-            'post_code', 'city', 'country', 'profession', 'address',
-        ]));
+        Auth::user()->update($request->all());
 
         success_toast_alert('Profil mis à jour avec succès');
         log_activity("Profil", "Mise à jour des informations personnelles");

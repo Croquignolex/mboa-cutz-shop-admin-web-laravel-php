@@ -39,6 +39,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property mixed slug
  * @property mixed logs
  * @property mixed creator
+ * @property mixed can_show
  * @property mixed can_edit
  * @property mixed can_delete
  * @property mixed can_restore
@@ -55,6 +56,16 @@ class User extends Authenticate
      * @var array
      */
     protected $guarded = ['slug', 'id', 'is_confirmed', 'role_id', 'creator_id'];
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'first_name', 'last_name', 'phone', 'description', 'post_code',
+        'city', 'country', 'profession', 'address', 'email'
+    ];
 
     /**
      * User role

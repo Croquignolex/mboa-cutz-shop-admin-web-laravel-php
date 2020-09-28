@@ -32,7 +32,7 @@
                                         data-target="{{ "#archive-admin-modal" }}"
                                 >
                                     <i class="mdi mdi-archive"></i>
-                                    Supprimer
+                                    Archiver
                                 </button>
                             @endif
                         </div>

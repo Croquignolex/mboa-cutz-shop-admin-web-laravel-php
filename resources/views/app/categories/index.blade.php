@@ -35,6 +35,7 @@
                                     <th scope="col">DATE</th>
                                     <th scope="col">NOM (fr)</th>
                                     <th scope="col">NOM (en)</th>
+                                    <th scope="col">PRODUITS</th>
                                     <th scope="col">CREER PAR</th>
                                     <th scope="col">ACTIONS</th>
                                 </tr>
@@ -45,18 +46,26 @@
                                             <td>{{ $category->creation_date }}</td>
                                             <td>{{ $category->fr_name }}</td>
                                             <td>{{ $category->en_name }}</td>
+                                            <td class="text-right">0</td>
                                             <td>{{ $category->creator_name}}</td>
                                             <td class="text-center">
-                                                <a href="{{ route('categories.show', compact('category')) }}" class="btn btn-sm btn-primary">
+                                                <a href="{{ route('categories.show', compact('category')) }}"
+                                                   class="btn btn-sm btn-primary"
+                                                   title="Détails"
+                                                >
                                                     <i class="mdi mdi-eye"></i>
                                                 </a>
-                                                <a href="{{ route('categories.edit', compact('category')) }}" class="btn btn-sm btn-warning">
+                                                <a href="{{ route('categories.edit', compact('category')) }}"
+                                                   class="btn btn-sm btn-warning"
+                                                   title="Modifier"
+                                                >
                                                     <i class="mdi mdi-pencil"></i>
                                                 </a>
                                                 @if($category->can_delete)
                                                     <button class="btn btn-sm btn-danger"
                                                             data-toggle="modal"
                                                             data-target="{{ "#$category->slug-archive-category-modal" }}"
+                                                            title="Archiver"
                                                     >
                                                         <i class="mdi mdi-archive"></i>
                                                     </button>

@@ -29,6 +29,13 @@ class Category extends Model
     protected $guarded = ['slug', 'id', 'creator_id'];
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['fr_name', 'en_name', 'fr_description', 'en_description'];
+
+    /**
      * @return HasMany
      */
     public function products()

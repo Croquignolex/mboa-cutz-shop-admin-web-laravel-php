@@ -58,9 +58,7 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
-        Auth::user()->created_categories()->create($request->only([
-            'fr_name', 'en_name', 'fr_description', 'en_description'
-        ]));
+        Auth::user()->created_categories()->create($request->all());
 
         $name = $request->input('fr_name');
         success_toast_alert("Catégorie $name créer avec succès");
@@ -101,7 +99,7 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        $category->update($request->only(['fr_name', 'en_name', 'fr_decription', 'en_description']));
+        $category->update($request->all());
 
         success_toast_alert("Catégorie $category->fr_name mis à jour avec success");
         log_activity("Catégorie", "Mise à jour de la catégorie $category->fr_name");

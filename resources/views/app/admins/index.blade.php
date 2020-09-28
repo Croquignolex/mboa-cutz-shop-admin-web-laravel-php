@@ -62,12 +62,18 @@
                                         <td>{{ $admin->creator_name}}</td>
                                         <td class="text-center">
                                             @if($admin->can_show)
-                                                <a href="{{ route('admins.show', compact('admin')) }}" class="btn btn-sm btn-primary">
+                                                <a href="{{ route('admins.show', compact('admin')) }}"
+                                                   class="btn btn-sm btn-primary"
+                                                   title="Détails"
+                                                >
                                                     <i class="mdi mdi-eye"></i>
                                                 </a>
                                             @endif
                                             @if($admin->can_edit)
-                                                <a href="{{ route('admins.edit', compact('admin')) }}" class="btn btn-sm btn-warning">
+                                                <a href="{{ route('admins.edit', compact('admin')) }}"
+                                                   class="btn btn-sm btn-warning"
+                                                   title="Modifier"
+                                                >
                                                     <i class="mdi mdi-pencil"></i>
                                                 </a>
                                             @endif
@@ -75,6 +81,7 @@
                                                 <button class="btn btn-sm btn-danger"
                                                         data-toggle="modal"
                                                         data-target="{{ "#$admin->slug-archive-admin-modal" }}"
+                                                        title="Archiver"
                                                 >
                                                     <i class="mdi mdi-archive"></i>
                                                 </button>
