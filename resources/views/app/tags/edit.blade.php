@@ -5,7 +5,7 @@
 @section('app.breadcrumb')
     @include('partials.breadcrumb', [
         'title' => 'Modifier categorie',
-        'icon' => 'mdi mdi-database',
+        'icon' => 'mdi mdi-mdi-tag-multiple',
         'chain' => ['Categories', 'Modifier categorie']
     ])
 @endsection

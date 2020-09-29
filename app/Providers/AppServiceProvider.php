@@ -3,11 +3,13 @@
 namespace App\Providers;
 
 use App\Models\Role;
+use App\Models\Tag;
 use App\Models\User;
 use App\Models\Product;
 use App\Models\Category;
-use App\Observers\RoleObserver;
+use App\Observers\TagObserver;
 use App\Observers\UserObserver;
+use App\Observers\RoleObserver;
 use App\Observers\ProductObserver;
 use App\Observers\CategoryObserver;
 use Illuminate\Support\Facades\Schema;
@@ -34,6 +36,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(191);
 
+        Tag::observe(TagObserver::class);
         User::observe(UserObserver::class);
         Role::observe(RoleObserver::class);
         Product::observe(ProductObserver::class);

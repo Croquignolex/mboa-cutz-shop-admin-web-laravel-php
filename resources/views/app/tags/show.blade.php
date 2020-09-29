@@ -5,7 +5,7 @@
 @section('app.breadcrumb')
     @include('partials.breadcrumb', [
         'title' => 'Détails catégorie',
-        'icon' => 'mdi mdi-database',
+        'icon' => 'mdi mdi-mdi-tag-multiple',
         'chain' => ['Administrateurs', 'Détails catégorie']
     ])
 @endsection

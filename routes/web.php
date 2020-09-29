@@ -25,6 +25,7 @@ Route::group(['namespace' => 'Auth'], function() {
 Route::group(['namespace' => 'App'], function() {
     // App resources routes
     Route::resources([
+        'tags' => 'TagController',
         'admins' => 'AdminController',
         'products' => 'ProductController',
         'categories' => 'CategoryController',
@@ -37,9 +38,11 @@ Route::group(['namespace' => 'App'], function() {
 
     // App POST routes
     Route::post('/timezone', 'DashboardController@timezoneAjax');
+
     Route::post('/profile/update-info', 'ProfileController@updateInfo')->name('profile.update.info');
-    Route::post('/profile/update-password', 'ProfileController@updatePassword')->name('profile.update.password');
     Route::post('/profile/update-avatar', 'ProfileController@updateAvatar')->name('profile.update.avatar');
+    Route::post('/profile/update-password', 'ProfileController@updatePassword')->name('profile.update.password');
+
 });
 
 Route::group(['namespace' => 'Archive'], function() {

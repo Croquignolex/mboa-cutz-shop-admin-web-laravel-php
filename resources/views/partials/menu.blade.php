@@ -42,6 +42,33 @@
                         </div>
                     </ul>
                 </li>
+                {{--Tags--}}
+                <li class="has-sub expand {{ active_page(tags_pages()) }}">
+                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#tags" aria-expanded="false" aria-controls="tags">
+                        <i class="mdi mdi-tag-multiple"></i>
+                        <span class="nav-text">Etiquettes</span> <b class="caret"></b>
+                    </a>
+                    <ul class="collapse {{ active_page_group(categories_pages()) }}" id="tags" data-parent="#sidebar-menu">
+                        <div class="sub-menu">
+                            <li class="{{ active_page(collect('tags.index')) }}">
+                                <a class="sidenav-item-link" href="{{ route('tags.index') }}">
+                                    <span class="nav-text">
+                                        <i class="mdi mdi-playlist-check"></i>
+                                        Tous les étiquettes
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="{{ active_page(collect('tags.create')) }}">
+                                <a class="sidenav-item-link" href="{{ route('tags.create') }}">
+                                    <span class="nav-text">
+                                        <i class="mdi mdi-playlist-plus"></i>
+                                        Nouvelle étiquette
+                                    </span>
+                                </a>
+                            </li>
+                        </div>
+                    </ul>
+                </li>
                 {{--Produits--}}
                 {{--<li class="has-sub expand {{ active_page(products_pages()) }}">
                     <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#products" aria-expanded="false" aria-controls="products">
@@ -103,33 +130,6 @@
                         <span class="nav-text">Archives</span>
                     </a>
                 </li>
-                {{--Articles--}}
-               {{-- <li class="has-sub expand {{ active_page(articles_pages()) }}">
-                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#articles" aria-expanded="false" aria-controls="articles">
-                        <i class="mdi mdi-format-float-left"></i>
-                        <span class="nav-text">Articles</span> <b class="caret"></b>
-                    </a>
-                    <ul class="collapse {{ active_page_group(articles_pages()) }}" id="articles" data-parent="#sidebar-menu">
-                        <div class="sub-menu">
-                            <li class="{{ active_page(collect('articles.index')) }}">
-                                <a class="sidenav-item-link" href="{{ route('articles.index') }}">
-                                    <span class="nav-text">
-                                        <i class="mdi mdi-playlist-check"></i>
-                                        Tous les articles
-                                    </span>
-                                </a>
-                            </li>
-                            <li class="{{ active_page(collect('articles.create')) }}">
-                                <a class="sidenav-item-link" href="{{ route('articles.create') }}">
-                                    <span class="nav-text">
-                                        <i class="mdi mdi-playlist-plus"></i>
-                                        Nouvel article
-                                    </span>
-                                </a>
-                            </li>
-                        </div>
-                    </ul>
-                </li>--}}
             </ul>
         </div>
     </div>

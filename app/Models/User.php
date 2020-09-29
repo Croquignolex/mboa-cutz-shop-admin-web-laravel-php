@@ -108,6 +108,16 @@ class User extends Authenticate
     }
 
     /**
+     * User categories
+     *
+     * @return HasMany
+     */
+    public function created_tags()
+    {
+        return $this->hasMany('App\Models\Tag', 'creator_id');
+    }
+
+    /**
      * Slug mutator
      *
      * @param $value

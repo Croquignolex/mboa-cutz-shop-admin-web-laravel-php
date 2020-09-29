@@ -20,8 +20,7 @@ class CategoryRequest extends FormRequest
         return [
             'fr_name' => $this->required_string,
             'en_name' => $this->required_string,
-            'fr_description' => $this->string,
-            'en_description' => $this->string,
+            'description' => $this->string,
         ];
     }
 
