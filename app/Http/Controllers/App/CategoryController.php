@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\App;
 
+use Exception;
+use App\Enums\Constants;
 use App\Models\Category;
-use App\Models\Product;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Redirector;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\CategoryRequest;
 use Illuminate\Contracts\View\Factory;
@@ -17,7 +19,7 @@ use Illuminate\Contracts\Foundation\Application;
 class CategoryController extends Controller
 {
     /**
-     * ProductsController constructor.
+     * CategoryController constructor.
      */
     public function __construct()
     {
@@ -31,13 +33,15 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all()->sortByDesc('created_at');
+        $categories = Category::orderBy('created_at', 'desc')
+            ->paginate(Constants::DEFAULT_PAGE_PAGINATION_ITEMS)
+            ->onEachSide(Constants::DEFAULT_PAGE_PAGINATION_EACH_SIDE);
+
         return view('app.categories.index', compact('categories'));
     }
 
     /**
      * Show the form for creating a new resource.
-     *
      * @return Application|Factory|Response|View
      */
     public function create()
@@ -53,57 +57,74 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
-        Category::create($request->all());
+        Auth::user()->created_categories()->create($request->all());
+
         $name = $request->input('fr_name');
         success_toast_alert("Catégorie $name créer avec succès");
+        log_activity("Catégorie", "Création de la catégorie $name");
+
         return redirect(route('categories.index'));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param Request $request
-     * @param Product $product
+     * @param Category $category
      * @return Application|Factory|Response|View
      */
-    public function show(Request $request, Product $product)
+    public function show(Category $category)
     {
-        return view('app.products.show', compact('product'));
+        $products = $category
+            ->products()
+            ->orderBy('created_at', 'desc')
+            ->paginate(Constants::DEFAULT_PAGE_PAGINATION_ITEMS)
+            ->onEachSide(Constants::DEFAULT_PAGE_PAGINATION_EACH_SIDE);
+
+        return view('app.categories.show', compact('category', 'products'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Request $request
-     * @param Product $product
+     * @param Category $category
      * @return Application|RedirectResponse|Response|Redirector
      */
-    public function edit(Request $request, Product $product)
+    public function edit(Category $category)
     {
-        return view('app.products.edit', compact('product'));
+        return view('app.categories.edit', compact('category'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param Product $product
+     * @param Category $category
      * @return Application|RedirectResponse|Response|Redirector
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, Category $category)
     {
-        // TODO: store
-        return redirect(route('products.edit', compact('product')));
+        $category->update($request->all());
+
+        success_toast_alert("Catégorie $category->fr_name mis à jour avec success");
+        log_activity("Catégorie", "Mise à jour de la catégorie $category->fr_name");
+
+        return redirect(route('categories.show', compact('category')));
     }
 
     /**
-     * @param Request $request
-     * @param Product $product
-     * @return Application|Factory|View
+     * @param Category $category
+     * @return RedirectResponse
+     * @throws Exception
      */
-    public function destroy(Request $request, Product $product)
+    public function destroy(Category $category)
     {
-        // TODO: delete
-        return redirect(route('products.index'));
+        if(!$category->can_delete) return $this->unauthorizedToast();
+
+        $category->delete();
+
+        success_toast_alert("Catégorie $category->fr_name archivé avec success");
+        log_activity("Catégorie", "Archivage de  la catégorie $category->fr_name");
+
+        return redirect(route('categories.index'));
     }
 }

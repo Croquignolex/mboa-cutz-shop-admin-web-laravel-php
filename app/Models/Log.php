@@ -19,7 +19,7 @@ class Log extends Model
      *
      * @var array
      */
-    protected $guarded = ['id'];
+    protected $guarded = ['id', 'user_id'];
 
     /**
      * @return BelongsTo

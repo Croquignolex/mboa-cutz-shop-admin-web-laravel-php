@@ -25,10 +25,9 @@ Route::group(['namespace' => 'Auth'], function() {
 Route::group(['namespace' => 'App'], function() {
     // App resources routes
     Route::resources([
-        'articles' => 'ArticleController',
+        'admins' => 'AdminController',
         'products' => 'ProductController',
         'categories' => 'CategoryController',
-//        'products.reviews' => 'ProductReviewController',
     ]);
 
     // App GET routes
@@ -37,7 +36,21 @@ Route::group(['namespace' => 'App'], function() {
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard.index');
 
     // App POST routes
+    Route::post('/timezone', 'DashboardController@timezoneAjax');
     Route::post('/profile/update-info', 'ProfileController@updateInfo')->name('profile.update.info');
     Route::post('/profile/update-password', 'ProfileController@updatePassword')->name('profile.update.password');
     Route::post('/profile/update-avatar', 'ProfileController@updateAvatar')->name('profile.update.avatar');
+});
+
+Route::group(['namespace' => 'Archive'], function() {
+    // App resources routes
+
+    // App GET routes
+    Route::get('/archives', 'ArchiveController@index')->name('archives.index');
+    Route::get('/archives/admins', 'AdminController@index')->name('archives.admins.index');
+    Route::get('/archives/categories', 'CategoryController@index')->name('archives.categories.index');
+
+    // App POST routes
+    Route::post('/archives/admins/{admin}/restore', 'AdminController@restore')->name('archives.admins.restore');
+    Route::post('/archives/categories/{category}/restore', 'CategoryController@restore')->name('archives.categories.restore');
 });

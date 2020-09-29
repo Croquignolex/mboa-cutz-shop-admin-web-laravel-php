@@ -8,6 +8,7 @@ trait RequestTrait
     private $required_string = 'required|string';
     private $required_numeric = 'required|numeric';
     private $required_email = 'required|string|email';
+    private $required_unique_email = 'required|string|email|unique:users';
 
     /**
      * Determine if the user is authorized to make this request.

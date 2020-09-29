@@ -4,7 +4,6 @@ namespace App\Http\Controllers\App;
 
 use App\Enums\Constants;
 use App\Enums\ImagePath;
-use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
@@ -42,7 +41,12 @@ class ProfileController extends Controller
      */
     public function logs()
     {
-        $logs = Auth::user()->logs()->orderBy('created_at', 'desc')->paginate(10)->onEachSide(0);
+        $logs = Auth::user()
+            ->logs()
+            ->orderBy('updated_at', 'desc')
+            ->paginate(Constants::DEFAULT_PAGE_PAGINATION_ITEMS)
+            ->onEachSide(Constants::DEFAULT_PAGE_PAGINATION_EACH_SIDE);
+
         return view('app.profile.logs', compact("logs"));
     }
 
@@ -54,11 +58,11 @@ class ProfileController extends Controller
      */
     public function updateInfo(UserUpdateInfoRequest $request)
     {
-        Auth::user()->update($request->only([
-            'first_name', 'last_name', 'phone', 'description',
-            'post_code', 'city', 'country', 'profession', 'address',
-        ]));
+        Auth::user()->update($request->all());
+
         success_toast_alert('Profil mis à jour avec succès');
+        log_activity("Profil", "Mise à jour des informations personnelles");
+
         return back();
     }
 
@@ -85,6 +89,8 @@ class ProfileController extends Controller
 
         $user->update(compact('password'));
         success_toast_alert('Mot de passe mis à jour avec succès');
+        log_activity("Profil", "Mise à jour du mot de passe");
+
         return back();
     }
 
@@ -112,6 +118,7 @@ class ProfileController extends Controller
             'avatar_extension' => $user_avatar_to_save['extension'],
         ]);
 
+        log_activity("Profil", "Mise à jour de la photo de profil");
         return response()->json(['message' => 'Photo de profil mise à jour avec succès']);
     }
 }

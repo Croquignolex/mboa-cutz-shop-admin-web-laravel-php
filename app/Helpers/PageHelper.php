@@ -104,6 +104,17 @@ if(!function_exists('categories_pages'))
     }
 }
 
+if(!function_exists('admins_pages'))
+{
+    /**
+     * @return Collection
+     */
+    function admins_pages()
+    {
+        return collect(['admins.index', 'admins.create', 'admins.show', 'admins.edit']);
+    }
+}
+
 if(!function_exists('products_pages'))
 {
     /**
@@ -112,5 +123,16 @@ if(!function_exists('products_pages'))
     function products_pages()
     {
         return collect(['products.index', 'products.create', 'products.show', 'products.edit']);
+    }
+}
+
+if(!function_exists('archives_pages'))
+{
+    /**
+     * @return Collection
+     */
+    function archives_pages()
+    {
+        return collect(['archives.index', 'archives.admins.index']);
     }
 }

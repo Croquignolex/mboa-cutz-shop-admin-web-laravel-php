@@ -32,6 +32,11 @@
                             <div class="d-inline-block">
                                 {{ text_format(auth()->user()->full_name, 20) }}
                                 <small class="pt-1">{{ text_format(auth()->user()->email, 25) }}</small>
+                                <small>
+                                    <span class="badge badge-pill badge-{{ auth()->user()->role->badge_color }} mt-2">
+                                        {{ auth()->user()->role->name }}
+                                    </span>
+                                </small>
                             </div>
                         </li>
                         <li class="{{ active_page(collect(['profile.index'])) === 'active' ? 'bg-light' : '' }}">

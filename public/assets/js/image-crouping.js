@@ -140,7 +140,7 @@ function toggleCroupModalLoader(toggleStatus) {
         $("#croup-modal-action-buttons").hide();
         $("#croup-modal-loader").show();
     } else {
-        // Hide loaderç
+        // Hide loader
         $("#croup-modal-image-canvas").css('opacity', 1);
         $("#croup-modal-loader").hide();
         $("#croup-modal-action-buttons").show();

@@ -18,8 +18,15 @@ class UserUpdateInfoRequest extends FormRequest
     public function rules()
     {
         return [
+            'city' => $this->string,
+            'phone' => $this->string,
+            'country' => $this->string,
+            'address' => $this->string,
+            'post_code' => $this->string,
+            'profession' => $this->string,
+            'description' => $this->string,
+            'last_name' => $this->required_string,
             'first_name' => $this->required_string,
-            'last_name' => $this->required_string
         ];
     }
 
