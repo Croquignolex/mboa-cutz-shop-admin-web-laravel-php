@@ -36,5 +36,17 @@
                 </div>
             </a>
         </div>
+        {{--Tags--}}
+        <div class="col-md-6 col-lg-3">
+            <a href="{{ route('archives.tags.index') }}">
+                <div class="card widget-block p-4 rounded bg-success border">
+                    <div class="card-block">
+                        <i class="mdi mdi-tag-multiple mr-4 text-white"></i>
+                        <h4 class="text-white my-2">{{ $tags }}</h4>
+                        <p>Etiquettes archivées</p>
+                    </div>
+                </div>
+            </a>
+        </div>
     </div>
 @endsection

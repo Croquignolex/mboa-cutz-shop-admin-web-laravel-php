@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Archive;
 
+use App\Models\Tag;
 use App\Models\Role;
 use App\Models\User;
 use App\Enums\UserRole;
@@ -35,6 +36,8 @@ class ArchiveController extends Controller
 
         $categories = Category::onlyTrashed()->count();
 
-        return view('archive.index', compact('admins', 'categories'));
+        $tags = Tag::onlyTrashed()->count();
+
+        return view('archive.index', compact('admins', 'categories', 'tags'));
     }
 }
