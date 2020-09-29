@@ -48,7 +48,7 @@
                         <i class="mdi mdi-tag-multiple"></i>
                         <span class="nav-text">Etiquettes</span> <b class="caret"></b>
                     </a>
-                    <ul class="collapse {{ active_page_group(categories_pages()) }}" id="tags" data-parent="#sidebar-menu">
+                    <ul class="collapse {{ active_page_group(tags_pages()) }}" id="tags" data-parent="#sidebar-menu">
                         <div class="sub-menu">
                             <li class="{{ active_page(collect('tags.index')) }}">
                                 <a class="sidenav-item-link" href="{{ route('tags.index') }}">

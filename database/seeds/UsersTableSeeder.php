@@ -13,22 +13,25 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        Role::where('type', UserRole::SUPER_ADMIN)->first()->users()->createMany([
-            [
-                'last_name' => 'NGOMBOL',
-                'first_name' => 'Alex Stéphane',
-                'email' => 'angombol@mboacutz.com',
-            ],
-            [
-                'last_name' => 'TEST',
-                'first_name' => 'Admin',
-                'email' => 'atest@mboacutz.com',
-            ],
-            [
-                'last_name' => 'TEST',
-                'first_name' => 'User',
-                'email' => 'utest@mboacutz.com',
-            ]
+        Role::where('type', UserRole::SUPER_ADMIN)->first()->users()->create([
+            'is_confirmed' => true,
+            'last_name' => 'NGOMBOL',
+            'first_name' => 'Alex Stéphane',
+            'email' => 'angombol@mboacutz.com',
+        ]);
+
+        Role::where('type', UserRole::ADMIN)->first()->users()->create([
+            'is_confirmed' => true,
+            'last_name' => 'TEST',
+            'first_name' => 'Admin',
+            'email' => 'atest@mboacutz.com',
+        ]);
+
+        Role::where('type', UserRole::USER)->first()->users()->create([
+            'is_confirmed' => true,
+            'last_name' => 'TEST',
+            'first_name' => 'User',
+            'email' => 'utest@mboacutz.com',
         ]);
     }
 }

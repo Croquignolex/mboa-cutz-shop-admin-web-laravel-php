@@ -63,7 +63,7 @@ class TagController extends Controller
         success_toast_alert("Etiquette $name créer avec succès");
         log_activity("Etiquette", "Création de l'étiquette $name");
 
-        return redirect(route('categories.index'));
+        return redirect(route('tags.index'));
     }
 
     /**
@@ -80,7 +80,7 @@ class TagController extends Controller
             ->paginate(Constants::DEFAULT_PAGE_PAGINATION_ITEMS)
             ->onEachSide(Constants::DEFAULT_PAGE_PAGINATION_EACH_SIDE);
 
-        return view('app.categories.show', compact('tag', 'products'));
+        return view('app.tags.show', compact('tag', 'products'));
     }
 
     /**

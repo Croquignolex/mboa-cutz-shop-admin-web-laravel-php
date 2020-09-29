@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('app.master.title', page_title('Nouvelle categorie'))
+@section('app.master.title', page_title('Nouvelle étiquette'))
 
 @section('app.breadcrumb')
     @include('partials.breadcrumb', [
-        'title' => 'Nouvelle categorie',
+        'title' => 'Nouvelle étiquette',
         'icon' => 'mdi mdi-mdi-tag-multiple',
-        'chain' => ['Categories', 'Nouvelle categorie']
+        'chain' => ['Etiquettes', 'Nouvelle étiquette']
     ])
 @endsection
 
@@ -16,7 +16,7 @@
             <div class="card card-default">
                 <div class="card-body">
                     <div class="mx-5">@include('partials.error-message')</div>
-                    <form action="{{ route('categories.store') }}" method="POST">
+                    <form action="{{ route('tags.store') }}" method="POST">
                         @csrf
                         <div class="row">
                             <div class="col-sm-6">
