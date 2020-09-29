@@ -3,10 +3,14 @@
 namespace App\Models;
 
 use App\Enums\Constants;
+use App\Enums\UserRole;
+use App\Traits\DateTrait;
+use App\Traits\CreatorTrait;
 use App\Traits\SlugRouteTrait;
 use App\Enums\ProductAvailability;
-use App\Traits\LocaleSlugSaveTrait;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -15,13 +19,26 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property mixed image_extension
  * @property mixed stock
  * @property mixed is_new
+ * @property mixed fr_name
+ * @property mixed slug
+ * @property mixed en_name
+ * @property mixed fr_description
+ * @property mixed en_description
  * @property mixed created_at
  * @property mixed discount
+ * @property mixed creator
  * @property mixed price
  */
 class Product extends Model
 {
-    use SoftDeletes, SlugRouteTrait, LocaleSlugSaveTrait;
+    use SoftDeletes, SlugRouteTrait, DateTrait, CreatorTrait;
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $guarded = ['slug', 'id', 'creator_id', 'category_id'];
 
     /**
      * The attributes that are mass assignable.
@@ -30,23 +47,9 @@ class Product extends Model
      */
     protected $fillable = [
         'image', 'fr_name', 'en_name', 'fr_description', 'en_description',
-        'price', 'discount', 'ranking', 'is_featured', 'is_new', 'is_activated',
-        'is_most_sold', 'stock', 'extension', 'product_category_id'
+        'price', 'discount', 'ranking', 'stock', 'extension',
+        'is_featured', 'is_new', 'is_most_sold',
     ];
-
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = ['is_activated'];
-
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array
-     */
-    protected $casts = ['is_activated' => 'boolean'];
 
     /**
      * @return BelongsTo
@@ -63,7 +66,7 @@ class Product extends Model
      */
     public function getImageSrcAttribute() {
         // Update une avatar with default if avatar file is not found
-        if(!file_exists(product_img_asset($this->image, $this->image_extension))) {
+        if(!Storage::exists(product_img_asset($this->image, $this->image_extension))) {
             $this->update([
                 'image' => Constants::DEFAULT_IMAGE,
                 'image_extension' => Constants::DEFAULT_IMAGE_EXTENSION,
@@ -95,10 +98,27 @@ class Product extends Model
     }
 
     /**
+     * Products discount tag
+     *
      * @return bool
      */
     public function getIsADiscountAttribute()
     {
         return $this->discount !== 0;
+    }
+
+    /**
+     * Check if product can be deleted
+     *
+     * @return mixed
+     */
+    public function getCanDeleteAttribute()
+    {
+        $connected_user = Auth::user();
+        return (
+            ($connected_user->role->type === UserRole::SUPER_ADMIN) ||
+            ($this->creator === null) ||
+            (Auth::user()->id === $this->creator->id)
+        );
     }
 }

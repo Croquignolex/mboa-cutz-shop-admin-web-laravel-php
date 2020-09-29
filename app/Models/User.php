@@ -4,6 +4,8 @@ namespace App\Models;
 
 use App\Enums\UserRole;
 use App\Enums\Constants;
+use App\Traits\DateTrait;
+use App\Traits\CreatorTrait;
 use App\Traits\SlugRouteTrait;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -36,18 +38,34 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property mixed format_first_name
  * @property mixed slug
  * @property mixed logs
+ * @property mixed creator
+ * @property mixed can_show
+ * @property mixed can_edit
+ * @property mixed can_delete
+ * @property mixed can_restore
+ * @property mixed can_grant_super_admin_user
+ * @property mixed can_grant_admin_user
  */
 class User extends Authenticate
 {
-
-    use SoftDeletes, SlugRouteTrait;
+    use SoftDeletes, SlugRouteTrait, DateTrait, CreatorTrait;
 
     /**
      * The attributes that aren't mass assignable.
      *
      * @var array
      */
-    protected $guarded = ['slug', 'id', 'is_confirmed', 'role_id'];
+    protected $guarded = ['slug', 'id', 'is_confirmed', 'role_id', 'creator_id'];
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'first_name', 'last_name', 'phone', 'description', 'post_code',
+        'city', 'country', 'profession', 'address', 'email'
+    ];
 
     /**
      * User role
@@ -67,6 +85,26 @@ class User extends Authenticate
     public function logs()
     {
         return $this->hasMany('App\Models\Log');
+    }
+
+    /**
+     * User logs
+     *
+     * @return HasMany
+     */
+    public function created_users()
+    {
+        return $this->hasMany('App\Models\User', 'creator_id');
+    }
+
+    /**
+     * User categories
+     *
+     * @return HasMany
+     */
+    public function created_categories()
+    {
+        return $this->hasMany('App\Models\Category', 'creator_id');
     }
 
     /**
@@ -127,24 +165,7 @@ class User extends Authenticate
     }
 
     /**
-     * Check if user can be deleted
-     *
-     * @return mixed
-     */
-    public function getCanDeleteUserAttribute()
-    {
-        $connected_user = Auth::user();
-        return (
-            ($connected_user->id !== $this->id) &&
-            (
-                (($this->role->type === UserRole::USER) && ($connected_user->role->type !== UserRole::USER)) ||
-                (($this->role->type === UserRole::ADMIN) && ($connected_user->role->type === UserRole::SUPER_ADMIN))
-            )
-        );
-    }
-
-    /**
-     * Check if user can grand admin privileges
+     * Check if connected user can grand admin privileges
      *
      * @return mixed
      */
@@ -153,13 +174,24 @@ class User extends Authenticate
         $connected_user = Auth::user();
         return (
             ($connected_user->id !== $this->id) &&
-            ($this->role->type === UserRole::USER) &&
-            ($connected_user->role->type !== UserRole::USER)
+            (
+                (
+                    ($this->role->type === UserRole::USER) &&
+                    (
+                        ($connected_user->role->type === UserRole::ADMIN) ||
+                        ($connected_user->role->type === UserRole::SUPER_ADMIN)
+                    )
+                ) ||
+                (
+                    ($this->role->type === UserRole::SUPER_ADMIN) &&
+                    ($connected_user->role->type === UserRole::SUPER_ADMIN)
+                )
+            )
         );
     }
 
     /**
-     * Check if user can grand super admin privileges
+     * Check if connected user can grand super admin privileges
      *
      * @return mixed
      */
@@ -170,6 +202,61 @@ class User extends Authenticate
             ($connected_user->id !== $this->id) &&
             ($this->role->type !== UserRole::SUPER_ADMIN) &&
             ($connected_user->role->type === UserRole::SUPER_ADMIN)
+        );
+    }
+
+    /**
+     * Check if connected user can show user details
+     *
+     * @return mixed
+     */
+    public function getCanShowAttribute()
+    {
+        return Auth::user()->id !== $this->id;
+    }
+
+    /**
+     * Check if connected user can edit user details
+     *
+     * @return mixed
+     */
+    public function getCanEditAttribute()
+    {
+        return $this->updateAndDeleteLogic();
+    }
+
+    /**
+     * Check if connected user can be deleted
+     *
+     * @return mixed
+     */
+    public function getCanDeleteAttribute()
+    {
+        return $this->updateAndDeleteLogic();
+    }
+
+    /**
+     * Update and delete logic
+     *
+     * @return bool
+     */
+    private function updateAndDeleteLogic() {
+        $connected_user = Auth::user();
+        return (
+            ($connected_user->id !== $this->id) &&
+            (
+                (
+                    ($this->role->type === UserRole::USER) &&
+                    (
+                        ($connected_user->role->type === UserRole::ADMIN) ||
+                        ($connected_user->role->type === UserRole::SUPER_ADMIN)
+                    )
+                ) ||
+                (
+                    ($this->role->type === UserRole::ADMIN) &&
+                    ($connected_user->role->type === UserRole::SUPER_ADMIN)
+                )
+            )
         );
     }
 }

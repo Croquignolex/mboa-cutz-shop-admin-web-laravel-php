@@ -43,7 +43,7 @@
                     </ul>
                 </li>
                 {{--Produits--}}
-                <li class="has-sub expand {{ active_page(products_pages()) }}">
+                {{--<li class="has-sub expand {{ active_page(products_pages()) }}">
                     <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#products" aria-expanded="false" aria-controls="products">
                         <i class="mdi mdi-basket"></i>
                         <span class="nav-text">Produits</span> <b class="caret"></b>
@@ -68,6 +68,40 @@
                             </li>
                         </div>
                     </ul>
+                </li>--}}
+                {{--Admins--}}
+                <li class="has-sub expand {{ active_page(admins_pages()) }}">
+                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#admins" aria-expanded="false" aria-controls="admins">
+                        <i class="mdi mdi-account-multiple"></i>
+                        <span class="nav-text">Administrateurs</span> <b class="caret"></b>
+                    </a>
+                    <ul class="collapse {{ active_page_group(admins_pages()) }}" id="admins" data-parent="#sidebar-menu">
+                        <div class="sub-menu">
+                            <li class="{{ active_page(collect('admins.index')) }}">
+                                <a class="sidenav-item-link" href="{{ route('admins.index') }}">
+                                    <span class="nav-text">
+                                        <i class="mdi mdi-playlist-check"></i>
+                                        Tous les administrateurs
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="{{ active_page(collect('admins.create')) }}">
+                                <a class="sidenav-item-link" href="{{ route('admins.create') }}">
+                                    <span class="nav-text">
+                                        <i class="mdi mdi-playlist-plus"></i>
+                                        Nouvel administrateur
+                                    </span>
+                                </a>
+                            </li>
+                        </div>
+                    </ul>
+                </li>
+                {{--Dashboard--}}
+                <li  class="{{ active_page(archives_pages()) }}">
+                    <a class="sidenav-item-link" href="{{ route('archives.index') }}">
+                        <i class="mdi mdi-archive"></i>
+                        <span class="nav-text">Archives</span>
+                    </a>
                 </li>
                 {{--Articles--}}
                {{-- <li class="has-sub expand {{ active_page(articles_pages()) }}">

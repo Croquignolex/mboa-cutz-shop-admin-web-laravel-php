@@ -24,7 +24,7 @@ trait SlugRouteTrait
     public function setSlugAttribute($value)
     {
         $slug = Str::slug($value);
-        if (static::whereSlug($slug)->exists()) {
+        if (static::withTrashed()->whereSlug($slug)->exists()) {
             $slug = $this->incrementSlug($slug);
         }
         // Mutator
@@ -42,7 +42,7 @@ trait SlugRouteTrait
         $original = $slug;
         $count = 2;
 
-        while (static::whereSlug($slug)->exists()) {
+        while (static::withTrashed()->whereSlug($slug)->exists()) {
             $slug = "{$original}-" . $count++;
         }
 

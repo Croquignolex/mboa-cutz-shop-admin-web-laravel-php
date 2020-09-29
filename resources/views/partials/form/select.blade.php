@@ -1,31 +1,21 @@
 <div class="form-group">
-    <label for="{{ $id }}">
-        {{ $name }}
-        @if ($errors->has($id))
-            <span class="text-danger">
-                {{ $errors->first($id) }}
-            </span>
-        @endif
-    </label>
-    <select class="searchable-select form-control"
-            name="state"
+    @include('partials.input-label', compact('id', 'name'))
+
+    <select data-size="10"
+            id="{{ $id }}"
+            name="{{ $id }}"
             data-live-search="true"
-            title="Choose one of the following..."
+            title="{{ $title }}..."
+            {{ $attributte ?? '' }}
+            class="searchable-select form-control"
             data-style="btn-white border border-secondary"
-            data-size="10"
-            {{ $multi ?? '' }}
     >
-        <option value="AL">Alabama</option>
-        <option value="AL">Alabama</option>
-        <option value="WY">Wyoming</option>
-        <option value="AL">Alabama</option>
-        <option value="WY">Wyoming</option>
-        <option value="AL">Alabama</option>
-        <option value="WY">Wyoming</option>
-        <option value="AL">Alabama</option>
-        <option value="WY">Wyoming</option>
-        <option value="AL">Alabama</option>
-        <option value="WY">Wyoming</option>
-        <option value="WY">Wyoming</option>
+        @foreach($options as $option)
+            <option value="{{ $option['value'] }}"
+                    data-content="<span class='{{ $option['class'] }}'>{{ $option['label'] }}<span>"
+                    {{ $value === $option['value'] ? 'selected' : ''}}
+            >
+            </option>
+        @endforeach
     </select>
 </div>

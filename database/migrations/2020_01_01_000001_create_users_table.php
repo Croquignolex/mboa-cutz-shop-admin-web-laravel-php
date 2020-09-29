@@ -33,6 +33,7 @@ class CreateUsersTable extends Migration
             $table->text('description')->nullable();
             $table->boolean('is_confirmed')->default(false);
             $table->unsignedInteger('role_id');
+            $table->unsignedInteger('creator_id')->nullable();
             $table->softDeletes();
             $table->timestamps();
 
@@ -40,6 +41,11 @@ class CreateUsersTable extends Migration
                 ->references('id')
                 ->on('roles')
                 ->onDelete('cascade');
+
+            $table->foreign('creator_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('set null');
         });
     }
 
