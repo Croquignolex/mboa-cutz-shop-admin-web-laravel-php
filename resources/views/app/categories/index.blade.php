@@ -18,7 +18,7 @@
                     <div class="mb-3">
                         <a class="btn btn-primary" href="{{ route('categories.create') }}">
                             <i class="mdi mdi-plus"></i>
-                            Nouvel catégorie
+                            Nouvelle catégorie
                         </a>
                     </div>
 

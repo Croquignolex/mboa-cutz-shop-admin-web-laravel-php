@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use App\Enums\UserRole;
 use App\Traits\DateTrait;
 use App\Traits\CreatorTrait;
 use App\Traits\SlugRouteTrait;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -36,11 +38,11 @@ class Tag extends Model
     protected $fillable = ['fr_name', 'en_name', 'description'];
 
     /**
-     * @return HasMany
+     * @return BelongsToMany|HasMany
      */
     public function products()
     {
-//        return $this->hasMany('App\Models\Product');
+        return $this->belongsToMany('App\Models\Product');
     }
 
     /**
@@ -51,12 +53,12 @@ class Tag extends Model
     public function getCanDeleteAttribute()
     {
         $connected_user = Auth::user();
-//        return (
-//            ($this->products->count() === 0) && (
-//                ($connected_user->role->type === UserRole::SUPER_ADMIN) ||
-//                ($this->creator === null) ||
-//                (Auth::user()->id === $this->creator->id)
-//            )
-//        );
+        return (
+            ($this->products->count() === 0) && (
+                ($connected_user->role->type === UserRole::SUPER_ADMIN) ||
+                ($this->creator === null) ||
+                (Auth::user()->id === $this->creator->id)
+            )
+        );
     }
 }

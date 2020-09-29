@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Product;
 use App\Models\Tag;
 use Illuminate\Database\Seeder;
 
@@ -12,7 +13,9 @@ class TagsTableSeeder extends Seeder
      */
     public function run()
     {
-        Tag::create(['fr_name' => 'Rouge', 'en_name' => 'Red']);
-        Tag::create(['fr_name' => 'Blanc', 'en_name' => 'White']);
+        Product::first()->tags()->createMany([
+            ['fr_name' => 'Rouge', 'en_name' => 'Red'],
+            ['fr_name' => 'Blanc', 'en_name' => 'White']
+        ]);
     }
 }

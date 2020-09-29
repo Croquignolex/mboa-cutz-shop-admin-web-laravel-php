@@ -31,7 +31,7 @@ class CreateUsersTable extends Migration
             $table->string('phone')->nullable();
             $table->string('profession')->nullable();
             $table->text('description')->nullable();
-            $table->boolean('is_confirmed')->default(false);
+            $table->boolean('is_confirmed')->default(true);
             $table->unsignedInteger('role_id');
             $table->unsignedInteger('creator_id')->nullable();
             $table->softDeletes();
