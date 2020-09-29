@@ -11,12 +11,9 @@
 @endsection
 
 @section('app.master.body')
-    <div class="row">
-        <div class="col-12">
+    <div class="row no-gutters">
+        <div class="col">
             <div class="card card-default">
-                <div class="card-header card-header-border-bottom d-flex justify-content-between">
-                    <h2>Ajouter un nouvel administrateur</h2>
-                </div>
                 <div class="card-body">
                     <div class="mx-5">@include('partials.error-message')</div>
                     <form action="{{ route('admins.store') }}" method="POST">
