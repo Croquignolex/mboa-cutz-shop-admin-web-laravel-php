@@ -67,6 +67,17 @@ class TestimonialController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param Testimonial $testimonial
+     * @return Application|Factory|Response|View
+     */
+    public function show(Testimonial $testimonial)
+    {
+        return view('app.testimonials.show', compact('testimonial'));
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param Testimonial $testimonial
@@ -91,7 +102,7 @@ class TestimonialController extends Controller
         success_toast_alert("Témoignage de $testimonial->name mise à jour avec success");
         log_activity("Témoignage", "Mise à jour du témoignage de $testimonial->fname");
 
-        return redirect(route('testimonials.index'));
+        return redirect(route('testimonials.show', compact('testimonial')));
     }
 
     /**

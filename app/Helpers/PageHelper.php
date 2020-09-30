@@ -122,7 +122,7 @@ if(!function_exists('testimonials_pages'))
      */
     function testimonials_pages()
     {
-        return collect(['testimonials.index', 'testimonials.create', 'testimonials.edit']);
+        return collect(['testimonials.index', 'testimonials.show', 'testimonials.create', 'testimonials.edit']);
     }
 }
 

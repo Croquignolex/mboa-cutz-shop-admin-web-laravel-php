@@ -29,8 +29,8 @@ Route::group(['namespace' => 'App'], function() {
         'admins' => 'AdminController',
         'products' => 'ProductController',
         'categories' => 'CategoryController',
+        'testimonials' => 'TestimonialController',
     ]);
-    Route::resource('testimonials', 'TestimonialController')->except(['show']);
 
     // App GET routes
     Route::get('/profile', 'ProfileController@index')->name('profile.index');

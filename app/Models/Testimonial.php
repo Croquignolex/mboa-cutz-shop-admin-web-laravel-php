@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use App\Enums\Constants;
 use App\Traits\DateTrait;
 use App\Traits\CreatorTrait;
 use App\Traits\SlugRouteTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * @property mixed name
@@ -14,6 +16,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property mixed fr_description
  * @property mixed creator
  * @property mixed en_description
+ * @property mixed image
+ * @property mixed image_extension
  */
 class Testimonial extends Model
 {
@@ -32,4 +36,21 @@ class Testimonial extends Model
      * @var array
      */
     protected $fillable = ['name', 'fr_description', 'en_description'];
+
+    /**
+     * Testimonial image src
+     *
+     * @return string
+     */
+    public function getImageSrcAttribute() {
+        // Update une avatar with default if avatar file is not found
+        if(!Storage::exists(testimonial_img_asset($this->image, $this->image_extension))) {
+            $this->update([
+                'image' => Constants::DEFAULT_IMAGE,
+                'image_extension' => Constants::DEFAULT_IMAGE_EXTENSION,
+            ]);
+        }
+
+        return testimonial_img_asset($this->image, $this->image_extension);
+    }
 }
