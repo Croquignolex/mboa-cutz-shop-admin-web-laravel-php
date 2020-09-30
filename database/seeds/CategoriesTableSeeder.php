@@ -16,13 +16,13 @@ class CategoriesTableSeeder extends Seeder
         Category::create([
             'fr_name' => Lorem::word(),
             'en_name' => Lorem::word(),
-            'description' => Lorem::sentence()
+            'description' => Lorem::text()
         ]);
 
         Category::create([
             'fr_name' => Lorem::word(),
             'en_name' => Lorem::word(),
-            'description' => Lorem::sentence()
+            'description' => Lorem::text()
         ]);
     }
 }

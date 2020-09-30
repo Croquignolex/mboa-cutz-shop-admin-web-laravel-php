@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Enums\UserRole;
 use App\Models\Category;
 use Illuminate\View\View;
+use App\Models\Testimonial;
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\Foundation\Application;
@@ -34,10 +35,15 @@ class ArchiveController extends Controller
             })
             ->count();
 
-        $categories = Category::onlyTrashed()->count();
-
         $tags = Tag::onlyTrashed()->count();
 
-        return view('archive.index', compact('admins', 'categories', 'tags'));
+        $categories = Category::onlyTrashed()->count();
+
+        $testimonials = Testimonial::onlyTrashed()->count();
+
+        return view('archive.index', compact(
+            'admins', 'categories', 'tags', 'testimonials'
+            )
+        );
     }
 }

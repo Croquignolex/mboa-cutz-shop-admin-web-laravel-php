@@ -17,14 +17,12 @@ class TagsTableSeeder extends Seeder
             [
                 'fr_name' => Lorem::word(),
                 'en_name' => Lorem::word(),
-                'fr_description' => Lorem::sentence(),
-                'en_description' => Lorem::sentence(),
+                'description' => Lorem::text()
             ],
             [
                 'fr_name' => Lorem::word(),
                 'en_name' => Lorem::word(),
-                'fr_description' => Lorem::sentence(),
-                'en_description' => Lorem::sentence(),
+                'description' => Lorem::text()
             ],
         ]);
 

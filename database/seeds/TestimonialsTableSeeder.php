@@ -14,27 +14,27 @@ class TestimonialsTableSeeder extends Seeder
     public function run()
     {
         Testimonial::create([
-            'name' => Lorem::words(2),
-            'fr_description' => Lorem::sentence(),
-            'en_description' => Lorem::sentence()
+            'name' => Lorem::sentence(2),
+            'fr_description' => Lorem::text(),
+            'en_description' => Lorem::text()
         ]);
 
         Testimonial::create([
-            'name' => Lorem::words(2),
-            'fr_description' => Lorem::sentence(),
-            'en_description' => Lorem::sentence()
+            'name' => Lorem::sentence(2),
+            'fr_description' => Lorem::text(),
+            'en_description' => Lorem::text()
         ]);
 
         Testimonial::create([
-            'name' => Lorem::words(2),
-            'fr_description' => Lorem::sentence(),
-            'en_description' => Lorem::sentence()
+            'name' => Lorem::sentence(2),
+            'fr_description' => Lorem::text(),
+            'en_description' => Lorem::text()
         ]);
 
         Testimonial::create([
-            'name' => Lorem::words(2),
-            'fr_description' => Lorem::sentence(),
-            'en_description' => Lorem::sentence()
+            'name' => Lorem::sentence(2),
+            'fr_description' => Lorem::text(),
+            'en_description' => Lorem::text()
         ]);
     }
 }

@@ -19,7 +19,7 @@
                     <div class="card-block">
                         <i class="mdi mdi-account-multiple mr-4 text-white"></i>
                         <h4 class="text-white my-2">{{ $admins }}</h4>
-                        <p>Administrateurs archivés</p>
+                        <p class="text-white">Administrateurs archivés</p>
                     </div>
                 </div>
             </a>
@@ -31,7 +31,7 @@
                     <div class="card-block">
                         <i class="mdi mdi-database mr-4 text-white"></i>
                         <h4 class="text-white my-2">{{ $categories }}</h4>
-                        <p>Catégories archivées</p>
+                        <p class="text-white">Catégories archivées</p>
                     </div>
                 </div>
             </a>
@@ -43,7 +43,19 @@
                     <div class="card-block">
                         <i class="mdi mdi-tag-multiple mr-4 text-white"></i>
                         <h4 class="text-white my-2">{{ $tags }}</h4>
-                        <p>Etiquettes archivées</p>
+                        <p class="text-white">Etiquettes archivées</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        {{--Testimonials--}}
+        <div class="col-md-6 col-lg-3">
+            <a href="{{ route('archives.testimonials.index') }}">
+                <div class="card widget-block p-4 rounded bg-warning border">
+                    <div class="card-block">
+                        <i class="mdi mdi-face mr-4 text-white"></i>
+                        <h4 class="text-white my-2">{{ $testimonials }}</h4>
+                        <p class="text-white">Témoignages archivées</p>
                     </div>
                 </div>
             </a>
