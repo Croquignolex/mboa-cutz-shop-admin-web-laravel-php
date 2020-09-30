@@ -29,6 +29,7 @@ Route::group(['namespace' => 'App'], function() {
         'admins' => 'AdminController',
         'products' => 'ProductController',
         'categories' => 'CategoryController',
+        'testimonials' => 'TestimonialController',
     ]);
 
     // App GET routes
@@ -53,9 +54,11 @@ Route::group(['namespace' => 'Archive'], function() {
     Route::get('/archives/tags', 'TagController@index')->name('archives.tags.index');
     Route::get('/archives/admins', 'AdminController@index')->name('archives.admins.index');
     Route::get('/archives/categories', 'CategoryController@index')->name('archives.categories.index');
+    Route::get('/archives/testimonials', 'TestimonialController@index')->name('archives.testimonials.index');
 
     // App POST routes
     Route::post('/archives/tags/{tag}/restore', 'TagController@restore')->name('archives.tags.restore');
     Route::post('/archives/admins/{admin}/restore', 'AdminController@restore')->name('archives.admins.restore');
     Route::post('/archives/categories/{category}/restore', 'CategoryController@restore')->name('archives.categories.restore');
+    Route::post('/archives/testimonials/{testimonial}/restore', 'TestimonialController@restore')->name('archives.testimonials.restore');
 });

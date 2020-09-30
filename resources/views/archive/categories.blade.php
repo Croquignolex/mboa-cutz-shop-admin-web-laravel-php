@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('app.master.title', page_title('Administrateurs archivés'))
+@section('app.master.title', page_title('Categories archivées'))
 
 @section('app.breadcrumb')
     @include('partials.breadcrumb', [
-        'title' => "Categories archivés ({$categories->total()})",
+        'title' => "Categories archivées ({$categories->total()})",
         'icon' => 'mdi mdi-database',
-        'chain' => ['Archives', 'Categories archivés']
+        'chain' => ['Archives', 'Categories archivées']
     ])
 @endsection
 
