@@ -115,6 +115,17 @@ if(!function_exists('tags_pages'))
     }
 }
 
+if(!function_exists('testimonials_pages'))
+{
+    /**
+     * @return Collection
+     */
+    function testimonials_pages()
+    {
+        return collect(['testimonials.index', 'testimonials.create', 'testimonials.edit']);
+    }
+}
+
 if(!function_exists('admins_pages'))
 {
     /**

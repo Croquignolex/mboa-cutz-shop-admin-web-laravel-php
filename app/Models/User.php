@@ -112,6 +112,16 @@ class User extends Authenticate
      *
      * @return HasMany
      */
+    public function created_testimonials()
+    {
+        return $this->hasMany('App\Models\Testimonial', 'creator_id');
+    }
+
+    /**
+     * User categories
+     *
+     * @return HasMany
+     */
     public function created_tags()
     {
         return $this->hasMany('App\Models\Tag', 'creator_id');

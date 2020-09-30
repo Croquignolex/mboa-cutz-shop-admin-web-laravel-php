@@ -27,7 +27,7 @@
                                 <a class="sidenav-item-link" href="{{ route('categories.index') }}">
                                     <span class="nav-text">
                                         <i class="mdi mdi-playlist-check"></i>
-                                        Tous les categories
+                                        Toutes les categories
                                     </span>
                                 </a>
                             </li>
@@ -54,7 +54,7 @@
                                 <a class="sidenav-item-link" href="{{ route('tags.index') }}">
                                     <span class="nav-text">
                                         <i class="mdi mdi-playlist-check"></i>
-                                        Tous les étiquettes
+                                        Toutes les étiquettes
                                     </span>
                                 </a>
                             </li>
@@ -63,6 +63,33 @@
                                     <span class="nav-text">
                                         <i class="mdi mdi-playlist-plus"></i>
                                         Nouvelle étiquette
+                                    </span>
+                                </a>
+                            </li>
+                        </div>
+                    </ul>
+                </li>
+                {{--Testimonials--}}
+                <li class="has-sub expand {{ active_page(testimonials_pages()) }}">
+                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#testimonials" aria-expanded="false" aria-controls="testimonials">
+                        <i class="mdi mdi-face"></i>
+                        <span class="nav-text">Témoignages</span> <b class="caret"></b>
+                    </a>
+                    <ul class="collapse {{ active_page_group(testimonials_pages()) }}" id="testimonials" data-parent="#sidebar-menu">
+                        <div class="sub-menu">
+                            <li class="{{ active_page(collect('testimonials.index')) }}">
+                                <a class="sidenav-item-link" href="{{ route('testimonials.index') }}">
+                                    <span class="nav-text">
+                                        <i class="mdi mdi-playlist-check"></i>
+                                        Tous les témoignages
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="{{ active_page(collect('testimonials.create')) }}">
+                                <a class="sidenav-item-link" href="{{ route('testimonials.create') }}">
+                                    <span class="nav-text">
+                                        <i class="mdi mdi-playlist-plus"></i>
+                                        Nouveau témoignage
                                     </span>
                                 </a>
                             </li>

@@ -37,6 +37,7 @@
                                     <td>{{ $testimonial->name }}</td>
                                     <td>{{ $testimonial->fr_description }}</td>
                                     <td>{{ $testimonial->en_description}}</td>
+                                    <td>{{ $testimonial->creator_name}}</td>
                                     <td class="text-center">
                                         <button class="btn btn-sm btn-success"
                                                 data-toggle="modal"

@@ -4,16 +4,16 @@ namespace App\Http\Controllers\App;
 
 use Exception;
 use App\Enums\Constants;
-use App\Models\Category;
 use Illuminate\View\View;
+use App\Models\Testimonial;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Redirector;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
-use App\Http\Requests\CategoryRequest;
 use Illuminate\Contracts\View\Factory;
+use App\Http\Requests\TestimonialRequest;
 use Illuminate\Contracts\Foundation\Application;
 
 class TestimonialController extends Controller
@@ -33,11 +33,11 @@ class TestimonialController extends Controller
      */
     public function index()
     {
-        $categories = Category::orderBy('created_at', 'desc')
+        $testimonials = Testimonial::orderBy('created_at', 'desc')
             ->paginate(Constants::DEFAULT_PAGE_PAGINATION_ITEMS)
             ->onEachSide(Constants::DEFAULT_PAGE_PAGINATION_EACH_SIDE);
 
-        return view('app.categories.index', compact('categories'));
+        return view('app.testimonials.index', compact('testimonials'));
     }
 
     /**
@@ -46,85 +46,66 @@ class TestimonialController extends Controller
      */
     public function create()
     {
-        return view('app.categories.create');
+        return view('app.testimonials.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param CategoryRequest $request
+     * @param TestimonialRequest $request
      * @return Application|RedirectResponse|Response|Redirector
      */
-    public function store(CategoryRequest $request)
+    public function store(TestimonialRequest $request)
     {
-        Auth::user()->created_categories()->create($request->all());
+        Auth::user()->created_testimonials()->create($request->all());
 
-        $name = $request->input('fr_name');
-        success_toast_alert("Catégorie $name créer avec succès");
-        log_activity("Catégorie", "Création de la catégorie $name");
+        $name = $request->input('name');
+        success_toast_alert("Témoignage de $name créer avec succès");
+        log_activity("Témoignage", "Création du témoignage de $name");
 
-        return redirect(route('categories.index'));
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param Category $category
-     * @return Application|Factory|Response|View
-     */
-    public function show(Category $category)
-    {
-        $products = $category
-            ->products()
-            ->orderBy('created_at', 'desc')
-            ->paginate(Constants::DEFAULT_PAGE_PAGINATION_ITEMS)
-            ->onEachSide(Constants::DEFAULT_PAGE_PAGINATION_EACH_SIDE);
-
-        return view('app.categories.show', compact('category', 'products'));
+        return redirect(route('testimonials.index'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Category $category
+     * @param Testimonial $testimonial
      * @return Application|RedirectResponse|Response|Redirector
      */
-    public function edit(Category $category)
+    public function edit(Testimonial $testimonial)
     {
-        return view('app.categories.edit', compact('category'));
+        return view('app.testimonials.edit', compact('testimonial'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param Category $category
+     * @param Testimonial $testimonial
      * @return Application|RedirectResponse|Response|Redirector
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, Testimonial $testimonial)
     {
-        $category->update($request->all());
+        $testimonial->update($request->all());
 
-        success_toast_alert("Catégorie $category->fr_name mise à jour avec success");
-        log_activity("Catégorie", "Mise à jour de la catégorie $category->fr_name");
+        success_toast_alert("Témoignage de $testimonial->name mise à jour avec success");
+        log_activity("Témoignage", "Mise à jour du témoignage de $testimonial->fname");
 
-        return redirect(route('categories.show', compact('category')));
+        return redirect(route('testimonials.index'));
     }
 
     /**
-     * @param Category $category
+     * @param Testimonial $testimonial
      * @return RedirectResponse
      * @throws Exception
      */
-    public function destroy(Category $category)
+    public function destroy(Testimonial $testimonial)
     {
-        if(!$category->can_delete) return $this->unauthorizedToast();
+        $testimonial->delete();
 
-        $category->delete();
+        success_toast_alert("Témoignage $testimonial->name archivée avec success");
+        log_activity("Témoignage", "Archivage du témoignage de $testimonial->name");
 
-        success_toast_alert("Catégorie $category->fr_name archivée avec success");
-        log_activity("Catégorie", "Archivage de la catégorie $category->fr_name");
-
-        return redirect(route('categories.index'));
+        return redirect(route('testimonials.index'));
     }
 }
