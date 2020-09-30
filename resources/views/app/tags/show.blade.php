@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('app.master.title', page_title('Détails catégorie'))
+@section('app.master.title', page_title('Détails étiquette'))
 
 @section('app.breadcrumb')
     @include('partials.breadcrumb', [
-        'title' => 'Détails catégorie',
-        'icon' => 'mdi mdi-database',
-        'chain' => ['Administrateurs', 'Détails catégorie']
+        'title' => 'Détails étiquette',
+        'icon' => 'mdi mdi-mdi-tag-multiple',
+        'chain' => ['Etiquettes', 'Détails étiquette']
     ])
 @endsection
 
@@ -17,14 +17,14 @@
             <div class="card card-default">
                 <div class="card-body">
                     <div class="mb-3">
-                        <a class="btn btn-warning" href="{{ route('categories.edit', compact('category')) }}">
+                        <a class="btn btn-warning" href="{{ route('tags.edit', compact('tag')) }}">
                             <i class="mdi mdi-pencil"></i>
                             Modifier
                         </a>
-                        @if($category->can_delete)
+                        @if($tag->can_delete)
                             <button class="btn btn-danger"
                                     data-toggle="modal"
-                                    data-target="{{ "#archive-category-modal" }}"
+                                    data-target="{{ "#archive-tag-modal" }}"
                             >
                                 <i class="mdi mdi-archive"></i>
                                 Archiver
@@ -33,13 +33,13 @@
                     </div>
                     <div class="contact-info">
                         <p class="text-dark font-weight-medium pt-4 mb-2">Nom (français)</p>
-                        <p>{{ $category->fr_name }}</p>
+                        <p>{{ $tag->fr_name }}</p>
 
                         <p class="text-dark font-weight-medium pt-4 mb-2">Nom (anglais)</p>
-                        <p>{{ $category->en_name }}</p>
+                        <p>{{ $tag->en_name }}</p>
 
                         <p class="text-dark font-weight-medium pt-4 mb-2">Description</p>
-                        <p>{{ $category->description }}</p>
+                        <p>{{ $tag->description }}</p>
                     </div>
                 </div>
             </div>
@@ -54,11 +54,11 @@
         </div>
     </div>
     {{--Modal--}}
-    @if($category->can_delete)
+    @if($tag->can_delete)
         @include('partials.archive-confirmation', [
-            'name' => $category->fr_name,
-            'modal_id' => "archive-category-modal",
-            'url' => route('categories.destroy', compact('category'))
+            'name' => $tag->fr_name,
+            'modal_id' => "archive-tag-modal",
+            'url' => route('tags.destroy', compact('tag'))
         ])
     @endif
 @endsection

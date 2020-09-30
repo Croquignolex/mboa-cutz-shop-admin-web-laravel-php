@@ -39,17 +39,10 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 @include('partials.form.textarea', [
-                                    'name' => 'Description (français)',
-                                    'id' => 'fr_description',
-                                    'value' => old('fr_description')
+                                    'name' => 'Description',
+                                    'id' => 'description',
+                                    'value' => old('description')
                                 ])
-                            </div>
-                            <div class="col-sm-6">
-                                @include('partials.form.textarea', [
-                                   'name' => 'Description (anglais)',
-                                   'id' => 'en_description',
-                                   'value' => old('en_description')
-                               ])
                             </div>
                         </div>
                         @include('partials.form.submit')

@@ -1,10 +1,10 @@
 <?php
 
-use App\Models\Category;
+use App\Models\Product;
 use Faker\Provider\Lorem;
 use Illuminate\Database\Seeder;
 
-class ProductsTableSeeder extends Seeder
+class TagsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,19 +13,19 @@ class ProductsTableSeeder extends Seeder
      */
     public function run()
     {
-        Category::first()->products()->createMany([
+        Product::first()->tags()->createMany([
             [
                 'fr_name' => Lorem::word(),
                 'en_name' => Lorem::word(),
-                'fr_description' => Lorem::text(),
-                'en_description' => Lorem::text(),
+                'description' => Lorem::text()
             ],
             [
                 'fr_name' => Lorem::word(),
                 'en_name' => Lorem::word(),
-                'fr_description' => Lorem::text(),
-                'en_description' => Lorem::text(),
-            ]
+                'description' => Lorem::text()
+            ],
         ]);
+
+
     }
 }

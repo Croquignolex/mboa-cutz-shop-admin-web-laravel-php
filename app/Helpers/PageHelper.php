@@ -104,6 +104,28 @@ if(!function_exists('categories_pages'))
     }
 }
 
+if(!function_exists('tags_pages'))
+{
+    /**
+     * @return Collection
+     */
+    function tags_pages()
+    {
+        return collect(['tags.index', 'tags.create', 'tags.show', 'tags.edit']);
+    }
+}
+
+if(!function_exists('testimonials_pages'))
+{
+    /**
+     * @return Collection
+     */
+    function testimonials_pages()
+    {
+        return collect(['testimonials.index', 'testimonials.show', 'testimonials.create', 'testimonials.edit']);
+    }
+}
+
 if(!function_exists('admins_pages'))
 {
     /**

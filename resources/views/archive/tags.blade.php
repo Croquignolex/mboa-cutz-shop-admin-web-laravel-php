@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('app.master.title', page_title('Categories archivées'))
+@section('app.master.title', page_title('Etiquettes archivés'))
 
 @section('app.breadcrumb')
     @include('partials.breadcrumb', [
-        'title' => "Categories archivées ({$categories->total()})",
-        'icon' => 'mdi mdi-database',
-        'chain' => ['Archives', 'Categories archivées']
+        'title' => "Etiquettes archivés ({$tags->total()})",
+        'icon' => 'mdi mdi-tag-multiple',
+        'chain' => ['Archives', 'Etiquettes archivés']
     ])
 @endsection
 
@@ -16,7 +16,7 @@
             <div class="card card-default">
                 <div class="card-body">
 
-                    <div class="mb-3">{{ $categories->links() }}</div>
+                    <div class="mb-3">{{ $tags->links() }}</div>
 
                     <div class="table-responsive">
                         <table class="table table-bordered table-hover">
@@ -30,17 +30,17 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach ($categories as $category)
+                            @foreach ($tags as $tag)
                                 <tr>
-                                    <td>{{ $category->creation_date }}</td>
-                                    <td>{{ $category->fr_name }}</td>
-                                    <td>{{ $category->en_name }}</td>
-                                    <td>{{ $category->creator_name}}</td>
+                                    <td>{{ $tag->creation_date }}</td>
+                                    <td>{{ $tag->fr_name }}</td>
+                                    <td>{{ $tag->en_name }}</td>
+                                    <td>{{ $tag->creator_name}}</td>
                                     <td class="text-center">
-                                        @if($category->can_delete)
+                                        @if($tag->can_delete)
                                             <button class="btn btn-sm btn-success"
                                                     data-toggle="modal"
-                                                    data-target="{{ "#$category->slug-restore-category-modal" }}"
+                                                    data-target="{{ "#$tag->slug-restore-tag-modal" }}"
                                                     title="Restorer"
                                             >
                                                 <i class="mdi mdi-backup-restore"></i>
@@ -50,11 +50,11 @@
                                     </td>
                                 </tr>
 
-                                @if($category->can_delete)
+                                @if($tag->can_delete)
                                     @include('partials.restore-confirmation', [
-                                        'name' => $category->fr_name,
-                                        'modal_id' => "$category->slug-restore-category-modal",
-                                        'url' => route('archives.categories.restore', compact('category'))
+                                        'name' => $tag->fr_name,
+                                        'modal_id' => "$tag->slug-restore-tag-modal",
+                                        'url' => route('archives.tags.restore', compact('tag'))
                                     ])
                                 @endif
                             @endforeach
@@ -62,7 +62,7 @@
                         </table>
                     </div>
 
-                    <div>{{ $categories->links() }}</div>
+                    <div>{{ $tags->links() }}</div>
                 </div>
             </div>
         </div>

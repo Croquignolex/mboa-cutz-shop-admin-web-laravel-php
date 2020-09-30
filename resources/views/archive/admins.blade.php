@@ -58,6 +58,7 @@
                                                     title="Restorer"
                                             >
                                                 <i class="mdi mdi-backup-restore"></i>
+                                                Restorer
                                             </button>
                                         @endif
                                     </td>

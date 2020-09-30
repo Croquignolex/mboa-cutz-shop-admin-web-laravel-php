@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('app.master.title', page_title('Categories'))
+@section('app.master.title', page_title('Etiquettes'))
 
 @section('app.breadcrumb')
     @include('partials.breadcrumb', [
-        'title' => "Categories ({$categories->total()})",
-        'icon' => 'mdi mdi-database',
-        'chain' => ['Categories']
+        'title' => "Etiquettes ({$tags->total()})",
+        'icon' => 'mdi mdi-mdi-tag-multiple',
+        'chain' => ['Etiquettes']
     ])
 @endsection
 
@@ -16,13 +16,13 @@
             <div class="card card-default">
                 <div class="card-body">
                     <div class="mb-3">
-                        <a class="btn btn-primary" href="{{ route('categories.create') }}">
+                        <a class="btn btn-primary" href="{{ route('tags.create') }}">
                             <i class="mdi mdi-plus"></i>
-                            Nouvelle catégorie
+                            Nouvelle étiquette
                         </a>
                     </div>
 
-                    <div class="mb-3">{{ $categories->links() }}</div>
+                    <div class="mb-3">{{ $tags->links() }}</div>
 
                     <div class="table-responsive">
                         <table class="table table-bordered table-hover">
@@ -37,30 +37,30 @@
                             </tr>
                             </thead>
                             <tbody>
-                                @foreach ($categories as $category)
+                                @foreach ($tags as $tag)
                                     <tr>
-                                        <td>{{ $category->creation_date }}</td>
-                                        <td>{{ $category->fr_name }}</td>
-                                        <td>{{ $category->en_name }}</td>
-                                        <td class="text-right">{{ $category->products->count() }}</td>
-                                        <td>{{ $category->creator_name}}</td>
+                                        <td>{{ $tag->creation_date }}</td>
+                                        <td>{{ $tag->fr_name }}</td>
+                                        <td>{{ $tag->en_name }}</td>
+                                        <td class="text-right">{{ $tag->products->count() }}</td>
+                                        <td>{{ $tag->creator_name}}</td>
                                         <td class="text-center">
-                                            <a href="{{ route('categories.show', compact('category')) }}"
+                                            <a href="{{ route('tags.show', compact('tag')) }}"
                                                class="btn btn-sm btn-primary"
                                                title="Détails"
                                             >
                                                 <i class="mdi mdi-eye"></i>
                                             </a>
-                                            <a href="{{ route('categories.edit', compact('category')) }}"
+                                            <a href="{{ route('tags.edit', compact('tag')) }}"
                                                class="btn btn-sm btn-warning"
                                                title="Modifier"
                                             >
                                                 <i class="mdi mdi-pencil"></i>
                                             </a>
-                                            @if($category->can_delete)
+                                            @if($tag->can_delete)
                                                 <button class="btn btn-sm btn-danger"
                                                         data-toggle="modal"
-                                                        data-target="{{ "#$category->slug-archive-category-modal" }}"
+                                                        data-target="{{ "#$tag->slug-archive-tag-modal" }}"
                                                         title="Archiver"
                                                 >
                                                     <i class="mdi mdi-archive"></i>
@@ -69,11 +69,11 @@
                                         </td>
                                     </tr>
 
-                                    @if($category->can_delete)
+                                    @if($tag->can_delete)
                                         @include('partials.archive-confirmation', [
-                                            'name' => $category->fr_name,
-                                            'modal_id' => "$category->slug-archive-category-modal",
-                                            'url' => route('categories.destroy', compact('category'))
+                                            'name' => $tag->fr_name,
+                                            'modal_id' => "$tag->slug-archive-tag-modal",
+                                            'url' => route('tags.destroy', compact('tag'))
                                         ])
                                     @endif
                                 @endforeach
@@ -81,7 +81,7 @@
                         </table>
                     </div>
 
-                    <div>{{ $categories->links() }}</div>
+                    <div>{{ $tags->links() }}</div>
                 </div>
             </div>
         </div>

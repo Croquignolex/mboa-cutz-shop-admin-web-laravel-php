@@ -11,14 +11,38 @@ croupModal.modal("hide");
 toggleCroupModalLoader(false)
 
 // Action the upload input
+$("#upload-model-image-input").change(function () {
+    inputChangeEventHandle(this)
+});
+
+// Action the upload input
 $("#upload-image-input").change(function () {
-    currentUploadImageInput = $(this);
+    inputChangeEventHandle(this)
+});
+
+// Action on the image modal validation
+$("#modal-save-image").click(function () {
+    toggleCroupModalLoader(true)
+    let base64Image = resizeImage(copperAspectRatioWidth, copperAspectRatioHeight, $uploadCrop);
+    // Save crouped image into backend
+    ajaxRequest({ base_64_image: base64Image }, currentUploadImageInput.data('url'))
+        .then((data) => {
+            previewImage(base64Image, currentUploadImageInput.data('class'));
+            croupModal.modal("hide");
+            successToaster(data.message);
+        })
+        .catch(() => {croupModal.modal("hide");})
+});
+
+// Handle input change event
+function inputChangeEventHandle(_input) {
+    currentUploadImageInput = $(_input);
     toggleCroupModalLoader(true)
 
-    readImageFileFromInput(this).then(() => {
-        let input = this;
+    readImageFileFromInput(_input).then(() => {
+        let input = _input;
         let aspectRadio = undefined;
-        let avatar = document.getElementById(croupModalImgID);
+        let image = document.getElementById(croupModalImgID);
 
         croupModal.on("shown.bs.modal", function() {
 
@@ -37,7 +61,7 @@ $("#upload-image-input").change(function () {
                 }
 
                 // Init cropper
-                $uploadCrop = new Cropper(avatar, {
+                $uploadCrop = new Cropper(image, {
                     viewMode: 1,
                     guides: false,
                     movable: false,
@@ -49,7 +73,6 @@ $("#upload-image-input").change(function () {
                     aspectRatio: aspectRadio,
                     toggleDragModeOnDblclick: false,
                     ready: function () {
-                        console.log('is ready')
                         toggleCroupModalLoader(false)
                         input.value = '';
                     }
@@ -64,21 +87,7 @@ $("#upload-image-input").change(function () {
             }
         });
     });
-});
-
-// Action on the image modal validation
-$("#modal-save-image").click(function () {
-    toggleCroupModalLoader(true)
-    let base64Image = resizeImage(copperAspectRatioWidth, copperAspectRatioHeight, $uploadCrop);
-    // Save crouped image into backend
-    ajaxRequest({ base_64_image: base64Image }, currentUploadImageInput.data('url'))
-        .then((data) => {
-            previewImage(base64Image, currentUploadImageInput);
-            croupModal.modal("hide");
-            successToaster(data.message);
-        })
-        .catch(() => {croupModal.modal("hide");})
-});
+}
 
 // Extra image object into input while croup
 function readImageFileFromInput(input) {
@@ -144,6 +153,15 @@ function toggleCroupModalLoader(toggleStatus) {
         $("#croup-modal-image-canvas").css('opacity', 1);
         $("#croup-modal-loader").hide();
         $("#croup-modal-action-buttons").show();
+    }
+}
+
+// Preview image after croup
+function previewImage(base64Image, imageClass) {
+    try {
+        $(`.${imageClass}`).replaceWith(`<img alt="..." src="${base64Image}" class="img-responsive ${imageClass}" />`);
+    } catch (ex) {
+        dangerToaster("Une erreur s'est passé dans le script"); console.log(ex)
     }
 }
 
