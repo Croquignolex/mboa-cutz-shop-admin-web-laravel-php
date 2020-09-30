@@ -39,6 +39,12 @@ if(!function_exists('imageFromBase64AndSave'))
                     'name' => $image_name,
                     'extension' => $image_type
                 ];
+            case ImagePath::TESTIMONIAL_DEFAULT_IMAGE_PATH:
+                Storage::put(testimonial_img_asset($image_name, $image_type), $original_file);
+                return [
+                    'name' => $image_name,
+                    'extension' => $image_type
+                ];
             default: return [
                 'name' => Constants::DEFAULT_IMAGE,
                 'extension' => Constants::DEFAULT_IMAGE_EXTENSION
@@ -67,6 +73,11 @@ if(!function_exists('getUniqueFileName'))
                 return $image_name;
             case ImagePath::PRODUCT_DEFAULT_IMAGE_PATH:
                 if(Storage::exists(product_img_asset($image_name, $image_type))) {
+                    getUniqueImageName(Str::random(40), $image_type, $folder);
+                }
+                return $image_name;
+            case ImagePath::TESTIMONIAL_DEFAULT_IMAGE_PATH:
+                if(Storage::exists(testimonial_img_asset($image_name, $image_type))) {
                     getUniqueImageName(Str::random(40), $image_type, $folder);
                 }
                 return $image_name;

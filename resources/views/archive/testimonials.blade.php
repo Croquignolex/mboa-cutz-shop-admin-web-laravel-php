@@ -23,6 +23,7 @@
                             <thead>
                             <tr>
                                 <th scope="col">DATE</th>
+                                <th scope="col">IMAGE</th>
                                 <th scope="col">NOM</th>
                                 <th scope="col">DESCRIPTION (fr)</th>
                                 <th scope="col">DESCRIPTION (en)</th>
@@ -34,6 +35,9 @@
                             @foreach ($testimonials as $testimonial)
                                 <tr>
                                     <td>{{ $testimonial->creation_date }}</td>
+                                    <td class="text-center">
+                                        <img class="rounded-circle w-45" src="{{ $testimonial->image_src }}" alt="..." />
+                                    </td>
                                     <td>{{ $testimonial->name }}</td>
                                     <td>{{ $testimonial->fr_description }}</td>
                                     <td>{{ $testimonial->en_description}}</td>

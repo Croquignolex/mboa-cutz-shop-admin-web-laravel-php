@@ -8,7 +8,7 @@
             title="{{ $title }}..."
             {{ $attributte ?? '' }}
             class="searchable-select form-control"
-            data-style="btn-white border border-secondary"
+            data-style="btn-white border {{ $errors->has($id) ? 'border-danger' : 'border-secondary' }}"
     >
         @foreach($options as $option)
             <option value="{{ $option['value'] }}"
