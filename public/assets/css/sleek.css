@@ -3277,6 +3277,11 @@ input[type="button"].btn-block {
   height: 100px;
 }
 
+.widget-model .card-img img {
+  width: 200px;
+  height: 200px;
+}
+
 .card-img-top {
   width: 100%;
   border-top-left-radius: calc(0.25rem - 1px);
@@ -11075,6 +11080,11 @@ tbody tr td:first-child {
 .widget-profile .card-img {
   width: 100px;
   height: 100px;
+  overflow: hidden; }
+
+.widget-model .card-img {
+  width: 200px;
+  height: 200px;
   overflow: hidden; }
 
 /* Widgets Dropdown */

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\App;
 
 use Exception;
+use App\Models\Tag;
 use App\Enums\Constants;
-use App\Models\Category;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -16,7 +16,7 @@ use App\Http\Requests\CategoryRequest;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\Foundation\Application;
 
-class CategoryController extends Controller
+class TagController extends Controller
 {
     /**
      * CategoryController constructor.
@@ -33,11 +33,11 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::orderBy('created_at', 'desc')
+        $tags = Tag::orderBy('created_at', 'desc')
             ->paginate(Constants::DEFAULT_PAGE_PAGINATION_ITEMS)
             ->onEachSide(Constants::DEFAULT_PAGE_PAGINATION_EACH_SIDE);
 
-        return view('app.categories.index', compact('categories'));
+        return view('app.tags.index', compact('tags'));
     }
 
     /**
@@ -46,7 +46,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('app.categories.create');
+        return view('app.tags.create');
     }
 
     /**
@@ -57,74 +57,74 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
-        Auth::user()->created_categories()->create($request->all());
+        Auth::user()->created_tags()->create($request->all());
 
         $name = $request->input('fr_name');
-        success_toast_alert("Catégorie $name créer avec succès");
-        log_activity("Catégorie", "Création de la catégorie $name");
+        success_toast_alert("Etiquette $name créer avec succès");
+        log_activity("Etiquette", "Création de l'étiquette $name");
 
-        return redirect(route('categories.index'));
+        return redirect(route('tags.index'));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param Category $category
+     * @param Tag $tag
      * @return Application|Factory|Response|View
      */
-    public function show(Category $category)
+    public function show(Tag $tag)
     {
-        $products = $category
+        $products = $tag
             ->products()
             ->orderBy('created_at', 'desc')
             ->paginate(Constants::DEFAULT_PAGE_PAGINATION_ITEMS)
             ->onEachSide(Constants::DEFAULT_PAGE_PAGINATION_EACH_SIDE);
 
-        return view('app.categories.show', compact('category', 'products'));
+        return view('app.tags.show', compact('tag', 'products'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Category $category
+     * @param Tag $tag
      * @return Application|RedirectResponse|Response|Redirector
      */
-    public function edit(Category $category)
+    public function edit(Tag $tag)
     {
-        return view('app.categories.edit', compact('category'));
+        return view('app.tags.edit', compact('tag'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param Category $category
+     * @param Tag $tag
      * @return Application|RedirectResponse|Response|Redirector
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, Tag $tag)
     {
-        $category->update($request->all());
+        $tag->update($request->all());
 
-        success_toast_alert("Catégorie $category->fr_name mise à jour avec success");
-        log_activity("Catégorie", "Mise à jour de la catégorie $category->fr_name");
+        success_toast_alert("Etiquette $tag->fr_name mise à jour avec success");
+        log_activity("Etiquette", "Mise à jour de l'étiquette $tag->fr_name");
 
-        return redirect(route('categories.show', compact('category')));
+        return redirect(route('tags.show', compact('tag')));
     }
 
     /**
-     * @param Category $category
+     * @param Tag $tag
      * @return RedirectResponse
      * @throws Exception
      */
-    public function destroy(Category $category)
+    public function destroy(Tag $tag)
     {
-        if(!$category->can_delete) return $this->unauthorizedToast();
+        if(!$tag->can_delete) return $this->unauthorizedToast();
 
-        $category->delete();
+        $tag->delete();
 
-        success_toast_alert("Catégorie $category->fr_name archivée avec success");
-        log_activity("Catégorie", "Archivage de la catégorie $category->fr_name");
+        success_toast_alert("Etiquette $tag->fr_name archivés avec success");
+        log_activity("Etiquette", "Archivage de l'étiquette $tag->fr_name");
 
-        return redirect(route('categories.index'));
+        return redirect(route('tags.index'));
     }
 }

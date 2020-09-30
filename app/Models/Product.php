@@ -8,11 +8,13 @@ use App\Traits\DateTrait;
 use App\Traits\CreatorTrait;
 use App\Traits\SlugRouteTrait;
 use App\Enums\ProductAvailability;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * @property mixed image
@@ -50,6 +52,14 @@ class Product extends Model
         'price', 'discount', 'ranking', 'stock', 'extension',
         'is_featured', 'is_new', 'is_most_sold',
     ];
+
+    /**
+     * @return BelongsToMany|HasMany
+     */
+    public function tags()
+    {
+        return $this->belongsToMany('App\Models\Tag');
+    }
 
     /**
      * @return BelongsTo

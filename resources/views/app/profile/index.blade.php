@@ -57,14 +57,4 @@
 @push('app.master.script')
     <script src="{{ js_asset('cropper.min') }}" type="application/javascript"></script>
     <script src="{{ js_asset('image-crouping') }}" type="application/javascript"></script>
-    <script type="application/javascript">
-        // Preview image after croup
-        function previewImage(base64Image) {
-            try
-            {
-                // Replace all user profile image
-                $(".async-image").replaceWith(`<img alt="..." src="${base64Image}" class="img-responsive async-image" />`);
-            } catch (ex) { dangerToaster("Une erreur s'est passé dans le script"); console.log(ex) }
-        }
-    </script>
 @endpush

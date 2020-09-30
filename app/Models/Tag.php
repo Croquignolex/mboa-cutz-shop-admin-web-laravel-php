@@ -6,6 +6,7 @@ use App\Enums\UserRole;
 use App\Traits\DateTrait;
 use App\Traits\CreatorTrait;
 use App\Traits\SlugRouteTrait;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -18,7 +19,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property mixed creator
  * @property mixed can_delete
  */
-class Category extends Model
+class Tag extends Model
 {
     use SoftDeletes, SlugRouteTrait, DateTrait, CreatorTrait;
 
@@ -37,11 +38,11 @@ class Category extends Model
     protected $fillable = ['fr_name', 'en_name', 'description'];
 
     /**
-     * @return HasMany
+     * @return BelongsToMany|HasMany
      */
     public function products()
     {
-        return $this->hasMany('App\Models\Product');
+        return $this->belongsToMany('App\Models\Product');
     }
 
     /**

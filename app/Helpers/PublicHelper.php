@@ -100,6 +100,23 @@ if(!function_exists('product_img_asset'))
     }
 }
 
+if(!function_exists('testimonial_img_asset'))
+{
+    /**
+     * Dynamic product image asset file path
+     *
+     * @param $img_file
+     * @param $extension
+     * @return string
+     */
+    function testimonial_img_asset($img_file, $extension = Constants::DEFAULT_IMAGE_EXTENSION)
+    {
+        $public_folder = config('app.folder');
+        $path = ImagePath::TESTIMONIAL_DEFAULT_IMAGE_PATH;
+        return "$public_folder/assets/img/$path/$img_file.$extension";
+    }
+}
+
 if(!function_exists('favicon_img_asset'))
 {
     /**

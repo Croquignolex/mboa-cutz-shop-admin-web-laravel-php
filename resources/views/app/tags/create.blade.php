@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('app.master.title', page_title('Modifier categorie'))
+@section('app.master.title', page_title('Nouvelle étiquette'))
 
 @section('app.breadcrumb')
     @include('partials.breadcrumb', [
-        'title' => 'Modifier categorie',
-        'icon' => 'mdi mdi-database',
-        'chain' => ['Categories', 'Modifier categorie']
+        'title' => 'Nouvelle étiquette',
+        'icon' => 'mdi mdi-mdi-tag-multiple',
+        'chain' => ['Etiquettes', 'Nouvelle étiquette']
     ])
 @endsection
 
@@ -16,16 +16,15 @@
             <div class="card card-default">
                 <div class="card-body">
                     <div class="mx-5">@include('partials.error-message')</div>
-                    <form action="{{ route('categories.update', compact('category')) }}" method="POST">
+                    <form action="{{ route('tags.store') }}" method="POST">
                         @csrf
-                        @method('PUT')
                         <div class="row">
                             <div class="col-sm-6">
                                 @include('partials.form.input', [
                                     'name' => 'Nom (français)*',
                                     'id' => 'fr_name',
                                     'type' => 'text',
-                                    'value' => old('fr_name') ?? $category->fr_name
+                                    'value' => old('fr_name')
                                 ])
                             </div>
                             <div class="col-sm-6">
@@ -33,7 +32,7 @@
                                     'name' => 'Nom (anglais)*',
                                     'id' => 'en_name',
                                     'type' => 'text',
-                                    'value' => old('en_name') ?? $category->fr_name
+                                    'value' => old('en_name')
                                 ])
                             </div>
                         </div>
@@ -42,7 +41,7 @@
                                 @include('partials.form.textarea', [
                                     'name' => 'Description',
                                     'id' => 'description',
-                                    'value' => old('description') ?? $category->description
+                                    'value' => old('description')
                                 ])
                             </div>
                         </div>

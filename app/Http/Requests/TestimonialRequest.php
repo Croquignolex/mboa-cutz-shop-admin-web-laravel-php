@@ -6,7 +6,7 @@ use App\Traits\RequestTrait;
 use Illuminate\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CategoryRequest extends FormRequest
+class TestimonialRequest extends FormRequest
 {
     use RequestTrait;
 
@@ -18,9 +18,9 @@ class CategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'fr_name' => $this->required_string,
-            'en_name' => $this->required_string,
-            'description' => $this->string,
+            'name' => $this->required_string,
+            'fr_description' => $this->string,
+            'en_description' => $this->string,
         ];
     }
 

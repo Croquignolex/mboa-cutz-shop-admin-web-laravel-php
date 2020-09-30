@@ -63,8 +63,10 @@ class User extends Authenticate
      * @var array
      */
     protected $fillable = [
-        'first_name', 'last_name', 'phone', 'description', 'post_code',
-        'city', 'country', 'profession', 'address', 'email'
+        'first_name', 'last_name', 'phone', 'description',
+        'post_code', 'city', 'country', 'profession',
+        'address', 'email', 'avatar',
+        'avatar_extension'
     ];
 
     /**
@@ -105,6 +107,26 @@ class User extends Authenticate
     public function created_categories()
     {
         return $this->hasMany('App\Models\Category', 'creator_id');
+    }
+
+    /**
+     * User categories
+     *
+     * @return HasMany
+     */
+    public function created_testimonials()
+    {
+        return $this->hasMany('App\Models\Testimonial', 'creator_id');
+    }
+
+    /**
+     * User categories
+     *
+     * @return HasMany
+     */
+    public function created_tags()
+    {
+        return $this->hasMany('App\Models\Tag', 'creator_id');
     }
 
     /**
