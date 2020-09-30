@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Category;
+use Faker\Provider\Lorem;
 use Illuminate\Database\Seeder;
 
 class ProductsTableSeeder extends Seeder
@@ -12,7 +13,19 @@ class ProductsTableSeeder extends Seeder
      */
     public function run()
     {
-        Category::first()->products()->create(['fr_name' => 'Mousse à raser', 'en_name' => 'Shaving cream']);
-        Category::first()->products()->create(['fr_name' => 'Poudre à raser', 'en_name' => 'Shaving powder']);
+        Category::first()->products()->createMany(
+            [
+                'fr_name' => Lorem::word(),
+                'en_name' => Lorem::word(),
+                'fr_description' => Lorem::sentence(),
+                'en_description' => Lorem::sentence(),
+            ],
+            [
+                'fr_name' => Lorem::word(),
+                'en_name' => Lorem::word(),
+                'fr_description' => Lorem::sentence(),
+                'en_description' => Lorem::sentence(),
+            ]
+        );
     }
 }

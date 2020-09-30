@@ -10,11 +10,12 @@ class RolesTableSeeder extends Seeder
      * Run the database seeds.
      *
      * @return void
+     * @throws ReflectionException
      */
     public function run()
     {
-        Role::create(['type' => UserRole::USER]);
-        Role::create(['type' => UserRole::ADMIN]);
-        Role::create(['type' => UserRole::SUPER_ADMIN]);
+        foreach (UserRole::getList() as $type) {
+            Role::create(compact('type'));
+        }
     }
 }

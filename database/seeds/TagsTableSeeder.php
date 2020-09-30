@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\Product;
-use App\Models\Tag;
+use Faker\Provider\Lorem;
 use Illuminate\Database\Seeder;
 
 class TagsTableSeeder extends Seeder
@@ -14,8 +14,20 @@ class TagsTableSeeder extends Seeder
     public function run()
     {
         Product::first()->tags()->createMany([
-            ['fr_name' => 'Rouge', 'en_name' => 'Red'],
-            ['fr_name' => 'Blanc', 'en_name' => 'White']
+            [
+                'fr_name' => Lorem::word(),
+                'en_name' => Lorem::word(),
+                'fr_description' => Lorem::sentence(),
+                'en_description' => Lorem::sentence(),
+            ],
+            [
+                'fr_name' => Lorem::word(),
+                'en_name' => Lorem::word(),
+                'fr_description' => Lorem::sentence(),
+                'en_description' => Lorem::sentence(),
+            ],
         ]);
+
+
     }
 }

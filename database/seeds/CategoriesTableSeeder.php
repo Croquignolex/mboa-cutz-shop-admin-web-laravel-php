@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Category;
+use Faker\Provider\Lorem;
 use Illuminate\Database\Seeder;
 
 class CategoriesTableSeeder extends Seeder
@@ -12,7 +13,16 @@ class CategoriesTableSeeder extends Seeder
      */
     public function run()
     {
-        Category::create(['fr_name' => 'Locale', 'en_name' => 'Local']);
-        Category::create(['fr_name' => 'Globale', 'en_name' => 'Global']);
+        Category::create([
+            'fr_name' => Lorem::word(),
+            'en_name' => Lorem::word(),
+            'description' => Lorem::sentence()
+        ]);
+
+        Category::create([
+            'fr_name' => Lorem::word(),
+            'en_name' => Lorem::word(),
+            'description' => Lorem::sentence()
+        ]);
     }
 }
