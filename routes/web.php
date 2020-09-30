@@ -23,15 +23,6 @@ Route::group(['namespace' => 'Auth'], function() {
 });
 
 Route::group(['namespace' => 'App'], function() {
-    // App resources routes
-    Route::resources([
-        'tags' => 'TagController',
-        'admins' => 'AdminController',
-        'products' => 'ProductController',
-        'categories' => 'CategoryController',
-        'testimonials' => 'TestimonialController',
-    ]);
-
     // App GET routes
     Route::get('/profile', 'ProfileController@index')->name('profile.index');
     Route::get('/profile/logs', 'ProfileController@logs')->name('profile.logs');
@@ -44,11 +35,19 @@ Route::group(['namespace' => 'App'], function() {
     Route::post('/profile/update-avatar', 'ProfileController@updateAvatar')->name('profile.update.avatar');
     Route::post('/profile/update-password', 'ProfileController@updatePassword')->name('profile.update.password');
 
+    Route::post('/testimonials/{testimonial}/update-image', 'TestimonialController@updateImage')->name('testimonials.update.image');
+
+    // App resources routes
+    Route::resources([
+        'tags' => 'TagController',
+        'admins' => 'AdminController',
+        'products' => 'ProductController',
+        'categories' => 'CategoryController',
+        'testimonials' => 'TestimonialController',
+    ]);
 });
 
 Route::group(['namespace' => 'Archive'], function() {
-    // App resources routes
-
     // App GET routes
     Route::get('/archives', 'ArchiveController@index')->name('archives.index');
     Route::get('/archives/tags', 'TagController@index')->name('archives.tags.index');

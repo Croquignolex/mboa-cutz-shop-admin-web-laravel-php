@@ -8,11 +8,13 @@
                     type="button"
                     onclick="document.getElementById('upload-image-input').click();"
             >
+                <i class="mdi mdi-upload"></i>
                 Modifier
             </button>
             <input type="file"
                    data-ratio="square"
                    data-url="{{ route('profile.update.avatar') }}"
+                   data-class="async-image"
                    hidden
                    id="upload-image-input"
             >

@@ -63,8 +63,10 @@ class User extends Authenticate
      * @var array
      */
     protected $fillable = [
-        'first_name', 'last_name', 'phone', 'description', 'post_code',
-        'city', 'country', 'profession', 'address', 'email'
+        'first_name', 'last_name', 'phone', 'description',
+        'post_code', 'city', 'country', 'profession',
+        'address', 'email', 'avatar',
+        'avatar_extension'
     ];
 
     /**

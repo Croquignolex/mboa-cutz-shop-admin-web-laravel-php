@@ -7,8 +7,8 @@ use App\Traits\DateTrait;
 use App\Traits\CreatorTrait;
 use App\Traits\SlugRouteTrait;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property mixed name
@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Storage;
  * @property mixed creator
  * @property mixed en_description
  * @property mixed image
+ * @property mixed image_src
  * @property mixed image_extension
  */
 class Testimonial extends Model
@@ -35,7 +36,10 @@ class Testimonial extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'fr_description', 'en_description'];
+    protected $fillable = [
+        'name', 'fr_description', 'en_description',
+        'image_extension', 'image',
+    ];
 
     /**
      * Testimonial image src

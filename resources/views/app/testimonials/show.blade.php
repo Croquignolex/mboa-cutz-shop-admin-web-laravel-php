@@ -46,7 +46,10 @@
         <div class="col-lg-6 col-xl-6">
             <div class="card card-default">
                 <div class="card-body">
-
+                    @include('partials.model-image-edit', [
+                        'model' => $testimonial,
+                        'url' => route('testimonials.update.image', compact('testimonial'))
+                    ])
                 </div>
             </div>
         </div>
@@ -58,3 +61,12 @@
         'url' => route('testimonials.destroy', compact('testimonial'))
     ])
 @endsection
+
+@push('app.master.style')
+    <link rel="stylesheet" href="{{ css_asset('cropper.min') }}" type="text/css">
+@endpush
+
+@push('app.master.script')
+    <script src="{{ js_asset('cropper.min') }}" type="application/javascript"></script>
+    <script src="{{ js_asset('image-crouping') }}" type="application/javascript"></script>
+@endpush
