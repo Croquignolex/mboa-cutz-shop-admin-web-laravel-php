@@ -11,7 +11,7 @@
                 <div class="card">
                     <div class="card-header bg-theme-dark">
                         <div class="app-brand text-center">
-                            <img src="{{ img_asset('logo', 'jpg') }}" alt="..." width="70">
+                            <img src="{{ img_asset('logo-white') }}" alt="..." height="80">
                         </div>
                     </div>
                     <div class="card-body p-4">
