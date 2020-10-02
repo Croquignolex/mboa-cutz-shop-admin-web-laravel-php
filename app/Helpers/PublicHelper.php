@@ -3,21 +3,6 @@
 use App\Enums\Constants;
 use App\Enums\ImagePath;
 
-if(!function_exists('favicon_file_asset'))
-{
-    /**
-     * @param $file
-     * @return string
-     */
-    function favicon_file_asset($file)
-    {
-        $extension = 'json';
-        $public_folder = config('app.folder');
-        return "$public_folder/assets/img/favicons/$file.$extension";
-    }
-}
-
-
 if(!function_exists('css_asset'))
 {
     /**
@@ -28,9 +13,7 @@ if(!function_exists('css_asset'))
      */
     function css_asset($css_file)
     {
-        $extension = 'css';
-        $public_folder = config('app.folder');
-        return "$public_folder/assets/$extension/$css_file.$extension";
+        return file_asset($css_file, 'css', 'css');
     }
 }
 
@@ -44,9 +27,7 @@ if(!function_exists('js_asset'))
      */
     function js_asset($js_file)
     {
-        $extension = 'js';
-        $public_folder = config('app.folder');
-        return "$public_folder/assets/$extension/$js_file.$extension";
+        return file_asset($js_file, 'js', 'js');
     }
 }
 
@@ -61,59 +42,7 @@ if(!function_exists('img_asset'))
      */
     function img_asset($img_file, $extension = Constants::DEFAULT_IMAGE_EXTENSION)
     {
-        $public_folder = config('app.folder');
-        return "$public_folder/assets/img/$img_file.$extension";
-    }
-}
-
-if(!function_exists('user_img_asset'))
-{
-    /**
-     * Dynamic user image asset file path
-     *
-     * @param $img_file
-     * @param $extension
-     * @return string
-     */
-    function user_img_asset($img_file, $extension = Constants::DEFAULT_IMAGE_EXTENSION)
-    {
-        $path = ImagePath::USER_DEFAULT_IMAGE_PATH;
-        $public_folder = config('app.folder');
-        return "$public_folder/assets/img/$path/$img_file.$extension";
-    }
-}
-
-if(!function_exists('product_img_asset'))
-{
-    /**
-     * Dynamic product image asset file path
-     *
-     * @param $img_file
-     * @param $extension
-     * @return string
-     */
-    function product_img_asset($img_file, $extension = Constants::DEFAULT_IMAGE_EXTENSION)
-    {
-        $public_folder = config('app.folder');
-        $path = ImagePath::PRODUCT_DEFAULT_IMAGE_PATH;
-        return "$public_folder/assets/img/$path/$img_file.$extension";
-    }
-}
-
-if(!function_exists('testimonial_img_asset'))
-{
-    /**
-     * Dynamic product image asset file path
-     *
-     * @param $img_file
-     * @param $extension
-     * @return string
-     */
-    function testimonial_img_asset($img_file, $extension = Constants::DEFAULT_IMAGE_EXTENSION)
-    {
-        $public_folder = config('app.folder');
-        $path = ImagePath::TESTIMONIAL_DEFAULT_IMAGE_PATH;
-        return "$public_folder/assets/img/$path/$img_file.$extension";
+        return file_asset($img_file, $extension, 'img');
     }
 }
 
@@ -128,7 +57,99 @@ if(!function_exists('favicon_img_asset'))
      */
     function favicon_img_asset($img_file, $extension = Constants::DEFAULT_IMAGE_EXTENSION)
     {
+        return img_file_asset($img_file, $extension, 'favicons');
+    }
+}
+
+if(!function_exists('favicon_file_asset'))
+{
+    /**
+     * @param $file
+     * @return string
+     */
+    function favicon_file_asset($file)
+    {
+        return img_file_asset($file, 'json', 'favicons');
+    }
+}
+
+if(!function_exists('user_img_asset'))
+{
+    /**
+     * Dynamic user image asset file path
+     *
+     * @param $img_file
+     * @param $extension
+     * @return string
+     */
+    function user_img_asset($img_file, $extension = Constants::DEFAULT_IMAGE_EXTENSION)
+    {
+        return img_file_asset($img_file, $extension,  ImagePath::USER_DEFAULT_IMAGE_PATH);
+    }
+}
+
+if(!function_exists('product_img_asset'))
+{
+    /**
+     * Dynamic product image asset file path
+     *
+     * @param $img_file
+     * @param $extension
+     * @return string
+     */
+    function product_img_asset($img_file, $extension = Constants::DEFAULT_IMAGE_EXTENSION)
+    {
+        return img_file_asset($img_file, $extension,  ImagePath::PRODUCT_DEFAULT_IMAGE_PATH);
+    }
+}
+
+if(!function_exists('testimonial_img_asset'))
+{
+    /**
+     * Dynamic product image asset file path
+     *
+     * @param $img_file
+     * @param $extension
+     * @return string
+     */
+    function testimonial_img_asset($img_file, $extension = Constants::DEFAULT_IMAGE_EXTENSION)
+    {
+        return img_file_asset($img_file, $extension,  ImagePath::TESTIMONIAL_DEFAULT_IMAGE_PATH);
+    }
+}
+
+// ***********************************************************************************
+
+if(!function_exists('file_asset'))
+{
+    /**
+     * Dynamic product image asset file path
+     *
+     * @param $file
+     * @param $extension
+     * @param $path
+     * @return string
+     */
+    function file_asset($file, $extension, $path)
+    {
         $public_folder = config('app.folder');
-        return "$public_folder/assets/img/favicons/$img_file.$extension";
+        return "$public_folder/assets/$path/$file.$extension";
+    }
+}
+
+if(!function_exists('img_file_asset'))
+{
+    /**
+     * Dynamic product image asset file path
+     *
+     * @param $img_file
+     * @param $extension
+     * @param $path
+     * @return string
+     */
+    function img_file_asset($img_file, $extension, $path)
+    {
+        $public_folder = config('app.folder');
+        return "$public_folder/assets/img/$path/$img_file.$extension";
     }
 }

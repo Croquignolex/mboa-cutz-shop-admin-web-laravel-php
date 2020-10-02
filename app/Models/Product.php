@@ -75,7 +75,7 @@ class Product extends Model
      * @return string
      */
     public function getImageSrcAttribute() {
-        // Update une avatar with default if avatar file is not found
+        // Update image with default if file is not found
         if(!Storage::exists(product_img_asset($this->image, $this->image_extension))) {
             $this->update([
                 'image' => Constants::DEFAULT_IMAGE,

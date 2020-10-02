@@ -175,7 +175,7 @@ class User extends Authenticate
      * @return string
      */
     public function getAvatarSrcAttribute() {
-        // Update une avatar with default if avatar file is not found
+        // Update image with default if file is not found
         if(!Storage::exists(user_img_asset($this->avatar, $this->avatar_extension))) {
             $this->update([
                 'avatar' => Constants::DEFAULT_IMAGE,
