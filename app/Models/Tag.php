@@ -46,6 +46,14 @@ class Tag extends Model
     }
 
     /**
+     * @return BelongsToMany|HasMany
+     */
+    public function services()
+    {
+        return $this->belongsToMany('App\Models\Service');
+    }
+
+    /**
      * Check if category can be deleted
      *
      * @return mixed

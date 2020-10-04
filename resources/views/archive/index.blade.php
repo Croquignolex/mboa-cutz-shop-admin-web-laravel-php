@@ -22,7 +22,7 @@
                 'url' => route('archives.admins.index'),
             ])
         </div>
-        {{--Produts--}}
+        {{--Products--}}
         <div class="col-md-6 col-lg-3">
             @include('partials.archive.archive-card', [
                 'data' => $products,
@@ -30,6 +30,16 @@
                  'icon' => 'mdi mdi-basket',
                 'label' => 'Produits archivés',
                 'url' => route('archives.products.index'),
+            ])
+        </div>
+        {{--Services--}}
+        <div class="col-md-6 col-lg-3">
+            @include('partials.archive.archive-card', [
+                'data' => $services,
+                'bg_class' => 'bg-secondary',
+                 'icon' => 'mdi mdi-shopping',
+                'label' => 'Services archivés',
+                'url' => route('archives.services.index'),
             ])
         </div>
         {{--Categories--}}

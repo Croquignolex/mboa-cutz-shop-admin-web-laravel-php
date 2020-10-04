@@ -32,7 +32,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property mixed creator
  * @property mixed price
  */
-class Product extends Model
+class Service extends Model
 {
     use SoftDeletes, SlugRouteTrait, DateTrait, CreatorTrait, OfferTrait;
 
@@ -50,8 +50,7 @@ class Product extends Model
      */
     protected $fillable = [
         'fr_name', 'en_name', 'fr_description', 'en_description',
-        'price', 'discount', 'stock', 'ranking',
-        'is_featured', 'is_new', 'is_most_sold',
+        'ranking', 'is_featured', 'is_new', 'is_most_asked',
         'image', 'extension',
     ];
 
@@ -78,18 +77,18 @@ class Product extends Model
      */
     public function getImageSrcAttribute() {
         // Update image with default if file is not found
-        if(!Storage::exists(product_img_asset($this->image, $this->image_extension))) {
+        if(!Storage::exists(service_img_asset($this->image, $this->image_extension))) {
             $this->update([
                 'image' => Constants::DEFAULT_IMAGE,
                 'image_extension' => Constants::DEFAULT_IMAGE_EXTENSION,
             ]);
         }
 
-        return product_img_asset($this->image, $this->image_extension);
+        return service_img_asset($this->image, $this->image_extension);
     }
 
     /**
-     * Check if product can be deleted
+     * Check if service can be deleted
      *
      * @return mixed
      */

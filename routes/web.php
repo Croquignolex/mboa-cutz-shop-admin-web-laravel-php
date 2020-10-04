@@ -43,6 +43,7 @@ Route::group(['namespace' => 'App'], function() {
         'tags' => 'TagController',
         'admins' => 'AdminController',
         'products' => 'ProductController',
+        'services' => 'ServiceController',
         'categories' => 'CategoryController',
         'testimonials' => 'TestimonialController',
     ]);
@@ -54,6 +55,7 @@ Route::group(['namespace' => 'Archive'], function() {
     Route::get('/archives/tags', 'TagController@index')->name('archives.tags.index');
     Route::get('/archives/admins', 'AdminController@index')->name('archives.admins.index');
     Route::get('/archives/products', 'ProductController@index')->name('archives.products.index');
+    Route::get('/archives/services', 'ServiceController@index')->name('archives.services.index');
     Route::get('/archives/categories', 'CategoryController@index')->name('archives.categories.index');
     Route::get('/archives/testimonials', 'TestimonialController@index')->name('archives.testimonials.index');
 
@@ -61,6 +63,7 @@ Route::group(['namespace' => 'Archive'], function() {
     Route::post('/archives/tags/{tag}/restore', 'TagController@restore')->name('archives.tags.restore');
     Route::post('/archives/admins/{admin}/restore', 'AdminController@restore')->name('archives.admins.restore');
     Route::post('/archives/products/{product}/restore', 'ProductController@restore')->name('archives.products.restore');
+    Route::post('/archives/services/{service}/restore', 'ServiceController@restore')->name('archives.services.restore');
     Route::post('/archives/categories/{category}/restore', 'CategoryController@restore')->name('archives.categories.restore');
     Route::post('/archives/testimonials/{testimonial}/restore', 'TestimonialController@restore')->name('archives.testimonials.restore');
 });

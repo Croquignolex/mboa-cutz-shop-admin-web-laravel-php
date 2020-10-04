@@ -45,6 +45,14 @@ class Category extends Model
     }
 
     /**
+     * @return HasMany
+     */
+    public function services()
+    {
+        return $this->hasMany('App\Models\Service');
+    }
+
+    /**
      * Check if category can be deleted
      *
      * @return mixed

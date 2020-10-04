@@ -103,6 +103,21 @@ if(!function_exists('product_img_asset'))
     }
 }
 
+if(!function_exists('service_img_asset'))
+{
+    /**
+     * Dynamic product image asset file path
+     *
+     * @param $img_file
+     * @param $extension
+     * @return string
+     */
+    function service_img_asset($img_file, $extension = Constants::DEFAULT_IMAGE_EXTENSION)
+    {
+        return img_file_asset($img_file, $extension,  ImagePath::SERVICE_DEFAULT_IMAGE_PATH);
+    }
+}
+
 if(!function_exists('testimonial_img_asset'))
 {
     /**
