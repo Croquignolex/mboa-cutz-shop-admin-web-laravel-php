@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use App\Enums\Constants;
 use App\Enums\UserRole;
+use App\Enums\Constants;
 use App\Traits\DateTrait;
 use App\Traits\CreatorTrait;
 use App\Traits\SlugRouteTrait;
@@ -24,6 +24,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property mixed fr_name
  * @property mixed slug
  * @property mixed en_name
+ * @property mixed can_delete
  * @property mixed fr_description
  * @property mixed en_description
  * @property mixed created_at
@@ -48,9 +49,10 @@ class Product extends Model
      * @var array
      */
     protected $fillable = [
-        'image', 'fr_name', 'en_name', 'fr_description', 'en_description',
-        'price', 'discount', 'ranking', 'stock', 'extension',
+        'fr_name', 'en_name', 'fr_description', 'en_description',
+        'price', 'discount', 'stock', 'ranking',
         'is_featured', 'is_new', 'is_most_sold',
+        'image', 'extension',
     ];
 
     /**
@@ -87,24 +89,13 @@ class Product extends Model
     }
 
     /**
-     * Product availability tag
-     *
-     * @return mixed
-     */
-    public function getAvailabilityAttribute()
-    {
-        if($this->stock <= 0) return ProductAvailability::OUT_OF_STOCK;
-        else return ProductAvailability::IN_STOCk;
-    }
-
-    /**
      * Product duration tag
      *
      * @return bool
      */
     public function getIsANewAttribute()
     {
-        return ($this->is_new) || ($this->created_at >= now()->subDays(-7));
+        return ($this->is_new) || ($this->created_at >= now()->subDays(7));
     }
 
     /**
@@ -124,6 +115,7 @@ class Product extends Model
      */
     public function getCanDeleteAttribute()
     {
+        //TODO: complete product can_delete(command, wish list, card etc...)
         $connected_user = Auth::user();
         return (
             ($connected_user->role->type === UserRole::SUPER_ADMIN) ||

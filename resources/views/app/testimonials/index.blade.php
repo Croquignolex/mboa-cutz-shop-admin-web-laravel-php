@@ -71,7 +71,7 @@
                                         </td>
                                     </tr>
 
-                                    @include('partials.archive-confirmation', [
+                                    @include('partials.archive.archive-confirmation', [
                                         'name' => $testimonial->fr_name,
                                         'modal_id' => "$testimonial->slug-archive-testimonial-modal",
                                         'url' => route('testimonials.destroy', compact('testimonial'))

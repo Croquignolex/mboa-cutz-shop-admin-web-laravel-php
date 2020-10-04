@@ -2,21 +2,21 @@
 
 namespace App\Http\Controllers\App;
 
-use App\Enums\ImagePath;
-use App\Http\Requests\Base64ImageRequest;
 use Exception;
+use App\Enums\ImagePath;
 use App\Enums\Constants;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 use App\Models\Testimonial;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Redirector;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\Base64ImageRequest;
 use App\Http\Requests\TestimonialRequest;
 use Illuminate\Contracts\Foundation\Application;
 
@@ -118,14 +118,14 @@ class TestimonialController extends Controller
     {
         $testimonial->delete();
 
-        success_toast_alert("Témoignage $testimonial->name archivée avec success");
+        success_toast_alert("Témoignage de $testimonial->name archivée avec success");
         log_activity("Témoignage", "Archivage du témoignage de $testimonial->name");
 
         return redirect(route('testimonials.index'));
     }
 
     /**
-     * Update user avatar
+     * Update testimonial image
      *
      * @param Base64ImageRequest $request
      * @param Testimonial $testimonial

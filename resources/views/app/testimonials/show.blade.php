@@ -47,6 +47,7 @@
             <div class="card card-default">
                 <div class="card-body">
                     @include('partials.model-image-edit', [
+                        'round_image' => true,
                         'model' => $testimonial,
                         'url' => route('testimonials.update.image', compact('testimonial'))
                     ])
@@ -55,18 +56,11 @@
         </div>
     </div>
     {{--Modal--}}
-    @include('partials.archive-confirmation', [
+    @include('partials.archive.archive-confirmation', [
         'name' => $testimonial->name,
         'modal_id' => "archive-testimonial-modal",
         'url' => route('testimonials.destroy', compact('testimonial'))
     ])
 @endsection
 
-@push('app.master.style')
-    <link rel="stylesheet" href="{{ css_asset('cropper.min') }}" type="text/css">
-@endpush
-
-@push('app.master.script')
-    <script src="{{ js_asset('cropper.min') }}" type="application/javascript"></script>
-    <script src="{{ js_asset('image-crouping') }}" type="application/javascript"></script>
-@endpush
+@include('partials.croup-scripts')

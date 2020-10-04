@@ -2,20 +2,29 @@
 
 namespace App\Http\Controllers\App;
 
+use Exception;
 use App\Models\Product;
+use App\Enums\ImagePath;
+use App\Enums\Constants;
 use Illuminate\View\View;
+use App\Models\Testimonial;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Redirector;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\Base64ImageRequest;
+use App\Http\Requests\TestimonialRequest;
 use Illuminate\Contracts\Foundation\Application;
 
 class ProductController extends Controller
 {
     /**
-     * ProductsController constructor.
+     * CategoryController constructor.
      */
     public function __construct()
     {
@@ -29,12 +38,15 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('app.products.index');
+        $products = Product::orderBy('created_at', 'desc')
+            ->paginate(Constants::DEFAULT_PAGE_PAGINATION_ITEMS)
+            ->onEachSide(Constants::DEFAULT_PAGE_PAGINATION_EACH_SIDE);
+
+        return view('app.products.index', compact('products'));
     }
 
     /**
      * Show the form for creating a new resource.
-     *
      * @return Application|Factory|Response|View
      */
     public function create()
@@ -45,23 +57,27 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param TestimonialRequest $request
      * @return Application|RedirectResponse|Response|Redirector
      */
-    public function store(Request $request)
+    public function store(TestimonialRequest $request)
     {
-        // TODO: store
-        return redirect(route('products.index'));
+        Auth::user()->created_testimonials()->create($request->all());
+
+        $name = $request->input('name');
+        success_toast_alert("Témoignage de $name créer avec succès");
+        log_activity("Témoignage", "Création du témoignage de $name");
+
+        return redirect(route('testimonials.index'));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param Request $request
      * @param Product $product
      * @return Application|Factory|Response|View
      */
-    public function show(Request $request, Product $product)
+    public function show(Product $product)
     {
         return view('app.products.show', compact('product'));
     }
@@ -69,36 +85,73 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Request $request
-     * @param Product $product
+     * @param Testimonial $testimonial
      * @return Application|RedirectResponse|Response|Redirector
      */
-    public function edit(Request $request, Product $product)
+    public function edit(Testimonial $testimonial)
     {
-        return view('app.products.edit', compact('product'));
+        return view('app.testimonials.edit', compact('testimonial'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param Product $product
+     * @param Testimonial $testimonial
      * @return Application|RedirectResponse|Response|Redirector
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, Testimonial $testimonial)
     {
-        // TODO: store
-        return redirect(route('products.edit', compact('product')));
+        $testimonial->update($request->all());
+
+        success_toast_alert("Témoignage de $testimonial->name mise à jour avec success");
+        log_activity("Témoignage", "Mise à jour du témoignage de $testimonial->fname");
+
+        return redirect(route('testimonials.show', compact('testimonial')));
     }
 
     /**
-     * @param Request $request
      * @param Product $product
-     * @return Application|Factory|View
+     * @return RedirectResponse
+     * @throws Exception
      */
-    public function destroy(Request $request, Product $product)
+    public function destroy(Product $product)
     {
-        // TODO: delete
+        if(!$product->can_delete) return $this->unauthorizedToast();
+
+        $product->delete();
+
+        success_toast_alert("Produit $product->fr_name archivé avec success");
+        log_activity("Produit", "Archivage du produit $product->fr_name");
+
         return redirect(route('products.index'));
+    }
+
+    /**
+     * Update product image
+     *
+     * @param Base64ImageRequest $request
+     * @param Product $product
+     * @return JsonResponse
+     */
+    public function updateImage(Base64ImageRequest $request, Product $product) {
+        // Get current product
+        $product_image_src = $product->image_src;
+
+        //Delete old file before storing new file
+        if(Storage::exists($product_image_src) && $product->image !== Constants::DEFAULT_IMAGE)
+            Storage::delete($product_image_src);
+
+        // Convert base 64 image to normal image for the server and the data base
+        $product_image_to_save = imageFromBase64AndSave($request->input('base_64_image'), ImagePath::PRODUCT_DEFAULT_IMAGE_PATH);
+
+        // Save image name in database
+        $product->update([
+            'image' => $product_image_to_save['name'],
+            'image_extension' => $product_image_to_save['extension'],
+        ]);
+
+        log_activity("Produit", "Mise à jour de la photo du produit $product->fr_name");
+        return response()->json(['message' => "Photo du produit $product->fr_name mise à jour avec succès"]);
     }
 }

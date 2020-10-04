@@ -55,7 +55,7 @@
     </div>
     {{--Modal--}}
     @if($tag->can_delete)
-        @include('partials.archive-confirmation', [
+        @include('partials.archive.archive-confirmation', [
             'name' => $tag->fr_name,
             'modal_id' => "archive-tag-modal",
             'url' => route('tags.destroy', compact('tag'))

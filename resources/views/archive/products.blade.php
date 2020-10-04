@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('app.master.title', page_title('Tous les produits'))
+@section('app.master.title', page_title('Produits archivés'))
 
 @section('app.breadcrumb')
     @include('partials.breadcrumb', [
-        'title' => "Produits ({$products->total()})",
+        'title' => "Produits archivés ({$products->total()})",
         'icon' => 'mdi mdi-basket',
-        'chain' => ['Produits']
+        'chain' => ['Produits', 'Produits archivés']
     ])
 @endsection
 
@@ -15,12 +15,6 @@
         <div class="col">
             <div class="card card-default">
                 <div class="card-body">
-                    <div class="mb-3">
-                        <a class="btn btn-primary" href="{{ route('products.create') }}">
-                            <i class="mdi mdi-plus"></i>
-                            Nouveau produit
-                        </a>
-                    </div>
 
                     <div class="mb-3">{{ $products->links() }}</div>
 
@@ -51,37 +45,24 @@
                                         <td class="text-right">{{ $product->stock }}</td>
                                         <td>{{ $product->creator_name}}</td>
                                         <td class="text-center">
-                                            <a href="{{ route('products.show', compact('product')) }}"
-                                               class="btn btn-sm btn-primary"
-                                               title="Détails"
-                                            >
-                                                <i class="mdi mdi-eye"></i>
-                                            </a>
-                                            <a href="{{ route('products.edit', compact('product')) }}"
-                                               class="btn btn-sm btn-warning"
-                                               title="Modifier"
-                                            >
-                                                <i class="mdi mdi-pencil"></i>
-                                            </a>
                                             @if($product->can_delete)
-                                                <button class="btn btn-sm btn-danger"
+                                                <button class="btn btn-sm btn-success"
                                                         data-toggle="modal"
-                                                        data-target="{{ "#$product->slug-archive-product-modal" }}"
-                                                        title="Archiver"
+                                                        data-target="{{ "#$product->slug-restore-product-modal" }}"
+                                                        title="Restorer"
                                                 >
-                                                    <i class="mdi mdi-archive"></i>
+                                                    <i class="mdi mdi-backup-restore"></i>
+                                                    Restorer
                                                 </button>
                                             @endif
                                         </td>
                                     </tr>
 
-                                    @if($product->can_delete)
-                                        @include('partials.archive.archive-confirmation', [
-                                            'name' => $product->fr_name,
-                                            'modal_id' => "$product->slug-archive-product-modal",
-                                            'url' => route('products.destroy', compact('product'))
-                                        ])
-                                    @endif
+                                    @include('partials.restore-confirmation', [
+                                        'name' => $product->fr_name,
+                                        'modal_id' => "$product->slug-restore-product-modal",
+                                        'url' => route('archives.products.restore', compact('product'))
+                                    ])
                                 @endforeach
                             </tbody>
                         </table>

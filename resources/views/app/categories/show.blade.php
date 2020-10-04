@@ -55,7 +55,7 @@
     </div>
     {{--Modal--}}
     @if($category->can_delete)
-        @include('partials.archive-confirmation', [
+        @include('partials.archive.archive-confirmation', [
             'name' => $category->fr_name,
             'modal_id' => "archive-category-modal",
             'url' => route('categories.destroy', compact('category'))

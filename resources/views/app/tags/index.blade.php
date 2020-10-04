@@ -5,7 +5,7 @@
 @section('app.breadcrumb')
     @include('partials.breadcrumb', [
         'title' => "Etiquettes ({$tags->total()})",
-        'icon' => 'mdi mdi-mdi-tag-multiple',
+        'icon' => 'mdi mdi-tag-multiple',
         'chain' => ['Etiquettes']
     ])
 @endsection
@@ -70,7 +70,7 @@
                                     </tr>
 
                                     @if($tag->can_delete)
-                                        @include('partials.archive-confirmation', [
+                                        @include('partials.archive.archive-confirmation', [
                                             'name' => $tag->fr_name,
                                             'modal_id' => "$tag->slug-archive-tag-modal",
                                             'url' => route('tags.destroy', compact('tag'))

@@ -1,6 +1,6 @@
 {{--Image--}}
 <div class="text-center widget-model px-0 border-0">
-    <div class="card-img mx-auto rounded-circle">
+    <div class="card-img mx-auto {{ $round_image ? 'rounded-circle' : '' }}">
         <img src="{{ $model->image_src }}" alt="..." class="async-model-image img-responsive">
     </div>
     {{--Edit button--}}

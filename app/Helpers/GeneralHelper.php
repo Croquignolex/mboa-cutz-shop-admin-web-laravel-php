@@ -116,3 +116,17 @@ if(!function_exists('log_activity'))
         Auth::user()->logs()->create(compact('title', 'description'));
     }
 }
+
+if(!function_exists('format_price'))
+{
+    /**
+     * Log user given activity
+     *
+     * @param $amount
+     * @return string
+     */
+    function format_price($amount)
+    {
+        return number_format($amount, 2, ',', '.');
+    }
+}

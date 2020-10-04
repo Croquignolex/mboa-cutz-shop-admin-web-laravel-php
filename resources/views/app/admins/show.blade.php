@@ -49,7 +49,7 @@
     </div>
     {{--Modal--}}
     @if($admin->can_delete)
-        @include('partials.archive-confirmation', [
+        @include('partials.archive.archive-confirmation', [
             'name' => $admin->full_name,
             'modal_id' => "archive-admin-modal",
             'url' => route('admins.destroy', compact('admin'))

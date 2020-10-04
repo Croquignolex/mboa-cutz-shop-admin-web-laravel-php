@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Archive;
 use App\Models\Tag;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\Product;
 use App\Enums\UserRole;
 use App\Models\Category;
 use Illuminate\View\View;
@@ -37,12 +38,14 @@ class ArchiveController extends Controller
 
         $tags = Tag::onlyTrashed()->count();
 
+        $products = Product::onlyTrashed()->count();
+
         $categories = Category::onlyTrashed()->count();
 
         $testimonials = Testimonial::onlyTrashed()->count();
 
         return view('archive.index', compact(
-            'admins', 'categories', 'tags', 'testimonials'
+            'admins', 'categories', 'tags', 'testimonials', 'products'
             )
         );
     }
