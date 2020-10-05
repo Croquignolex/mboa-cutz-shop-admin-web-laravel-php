@@ -45,7 +45,7 @@
                             @endif
                         </p>
                         <p class="text-right text-theme">
-                            @include('partials.product-star', ['ranking' => $product->ranking])
+                            @include('partials.rating-star', ['rate' => $product->rate])
                         </p>
 
                         <p class="text-dark font-weight-medium pt-4 mb-2">Nom (francais)</p>
@@ -109,6 +109,7 @@
                                     @include('partials.model-image-edit', [
                                         'model' => $product,
                                         'round_image' => false,
+                                        'croup_ratio' => 'square',
                                         'url' => route('products.update.image', compact('product'))
                                     ])
                                 </div>

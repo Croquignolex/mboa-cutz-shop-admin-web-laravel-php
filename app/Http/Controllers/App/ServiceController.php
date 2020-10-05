@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\App;
 
-use App\Models\Service;
 use Exception;
+use App\Models\Service;
 use App\Models\Product;
 use App\Enums\ImagePath;
 use App\Enums\Constants;
@@ -75,12 +75,12 @@ class ServiceController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Product $product
+     * @param Service $service
      * @return Application|Factory|Response|View
      */
-    public function show(Product $product)
+    public function show(Service $service)
     {
-        return view('app.services.show', compact('product'));
+        return view('app.services.show', compact('service'));
     }
 
     /**

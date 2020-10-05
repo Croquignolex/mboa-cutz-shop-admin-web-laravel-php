@@ -96,6 +96,33 @@
                         </div>
                     </ul>
                 </li>
+                {{--Services--}}
+                <li class="has-sub expand {{ active_page(services_pages()) }}">
+                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#services" aria-expanded="false" aria-controls="services">
+                        <i class="mdi mdi-shopping"></i>
+                        <span class="nav-text">Services</span> <b class="caret"></b>
+                    </a>
+                    <ul class="collapse {{ active_page_group(services_pages()) }}" id="services" data-parent="#sidebar-menu">
+                        <div class="sub-menu">
+                            <li class="{{ active_page(collect('services.index')) }}">
+                                <a class="sidenav-item-link" href="{{ route('services.index') }}">
+                                    <span class="nav-text">
+                                        <i class="mdi mdi-playlist-check"></i>
+                                        Tous les services
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="{{ active_page(collect('services.create')) }}">
+                                <a class="sidenav-item-link" href="{{ route('services.create') }}">
+                                    <span class="nav-text">
+                                        <i class="mdi mdi-playlist-plus"></i>
+                                        Nouveau service
+                                    </span>
+                                </a>
+                            </li>
+                        </div>
+                    </ul>
+                </li>
                 {{--Testimonials--}}
                 <li class="has-sub expand {{ active_page(testimonials_pages()) }}">
                     <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#testimonials" aria-expanded="false" aria-controls="testimonials">

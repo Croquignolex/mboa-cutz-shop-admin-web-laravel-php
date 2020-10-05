@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('app.master.title', page_title('Nouveau produit'))
+@section('app.master.title', page_title('Nouveau service'))
 
 @section('app.breadcrumb')
     @include('partials.breadcrumb', [
-        'title' => 'Nouveau produit',
-        'icon' => 'mdi mdi-basket',
-        'chain' => ['Produits', 'Nouveau produit']
+        'title' => 'Nouveau service',
+        'icon' => 'mdi mdi-shopping',
+        'chain' => ['Services', 'Nouveau service']
     ])
 @endsection
 
@@ -16,7 +16,7 @@
             <div class="card card-default">
                 <div class="card-body">
                     <div class="mx-5">@include('partials.error-message')</div>
-                    <form action="{{ route('products.store') }}" method="POST">
+                    <form action="{{ route('services.store') }}" method="POST">
                         @csrf
                         <div class="row">
                             <div class="col-sm-6">

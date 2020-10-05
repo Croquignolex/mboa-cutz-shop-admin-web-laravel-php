@@ -3278,7 +3278,7 @@ input[type="button"].btn-block {
 }
 
 .widget-model .card-img img {
-  width: 200px;
+  /*width: 200px;*/
   height: 200px;
 }
 
@@ -7029,8 +7029,11 @@ button {
 
 /* Width */
 .w-45 {
-  width: 45px;
-  height: auto; }
+  /*width: 45px;*/
+  /*height: auto;*/
+  width: auto;
+  height: 45px;
+}
 
 /* Icon box width */
 .iconbox-18 {
@@ -11083,7 +11086,7 @@ tbody tr td:first-child {
   overflow: hidden; }
 
 .widget-model .card-img {
-  width: 200px;
+  /*width: 200px;*/
   height: 200px;
   overflow: hidden; }
 

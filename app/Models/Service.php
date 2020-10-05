@@ -50,8 +50,9 @@ class Service extends Model
      */
     protected $fillable = [
         'fr_name', 'en_name', 'fr_description', 'en_description',
-        'ranking', 'is_featured', 'is_new', 'is_most_asked',
-        'image', 'extension',
+        'is_featured', 'is_new', 'is_most_asked',
+        'rate', 'price', 'discount',
+        'image', 'extension'
     ];
 
     /**

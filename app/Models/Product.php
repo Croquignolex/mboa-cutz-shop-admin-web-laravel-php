@@ -50,8 +50,8 @@ class Product extends Model
      */
     protected $fillable = [
         'fr_name', 'en_name', 'fr_description', 'en_description',
-        'price', 'discount', 'stock', 'ranking',
         'is_featured', 'is_new', 'is_most_sold',
+        'price', 'discount', 'stock', 'rate',
         'image', 'extension',
     ];
 

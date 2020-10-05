@@ -36,6 +36,7 @@ Route::group(['namespace' => 'App'], function() {
     Route::post('/profile/update-password', 'ProfileController@updatePassword')->name('profile.update.password');
 
     Route::post('/products/{product}/update-image', 'ProductController@updateImage')->name('products.update.image');
+    Route::post('/services/{service}/update-image', 'ServiceController@updateImage')->name('services.update.image');
     Route::post('/testimonials/{testimonial}/update-image', 'TestimonialController@updateImage')->name('testimonials.update.image');
 
     // App resources routes

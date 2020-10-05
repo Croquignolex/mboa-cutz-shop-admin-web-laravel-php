@@ -24,7 +24,7 @@ class CreateServicesTable extends Migration
             $table->text('fr_description')->nullable();
             $table->text('en_description')->nullable();
             $table->unsignedBigInteger('price')->default(0);
-            $table->unsignedTinyInteger('ranking')->default(0);
+            $table->unsignedTinyInteger('rate')->default(0);
             $table->unsignedSmallInteger('discount')->default(0);
             $table->boolean('is_new')->default(false);
             $table->boolean('is_featured')->default(false);

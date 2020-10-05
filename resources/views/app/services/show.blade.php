@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('app.master.title', page_title('Détails produit'))
+@section('app.master.title', page_title('Détails service'))
 
 @section('app.breadcrumb')
     @include('partials.breadcrumb', [
-        'title' => 'Détails produit',
-        'icon' => 'mdi mdi-basket',
-        'chain' => ['Produits', 'Détails produit']
+        'title' => 'Détails service',
+        'icon' => 'mdi mdi-shopping',
+        'chain' => ['Services', 'Détails service']
     ])
 @endsection
 
@@ -17,13 +17,13 @@
             <div class="card card-default">
                 <div class="card-body">
                     <div class="mb-3">
-                        <a class="btn btn-warning" href="{{ route('products.edit', compact('product')) }}">
+                        <a class="btn btn-warning" href="{{ route('services.edit', compact('service')) }}">
                             <i class="mdi mdi-pencil"></i>
                             Modifier
                         </a>
                         <button class="btn btn-danger"
                                 data-toggle="modal"
-                                data-target="{{ "#archive-product-modal" }}"
+                                data-target="{{ "#archive-service-modal" }}"
                         >
                             <i class="mdi mdi-archive"></i>
                             Archiver
@@ -31,50 +31,47 @@
                     </div>
                     <div class="contact-info">
                         <p class="text-right">
-                            @if($product->is_a_new)
+                            @if($service->is_a_new)
                                 <span class="badge badge-pill badge-success">Nouveau</span>
                             @endif
-                            @if($product->is_featured)
+                            @if($service->is_featured)
                                 <span class="badge badge-pill badge-info">En vedette</span>
                             @endif
-                            @if($product->is_a_discount)
+                            @if($service->is_a_discount)
                                 <span class="badge badge-pill badge-secondary">En promo</span>
                             @endif
-                            @if($product->is_most_sold)
-                                <span class="badge badge-pill badge-primary">Meilleur vente</span>
+                            @if($service->is_most_asked)
+                                <span class="badge badge-pill badge-primary">Meilleur reservation</span>
                             @endif
                         </p>
                         <p class="text-right text-theme">
-                            @include('partials.product-star', ['ranking' => $product->ranking])
+                            @include('partials.rating-star', ['rate' => $service->rate])
                         </p>
 
                         <p class="text-dark font-weight-medium pt-4 mb-2">Nom (francais)</p>
-                        <p>{{ $product->fr_name }}</p>
+                        <p>{{ $service->fr_name }}</p>
 
                         <p class="text-dark font-weight-medium pt-4 mb-2">Nom (anglais)</p>
-                        <p>{{ $product->en_name }}</p>
-
-                        <p class="text-dark font-weight-medium pt-4 mb-2">Stock</p>
-                        <p>{{ $product->stock }}</p>
+                        <p>{{ $service->en_name }}</p>
 
                         <p class="text-dark font-weight-medium pt-4 mb-2">Prix</p>
-                        <p>{{ format_price($product->price) }} FCFA</p>
+                        <p>{{ format_price($service->price) }} FCFA</p>
 
                         <p class="text-dark font-weight-medium pt-4 mb-2">Reduction</p>
-                        <p>{{ $product->discount }} %</p>
+                        <p>{{ $service->discount }} %</p>
 
                         <p class="text-dark font-weight-medium pt-4 mb-2">Catégorie</p>
                         <p>
-                            <a href="{{ route('categories.show', ['category' => $product->category]) }}"
+                            <a href="{{ route('categories.show', ['category' => $service->category]) }}"
                                class="btn btn-sm btn-outline-primary"
                             >
-                                    {{ $product->category->fr_name }}
+                                    {{ $service->category->fr_name }}
                             </a>
                         </p>
 
                         <p class="text-dark font-weight-medium pt-4 mb-2">Etiquettes</p>
                         <p>
-                            @foreach($product->tags as $tag)
+                            @foreach($service->tags as $tag)
                                 <a href="{{ route('tags.show', compact('tag')) }}"
                                    class="btn btn-sm btn-outline-primary"
                                 >
@@ -84,10 +81,10 @@
                         </p>
 
                         <p class="text-dark font-weight-medium pt-4 mb-2">Description (francais)</p>
-                        <p>{{ $product->fr_description }}</p>
+                        <p>{{ $service->fr_description }}</p>
 
                         <p class="text-dark font-weight-medium pt-4 mb-2">Description (anglais)</p>
-                        <p>{{ $product->en_description }}</p>
+                        <p>{{ $service->en_description }}</p>
                     </div>
                 </div>
             </div>
@@ -107,9 +104,10 @@
                                 <div class="card-body">
                                     {{--Image edit--}}
                                     @include('partials.model-image-edit', [
-                                        'model' => $product,
+                                        'model' => $service,
                                         'round_image' => false,
-                                        'url' => route('products.update.image', compact('product'))
+                                        'croup_ratio' => 'rectangle',
+                                        'url' => route('services.update.image', compact('service'))
                                     ])
                                 </div>
                             </div>
@@ -133,9 +131,9 @@
     </div>
     {{--Modal--}}
     @include('partials.archive.archive-confirmation', [
-        'name' => $product->name,
-        'modal_id' => "archive-product-modal",
-        'url' => route('products.destroy', compact('product'))
+        'name' => $service->name,
+        'modal_id' => "archive-service-modal",
+        'url' => route('services.destroy', compact('service'))
     ])
 @endsection
 

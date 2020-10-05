@@ -5,7 +5,7 @@
 @section('app.breadcrumb')
     @include('partials.breadcrumb', [
         'title' => 'Modifier témoignage',
-        'icon' => 'mdi mdi-face',
+        'icon' => 'mdi mdi-shopping',
         'chain' => ['Témoignages', 'Modifier témoignage']
     ])
 @endsection

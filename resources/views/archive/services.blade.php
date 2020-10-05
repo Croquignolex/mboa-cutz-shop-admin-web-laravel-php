@@ -26,6 +26,7 @@
                                     <th scope="col">IMAGE</th>
                                     <th scope="col">NOM (fr)</th>
                                     <th scope="col">NOM (en)</th>
+                                    <th scope="col">PRIX (FCFA)</th>
                                     <th scope="col">CREER PAR</th>
                                     <th scope="col">ACTIONS</th>
                                 </tr>
@@ -39,7 +40,8 @@
                                         </td>
                                         <td>{{ $service->fr_name }}</td>
                                         <td>{{ $service->en_name }}</td>
-                                        <td>{{ $product->creator_name}}</td>
+                                        <td class="text-right">{{ format_price($service->price) }}</td>
+                                        <td>{{ $service->creator_name}}</td>
                                         <td class="text-center">
                                             @if($service->can_delete)
                                                 <button class="btn btn-sm btn-success"

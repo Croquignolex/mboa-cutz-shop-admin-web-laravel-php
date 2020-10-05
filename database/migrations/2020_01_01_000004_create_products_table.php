@@ -25,7 +25,7 @@ class CreateProductsTable extends Migration
             $table->text('en_description')->nullable();
             $table->unsignedInteger('stock')->default(0);
             $table->unsignedBigInteger('price')->default(0);
-            $table->unsignedTinyInteger('ranking')->default(0);
+            $table->unsignedTinyInteger('rate')->default(0);
             $table->unsignedSmallInteger('discount')->default(0);
             $table->boolean('is_new')->default(false);
             $table->boolean('is_featured')->default(false);

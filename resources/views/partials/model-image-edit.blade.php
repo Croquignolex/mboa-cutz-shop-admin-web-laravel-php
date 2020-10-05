@@ -13,10 +13,10 @@
             Modifier
         </button>
         <input type="file"
-               data-ratio="square"
-               data-url="{{ $url }}"
-               data-class="async-model-image"
                hidden
+               data-url="{{ $url }}"
+               data-ratio={{ $croup_ratio }}
+               data-class="async-model-image"
                id="upload-model-image-input"
         >
     </div>
