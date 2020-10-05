@@ -57,13 +57,13 @@ class TagController extends Controller
      */
     public function store(CategoryRequest $request)
     {
-        Auth::user()->created_tags()->create($request->all());
+        $tag = Auth::user()->created_tags()->create($request->all());
 
         $name = $request->input('fr_name');
         success_toast_alert("Etiquette $name créer avec succès");
         log_activity("Etiquette", "Création de l'étiquette $name");
 
-        return redirect(route('tags.index'));
+        return redirect(route('tags.show', compact('tag')));
     }
 
     /**

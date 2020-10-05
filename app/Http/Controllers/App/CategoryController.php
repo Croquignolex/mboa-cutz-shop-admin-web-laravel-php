@@ -57,13 +57,13 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
-        Auth::user()->created_categories()->create($request->all());
+        $category = Auth::user()->created_categories()->create($request->all());
 
         $name = $request->input('fr_name');
         success_toast_alert("Catégorie $name créer avec succès");
         log_activity("Catégorie", "Création de la catégorie $name");
 
-        return redirect(route('categories.index'));
+        return redirect(route('categories.show', compact('category')));
     }
 
     /**

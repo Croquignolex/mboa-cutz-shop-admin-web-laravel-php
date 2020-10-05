@@ -63,13 +63,13 @@ class ServiceController extends Controller
      */
     public function store(TestimonialRequest $request)
     {
-        Auth::user()->created_testimonials()->create($request->all());
+        $testimonial = Auth::user()->created_testimonials()->create($request->all());
 
         $name = $request->input('name');
         success_toast_alert("Témoignage de $name créer avec succès");
         log_activity("Témoignage", "Création du témoignage de $name");
 
-        return redirect(route('testimonials.index'));
+        return redirect(route('testimonials.show', compact('testimonial')));
     }
 
     /**

@@ -49,6 +49,7 @@
                     @include('partials.model-image-edit', [
                         'round_image' => true,
                         'model' => $testimonial,
+                        'croup_ratio' => 'square',
                         'url' => route('testimonials.update.image', compact('testimonial'))
                     ])
                 </div>
