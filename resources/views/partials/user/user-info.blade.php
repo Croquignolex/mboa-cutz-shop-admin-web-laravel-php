@@ -53,5 +53,5 @@
 </div>
 
 @if($can_update_avatar)
-    @include('partials.croup-modal')
+    @include('partials.croup.croup-modal')
 @endif

@@ -22,4 +22,4 @@
     </div>
 </div>
 {{--Modal--}}
-@include('partials.croup-modal')
+@include('partials.croup.croup-modal')

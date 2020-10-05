@@ -99,7 +99,6 @@
                                     Image
                                 </button>
                             </div>
-
                             <div id="collapse-image" class="collapse show" aria-labelledby="heading-image" data-parent="#accordion">
                                 <div class="card-body">
                                     {{--Image edit--}}
@@ -137,4 +136,4 @@
     ])
 @endsection
 
-@include('partials.croup-scripts')
+@include('partials.croup.croup-scripts')

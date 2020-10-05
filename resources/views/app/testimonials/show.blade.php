@@ -64,4 +64,4 @@
     ])
 @endsection
 
-@include('partials.croup-scripts')
+@include('partials.croup.croup-scripts')

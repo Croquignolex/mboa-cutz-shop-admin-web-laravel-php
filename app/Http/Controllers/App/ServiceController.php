@@ -4,7 +4,6 @@ namespace App\Http\Controllers\App;
 
 use Exception;
 use App\Models\Service;
-use App\Models\Product;
 use App\Enums\ImagePath;
 use App\Enums\Constants;
 use Illuminate\View\View;
@@ -112,7 +111,7 @@ class ServiceController extends Controller
     }
 
     /**
-     * @param Product $product
+     * @param Service $service
      * @return RedirectResponse
      * @throws Exception
      */

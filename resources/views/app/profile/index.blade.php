@@ -15,7 +15,7 @@
         <div class="row no-gutters">
             <div class="col-lg-5 col-xl-4">
                 <div class="profile-content-left pt-5 pb-3 px-3 px-xl-4">
-                    @include('partials.user-info', [
+                    @include('partials.user.user-info', [
                         'user' => auth()->user(),
                         'can_update_avatar' => true
                     ])
@@ -50,4 +50,4 @@
     </div>
 @endsection
 
-@include('partials.croup-scripts')
+@include('partials.croup.croup-scripts')

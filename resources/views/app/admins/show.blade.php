@@ -33,7 +33,7 @@
                             </button>
                         @endif
                     </div>
-                    @include('partials.user-info', ['user' => $admin, 'can_update_avatar' => false])
+                    @include('partials.user.user-info', ['user' => $admin, 'can_update_avatar' => false])
                 </div>
             </div>
         </div>
@@ -42,7 +42,7 @@
             <div class="card card-default">
                 <div class="card-body">
                     <h5>Journal d'activités ({{ $logs->total() }})</h5>
-                    @include('partials.user-logs', compact('logs'))
+                    @include('partials.user.user-logs', compact('logs'))
                 </div>
             </div>
         </div>
