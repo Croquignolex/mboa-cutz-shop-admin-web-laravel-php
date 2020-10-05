@@ -5,7 +5,7 @@
 @section('app.breadcrumb')
     @include('partials.breadcrumb', [
         'title' => 'Détails étiquette',
-        'icon' => 'mdi mdi-mdi-tag-multiple',
+        'icon' => 'mdi mdi-tag-multiple',
         'chain' => ['Etiquettes', 'Détails étiquette']
     ])
 @endsection
@@ -48,7 +48,34 @@
         <div class="col-lg-7 col-xl-8">
             <div class="card card-default">
                 <div class="card-body">
-                    <h5>Produits ({{ $products->total() }})</h5>
+                    <div id="accordion" class="accordion accordion-bordered ">
+                        <div class="card">
+                            <div class="card-header" id="heading-image">
+                                <button class="btn btn-link" data-toggle="collapse" data-target="#collapse-products" aria-expanded="true" aria-controls="collapse-products">
+                                    Produits ({{ $products->total() }})
+                                </button>
+                            </div>
+                            <div id="collapse-products" class="collapse show" aria-labelledby="heading-products" data-parent="#accordion">
+                                <div class="card-body">
+                                    {{--Products--}}
+                                    @include('partials.products-list', ['actions' => false])
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header" id="heading-services">
+                                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse-services" aria-expanded="false" aria-controls="collapse-services">
+                                    Services ({{ $services->total() }})
+                                </button>
+                            </div>
+                            <div id="collapse-services" class="collapse" aria-labelledby="heading-services" data-parent="#accordion">
+                                <div class="card-body">
+                                    {{--Services--}}
+                                    @include('partials.services-list', ['actions' => false])
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

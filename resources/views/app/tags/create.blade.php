@@ -5,7 +5,7 @@
 @section('app.breadcrumb')
     @include('partials.breadcrumb', [
         'title' => 'Nouvelle étiquette',
-        'icon' => 'mdi mdi-mdi-tag-multiple',
+        'icon' => 'mdi mdi-tag-multiple',
         'chain' => ['Etiquettes', 'Nouvelle étiquette']
     ])
 @endsection

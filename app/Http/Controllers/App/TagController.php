@@ -80,7 +80,13 @@ class TagController extends Controller
             ->paginate(Constants::DEFAULT_PAGE_PAGINATION_ITEMS)
             ->onEachSide(Constants::DEFAULT_PAGE_PAGINATION_EACH_SIDE);
 
-        return view('app.tags.show', compact('tag', 'products'));
+        $services = $tag
+            ->services()
+            ->orderBy('created_at', 'desc')
+            ->paginate(Constants::DEFAULT_PAGE_PAGINATION_ITEMS)
+            ->onEachSide(Constants::DEFAULT_PAGE_PAGINATION_EACH_SIDE);
+
+        return view('app.tags.show', compact('tag', 'products', 'services'));
     }
 
     /**
