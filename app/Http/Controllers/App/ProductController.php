@@ -10,18 +10,16 @@ use App\Enums\ImagePath;
 use App\Enums\Constants;
 use Illuminate\View\View;
 use App\Traits\ModelMapping;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Redirector;
-use App\Http\Requests\ProductRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\ProductRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\Base64ImageRequest;
-use App\Http\Requests\TestimonialRequest;
 use Illuminate\Contracts\Foundation\Application;
 
 class ProductController extends Controller
@@ -56,24 +54,51 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('app.products.create');
+        $tags = $this->mapModels(Tag::all());
+        $categories = $this->mapModels(Category::all());
+
+        return view('app.products.create', compact('tags', 'categories'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param TestimonialRequest $request
+     * @param ProductRequest $request
      * @return Application|RedirectResponse|Response|Redirector
      */
-    public function store(TestimonialRequest $request)
+    public function store(ProductRequest $request)
     {
-        $testimonial = Auth::user()->created_testimonials()->create($request->all());
+        $product = Category::whereSlug($request->input('category'))->first()->products()->create([
+            'fr_name' => $request->input('fr_name'),
+            'en_name' => $request->input('en_name'),
+            'fr_description' => $request->input('fr_description'),
+            'en_description' => $request->input('en_description'),
 
-        $name = $request->input('name');
-        success_toast_alert("Témoignage de $name créer avec succès");
-        log_activity("Témoignage", "Création du témoignage de $name");
+            'price' => $request->input('price'),
+            'stock' => $request->input('stock'),
+            'discount' => $request->input('discount'),
 
-        return redirect(route('testimonials.show', compact('testimonial')));
+            'is_featured' => $request->input('featured') !== null,
+            'is_most_sold' => $request->input('most_sold') !== null,
+        ]);
+
+        $tags = $request->input('tags');
+        $tagsID = [];
+
+        if(count($tags) > 0) {
+            foreach ($tags as $tag) {
+               $tagsID[] = Tag::whereSlug($tag)->first()->id;
+            }
+            $product->tags()->sync($tagsID);
+        }
+        $product->creator()->associate(Auth::user());
+        $product->save();
+
+        $name = $request->input('fr_name');
+        success_toast_alert("Produit $name créer avec succès");
+        log_activity("Produit", "Création du produit $name");
+
+        return redirect(route('products.show', compact('product')));
     }
 
     /**

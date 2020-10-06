@@ -120,6 +120,26 @@ class User extends Authenticate
     }
 
     /**
+     * User products
+     *
+     * @return HasMany
+     */
+    public function created_products()
+    {
+        return $this->hasMany('App\Models\Product', 'creator_id');
+    }
+
+    /**
+     * User services
+     *
+     * @return HasMany
+     */
+    public function created_services()
+    {
+        return $this->hasMany('App\Models\Service', 'creator_id');
+    }
+
+    /**
      * User categories
      *
      * @return HasMany

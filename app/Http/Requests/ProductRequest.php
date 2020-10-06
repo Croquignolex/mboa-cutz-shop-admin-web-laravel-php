@@ -20,7 +20,6 @@ class ProductRequest extends FormRequest
         return [
             'tags' => $this->array,
             'new' => $this->string,
-            'category' => $this->string,
             'featured' => $this->string,
             'most_sold' => $this->string,
             'en_description' => $this->string,
@@ -30,6 +29,7 @@ class ProductRequest extends FormRequest
             'stock' => $this->required_numeric,
             'fr_name' => $this->required_string,
             'en_name' => $this->required_string,
+            'category' => $this->required_string,
             'discount' => $this->required_numeric,
         ];
     }

@@ -27,7 +27,7 @@ class CreateProductsTable extends Migration
             $table->unsignedBigInteger('price')->default(0);
             $table->unsignedTinyInteger('rate')->default(0);
             $table->unsignedSmallInteger('discount')->default(0);
-            $table->boolean('is_new')->default(false);
+            $table->boolean('is_new')->default(true);
             $table->boolean('is_featured')->default(false);
             $table->boolean('is_most_sold')->default(false);
             $table->unsignedInteger('creator_id')->nullable();
