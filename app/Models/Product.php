@@ -31,6 +31,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property mixed discount
  * @property mixed creator
  * @property mixed price
+ * @property mixed tags
  */
 class Product extends Model
 {
@@ -51,7 +52,7 @@ class Product extends Model
     protected $fillable = [
         'fr_name', 'en_name', 'fr_description', 'en_description',
         'is_featured', 'is_new', 'is_most_sold',
-        'price', 'discount', 'stock', 'rate',
+        'price', 'discount', 'stock',
         'image', 'extension',
     ];
 

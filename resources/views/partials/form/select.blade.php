@@ -15,7 +15,7 @@
                 <option value="{{ $option['value'] }}"
                         data-content="<span class='{{ $option['class'] }}'>{{ $option['label'] }}<span>"
                         @foreach($value as $item)
-                            {{ $item->slug === $option['value'] ? 'selected' : ''}}
+                            {{ $item === $option['value'] ? 'selected' : ''}}
                         @endforeach
                 >
                 </option>

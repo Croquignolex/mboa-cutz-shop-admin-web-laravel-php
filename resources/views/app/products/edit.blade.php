@@ -101,7 +101,7 @@
                                     'name' => 'Etiquettes',
                                     'id' => 'tags',
                                     'title' => 'Choisir des étiquettes',
-                                    'value' => old('tags') ?? $product->tags,
+                                    'value' => old('tags') ?? $selectedTags,
                                     'options' => $tags,
                                     'multi' => true
                                 ])

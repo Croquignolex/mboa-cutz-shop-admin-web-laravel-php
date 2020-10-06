@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Redirector;
+use App\Http\Requests\ProductRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
@@ -94,23 +95,27 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        $categories = $this->mapModels(Category::all());
         $tags = $this->mapModels(Tag::all());
+        $categories = $this->mapModels(Category::all());
+        $selectedTags = $product->tags->map(function (Tag $tag) {
+            return $tag->slug;
+        });
 
-        return view('app.products.edit', compact('product', 'categories', 'tags'));
+        return view('app.products.edit', compact('product', 'categories', 'tags', 'selectedTags'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param ProductRequest $request
      * @param Product $product
      * @return Application|RedirectResponse|Response|Redirector
      */
-    public function update(Request $request, Product $product)
+    public function update(ProductRequest $request, Product $product)
     {
-        dd($request->tags);
-        $product->update($request->all());
+        $product->update([
+
+        ]);
 
         success_toast_alert("Produit $product->fr_name mise à jour avec success");
         log_activity("Produit", "Mise à jour du produit $product->fr_name");
