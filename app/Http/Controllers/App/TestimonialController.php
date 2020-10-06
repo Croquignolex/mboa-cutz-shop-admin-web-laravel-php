@@ -7,7 +7,6 @@ use App\Enums\ImagePath;
 use App\Enums\Constants;
 use Illuminate\View\View;
 use App\Models\Testimonial;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Redirector;
@@ -95,11 +94,11 @@ class TestimonialController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param TestimonialRequest $request
      * @param Testimonial $testimonial
      * @return Application|RedirectResponse|Response|Redirector
      */
-    public function update(Request $request, Testimonial $testimonial)
+    public function update(TestimonialRequest $request, Testimonial $testimonial)
     {
         $testimonial->update($request->all());
 

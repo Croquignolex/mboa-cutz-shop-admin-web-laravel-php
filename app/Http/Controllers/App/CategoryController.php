@@ -6,7 +6,6 @@ use Exception;
 use App\Enums\Constants;
 use App\Models\Category;
 use Illuminate\View\View;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Redirector;
 use App\Http\Controllers\Controller;
@@ -103,11 +102,11 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param CategoryRequest $request
      * @param Category $category
      * @return Application|RedirectResponse|Response|Redirector
      */
-    public function update(Request $request, Category $category)
+    public function update(CategoryRequest $request, Category $category)
     {
         $category->update($request->all());
 

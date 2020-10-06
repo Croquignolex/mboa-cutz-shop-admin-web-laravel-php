@@ -3,6 +3,10 @@ $(document).ready(function() {
     $('button[type="submit"]').click(function() {
         $(this).addClass('disabled')
     });
+    // Init tooltips
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    });
 });
 
 // Ajax request

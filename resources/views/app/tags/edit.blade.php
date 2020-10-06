@@ -33,7 +33,7 @@
                                     'name' => 'Nom (anglais)*',
                                     'id' => 'en_name',
                                     'type' => 'text',
-                                    'value' => old('en_name') ?? $tag->fr_name
+                                    'value' => old('en_name') ?? $tag->en_name
                                 ])
                             </div>
                         </div>

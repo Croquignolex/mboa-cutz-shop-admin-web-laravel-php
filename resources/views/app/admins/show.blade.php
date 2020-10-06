@@ -42,7 +42,7 @@
             <div class="card card-default">
                 <div class="card-body">
                     <h5>Journal d'activités ({{ $logs->total() }})</h5>
-                    @include('partials.user.user-logs', compact('logs'))
+                    @include('partials.user.user-logs-list', compact('logs'))
                 </div>
             </div>
         </div>

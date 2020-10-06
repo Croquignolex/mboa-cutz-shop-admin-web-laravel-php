@@ -6,7 +6,6 @@ use Exception;
 use App\Models\Tag;
 use App\Enums\Constants;
 use Illuminate\View\View;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Redirector;
 use App\Http\Controllers\Controller;
@@ -103,11 +102,11 @@ class TagController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param CategoryRequest $request
      * @param Tag $tag
      * @return Application|RedirectResponse|Response|Redirector
      */
-    public function update(Request $request, Tag $tag)
+    public function update(CategoryRequest $request, Tag $tag)
     {
         $tag->update($request->all());
 

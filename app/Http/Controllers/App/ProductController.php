@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\App;
 
 use Exception;
+use App\Models\Tag;
 use App\Models\Product;
+use App\Models\Category;
 use App\Enums\ImagePath;
 use App\Enums\Constants;
 use Illuminate\View\View;
-use App\Models\Testimonial;
+use App\Traits\ModelMapping;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
@@ -23,6 +25,8 @@ use Illuminate\Contracts\Foundation\Application;
 
 class ProductController extends Controller
 {
+    use ModelMapping;
+
     /**
      * CategoryController constructor.
      */
@@ -85,29 +89,33 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Testimonial $testimonial
+     * @param Product $product
      * @return Application|RedirectResponse|Response|Redirector
      */
-    public function edit(Testimonial $testimonial)
+    public function edit(Product $product)
     {
-        return view('app.testimonials.edit', compact('testimonial'));
+        $categories = $this->mapModels(Category::all());
+        $tags = $this->mapModels(Tag::all());
+
+        return view('app.products.edit', compact('product', 'categories', 'tags'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param Testimonial $testimonial
+     * @param Product $product
      * @return Application|RedirectResponse|Response|Redirector
      */
-    public function update(Request $request, Testimonial $testimonial)
+    public function update(Request $request, Product $product)
     {
-        $testimonial->update($request->all());
+        dd($request->tags);
+        $product->update($request->all());
 
-        success_toast_alert("Témoignage de $testimonial->name mise à jour avec success");
-        log_activity("Témoignage", "Mise à jour du témoignage de $testimonial->fname");
+        success_toast_alert("Produit $product->fr_name mise à jour avec success");
+        log_activity("Produit", "Mise à jour du produit $product->fr_name");
 
-        return redirect(route('testimonials.show', compact('testimonial')));
+        return redirect(route('products.show', compact('product')));
     }
 
     /**
