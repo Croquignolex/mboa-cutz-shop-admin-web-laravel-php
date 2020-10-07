@@ -8517,7 +8517,8 @@ div.copied {
       .navbar .navbar-right .navbar-nav .notifications-menu .dropdown-toggle i {
         font-size: 1.75rem; }
       .navbar .navbar-right .navbar-nav .notifications-menu .dropdown-toggle:after {
-        border: 3px solid #4c84ff;
+        /*border: 3px solid #4c84ff;*/
+        border: 3px solid #d42a29;
         content: '';
         margin: 0;
         position: relative;
@@ -8525,7 +8526,8 @@ div.copied {
         height: 11px;
         border-radius: 100px;
         top: -18px;
-        left: -17px; }
+        left: -17px;
+      }
     .navbar .navbar-right .navbar-nav .notifications-menu > .dropdown-menu {
       width: 275px;
       right: -75px; }

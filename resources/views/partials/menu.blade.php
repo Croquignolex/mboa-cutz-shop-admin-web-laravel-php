@@ -15,7 +15,48 @@
                         <span class="nav-text">Tableau de board</span>
                     </a>
                 </li>
-                {{--Categoris--}}
+                {{--Orders--}}
+                <li  class="">
+                    <a class="sidenav-item-link" href="#">
+                        <i class="mdi mdi-library-books"></i>
+                        <span class="nav-text">Commandes</span>
+                    </a>
+                </li>
+                {{--Booking--}}
+                <li  class="">
+                    <a class="sidenav-item-link" href="#">
+                        <i class="mdi mdi-bookmark-check"></i>
+                        <span class="nav-text">Reservations</span>
+                    </a>
+                </li>
+                {{--Customers--}}
+                <li class="has-sub expand">
+                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#customers" aria-expanded="false" aria-controls="customers">
+                        <i class="mdi mdi-account-multiple-outline"></i>
+                        <span class="nav-text">Clients</span> <b class="caret"></b>
+                    </a>
+                    <ul class="collapse" id="customers" data-parent="#sidebar-menu">
+                        <div class="sub-menu">
+                            <li class="">
+                                <a class="sidenav-item-link" href="#">
+                                    <span class="nav-text">
+                                        <i class="mdi mdi-playlist-check"></i>
+                                        Tous les clients
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="">
+                                <a class="sidenav-item-link" href="#">
+                                    <span class="nav-text">
+                                        <i class="mdi mdi-playlist-plus"></i>
+                                        Nouveau client
+                                    </span>
+                                </a>
+                            </li>
+                        </div>
+                    </ul>
+                </li>
+                {{--Categories--}}
                 <li class="has-sub expand {{ active_page(categories_pages()) }}">
                     <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#categories" aria-expanded="false" aria-controls="categories">
                         <i class="mdi mdi-database"></i>
@@ -117,6 +158,33 @@
                                     <span class="nav-text">
                                         <i class="mdi mdi-playlist-plus"></i>
                                         Nouveau service
+                                    </span>
+                                </a>
+                            </li>
+                        </div>
+                    </ul>
+                </li>
+                {{--Blog--}}
+                <li class="has-sub expand">
+                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#blog" aria-expanded="false" aria-controls="blog">
+                        <i class="mdi mdi-blinds"></i>
+                        <span class="nav-text">Blog</span> <b class="caret"></b>
+                    </a>
+                    <ul class="collapse" id="blog" data-parent="#sidebar-menu">
+                        <div class="sub-menu">
+                            <li class="">
+                                <a class="sidenav-item-link" href="#">
+                                    <span class="nav-text">
+                                        <i class="mdi mdi-playlist-check"></i>
+                                        Tous les artcles
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="">
+                                <a class="sidenav-item-link" href="#">
+                                    <span class="nav-text">
+                                        <i class="mdi mdi-playlist-plus"></i>
+                                        Nouvel article
                                     </span>
                                 </a>
                             </li>
