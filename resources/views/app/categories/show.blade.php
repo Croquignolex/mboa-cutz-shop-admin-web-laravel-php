@@ -67,7 +67,7 @@
                                             Ajouter un produit
                                         </button>
                                     </div>
-                                    @include('partials.products-list', ['actions' => false])
+                                    @include('partials.products.products-list', ['actions' => false])
                                 </div>
                             </div>
                         </div>
@@ -89,7 +89,7 @@
                                             Ajouter un service
                                         </button>
                                     </div>
-                                    @include('partials.services-list', ['actions' => false])
+                                    @include('partials.services.services-list', ['actions' => false])
                                 </div>
                             </div>
                         </div>

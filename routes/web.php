@@ -45,6 +45,8 @@ Route::group(['namespace' => 'App'], function() {
     Route::post('/tags/{tag}/add-product', 'TagController@addProduct')->name('tags.add.product');
     Route::post('/tags/{tag}/add-service', 'TagController@addService')->name('tags.add.service');
 
+    Route::delete('/products/{product}/remove-review/{review}', 'ProductController@removeReview')->name('products.remove.review');
+
     // App resources routes
     Route::resources([
         'tags' => 'TagController',

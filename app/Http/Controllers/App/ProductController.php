@@ -11,7 +11,9 @@ use App\Enums\Constants;
 use Illuminate\View\View;
 use App\Traits\ProductStore;
 use App\Traits\ModelMapping;
+use App\Models\ProductReview;
 use Illuminate\Http\Response;
+use App\Traits\ModelRatingTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Redirector;
 use App\Http\Controllers\Controller;
@@ -24,7 +26,7 @@ use Illuminate\Contracts\Foundation\Application;
 
 class ProductController extends Controller
 {
-    use ModelMapping, ProductStore;
+    use ModelMapping, ProductStore, ModelRatingTrait;
 
     /**
      * CategoryController constructor.
@@ -94,6 +96,27 @@ class ProductController extends Controller
             ->onEachSide(Constants::DEFAULT_PAGE_PAGINATION_EACH_SIDE);
 
         return view('app.products.show', compact('product', 'reviews'));
+    }
+
+    /**
+     * Remove product review
+     *
+     * @param Product $product
+     * @param ProductReview $review
+     * @return Application|RedirectResponse|Redirector
+     * @throws Exception
+     */
+    public function removeReview(Product $product, ProductReview $review) {
+        if(!$review->can_delete) return $this->unauthorizedToast();
+
+        $review->delete();
+
+        $this->rateModel($product);
+
+        success_toast_alert("Commentaire sur le produit $product->fr_name archivé avec success");
+        log_activity("Commentaire", "Archivage du commentaire sur le produit $product->fr_name");
+
+        return redirect(route('products.show', compact('product')));
     }
 
     /**

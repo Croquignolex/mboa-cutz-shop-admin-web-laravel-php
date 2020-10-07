@@ -67,7 +67,7 @@
                                             Ajouter un produit
                                         </button>
                                     </div>
-                                    @include('partials.products-list', ['actions' => false])
+                                    @include('partials.products.products-list', ['actions' => false])
                                 </div>
                             </div>
                         </div>
@@ -87,7 +87,7 @@
                                         <i class="mdi mdi-plus"></i>
                                         Ajouter un service
                                     </button>
-                                    @include('partials.services-list', ['actions' => false])
+                                    @include('partials.services.services-list', ['actions' => false])
                                 </div>
                             </div>
                         </div>

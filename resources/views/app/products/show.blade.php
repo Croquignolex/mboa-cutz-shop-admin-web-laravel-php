@@ -123,7 +123,7 @@
                             <div id="collapse-comments" class="collapse" aria-labelledby="heading-comments" data-parent="#accordion">
                                 <div class="card-body">
                                     {{--Comments--}}
-                                    @include('partials.reviews-list')
+                                    @include('partials.products.product-reviews-list')
                                 </div>
                             </div>
                         </div>
