@@ -12,6 +12,8 @@ use Illuminate\View\View;
 use App\Traits\ServiceStore;
 use App\Traits\ModelMapping;
 use Illuminate\Http\Response;
+use App\Models\ServiceReview;
+use App\Traits\ModelRatingTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Redirector;
 use App\Http\Controllers\Controller;
@@ -24,7 +26,7 @@ use Illuminate\Contracts\Foundation\Application;
 
 class ServiceController extends Controller
 {
-    use ModelMapping, ServiceStore;
+    use ModelMapping, ServiceStore, ModelRatingTrait;
 
     /**
      * CategoryController constructor.
@@ -94,6 +96,27 @@ class ServiceController extends Controller
             ->onEachSide(Constants::DEFAULT_PAGE_PAGINATION_EACH_SIDE);
 
         return view('app.services.show', compact('service', 'reviews'));
+    }
+
+    /**
+     * Remove product review
+     *
+     * @param Service $service
+     * @param ServiceReview $review
+     * @return Application|RedirectResponse|Redirector
+     * @throws Exception
+     */
+    public function removeReview(Service $service, ServiceReview $review) {
+        if(!$review->can_delete) return $this->unauthorizedToast();
+
+        $review->delete();
+
+        $this->rateModel($service);
+
+        success_toast_alert("Commentaire sur le service $service->fr_name archivé avec success");
+        log_activity("Commentaire", "Archivage du commentaire sur le service $service->fr_name");
+
+        return redirect(route('services.show', compact('service')));
     }
 
     /**

@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @property mixed id
+ * @property mixed can_delete
  */
 class ServiceReview extends Model
 {
