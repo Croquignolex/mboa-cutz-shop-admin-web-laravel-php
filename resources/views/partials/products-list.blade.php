@@ -10,6 +10,7 @@
             <th scope="col">NOM (en)</th>
             <th scope="col">PRIX (FCFA)</th>
             <th scope="col">STOCK</th>
+            @if($actions)<th scope="col">NOTE</th>@endif
             <th scope="col">CREER PAR</th>
             <th scope="col">ACTIONS</th>
         </tr>
@@ -25,8 +26,9 @@
                 <td>{{ $product->en_name }}</td>
                 <td class="text-right">{{ format_price($product->price) }}</td>
                 <td class="text-right">{{ $product->stock }}</td>
+                @if($actions)<td class="text-center" style="white-space: nowrap;">@include('partials.rating-star', ['rate' => $product->rate])</td>>@endif
                 <td>{{ $product->creator_name}}</td>
-                <td class="text-center">
+                <td class="text-center" style="white-space: nowrap;">
                     <a href="{{ route('products.show', compact('product')) }}"
                        class="btn btn-sm btn-primary"
                        title="Détails"

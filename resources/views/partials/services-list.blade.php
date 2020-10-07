@@ -9,6 +9,7 @@
             <th scope="col">NOM (fr)</th>
             <th scope="col">NOM (en)</th>
             <th scope="col">PRIX (FCFA)</th>
+            @if($actions)<th scope="col">NOTE</th>@endif
             <th scope="col">CREER PAR</th>
             <th scope="col">ACTIONS</th>
         </tr>
@@ -23,8 +24,9 @@
                 <td>{{ $service->fr_name }}</td>
                 <td>{{ $service->en_name }}</td>
                 <td class="text-right">{{ format_price($service->price) }}</td>
+                @if($actions)<td class="text-center" style="white-space: nowrap;">@include('partials.rating-star', ['rate' => $service->rate])</td>@endif
                 <td>{{ $service->creator_name}}</td>
-                <td class="text-center">
+                <td class="text-center" style="white-space: nowrap;">
                     <a href="{{ route('services.show', compact('service')) }}"
                        class="btn btn-sm btn-primary"
                        title="Détails"

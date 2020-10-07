@@ -87,7 +87,13 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return view('app.products.show', compact('product'));
+        $reviews = $product
+            ->reviews()
+            ->orderBy('created_at', 'desc')
+            ->paginate(Constants::DEFAULT_PAGE_PAGINATION_ITEMS)
+            ->onEachSide(Constants::DEFAULT_PAGE_PAGINATION_EACH_SIDE);
+
+        return view('app.products.show', compact('product', 'reviews'));
     }
 
     /**

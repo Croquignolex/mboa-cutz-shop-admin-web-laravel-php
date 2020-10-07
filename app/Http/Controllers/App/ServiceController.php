@@ -87,7 +87,13 @@ class ServiceController extends Controller
      */
     public function show(Service $service)
     {
-        return view('app.services.show', compact('service'));
+        $reviews = $service
+            ->reviews()
+            ->orderBy('created_at', 'desc')
+            ->paginate(Constants::DEFAULT_PAGE_PAGINATION_ITEMS)
+            ->onEachSide(Constants::DEFAULT_PAGE_PAGINATION_EACH_SIDE);
+
+        return view('app.services.show', compact('service', 'reviews'));
     }
 
     /**

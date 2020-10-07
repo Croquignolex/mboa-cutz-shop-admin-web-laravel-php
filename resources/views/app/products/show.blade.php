@@ -13,10 +13,10 @@
 @section('app.master.body')
     <div class="row">
         {{--Info--}}
-        <div class="col-lg-5 col-xl-5">
+        <div class="col-lg-5 col-xl-4">
             <div class="card card-default">
                 <div class="card-body">
-                    <div class="mb-3">
+                    <div class="mb-2">
                         <a class="btn btn-warning" href="{{ route('products.edit', compact('product')) }}">
                             <i class="mdi mdi-pencil"></i>
                             Modifier
@@ -32,19 +32,19 @@
                     <div class="contact-info">
                         <p class="text-right">
                             @if($product->is_a_new)
-                                <span class="badge badge-pill badge-success">Nouveau</span>
+                                <span class="badge badge-pill badge-success mt-1">Nouveau</span>
                             @endif
                             @if($product->is_featured)
-                                <span class="badge badge-pill badge-info">En vedette</span>
+                                <span class="badge badge-pill badge-info mt-1">En vedette</span>
                             @endif
                             @if($product->is_a_discount)
-                                <span class="badge badge-pill badge-secondary">En promo</span>
+                                <span class="badge badge-pill badge-secondary mt-1">En promo</span>
                             @endif
                             @if($product->is_most_sold)
-                                <span class="badge badge-pill badge-primary">Meilleur vente</span>
+                                <span class="badge badge-pill badge-primary mt-1">Meilleur vente</span>
                             @endif
                         </p>
-                        <p class="text-right text-theme">
+                        <p class="text-right text-theme" style="white-space: nowrap;">
                             @include('partials.rating-star', ['rate' => $product->rate])
                         </p>
 
@@ -92,7 +92,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-7 col-xl-7">
+        <div class="col-lg-7 col-xl-8">
             <div class="card card-default">
                 <div class="card-body">
                     <div id="accordion" class="accordion accordion-bordered ">
@@ -117,12 +117,13 @@
                         <div class="card">
                             <div class="card-header" id="heading-comments">
                                 <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse-comments" aria-expanded="false" aria-controls="collapse-comments">
-                                    Commentaires
+                                    Commentaires ({{ $reviews->total() }})
                                 </button>
                             </div>
                             <div id="collapse-comments" class="collapse" aria-labelledby="heading-comments" data-parent="#accordion">
                                 <div class="card-body">
                                     {{--Comments--}}
+                                    @include('partials.reviews-list')
                                 </div>
                             </div>
                         </div>

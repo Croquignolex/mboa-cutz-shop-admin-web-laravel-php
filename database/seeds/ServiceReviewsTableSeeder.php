@@ -14,8 +14,8 @@ class ServiceReviewsTableSeeder extends Seeder
     public function run()
     {
         Service::first()->reviews()->createMany([
-            ['description' => Lorem::word()],
-            ['description' => Lorem::word()]
+            ['description' => Lorem::text()],
+            ['description' => Lorem::text()]
         ]);
     }
 }

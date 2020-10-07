@@ -48,7 +48,7 @@
                                         <td>{{ $testimonial->fr_description }}</td>
                                         <td>{{ $testimonial->en_description }}</td>
                                         <td>{{ $testimonial->creator_name}}</td>
-                                        <td class="text-center">
+                                        <td class="text-center" style="white-space: nowrap;">
                                             <a href="{{ route('testimonials.show', compact('testimonial')) }}"
                                                class="btn btn-sm btn-primary"
                                                title="Détails"

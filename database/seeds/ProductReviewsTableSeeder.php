@@ -14,8 +14,8 @@ class ProductReviewsTableSeeder extends Seeder
     public function run()
     {
         Product::first()->reviews()->createMany([
-            ['description' => Lorem::word()],
-            ['description' => Lorem::word()]
+            ['description' => Lorem::text()],
+            ['description' => Lorem::text()]
         ]);
     }
 }

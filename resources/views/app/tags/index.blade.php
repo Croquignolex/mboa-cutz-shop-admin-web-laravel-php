@@ -46,7 +46,7 @@
                                         <td class="text-right">{{ $tag->products->count() }}</td>
                                         <td class="text-right">{{ $tag->services->count() }}</td>
                                         <td>{{ $tag->creator_name}}</td>
-                                        <td class="text-center">
+                                        <td class="text-center" style="white-space: nowrap;">
                                             <a href="{{ route('tags.show', compact('tag')) }}"
                                                class="btn btn-sm btn-primary"
                                                title="Détails"

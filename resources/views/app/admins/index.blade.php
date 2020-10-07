@@ -56,7 +56,7 @@
                                     <td>{{ $admin->email }}</td>
                                     <td>{{ $admin->phone }}</td>
                                     <td>{{ $admin->creator_name}}</td>
-                                    <td class="text-center">
+                                    <td class="text-center" style="white-space: nowrap;">
                                         @if($admin->can_show)
                                             <a href="{{ route('admins.show', compact('admin')) }}"
                                                class="btn btn-sm btn-primary"

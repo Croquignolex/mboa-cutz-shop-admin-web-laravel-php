@@ -46,7 +46,7 @@
                                         <td class="text-right">{{ $category->products->count() }}</td>
                                         <td class="text-right">{{ $category->services->count() }}</td>
                                         <td>{{ $category->creator_name}}</td>
-                                        <td class="text-center">
+                                        <td class="text-center" style="white-space: nowrap;">
                                             <a href="{{ route('categories.show', compact('category')) }}"
                                                class="btn btn-sm btn-primary"
                                                title="Détails"
