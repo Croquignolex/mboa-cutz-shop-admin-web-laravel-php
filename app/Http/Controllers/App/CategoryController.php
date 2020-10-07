@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\App;
 
 use Exception;
+use App\Models\Tag;
 use App\Enums\Constants;
 use App\Models\Category;
 use Illuminate\View\View;
+use App\Traits\ProductStore;
+use App\Traits\ModelMapping;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Redirector;
 use App\Http\Controllers\Controller;
@@ -13,10 +16,13 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\CategoryRequest;
 use Illuminate\Contracts\View\Factory;
+use App\Http\Requests\CategoryAddProductRequest;
 use Illuminate\Contracts\Foundation\Application;
 
 class CategoryController extends Controller
 {
+    use ModelMapping, ProductStore;
+
     /**
      * CategoryController constructor.
      */
@@ -85,7 +91,25 @@ class CategoryController extends Controller
             ->paginate(Constants::DEFAULT_PAGE_PAGINATION_ITEMS)
             ->onEachSide(Constants::DEFAULT_PAGE_PAGINATION_EACH_SIDE);
 
-        return view('app.categories.show', compact('category', 'products', 'services'));
+        $tags = $this->mapModels(Tag::all());
+
+        $categories = $this->mapModels(Category::all());
+
+        return view('app.categories.show', compact('category', 'products', 'services', 'tags', 'categories'));
+    }
+
+    /**
+     * Add product
+     *
+     * @param CategoryAddProductRequest $request
+     * @param Category $category
+     * @return Application|RedirectResponse|Redirector
+     */
+    public function addProduct(CategoryAddProductRequest $request, Category $category)
+    {
+        $this->productStore($request, $category);
+
+        return redirect(route('categories.show', compact('category')));
     }
 
     /**

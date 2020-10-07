@@ -11,7 +11,7 @@
             <th scope="col">PRIX (FCFA)</th>
             <th scope="col">STOCK</th>
             <th scope="col">CREER PAR</th>
-            @if($actions)<th scope="col">ACTIONS</th>@endif
+            <th scope="col">ACTIONS</th>
         </tr>
         </thead>
         <tbody>
@@ -26,31 +26,29 @@
                 <td class="text-right">{{ format_price($product->price) }}</td>
                 <td class="text-right">{{ $product->stock }}</td>
                 <td>{{ $product->creator_name}}</td>
-                @if($actions)
-                    <td class="text-center">
-                        <a href="{{ route('products.show', compact('product')) }}"
-                           class="btn btn-sm btn-primary"
-                           title="Détails"
+                <td class="text-center">
+                    <a href="{{ route('products.show', compact('product')) }}"
+                       class="btn btn-sm btn-primary"
+                       title="Détails"
+                    >
+                        <i class="mdi mdi-eye"></i>
+                    </a>
+                    <a href="{{ route('products.edit', compact('product')) }}"
+                       class="btn btn-sm btn-warning"
+                       title="Modifier"
+                    >
+                        <i class="mdi mdi-pencil"></i>
+                    </a>
+                    @if($product->can_delete && $actions)
+                        <button class="btn btn-sm btn-danger"
+                                data-toggle="modal"
+                                data-target="{{ "#$product->slug-archive-product-modal" }}"
+                                title="Archiver"
                         >
-                            <i class="mdi mdi-eye"></i>
-                        </a>
-                        <a href="{{ route('products.edit', compact('product')) }}"
-                           class="btn btn-sm btn-warning"
-                           title="Modifier"
-                        >
-                            <i class="mdi mdi-pencil"></i>
-                        </a>
-                        @if($product->can_delete)
-                            <button class="btn btn-sm btn-danger"
-                                    data-toggle="modal"
-                                    data-target="{{ "#$product->slug-archive-product-modal" }}"
-                                    title="Archiver"
-                            >
-                                <i class="mdi mdi-archive"></i>
-                            </button>
-                        @endif
-                    </td>
-                @endif
+                            <i class="mdi mdi-archive"></i>
+                        </button>
+                    @endif
+                </td>
             </tr>
 
             @if($product->can_delete && $actions)

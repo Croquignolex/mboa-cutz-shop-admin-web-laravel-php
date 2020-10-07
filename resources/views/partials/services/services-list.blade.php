@@ -10,7 +10,7 @@
             <th scope="col">NOM (en)</th>
             <th scope="col">PRIX (FCFA)</th>
             <th scope="col">CREER PAR</th>
-            @if($actions)<th scope="col">ACTIONS</th>@endif
+            <th scope="col">ACTIONS</th>
         </tr>
         </thead>
         <tbody>
@@ -24,31 +24,29 @@
                 <td>{{ $service->en_name }}</td>
                 <td class="text-right">{{ format_price($service->price) }}</td>
                 <td>{{ $service->creator_name}}</td>
-                @if($actions)
-                    <td class="text-center">
-                        <a href="{{ route('services.show', compact('service')) }}"
-                           class="btn btn-sm btn-primary"
-                           title="Détails"
+                <td class="text-center">
+                    <a href="{{ route('services.show', compact('service')) }}"
+                       class="btn btn-sm btn-primary"
+                       title="Détails"
+                    >
+                        <i class="mdi mdi-eye"></i>
+                    </a>
+                    <a href="{{ route('services.edit', compact('service')) }}"
+                       class="btn btn-sm btn-warning"
+                       title="Modifier"
+                    >
+                        <i class="mdi mdi-pencil"></i>
+                    </a>
+                    @if($service->can_delete && $actions)
+                        <button class="btn btn-sm btn-danger"
+                                data-toggle="modal"
+                                data-target="{{ "#$service->slug-archive-service-modal" }}"
+                                title="Archiver"
                         >
-                            <i class="mdi mdi-eye"></i>
-                        </a>
-                        <a href="{{ route('services.edit', compact('service')) }}"
-                           class="btn btn-sm btn-warning"
-                           title="Modifier"
-                        >
-                            <i class="mdi mdi-pencil"></i>
-                        </a>
-                        @if($service->can_delete)
-                            <button class="btn btn-sm btn-danger"
-                                    data-toggle="modal"
-                                    data-target="{{ "#$service->slug-archive-service-modal" }}"
-                                    title="Archiver"
-                            >
-                                <i class="mdi mdi-archive"></i>
-                            </button>
-                        @endif
-                    </td>
-                @endif
+                            <i class="mdi mdi-archive"></i>
+                        </button>
+                    @endif
+                </td>
             </tr>
 
             @if($service->can_delete && $actions)

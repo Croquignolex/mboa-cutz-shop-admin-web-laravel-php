@@ -9,12 +9,12 @@ use App\Models\Category;
 use App\Enums\ImagePath;
 use App\Enums\Constants;
 use Illuminate\View\View;
+use App\Traits\ProductStore;
 use App\Traits\ModelMapping;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Redirector;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\ProductRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\Factory;
@@ -24,7 +24,7 @@ use Illuminate\Contracts\Foundation\Application;
 
 class ProductController extends Controller
 {
-    use ModelMapping;
+    use ModelMapping, ProductStore;
 
     /**
      * CategoryController constructor.
@@ -68,28 +68,7 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
-        $product = Category::whereSlug($request->input('category'))->first()->products()->create([
-            'fr_name' => $request->input('fr_name'),
-            'en_name' => $request->input('en_name'),
-            'fr_description' => $request->input('fr_description'),
-            'en_description' => $request->input('en_description'),
-
-            'price' => $request->input('price'),
-            'stock' => $request->input('stock'),
-            'discount' => $request->input('discount'),
-
-            'is_featured' => $request->input('featured') !== null,
-            'is_most_sold' => $request->input('most_sold') !== null,
-        ]);
-
-        $tags = $request->input('tags');
-
-        if($tags !== null) $product->tags()->sync($this->mapTags($tags));
-        $product->creator()->associate(Auth::user());
-        $product->save();
-
-        success_toast_alert("Produit $product->fr_name créer avec succès");
-        log_activity("Produit", "Création du produit $product->fr_name");
+        $product = $this->productStore($request, Category::whereSlug($request->input('category'))->first());
 
         return redirect(route('products.show', compact('product')));
     }

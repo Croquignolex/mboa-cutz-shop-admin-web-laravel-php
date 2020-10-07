@@ -58,7 +58,16 @@
                             <div id="collapse-products" class="collapse show" aria-labelledby="heading-products" data-parent="#accordion">
                                 <div class="card-body">
                                     {{--Products--}}
-                                    @include('partials.products-list', ['actions' => false])
+                                    <div class="mb-3">
+                                        <button class="btn btn-primary"
+                                                data-toggle="modal"
+                                                data-target="#add-product-modal"
+                                        >
+                                            <i class="mdi mdi-plus"></i>
+                                            Ajouter un produit
+                                        </button>
+                                    </div>
+                                    @include('partials.products.products-list', ['actions' => false])
                                 </div>
                             </div>
                         </div>
@@ -71,7 +80,16 @@
                             <div id="collapse-services" class="collapse" aria-labelledby="heading-services" data-parent="#accordion">
                                 <div class="card-body">
                                     {{--Services--}}
-                                    @include('partials.services-list', ['actions' => false])
+                                    <div class="mb-3">
+                                        <button class="btn btn-primary"
+                                                data-toggle="modal"
+                                                data-target="#add-service-modal"
+                                        >
+                                            <i class="mdi mdi-plus"></i>
+                                            Ajouter un service
+                                        </button>
+                                    </div>
+                                    @include('partials.services.services-list', ['actions' => false])
                                 </div>
                             </div>
                         </div>
@@ -88,4 +106,8 @@
             'url' => route('categories.destroy', compact('category'))
         ])
     @endif
+    @include('partials.products.products-add-modal', ['url' => route('categories.add.product', compact('category'))])
+    @include('partials.services.services-add-modal', ['url' => route('categories.add.service', compact('category'))])
 @endsection
+
+@include('partials.select-scripts')

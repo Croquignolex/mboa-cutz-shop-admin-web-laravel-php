@@ -39,6 +39,12 @@ Route::group(['namespace' => 'App'], function() {
     Route::post('/services/{service}/update-image', 'ServiceController@updateImage')->name('services.update.image');
     Route::post('/testimonials/{testimonial}/update-image', 'TestimonialController@updateImage')->name('testimonials.update.image');
 
+    Route::post('/categories/{category}/add-product', 'CategoryController@addProduct')->name('categories.add.product');
+    Route::post('/categories/{category}/add-service', 'CategoryController@addService')->name('categories.add.service');
+
+    Route::post('/tags/{tag}/add-product', 'TagController@addProduct')->name('tags.add.product');
+    Route::post('/tags/{tag}/add-service', 'TagController@addService')->name('tags.add.service');
+
     // App resources routes
     Route::resources([
         'tags' => 'TagController',

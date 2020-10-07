@@ -58,7 +58,7 @@
                             <div id="collapse-products" class="collapse show" aria-labelledby="heading-products" data-parent="#accordion">
                                 <div class="card-body">
                                     {{--Products--}}
-                                    @include('partials.products-list', ['actions' => false])
+                                    @include('partials.products.products-list', ['actions' => false])
                                 </div>
                             </div>
                         </div>
@@ -71,7 +71,7 @@
                             <div id="collapse-services" class="collapse" aria-labelledby="heading-services" data-parent="#accordion">
                                 <div class="card-body">
                                     {{--Services--}}
-                                    @include('partials.services-list', ['actions' => false])
+                                    @include('partials.services.services-list', ['actions' => false])
                                 </div>
                             </div>
                         </div>
