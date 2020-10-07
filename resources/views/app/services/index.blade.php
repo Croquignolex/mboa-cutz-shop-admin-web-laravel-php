@@ -21,7 +21,7 @@
                             Nouveau service
                         </a>
                     </div>
-                    @include('partials.services.services-list', ['actions' => true])
+                    @include('partials.services-list', ['actions' => true])
                 </div>
             </div>
         </div>

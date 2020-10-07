@@ -67,7 +67,7 @@
                                             Ajouter un produit
                                         </button>
                                     </div>
-                                    @include('partials.products.products-list', ['actions' => false])
+                                    @include('partials.products-list', ['actions' => false])
                                 </div>
                             </div>
                         </div>
@@ -89,7 +89,7 @@
                                             Ajouter un service
                                         </button>
                                     </div>
-                                    @include('partials.services.services-list', ['actions' => false])
+                                    @include('partials.services-list', ['actions' => false])
                                 </div>
                             </div>
                         </div>
@@ -106,8 +106,30 @@
             'url' => route('categories.destroy', compact('category'))
         ])
     @endif
-    @include('partials.products.products-add-modal', ['url' => route('categories.add.product', compact('category'))])
-    @include('partials.services.services-add-modal', ['url' => route('categories.add.service', compact('category'))])
+    @component('components.add-product-modal', [
+        'url' => route('categories.add.product', compact('category'))
+    ])
+        @include('partials.form.select', [
+            'name' => 'Etiquettes',
+            'id' => 'tags',
+            'title' => 'Choisir des étiquettes',
+            'value' => old('tags') ?? [],
+            'options' => $tags,
+            'multi' => true
+        ])
+    @endcomponent
+    @component('components.add-service-modal', [
+        'url' => route('categories.add.service', compact('category'))
+    ])
+        @include('partials.form.select', [
+            'name' => 'Etiquettes',
+            'id' => 'tags',
+            'title' => 'Choisir des étiquettes',
+            'value' => old('tags') ?? [],
+            'options' => $tags,
+            'multi' => true
+        ])
+    @endcomponent
 @endsection
 
 @include('partials.select-scripts')

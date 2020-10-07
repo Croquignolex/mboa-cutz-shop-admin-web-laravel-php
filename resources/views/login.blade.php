@@ -54,11 +54,11 @@
         <div class="copyright pl-0">
             <p class="text-center">
                 Copyright &copy; MBOA CUTZ 2020 | Design by
-                <a href="https://croquignolex-tikiton.dmsemergence.com/"
+                <a href="https://croquignolex.mboacutz.com/"
                    class="text-white"
                    target="_blank"
                 >
-                    Croquignolex Tikiton
+                    Croquignolex
                 </a>
             </p>
         </div>

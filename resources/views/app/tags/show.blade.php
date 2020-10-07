@@ -58,7 +58,16 @@
                             <div id="collapse-products" class="collapse show" aria-labelledby="heading-products" data-parent="#accordion">
                                 <div class="card-body">
                                     {{--Products--}}
-                                    @include('partials.products.products-list', ['actions' => false])
+                                    <div class="mb-3">
+                                        <button class="btn btn-primary"
+                                                data-toggle="modal"
+                                                data-target="#add-product-modal"
+                                        >
+                                            <i class="mdi mdi-plus"></i>
+                                            Ajouter un produit
+                                        </button>
+                                    </div>
+                                    @include('partials.products-list', ['actions' => false])
                                 </div>
                             </div>
                         </div>
@@ -71,7 +80,14 @@
                             <div id="collapse-services" class="collapse" aria-labelledby="heading-services" data-parent="#accordion">
                                 <div class="card-body">
                                     {{--Services--}}
-                                    @include('partials.services.services-list', ['actions' => false])
+                                    <button class="btn btn-primary"
+                                            data-toggle="modal"
+                                            data-target="#add-service-modal"
+                                    >
+                                        <i class="mdi mdi-plus"></i>
+                                        Ajouter un service
+                                    </button>
+                                    @include('partials.services-list', ['actions' => false])
                                 </div>
                             </div>
                         </div>
@@ -88,4 +104,30 @@
             'url' => route('tags.destroy', compact('tag'))
         ])
     @endif
+    @component('components.add-product-modal', [
+        'url' => route('tags.add.product', compact('tag'))
+    ])
+        @include('partials.form.select', [
+            'name' => 'Catégorie*',
+            'id' => 'category',
+            'title' => 'Choisir une catégorie',
+            'value' => old('category'),
+            'options' => $categories,
+            'multi' => false
+        ])
+    @endcomponent
+    @component('components.add-service-modal', [
+        'url' => route('tags.add.service', compact('tag'))
+    ])
+        @include('partials.form.select', [
+            'name' => 'Catégorie*',
+            'id' => 'category',
+            'title' => 'Choisir une catégorie',
+            'value' => old('category'),
+            'options' => $categories,
+            'multi' => false
+        ])
+    @endcomponent
 @endsection
+
+@include('partials.select-scripts')

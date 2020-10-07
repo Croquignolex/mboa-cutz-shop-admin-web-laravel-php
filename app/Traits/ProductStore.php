@@ -33,7 +33,7 @@ trait ProductStore
             'is_most_sold' => $request->input('most_sold') !== null,
         ]);
 
-        if(count($tagsID) > 0) $product->tags()->sync($tagsID);
+        if($tagsID->count() > 0) $product->tags()->sync($tagsID);
         $product->creator()->associate(Auth::user());
         $product->save();
 

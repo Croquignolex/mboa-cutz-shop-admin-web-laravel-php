@@ -65,14 +65,7 @@
             ])
         </div>
         <div class="col-sm-6">
-            @include('partials.form.select', [
-                'name' => 'Etiquettes',
-                'id' => 'tags',
-                'title' => 'Choisir des étiquettes',
-                'value' => old('tags') ?? [],
-                'options' => $tags,
-                'multi' => true
-            ])
+            {{ $slot }}
         </div>
     </div>
     <div class="row">

@@ -4,8 +4,12 @@ namespace App\Http\Controllers\App;
 
 use Exception;
 use App\Models\Tag;
+use App\Models\Category;
 use App\Enums\Constants;
 use Illuminate\View\View;
+use App\Traits\ModelMapping;
+use App\Traits\ProductStore;
+use App\Traits\ServiceStore;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Redirector;
 use App\Http\Controllers\Controller;
@@ -13,10 +17,13 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\CategoryRequest;
 use Illuminate\Contracts\View\Factory;
+use App\Http\Requests\TagAddProductRequest;
+use App\Http\Requests\TagAddServiceRequest;
 use Illuminate\Contracts\Foundation\Application;
 
 class TagController extends Controller
 {
+    use ModelMapping, ProductStore, ServiceStore;
     /**
      * CategoryController constructor.
      */
@@ -85,7 +92,37 @@ class TagController extends Controller
             ->paginate(Constants::DEFAULT_PAGE_PAGINATION_ITEMS)
             ->onEachSide(Constants::DEFAULT_PAGE_PAGINATION_EACH_SIDE);
 
-        return view('app.tags.show', compact('tag', 'products', 'services'));
+        $categories = $this->mapModels(Category::all());
+
+        return view('app.tags.show', compact('tag', 'products', 'services', 'categories'));
+    }
+
+    /**
+     * Add product
+     *
+     * @param TagAddProductRequest $request
+     * @param Tag $tag
+     * @return Application|RedirectResponse|Redirector
+     */
+    public function addProduct(TagAddProductRequest $request, Tag $tag)
+    {
+        $this->productStore($request, Category::whereSlug($request->input('category'))->first(), collect([$tag->id]));
+
+        return redirect(route('tags.show', compact('tag')));
+    }
+
+    /**
+     * Add service
+     *
+     * @param TagAddServiceRequest $request
+     * @param Tag $tag
+     * @return Application|RedirectResponse|Redirector
+     */
+    public function addService(TagAddServiceRequest $request, Tag $tag)
+    {
+        $this->serviceStore($request, Category::whereSlug($request->input('category'))->first(), collect([$tag->id]));
+
+        return redirect(route('tags.show', compact('tag')));
     }
 
     /**

@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property mixed services
  * @property mixed creator
  * @property mixed can_delete
+ * @property mixed id
  */
 class Tag extends Model
 {

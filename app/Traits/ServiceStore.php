@@ -32,7 +32,7 @@ trait ServiceStore
             'is_most_asked' => $request->input('most_asked') !== null,
         ]);
 
-        if(count($tagsID) > 0) $service->tags()->sync($tagsID);
+        if($tagsID->count() > 0) $service->tags()->sync($tagsID);
         $service->creator()->associate(Auth::user());
         $service->save();
 

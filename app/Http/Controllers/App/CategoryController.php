@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\App;
 
-use App\Http\Requests\CategoryAddServiceRequest;
 use Exception;
 use App\Models\Tag;
 use App\Enums\Constants;
@@ -18,6 +17,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\CategoryRequest;
 use Illuminate\Contracts\View\Factory;
+use App\Http\Requests\CategoryAddServiceRequest;
 use App\Http\Requests\CategoryAddProductRequest;
 use Illuminate\Contracts\Foundation\Application;
 
@@ -95,9 +95,7 @@ class CategoryController extends Controller
 
         $tags = $this->mapModels(Tag::all());
 
-        $categories = $this->mapModels(Category::all());
-
-        return view('app.categories.show', compact('category', 'products', 'services', 'tags', 'categories'));
+        return view('app.categories.show', compact('category', 'products', 'services', 'tags'));
     }
 
     /**
