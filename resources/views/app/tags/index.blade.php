@@ -5,7 +5,7 @@
 @section('app.breadcrumb')
     @include('partials.breadcrumb', [
         'title' => "Etiquettes ({$tags->total()})",
-        'icon' => 'mdi mdi-mdi-tag-multiple',
+        'icon' => 'mdi mdi-tag-multiple',
         'chain' => ['Etiquettes']
     ])
 @endsection
@@ -32,6 +32,7 @@
                                 <th scope="col">NOM (fr)</th>
                                 <th scope="col">NOM (en)</th>
                                 <th scope="col">PRODUITS</th>
+                                <th scope="col">SERVICES</th>
                                 <th scope="col">CREER PAR</th>
                                 <th scope="col">ACTIONS</th>
                             </tr>
@@ -43,8 +44,9 @@
                                         <td>{{ $tag->fr_name }}</td>
                                         <td>{{ $tag->en_name }}</td>
                                         <td class="text-right">{{ $tag->products->count() }}</td>
+                                        <td class="text-right">{{ $tag->services->count() }}</td>
                                         <td>{{ $tag->creator_name}}</td>
-                                        <td class="text-center">
+                                        <td class="text-center" style="white-space: nowrap;">
                                             <a href="{{ route('tags.show', compact('tag')) }}"
                                                class="btn btn-sm btn-primary"
                                                title="Détails"
@@ -70,7 +72,7 @@
                                     </tr>
 
                                     @if($tag->can_delete)
-                                        @include('partials.archive-confirmation', [
+                                        @include('partials.archive.archive-confirmation', [
                                             'name' => $tag->fr_name,
                                             'modal_id' => "$tag->slug-archive-tag-modal",
                                             'url' => route('tags.destroy', compact('tag'))

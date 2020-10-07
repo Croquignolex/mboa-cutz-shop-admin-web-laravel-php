@@ -6,11 +6,13 @@ use App\Models\Tag;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Product;
+use App\Models\Service;
 use App\Models\Category;
 use App\Models\Testimonial;
 use App\Observers\TagObserver;
 use App\Observers\UserObserver;
 use App\Observers\RoleObserver;
+use App\Observers\ServiceObserver;
 use App\Observers\ProductObserver;
 use App\Observers\CategoryObserver;
 use Illuminate\Support\Facades\Schema;
@@ -42,6 +44,7 @@ class AppServiceProvider extends ServiceProvider
         User::observe(UserObserver::class);
         Role::observe(RoleObserver::class);
         Product::observe(ProductObserver::class);
+        Service::observe(ServiceObserver::class);
         Category::observe(CategoryObserver::class);
         Testimonial::observe(TestimonialObserver::class);
     }

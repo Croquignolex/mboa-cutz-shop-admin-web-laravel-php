@@ -48,17 +48,17 @@ function inputChangeEventHandle(_input) {
 
             if(!$uploadCrop) {
 
-                if(currentUploadImageInput.data('ratio') === 'rectangular') {
-                    aspectRadio = null;
-                    // Comment this to avoid an aspect ratio, to let the user be free to croup
-                    aspectRadio = 16/9;
-                    copperAspectRatioWidth = 400;
-                    copperAspectRatioHeight = 200;
-                } else {
+                const ratio = currentUploadImageInput.data('ratio');
+
+                if(ratio === 'square') {
                     aspectRadio = 4/4;
-                    copperAspectRatioWidth = 300;
-                    copperAspectRatioHeight = 300;
-                }
+                    // copperAspectRatioWidth = 300;
+                    // copperAspectRatioHeight = 300;
+                } else if(ratio === 'rectangle') {
+                    aspectRadio = 16/9;
+                    // copperAspectRatioWidth = 800;
+                    // copperAspectRatioHeight = 600;
+                } else aspectRadio = null;
 
                 // Init cropper
                 $uploadCrop = new Cropper(image, {

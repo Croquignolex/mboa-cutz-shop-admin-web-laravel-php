@@ -16,8 +16,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property mixed fr_name
  * @property mixed slug
  * @property mixed products
+ * @property mixed services
  * @property mixed creator
  * @property mixed can_delete
+ * @property mixed id
  */
 class Tag extends Model
 {
@@ -46,6 +48,14 @@ class Tag extends Model
     }
 
     /**
+     * @return BelongsToMany|HasMany
+     */
+    public function services()
+    {
+        return $this->belongsToMany('App\Models\Service');
+    }
+
+    /**
      * Check if category can be deleted
      *
      * @return mixed
@@ -54,7 +64,11 @@ class Tag extends Model
     {
         $connected_user = Auth::user();
         return (
-            ($this->products->count() === 0) && (
+            (
+                ($this->products->count() === 0) &&
+                ($this->services->count() === 0)
+            ) &&
+            (
                 ($connected_user->role->type === UserRole::SUPER_ADMIN) ||
                 ($this->creator === null) ||
                 (Auth::user()->id === $this->creator->id)

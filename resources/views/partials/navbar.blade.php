@@ -6,23 +6,23 @@
         <div class="search-form d-none d-lg-inline-block"></div>
         <div class="navbar-right ">
             <ul class="nav navbar-nav">
-               {{-- <li class="dropdown notifications-menu">
+                <li class="dropdown notifications-menu">
                     <button class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="mdi mdi-bell-outline"></i>
+                        <i class="mdi mdi-bell-ring-outline"></i>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-right">
-                        <li class="dropdown-header">You have 5 notifications</li>
+                        <li class="dropdown-header">1 Nouveau message</li>
                         <li>
                             <a href="#">
-                                <i class="mdi mdi-account-plus"></i> New user registered
-                                <span class=" font-size-12 d-inline-block float-right"><i class="mdi mdi-clock-outline"></i> 10 AM</span>
+                                <i class="mdi mdi-email"></i> Bonnjour Team MBOACUTZ
+                                <span class=" font-size-12 d-inline-block float-right"><i class="mdi mdi-clock-outline"></i> 12/06/2020 10:50</span>
                             </a>
                         </li>
                         <li class="dropdown-footer">
-                            <a class="text-center" href="#"> View All </a>
+                            <a class="text-center" href="#"> Tout voir </a>
                         </li>
                     </ul>
-                </li>--}}
+                </li>
                 <li class="dropdown user-menu">
                     <button href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
                         <img src="{{ auth()->user()->avatar_src }}" class="async-image img-responsive" alt="..." />

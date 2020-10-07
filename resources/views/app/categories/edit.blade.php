@@ -33,7 +33,7 @@
                                     'name' => 'Nom (anglais)*',
                                     'id' => 'en_name',
                                     'type' => 'text',
-                                    'value' => old('en_name') ?? $category->fr_name
+                                    'value' => old('en_name') ?? $category->en_name
                                 ])
                             </div>
                         </div>

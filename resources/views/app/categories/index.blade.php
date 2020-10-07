@@ -32,6 +32,7 @@
                                 <th scope="col">NOM (fr)</th>
                                 <th scope="col">NOM (en)</th>
                                 <th scope="col">PRODUITS</th>
+                                <th scope="col">SERVICES</th>
                                 <th scope="col">CREER PAR</th>
                                 <th scope="col">ACTIONS</th>
                             </tr>
@@ -43,8 +44,9 @@
                                         <td>{{ $category->fr_name }}</td>
                                         <td>{{ $category->en_name }}</td>
                                         <td class="text-right">{{ $category->products->count() }}</td>
+                                        <td class="text-right">{{ $category->services->count() }}</td>
                                         <td>{{ $category->creator_name}}</td>
-                                        <td class="text-center">
+                                        <td class="text-center" style="white-space: nowrap;">
                                             <a href="{{ route('categories.show', compact('category')) }}"
                                                class="btn btn-sm btn-primary"
                                                title="Détails"
@@ -70,7 +72,7 @@
                                     </tr>
 
                                     @if($category->can_delete)
-                                        @include('partials.archive-confirmation', [
+                                        @include('partials.archive.archive-confirmation', [
                                             'name' => $category->fr_name,
                                             'modal_id' => "$category->slug-archive-category-modal",
                                             'url' => route('categories.destroy', compact('category'))

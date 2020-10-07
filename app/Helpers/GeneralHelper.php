@@ -39,6 +39,12 @@ if(!function_exists('imageFromBase64AndSave'))
                     'name' => $image_name,
                     'extension' => $image_type
                 ];
+            case ImagePath::SERVICE_DEFAULT_IMAGE_PATH:
+                Storage::put(service_img_asset($image_name, $image_type), $original_file);
+                return [
+                    'name' => $image_name,
+                    'extension' => $image_type
+                ];
             case ImagePath::TESTIMONIAL_DEFAULT_IMAGE_PATH:
                 Storage::put(testimonial_img_asset($image_name, $image_type), $original_file);
                 return [
@@ -73,6 +79,11 @@ if(!function_exists('getUniqueFileName'))
                 return $image_name;
             case ImagePath::PRODUCT_DEFAULT_IMAGE_PATH:
                 if(Storage::exists(product_img_asset($image_name, $image_type))) {
+                    getUniqueImageName(Str::random(40), $image_type, $folder);
+                }
+                return $image_name;
+            case ImagePath::SERVICE_DEFAULT_IMAGE_PATH:
+                if(Storage::exists(service_img_asset($image_name, $image_type))) {
                     getUniqueImageName(Str::random(40), $image_type, $folder);
                 }
                 return $image_name;
@@ -114,5 +125,19 @@ if(!function_exists('log_activity'))
     function log_activity($title, $description)
     {
         Auth::user()->logs()->create(compact('title', 'description'));
+    }
+}
+
+if(!function_exists('format_price'))
+{
+    /**
+     * Log user given activity
+     *
+     * @param $amount
+     * @return string
+     */
+    function format_price($amount)
+    {
+        return number_format($amount, 2, ',', '.');
     }
 }

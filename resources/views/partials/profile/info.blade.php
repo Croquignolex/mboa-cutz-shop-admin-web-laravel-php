@@ -47,4 +47,4 @@
     <p class="text-dark font-weight-medium pt-4 mb-2">Description</p>
     <p>{{ auth()->user()->description }}</p>
 </div>
-@include('partials.croup-modal')
+@include('partials.croup.croup-modal')

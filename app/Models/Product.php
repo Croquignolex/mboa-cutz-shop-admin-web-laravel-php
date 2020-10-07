@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
-use App\Enums\Constants;
 use App\Enums\UserRole;
+use App\Enums\Constants;
 use App\Traits\DateTrait;
+use App\Traits\OfferTrait;
 use App\Traits\CreatorTrait;
 use App\Traits\SlugRouteTrait;
-use App\Enums\ProductAvailability;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
@@ -24,16 +24,20 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property mixed fr_name
  * @property mixed slug
  * @property mixed en_name
+ * @property mixed can_delete
  * @property mixed fr_description
  * @property mixed en_description
  * @property mixed created_at
  * @property mixed discount
  * @property mixed creator
  * @property mixed price
+ * @property mixed tags
+ * @property mixed category
+ * @property mixed image_src
  */
 class Product extends Model
 {
-    use SoftDeletes, SlugRouteTrait, DateTrait, CreatorTrait;
+    use SoftDeletes, SlugRouteTrait, DateTrait, CreatorTrait, OfferTrait;
 
     /**
      * The attributes that should be cast.
@@ -48,9 +52,10 @@ class Product extends Model
      * @var array
      */
     protected $fillable = [
-        'image', 'fr_name', 'en_name', 'fr_description', 'en_description',
-        'price', 'discount', 'ranking', 'stock', 'extension',
+        'fr_name', 'en_name', 'fr_description', 'en_description',
         'is_featured', 'is_new', 'is_most_sold',
+        'price', 'discount', 'stock',
+        'image', 'extension',
     ];
 
     /**
@@ -70,12 +75,20 @@ class Product extends Model
     }
 
     /**
+     * @return HasMany
+     */
+    public function reviews()
+    {
+        return $this->hasMany('App\Models\ProductReview');
+    }
+
+    /**
      * Product image src
      *
      * @return string
      */
     public function getImageSrcAttribute() {
-        // Update une avatar with default if avatar file is not found
+        // Update image with default if file is not found
         if(!Storage::exists(product_img_asset($this->image, $this->image_extension))) {
             $this->update([
                 'image' => Constants::DEFAULT_IMAGE,
@@ -87,43 +100,13 @@ class Product extends Model
     }
 
     /**
-     * Product availability tag
-     *
-     * @return mixed
-     */
-    public function getAvailabilityAttribute()
-    {
-        if($this->stock <= 0) return ProductAvailability::OUT_OF_STOCK;
-        else return ProductAvailability::IN_STOCk;
-    }
-
-    /**
-     * Product duration tag
-     *
-     * @return bool
-     */
-    public function getIsANewAttribute()
-    {
-        return ($this->is_new) || ($this->created_at >= now()->subDays(-7));
-    }
-
-    /**
-     * Products discount tag
-     *
-     * @return bool
-     */
-    public function getIsADiscountAttribute()
-    {
-        return $this->discount !== 0;
-    }
-
-    /**
      * Check if product can be deleted
      *
      * @return mixed
      */
     public function getCanDeleteAttribute()
     {
+        //TODO: complete product can_delete(commands, comments etc...)
         $connected_user = Auth::user();
         return (
             ($connected_user->role->type === UserRole::SUPER_ADMIN) ||

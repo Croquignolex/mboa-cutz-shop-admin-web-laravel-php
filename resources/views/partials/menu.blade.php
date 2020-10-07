@@ -15,7 +15,48 @@
                         <span class="nav-text">Tableau de board</span>
                     </a>
                 </li>
-                {{--Categoris--}}
+                {{--Orders--}}
+                <li  class="">
+                    <a class="sidenav-item-link" href="#">
+                        <i class="mdi mdi-library-books"></i>
+                        <span class="nav-text">Commandes</span>
+                    </a>
+                </li>
+                {{--Booking--}}
+                <li  class="">
+                    <a class="sidenav-item-link" href="#">
+                        <i class="mdi mdi-bookmark-check"></i>
+                        <span class="nav-text">Reservations</span>
+                    </a>
+                </li>
+                {{--Customers--}}
+                <li class="has-sub expand">
+                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#customers" aria-expanded="false" aria-controls="customers">
+                        <i class="mdi mdi-account-multiple-outline"></i>
+                        <span class="nav-text">Clients</span> <b class="caret"></b>
+                    </a>
+                    <ul class="collapse" id="customers" data-parent="#sidebar-menu">
+                        <div class="sub-menu">
+                            <li class="">
+                                <a class="sidenav-item-link" href="#">
+                                    <span class="nav-text">
+                                        <i class="mdi mdi-playlist-check"></i>
+                                        Tous les clients
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="">
+                                <a class="sidenav-item-link" href="#">
+                                    <span class="nav-text">
+                                        <i class="mdi mdi-playlist-plus"></i>
+                                        Nouveau client
+                                    </span>
+                                </a>
+                            </li>
+                        </div>
+                    </ul>
+                </li>
+                {{--Categories--}}
                 <li class="has-sub expand {{ active_page(categories_pages()) }}">
                     <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#categories" aria-expanded="false" aria-controls="categories">
                         <i class="mdi mdi-database"></i>
@@ -69,6 +110,87 @@
                         </div>
                     </ul>
                 </li>
+                {{--Produits--}}
+                <li class="has-sub expand {{ active_page(products_pages()) }}">
+                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#products" aria-expanded="false" aria-controls="products">
+                        <i class="mdi mdi-basket"></i>
+                        <span class="nav-text">Produits</span> <b class="caret"></b>
+                    </a>
+                    <ul class="collapse {{ active_page_group(products_pages()) }}" id="products" data-parent="#sidebar-menu">
+                        <div class="sub-menu">
+                            <li class="{{ active_page(collect('products.index')) }}">
+                                <a class="sidenav-item-link" href="{{ route('products.index') }}">
+                                    <span class="nav-text">
+                                        <i class="mdi mdi-playlist-check"></i>
+                                        Tous les produits
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="{{ active_page(collect('products.create')) }}">
+                                <a class="sidenav-item-link" href="{{ route('products.create') }}">
+                                    <span class="nav-text">
+                                        <i class="mdi mdi-playlist-plus"></i>
+                                        Nouveau produit
+                                    </span>
+                                </a>
+                            </li>
+                        </div>
+                    </ul>
+                </li>
+                {{--Services--}}
+                <li class="has-sub expand {{ active_page(services_pages()) }}">
+                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#services" aria-expanded="false" aria-controls="services">
+                        <i class="mdi mdi-shopping"></i>
+                        <span class="nav-text">Services</span> <b class="caret"></b>
+                    </a>
+                    <ul class="collapse {{ active_page_group(services_pages()) }}" id="services" data-parent="#sidebar-menu">
+                        <div class="sub-menu">
+                            <li class="{{ active_page(collect('services.index')) }}">
+                                <a class="sidenav-item-link" href="{{ route('services.index') }}">
+                                    <span class="nav-text">
+                                        <i class="mdi mdi-playlist-check"></i>
+                                        Tous les services
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="{{ active_page(collect('services.create')) }}">
+                                <a class="sidenav-item-link" href="{{ route('services.create') }}">
+                                    <span class="nav-text">
+                                        <i class="mdi mdi-playlist-plus"></i>
+                                        Nouveau service
+                                    </span>
+                                </a>
+                            </li>
+                        </div>
+                    </ul>
+                </li>
+                {{--Blog--}}
+                <li class="has-sub expand">
+                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#blog" aria-expanded="false" aria-controls="blog">
+                        <i class="mdi mdi-blinds"></i>
+                        <span class="nav-text">Blog</span> <b class="caret"></b>
+                    </a>
+                    <ul class="collapse" id="blog" data-parent="#sidebar-menu">
+                        <div class="sub-menu">
+                            <li class="">
+                                <a class="sidenav-item-link" href="#">
+                                    <span class="nav-text">
+                                        <i class="mdi mdi-playlist-check"></i>
+                                        Tous les artcles
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="">
+                                <a class="sidenav-item-link" href="#">
+                                    <span class="nav-text">
+                                        <i class="mdi mdi-playlist-plus"></i>
+                                        Nouvel article
+                                    </span>
+                                </a>
+                            </li>
+                        </div>
+                    </ul>
+                </li>
                 {{--Testimonials--}}
                 <li class="has-sub expand {{ active_page(testimonials_pages()) }}">
                     <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#testimonials" aria-expanded="false" aria-controls="testimonials">
@@ -96,33 +218,6 @@
                         </div>
                     </ul>
                 </li>
-                {{--Produits--}}
-                {{--<li class="has-sub expand {{ active_page(products_pages()) }}">
-                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#products" aria-expanded="false" aria-controls="products">
-                        <i class="mdi mdi-basket"></i>
-                        <span class="nav-text">Produits</span> <b class="caret"></b>
-                    </a>
-                    <ul class="collapse {{ active_page_group(products_pages()) }}" id="products" data-parent="#sidebar-menu">
-                        <div class="sub-menu">
-                            <li class="{{ active_page(collect('products.index')) }}">
-                                <a class="sidenav-item-link" href="{{ route('products.index') }}">
-                                    <span class="nav-text">
-                                        <i class="mdi mdi-playlist-check"></i>
-                                        Tous les produits
-                                    </span>
-                                </a>
-                            </li>
-                            <li class="{{ active_page(collect('products.create')) }}">
-                                <a class="sidenav-item-link" href="{{ route('products.create') }}">
-                                    <span class="nav-text">
-                                        <i class="mdi mdi-playlist-plus"></i>
-                                        Nouveau produit
-                                    </span>
-                                </a>
-                            </li>
-                        </div>
-                    </ul>
-                </li>--}}
                 {{--Admins--}}
                 <li class="has-sub expand {{ active_page(admins_pages()) }}">
                     <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#admins" aria-expanded="false" aria-controls="admins">
