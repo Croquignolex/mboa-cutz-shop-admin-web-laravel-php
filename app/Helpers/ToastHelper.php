@@ -12,7 +12,7 @@ if(!function_exists('info_toast_alert'))
      */
     function info_toast_alert($message, $title = "Information", $delay = 8000, $type = "info")
     {
-        toast_alert($title, $message, 'info', $delay);
+        toast_alert($title, $message, $type, $delay);
     }
 }
 

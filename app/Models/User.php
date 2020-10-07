@@ -120,6 +120,26 @@ class User extends Authenticate
     }
 
     /**
+     * User products
+     *
+     * @return HasMany
+     */
+    public function created_products()
+    {
+        return $this->hasMany('App\Models\Product', 'creator_id');
+    }
+
+    /**
+     * User services
+     *
+     * @return HasMany
+     */
+    public function created_services()
+    {
+        return $this->hasMany('App\Models\Service', 'creator_id');
+    }
+
+    /**
      * User categories
      *
      * @return HasMany
@@ -175,7 +195,7 @@ class User extends Authenticate
      * @return string
      */
     public function getAvatarSrcAttribute() {
-        // Update une avatar with default if avatar file is not found
+        // Update image with default if file is not found
         if(!Storage::exists(user_img_asset($this->avatar, $this->avatar_extension))) {
             $this->update([
                 'avatar' => Constants::DEFAULT_IMAGE,

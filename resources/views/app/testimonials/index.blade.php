@@ -48,7 +48,7 @@
                                         <td>{{ $testimonial->fr_description }}</td>
                                         <td>{{ $testimonial->en_description }}</td>
                                         <td>{{ $testimonial->creator_name}}</td>
-                                        <td class="text-center">
+                                        <td class="text-center" style="white-space: nowrap;">
                                             <a href="{{ route('testimonials.show', compact('testimonial')) }}"
                                                class="btn btn-sm btn-primary"
                                                title="Détails"
@@ -71,7 +71,7 @@
                                         </td>
                                     </tr>
 
-                                    @include('partials.archive-confirmation', [
+                                    @include('partials.archive.archive-confirmation', [
                                         'name' => $testimonial->fr_name,
                                         'modal_id' => "$testimonial->slug-archive-testimonial-modal",
                                         'url' => route('testimonials.destroy', compact('testimonial'))

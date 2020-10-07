@@ -11,7 +11,7 @@
                 <div class="card">
                     <div class="card-header bg-theme-dark">
                         <div class="app-brand text-center">
-                            <img src="{{ img_asset('logo', 'jpg') }}" alt="..." width="70">
+                            <img src="{{ img_asset('logo-white') }}" alt="..." height="80">
                         </div>
                     </div>
                     <div class="card-body p-4">
@@ -54,11 +54,11 @@
         <div class="copyright pl-0">
             <p class="text-center">
                 Copyright &copy; MBOA CUTZ 2020 | Design by
-                <a href="https://croquignolex-tikiton.dmsemergence.com/"
+                <a href="https://croquignolex.mboacutz.com/"
                    class="text-white"
                    target="_blank"
                 >
-                    Croquignolex Tikiton
+                    Croquignolex
                 </a>
             </p>
         </div>

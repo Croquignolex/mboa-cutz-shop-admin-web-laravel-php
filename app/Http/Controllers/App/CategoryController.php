@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\App;
 
 use Exception;
+use App\Models\Tag;
 use App\Enums\Constants;
 use App\Models\Category;
 use Illuminate\View\View;
-use Illuminate\Http\Request;
+use App\Traits\ServiceStore;
+use App\Traits\ProductStore;
+use App\Traits\ModelMapping;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Redirector;
 use App\Http\Controllers\Controller;
@@ -14,10 +17,14 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\CategoryRequest;
 use Illuminate\Contracts\View\Factory;
+use App\Http\Requests\CategoryAddServiceRequest;
+use App\Http\Requests\CategoryAddProductRequest;
 use Illuminate\Contracts\Foundation\Application;
 
 class CategoryController extends Controller
 {
+    use ModelMapping, ProductStore, ServiceStore;
+
     /**
      * CategoryController constructor.
      */
@@ -57,13 +64,13 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
-        Auth::user()->created_categories()->create($request->all());
+        $category = Auth::user()->created_categories()->create($request->all());
 
         $name = $request->input('fr_name');
         success_toast_alert("Catégorie $name créer avec succès");
         log_activity("Catégorie", "Création de la catégorie $name");
 
-        return redirect(route('categories.index'));
+        return redirect(route('categories.show', compact('category')));
     }
 
     /**
@@ -80,7 +87,47 @@ class CategoryController extends Controller
             ->paginate(Constants::DEFAULT_PAGE_PAGINATION_ITEMS)
             ->onEachSide(Constants::DEFAULT_PAGE_PAGINATION_EACH_SIDE);
 
-        return view('app.categories.show', compact('category', 'products'));
+        $services = $category
+            ->services()
+            ->orderBy('created_at', 'desc')
+            ->paginate(Constants::DEFAULT_PAGE_PAGINATION_ITEMS)
+            ->onEachSide(Constants::DEFAULT_PAGE_PAGINATION_EACH_SIDE);
+
+        $tags = $this->mapModels(Tag::all());
+
+        return view('app.categories.show', compact('category', 'products', 'services', 'tags'));
+    }
+
+    /**
+     * Add product
+     *
+     * @param CategoryAddProductRequest $request
+     * @param Category $category
+     * @return Application|RedirectResponse|Redirector
+     */
+    public function addProduct(CategoryAddProductRequest $request, Category $category)
+    {
+        $tags = $request->input('tags');
+
+        $this->productStore($request, $category, ($tags !== null) ? $this->mapTags($tags) : collect());
+
+        return redirect(route('categories.show', compact('category')));
+    }
+
+    /**
+     * Add service
+     *
+     * @param CategoryAddServiceRequest $request
+     * @param Category $category
+     * @return Application|RedirectResponse|Redirector
+     */
+    public function addService(CategoryAddServiceRequest $request, Category $category)
+    {
+        $tags = $request->input('tags');
+
+        $this->serviceStore($request, $category, ($tags !== null) ? $this->mapTags($tags) : collect());
+
+        return redirect(route('categories.show', compact('category')));
     }
 
     /**
@@ -97,11 +144,11 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param CategoryRequest $request
      * @param Category $category
      * @return Application|RedirectResponse|Response|Redirector
      */
-    public function update(Request $request, Category $category)
+    public function update(CategoryRequest $request, Category $category)
     {
         $category->update($request->all());
 

@@ -20,11 +20,11 @@
                 <div class="copyright bg-white">
                     <p class="text-center">
                         Copyright &copy;  {{ config('app.name') }} 2020 | Design by
-                        <a href="https://croquignolex-tikiton.dmsemergence.com/"
+                        <a href="https://croquignolex.mboacutz.com/"
                            class="text-danger"
                            target="_blank"
                         >
-                            Croquignolex Tikiton
+                            Croquignolex
                         </a>
                     </p>
                 </div>

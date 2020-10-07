@@ -11,96 +11,112 @@
 @endsection
 
 @section('app.master.body')
-    <div class="row">
-        <div class="col-12">
+    <div class="row no-gutters">
+        <div class="col">
             <div class="card card-default">
-                <div class="card-header card-header-border-bottom d-flex justify-content-between">
-                    <h2>Nouvel intervenant</h2>
-                </div>
                 <div class="card-body">
+                    <div class="mx-5">@include('partials.error-message')</div>
                     <form action="{{ route('products.store') }}" method="POST">
                         @csrf
-                        @method('PUT')
-                        <div class="row">
-                            <div class="col-sm-6 col-xs-12">
-                                @include('partials.form.select', [
-                                    'name' => 'Nom (français)',
-                                    'id' => 'fr_name',
-                                    'icon' => 'mdi mdi-format-align-top',
-                                    'value' => old('fr_name')
+                        <div class="row mb-2">
+                            <div class="col">
+                                @include('partials.form.toggle', [
+                                    'name' => 'En vedette',
+                                    'id' => 'featured',
+                                    'color' => 'info',
+                                    'value' => old('featured')
                                 ])
-                            </div>
-                            <div class="col-sm-6 col-xs-12">
-
+                                @include('partials.form.toggle', [
+                                    'name' => 'Mailleur vente',
+                                    'id' => 'most_sold',
+                                    'color' => 'primary',
+                                    'value' => old('most_sold')
+                                ])
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-6 col-xs-12">
+                            <div class="col-sm-6">
                                 @include('partials.form.input', [
-                                    'name' => 'Nom (français)',
+                                    'name' => 'Nom (français)*',
                                     'id' => 'fr_name',
-                                    'icon' => 'mdi mdi-format-align-top',
                                     'type' => 'text',
                                     'value' => old('fr_name')
                                 ])
                             </div>
-                            <div class="col-sm-6 col-xs-12">
+                            <div class="col-sm-6">
                                 @include('partials.form.input', [
-                                    'name' => 'Nom (anglais)',
+                                    'name' => 'Nom (anglais)*',
                                     'id' => 'en_name',
-                                    'icon' => 'mdi mdi-format-align-top',
                                     'type' => 'text',
                                     'value' => old('en_name')
                                 ])
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-4 col-xs-12">
+                            <div class="col-sm-4">
                                 @include('partials.form.input', [
-                                   'name' => 'Prix',
-                                   'id' => 'price',
-                                   'icon' => 'mdi mdi-cash-multiple',
-                                   'type' => 'number',
-                                   'value' => old('price')
-                               ])
-                            </div>
-                            <div class="col-sm-4 col-xs-12">
-                                @include('partials.form.input', [
-                                    'name' => 'Réduction',
-                                    'id' => 'discount',
-                                    'icon' => 'mdi mdi-percent',
+                                    'name' => 'Prix*',
+                                    'id' => 'price',
                                     'type' => 'number',
-                                    'value' => old('discount')
+                                    'value' => old('price') ?? 0
                                 ])
                             </div>
-                            <div class="col-sm-4 col-xs-12">
+                            <div class="col-sm-4">
                                 @include('partials.form.input', [
-                                    'name' => 'Stock',
-                                    'id' => 'stock',
-                                    'icon' => 'mdi mdi-buffer',
+                                    'name' => 'Reduction (%)*',
+                                    'id' => 'discount',
                                     'type' => 'number',
-                                    'value' => old('stock')
+                                    'value' => old('discount') ?? 0
+                                ])
+                            </div>
+                            <div class="col-sm-4">
+                                @include('partials.form.input', [
+                                    'name' => 'Stock*',
+                                    'id' => 'stock',
+                                    'type' => 'number',
+                                    'value' => old('stock') ?? 0
                                 ])
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-6 col-xs-12">
+                            <div class="col-sm-6">
+                                @include('partials.form.select', [
+                                    'name' => 'Catégorie*',
+                                    'id' => 'category',
+                                    'title' => 'Choisir une catégorie',
+                                    'value' => old('category'),
+                                    'options' => $categories,
+                                    'multi' => false
+                                ])
+                            </div>
+                            <div class="col-sm-6">
+                                @include('partials.form.select', [
+                                    'name' => 'Etiquettes',
+                                    'id' => 'tags',
+                                    'title' => 'Choisir des étiquettes',
+                                    'value' => old('tags') ?? [],
+                                    'options' => $tags,
+                                    'multi' => true
+                                ])
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
                                 @include('partials.form.textarea', [
                                     'name' => 'Description (français)',
                                     'id' => 'fr_description',
-                                    'icon' => 'mdi mdi-format-align-justify',
                                     'value' => old('fr_description')
                                 ])
                             </div>
-                            <div class="col-sm-6 col-xs-12">
+                            <div class="col-sm-6">
                                 @include('partials.form.textarea', [
-                                   'name' => 'Description (anglais)',
-                                   'id' => 'en_description',
-                                   'icon' => 'mdi mdi-format-align-justify',
-                                   'value' => old('en_description')
-                               ])
+                                    'name' => 'Description (anglais)',
+                                    'id' => 'en_description',
+                                    'value' => old('en_description')
+                                ])
                             </div>
                         </div>
+                        @include('partials.form.submit')
                     </form>
                 </div>
             </div>
@@ -108,16 +124,4 @@
     </div>
 @endsection
 
-@push('app.master.style')
-    <link rel="stylesheet" href="{{ css_asset('bootstrap-select.min') }}" type="text/css">
-@endpush
-
-@push('app.master.script')
-    <script src="{{ js_asset('bootstrap-select.min') }}" type="application/javascript"></script>
-    <script type="application/javascript">
-        $(document).ready(function() {
-            $('.searchable-select').selectpicker();
-        });
-    </script>
-@endpush
-
+@include('partials.select-scripts')

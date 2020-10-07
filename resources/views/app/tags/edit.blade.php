@@ -5,7 +5,7 @@
 @section('app.breadcrumb')
     @include('partials.breadcrumb', [
         'title' => 'Modifier étiquette',
-        'icon' => 'mdi mdi-mdi-tag-multiple',
+        'icon' => 'mdi mdi-tag-multiple',
         'chain' => ['Etiquettes', 'Modifier étiquette']
     ])
 @endsection
@@ -33,7 +33,7 @@
                                     'name' => 'Nom (anglais)*',
                                     'id' => 'en_name',
                                     'type' => 'text',
-                                    'value' => old('en_name') ?? $tag->fr_name
+                                    'value' => old('en_name') ?? $tag->en_name
                                 ])
                             </div>
                         </div>

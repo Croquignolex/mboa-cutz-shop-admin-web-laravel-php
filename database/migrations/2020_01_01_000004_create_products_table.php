@@ -23,12 +23,13 @@ class CreateProductsTable extends Migration
             $table->string('en_name');
             $table->text('fr_description')->nullable();
             $table->text('en_description')->nullable();
-            $table->unsignedBigInteger('price')->default(0);
-            $table->unsignedSmallInteger('discount')->default(0);
-            $table->boolean('is_featured')->default(false);
-            $table->boolean('is_new')->default(false);
-            $table->boolean('is_most_sold')->default(false);
             $table->unsignedInteger('stock')->default(0);
+            $table->unsignedBigInteger('price')->default(0);
+            $table->unsignedTinyInteger('rate')->default(0);
+            $table->unsignedSmallInteger('discount')->default(0);
+            $table->boolean('is_new')->default(true);
+            $table->boolean('is_featured')->default(false);
+            $table->boolean('is_most_sold')->default(false);
             $table->unsignedInteger('creator_id')->nullable();
             $table->unsignedInteger('category_id');
             $table->softDeletes();
