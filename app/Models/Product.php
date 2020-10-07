@@ -75,6 +75,14 @@ class Product extends Model
     }
 
     /**
+     * @return HasMany
+     */
+    public function reviews()
+    {
+        return $this->hasMany('App\Models\ProductReview');
+    }
+
+    /**
      * Product image src
      *
      * @return string

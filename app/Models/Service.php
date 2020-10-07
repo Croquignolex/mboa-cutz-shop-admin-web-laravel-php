@@ -75,6 +75,14 @@ class Service extends Model
     }
 
     /**
+     * @return HasMany
+     */
+    public function reviews()
+    {
+        return $this->hasMany('App\Models\ServiceReview');
+    }
+
+    /**
      * Product image src
      *
      * @return string
