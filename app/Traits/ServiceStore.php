@@ -4,6 +4,7 @@ namespace App\Traits;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,9 +15,10 @@ trait ServiceStore
      *
      * @param Request $request
      * @param Category $category
+     * @param Collection $tagsID
      * @return Model
      */
-    public function serviceStore(Request $request, Category $category) {
+    public function serviceStore(Request $request, Category $category, Collection $tagsID) {
         $service = $category->services()->create([
             'fr_name' => $request->input('fr_name'),
             'en_name' => $request->input('en_name'),
@@ -30,9 +32,7 @@ trait ServiceStore
             'is_most_asked' => $request->input('most_asked') !== null,
         ]);
 
-        $tags = $request->input('tags');
-
-        if($tags !== null) $service->tags()->sync($this->mapTags($tags));
+        if(count($tagsID) > 0) $service->tags()->sync($tagsID);
         $service->creator()->associate(Auth::user());
         $service->save();
 

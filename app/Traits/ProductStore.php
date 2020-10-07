@@ -4,6 +4,7 @@ namespace App\Traits;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,9 +15,10 @@ trait ProductStore
      *
      * @param Request $request
      * @param Category $category
+     * @param Collection $tagsID
      * @return Model
      */
-    public function productStore(Request $request, Category $category) {
+    public function productStore(Request $request, Category $category, Collection $tagsID) {
         $product = $category->products()->create([
             'fr_name' => $request->input('fr_name'),
             'en_name' => $request->input('en_name'),
@@ -31,9 +33,7 @@ trait ProductStore
             'is_most_sold' => $request->input('most_sold') !== null,
         ]);
 
-        $tags = $request->input('tags');
-
-        if($tags !== null) $product->tags()->sync($this->mapTags($tags));
+        if(count($tagsID) > 0) $product->tags()->sync($tagsID);
         $product->creator()->associate(Auth::user());
         $product->save();
 

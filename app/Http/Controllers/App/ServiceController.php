@@ -68,7 +68,13 @@ class ServiceController extends Controller
      */
     public function store(ServiceRequest $request)
     {
-        $service = $this->serviceStore($request, Category::whereSlug($request->input('category'))->first());
+        $tags = $request->input('tags');
+
+        $service = $this->serviceStore(
+            $request,
+            Category::whereSlug($request->input('category'))->first(),
+            ($tags !== null) ? $this->mapTags($tags) : collect()
+        );
 
         return redirect(route('services.show', compact('service')));
     }

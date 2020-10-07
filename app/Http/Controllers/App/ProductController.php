@@ -68,7 +68,13 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
-        $product = $this->productStore($request, Category::whereSlug($request->input('category'))->first());
+        $tags = $request->input('tags');
+
+        $product = $this->productStore(
+            $request,
+            Category::whereSlug($request->input('category'))->first(),
+            ($tags !== null) ? $this->mapTags($tags) : collect()
+        );
 
         return redirect(route('products.show', compact('product')));
     }

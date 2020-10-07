@@ -109,7 +109,9 @@ class CategoryController extends Controller
      */
     public function addProduct(CategoryAddProductRequest $request, Category $category)
     {
-        $this->productStore($request, $category);
+        $tags = $request->input('tags');
+
+        $this->productStore($request, $category, ($tags !== null) ? $this->mapTags($tags) : collect());
 
         return redirect(route('categories.show', compact('category')));
     }
@@ -123,7 +125,9 @@ class CategoryController extends Controller
      */
     public function addService(CategoryAddServiceRequest $request, Category $category)
     {
-        $this->serviceStore($request, $category);
+        $tags = $request->input('tags');
+
+        $this->serviceStore($request, $category, ($tags !== null) ? $this->mapTags($tags) : collect());
 
         return redirect(route('categories.show', compact('category')));
     }
