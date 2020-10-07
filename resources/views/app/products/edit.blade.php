@@ -24,13 +24,13 @@
                                 @include('partials.form.toggle', [
                                     'name' => 'En vedette',
                                     'id' => 'featured',
-                                    'color' => 'success',
+                                    'color' => 'info',
                                     'value' => old('featured') ?? $product->is_featured
                                 ])
                                 @include('partials.form.toggle', [
                                     'name' => 'Nouveau',
                                     'id' => 'new',
-                                    'color' => 'info',
+                                    'color' => 'success',
                                     'value' => old('new') ?? $product->is_new
                                 ])
                                 @include('partials.form.toggle', [

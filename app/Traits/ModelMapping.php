@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use App\Models\Tag;
 use Illuminate\Database\Eloquent\Collection;
 
 trait ModelMapping
@@ -20,6 +21,19 @@ trait ModelMapping
                 "label" => $model->fr_name,
                 'class' => ""
             ];
+        });
+    }
+
+    /**
+     * Map tag data to fit sync method
+     *
+     * @param array $tags
+     * @return mixed
+     */
+    public function mapTags(array $tags) {
+        return collect($tags)->map(function ($tag) {
+            $tagModel = Tag::whereSlug($tag)->first();
+           return $tagModel !== null ? $tagModel->id : 0;
         });
     }
 }

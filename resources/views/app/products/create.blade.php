@@ -23,7 +23,7 @@
                                 @include('partials.form.toggle', [
                                     'name' => 'En vedette',
                                     'id' => 'featured',
-                                    'color' => 'success',
+                                    'color' => 'info',
                                     'value' => old('featured')
                                 ])
                                 @include('partials.form.toggle', [

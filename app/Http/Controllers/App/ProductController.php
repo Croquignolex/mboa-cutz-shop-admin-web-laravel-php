@@ -83,14 +83,8 @@ class ProductController extends Controller
         ]);
 
         $tags = $request->input('tags');
-        $tagsID = [];
 
-        if(count($tags) > 0) {
-            foreach ($tags as $tag) {
-               $tagsID[] = Tag::whereSlug($tag)->first()->id;
-            }
-            $product->tags()->sync($tagsID);
-        }
+        if($tags !== null) $product->tags()->sync($this->mapTags($tags));
         $product->creator()->associate(Auth::user());
         $product->save();
 
@@ -139,8 +133,30 @@ class ProductController extends Controller
     public function update(ProductRequest $request, Product $product)
     {
         $product->update([
+            'fr_name' => $request->input('fr_name'),
+            'en_name' => $request->input('en_name'),
+            'fr_description' => $request->input('fr_description'),
+            'en_description' => $request->input('en_description'),
 
+            'price' => $request->input('price'),
+            'stock' => $request->input('stock'),
+            'discount' => $request->input('discount'),
+
+            'is_new' => $request->input('new') !== null,
+            'is_featured' => $request->input('featured') !== null,
+            'is_most_sold' => $request->input('most_sold') !== null,
         ]);
+
+        $tags = $request->input('tags');
+        $category = $request->input('category');
+
+        if($tags !== null) $product->tags()->sync($this->mapTags($tags));
+        else $product->tags()->detach();
+
+        if($product->category->slug !== $category) {
+            $product->category()->associate(Category::whereSlug($category)->first());
+            $product->save();
+        }
 
         success_toast_alert("Produit $product->fr_name mise à jour avec success");
         log_activity("Produit", "Mise à jour du produit $product->fr_name");
