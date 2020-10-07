@@ -1,8 +1,8 @@
 @component('components.form-modal', [
-       'modal_id' => "add-product-modal",
-       'modal_title' => "Ajouter un produit",
-       'url' => $url,
-   ])
+   'modal_id' => "add-product-modal",
+   'modal_title' => "Ajouter un produit",
+   'url' => $url,
+])
     <div class="row mb-2">
         <div class="col">
             @include('partials.form.toggle', [

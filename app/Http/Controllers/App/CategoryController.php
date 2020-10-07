@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\App;
 
+use App\Http\Requests\CategoryAddServiceRequest;
 use Exception;
 use App\Models\Tag;
 use App\Enums\Constants;
 use App\Models\Category;
 use Illuminate\View\View;
+use App\Traits\ServiceStore;
 use App\Traits\ProductStore;
 use App\Traits\ModelMapping;
 use Illuminate\Http\Response;
@@ -21,7 +23,7 @@ use Illuminate\Contracts\Foundation\Application;
 
 class CategoryController extends Controller
 {
-    use ModelMapping, ProductStore;
+    use ModelMapping, ProductStore, ServiceStore;
 
     /**
      * CategoryController constructor.
@@ -108,6 +110,20 @@ class CategoryController extends Controller
     public function addProduct(CategoryAddProductRequest $request, Category $category)
     {
         $this->productStore($request, $category);
+
+        return redirect(route('categories.show', compact('category')));
+    }
+
+    /**
+     * Add service
+     *
+     * @param CategoryAddServiceRequest $request
+     * @param Category $category
+     * @return Application|RedirectResponse|Redirector
+     */
+    public function addService(CategoryAddServiceRequest $request, Category $category)
+    {
+        $this->serviceStore($request, $category);
 
         return redirect(route('categories.show', compact('category')));
     }

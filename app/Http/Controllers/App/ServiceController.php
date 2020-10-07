@@ -9,12 +9,12 @@ use App\Models\Category;
 use App\Enums\ImagePath;
 use App\Enums\Constants;
 use Illuminate\View\View;
+use App\Traits\ServiceStore;
 use App\Traits\ModelMapping;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Redirector;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\ServiceRequest;
 use Illuminate\Contracts\View\Factory;
@@ -24,7 +24,7 @@ use Illuminate\Contracts\Foundation\Application;
 
 class ServiceController extends Controller
 {
-    use ModelMapping;
+    use ModelMapping, ServiceStore;
 
     /**
      * CategoryController constructor.
@@ -68,27 +68,7 @@ class ServiceController extends Controller
      */
     public function store(ServiceRequest $request)
     {
-        $service = Category::whereSlug($request->input('category'))->first()->services()->create([
-            'fr_name' => $request->input('fr_name'),
-            'en_name' => $request->input('en_name'),
-            'fr_description' => $request->input('fr_description'),
-            'en_description' => $request->input('en_description'),
-
-            'price' => $request->input('price'),
-            'discount' => $request->input('discount'),
-
-            'is_featured' => $request->input('featured') !== null,
-            'is_most_asked' => $request->input('most_asked') !== null,
-        ]);
-
-        $tags = $request->input('tags');
-
-        if($tags !== null) $service->tags()->sync($this->mapTags($tags));
-        $service->creator()->associate(Auth::user());
-        $service->save();
-
-        success_toast_alert("Service $service->fr_name créer avec succès");
-        log_activity("Service", "Création du service $service->fr_name");
+        $service = $this->serviceStore($request, Category::whereSlug($request->input('category'))->first());
 
         return redirect(route('services.show', compact('service')));
     }
