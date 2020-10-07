@@ -88,9 +88,8 @@ class ProductController extends Controller
         $product->creator()->associate(Auth::user());
         $product->save();
 
-        $name = $request->input('fr_name');
-        success_toast_alert("Produit $name créer avec succès");
-        log_activity("Produit", "Création du produit $name");
+        success_toast_alert("Produit $product->fr_name créer avec succès");
+        log_activity("Produit", "Création du produit $product->fr_name");
 
         return redirect(route('products.show', compact('product')));
     }

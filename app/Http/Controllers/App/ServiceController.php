@@ -3,26 +3,29 @@
 namespace App\Http\Controllers\App;
 
 use Exception;
+use App\Models\Tag;
 use App\Models\Service;
+use App\Models\Category;
 use App\Enums\ImagePath;
 use App\Enums\Constants;
 use Illuminate\View\View;
-use App\Models\Testimonial;
-use Illuminate\Http\Request;
+use App\Traits\ModelMapping;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Redirector;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\ServiceRequest;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\Base64ImageRequest;
-use App\Http\Requests\TestimonialRequest;
 use Illuminate\Contracts\Foundation\Application;
 
 class ServiceController extends Controller
 {
+    use ModelMapping;
+
     /**
      * CategoryController constructor.
      */
@@ -51,24 +54,43 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        return view('app.services.create');
+        $tags = $this->mapModels(Tag::all());
+        $categories = $this->mapModels(Category::all());
+
+        return view('app.services.create', compact('tags', 'categories'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param TestimonialRequest $request
+     * @param ServiceRequest $request
      * @return Application|RedirectResponse|Response|Redirector
      */
-    public function store(TestimonialRequest $request)
+    public function store(ServiceRequest $request)
     {
-        $testimonial = Auth::user()->created_testimonials()->create($request->all());
+        $service = Category::whereSlug($request->input('category'))->first()->services()->create([
+            'fr_name' => $request->input('fr_name'),
+            'en_name' => $request->input('en_name'),
+            'fr_description' => $request->input('fr_description'),
+            'en_description' => $request->input('en_description'),
 
-        $name = $request->input('name');
-        success_toast_alert("Témoignage de $name créer avec succès");
-        log_activity("Témoignage", "Création du témoignage de $name");
+            'price' => $request->input('price'),
+            'discount' => $request->input('discount'),
 
-        return redirect(route('testimonials.show', compact('testimonial')));
+            'is_featured' => $request->input('featured') !== null,
+            'is_most_asked' => $request->input('most_asked') !== null,
+        ]);
+
+        $tags = $request->input('tags');
+
+        if($tags !== null) $service->tags()->sync($this->mapTags($tags));
+        $service->creator()->associate(Auth::user());
+        $service->save();
+
+        success_toast_alert("Service $service->fr_name créer avec succès");
+        log_activity("Service", "Création du service $service->fr_name");
+
+        return redirect(route('services.show', compact('service')));
     }
 
     /**
@@ -85,29 +107,58 @@ class ServiceController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Testimonial $testimonial
+     * @param Service $service
      * @return Application|RedirectResponse|Response|Redirector
      */
-    public function edit(Testimonial $testimonial)
+    public function edit(Service $service)
     {
-        return view('app.testimonials.edit', compact('testimonial'));
+        $tags = $this->mapModels(Tag::all());
+        $categories = $this->mapModels(Category::all());
+        $selectedTags = $service->tags->map(function (Tag $tag) {
+            return $tag->slug;
+        });
+
+        return view('app.services.edit', compact('service', 'categories', 'tags', 'selectedTags'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
-     * @param Testimonial $testimonial
+     * @param ServiceRequest $request
+     * @param Service $service
      * @return Application|RedirectResponse|Response|Redirector
      */
-    public function update(Request $request, Testimonial $testimonial)
+    public function update(ServiceRequest $request, Service $service)
     {
-        $testimonial->update($request->all());
+        $service->update([
+            'fr_name' => $request->input('fr_name'),
+            'en_name' => $request->input('en_name'),
+            'fr_description' => $request->input('fr_description'),
+            'en_description' => $request->input('en_description'),
 
-        success_toast_alert("Témoignage de $testimonial->name mise à jour avec success");
-        log_activity("Témoignage", "Mise à jour du témoignage de $testimonial->fname");
+            'price' => $request->input('price'),
+            'discount' => $request->input('discount'),
 
-        return redirect(route('testimonials.show', compact('testimonial')));
+            'is_new' => $request->input('new') !== null,
+            'is_featured' => $request->input('featured') !== null,
+            'is_most_asked' => $request->input('most_asked') !== null,
+        ]);
+
+        $tags = $request->input('tags');
+        $category = $request->input('category');
+
+        if($tags !== null) $service->tags()->sync($this->mapTags($tags));
+        else $service->tags()->detach();
+
+        if($service->category->slug !== $category) {
+            $service->category()->associate(Category::whereSlug($category)->first());
+            $service->save();
+        }
+
+        success_toast_alert("Service $service->fr_name mise à jour avec success");
+        log_activity("Service", "Mise à jour du service $service->fr_name");
+
+        return redirect(route('services.show', compact('service')));
     }
 
     /**

@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property mixed products
  * @property mixed creator
  * @property mixed can_delete
+ * @property mixed services
  */
 class Category extends Model
 {
@@ -53,7 +54,7 @@ class Category extends Model
     }
 
     /**
-     * Check if category can be deleted
+     * Check if tag can be deleted
      *
      * @return mixed
      */
@@ -61,7 +62,11 @@ class Category extends Model
     {
         $connected_user = Auth::user();
         return (
-            ($this->products->count() === 0) && (
+            (
+                ($this->products->count() === 0) &&
+                ($this->services->count() === 0)
+            ) &&
+            (
                 ($connected_user->role->type === UserRole::SUPER_ADMIN) ||
                 ($this->creator === null) ||
                 (Auth::user()->id === $this->creator->id)

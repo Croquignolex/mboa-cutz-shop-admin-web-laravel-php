@@ -31,6 +31,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property mixed discount
  * @property mixed creator
  * @property mixed price
+ * @property mixed tags
+ * @property mixed category
+ * @property mixed image_src
  */
 class Service extends Model
 {
