@@ -11,6 +11,8 @@ use App\Enums\UserRole;
 use App\Models\Category;
 use Illuminate\View\View;
 use App\Models\Testimonial;
+use App\Models\ProductReview;
+use App\Models\ServiceReview;
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\Foundation\Application;
@@ -47,9 +49,13 @@ class ArchiveController extends Controller
 
         $testimonials = Testimonial::onlyTrashed()->count();
 
+        $product_reviews = ProductReview::onlyTrashed()->count();
+
+        $service_reviews = ServiceReview::onlyTrashed()->count();
+
         return view('archive.index', compact(
             'admins', 'categories', 'tags', 'testimonials', 'products',
-                'services'
+                'services', 'product_reviews', 'service_reviews'
             )
         );
     }
