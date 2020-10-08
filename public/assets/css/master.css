@@ -43,11 +43,11 @@
 }
 
 .hand-cursor {
-    cursor: progress;
+    cursor: progress !important;
 }
 
 .busy-cursor {
-    cursor: not-allowed;
+    cursor: not-allowed !important;
 }
 
 .bootstrap-select .dropdown-toggle:focus {

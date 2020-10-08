@@ -18,7 +18,7 @@
                 {{--Orders--}}
                 <li  class="">
                     <a class="sidenav-item-link" href="#">
-                        <i class="mdi mdi-library-books"></i>
+                        <i class="mdi mdi-clipboard-check-outline"></i>
                         <span class="nav-text">Commandes</span>
                     </a>
                 </li>
@@ -32,7 +32,7 @@
                 {{--Customers--}}
                 <li class="has-sub expand">
                     <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#customers" aria-expanded="false" aria-controls="customers">
-                        <i class="mdi mdi-account-multiple-outline"></i>
+                        <i class="mdi mdi-account-group"></i>
                         <span class="nav-text">Clients</span> <b class="caret"></b>
                     </a>
                     <ul class="collapse" id="customers" data-parent="#sidebar-menu">

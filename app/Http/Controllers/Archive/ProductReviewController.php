@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers\Archive;
 
-use App\Models\Product;
 use App\Enums\Constants;
 use Illuminate\View\View;
+use App\Models\ProductReview;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\Foundation\Application;
 
-class ProductController extends Controller
+class ProductReviewController extends Controller
 {
     /**
-     * ProductController constructor.
+     * ProductReviewController constructor.
      */
     public function __construct()
     {
@@ -28,26 +28,27 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::onlyTrashed()
+        $reviews = ProductReview::onlyTrashed()
             ->orderBy('updated_at', 'desc')
             ->paginate(Constants::DEFAULT_PAGE_PAGINATION_ITEMS)
             ->onEachSide(Constants::DEFAULT_PAGE_PAGINATION_EACH_SIDE);
 
-        return view('archive.products', compact('products'));
+        return view('archive.product-reviews', compact('reviews'));
     }
 
     /**
-     * @param String $product
+     * @param Int $review
      * @return Application|Factory|RedirectResponse|View
      */
-    public function restore(String $product)
+    public function restore(Int $review)
     {
-        $trashed_product = Product::withTrashed()->whereSlug($product)->first();
-        $trashed_product->restore();
+        $trashed_product_review = ProductReview::withTrashed()->where('id', $review)->first();
+        $trashed_product_review->restore();
+        $product = $trashed_product_review->product;
 
-        success_toast_alert("Produit $trashed_product->fr_name restoré avec success");
-        log_activity("Produit", "Restoration du produit $trashed_product->fr_name");
+        success_toast_alert("Commentaire sur le produit $product->fr_name restoré avec success");
+        log_activity("Commentaire", "Restoration du commentaire sur le produit $product->fr_name");
 
-        return redirect(route('archives.products.index'));
+        return redirect(route('archives.product-reviews.index'));
     }
 }

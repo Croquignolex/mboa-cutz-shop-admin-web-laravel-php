@@ -71,11 +71,12 @@
                'label' => 'Témoignages archivés',
                'url' => route('archives.testimonials.index'),
            ])
+        </div>
         {{--Product reviews--}}
         <div class="col-md-6 col-lg-3">
             @include('partials.archive.archive-card', [
                'data' => $product_reviews,
-                'icon' => 'mdi mdi-face',
+                'icon' => 'mdi mdi-comment-text',
                'bg_class' => 'bg-info',
                'label' => 'Commentaires sur produit archivés',
                'url' => route('archives.product-reviews.index'),
@@ -85,7 +86,7 @@
         <div class="col-md-6 col-lg-3">
             @include('partials.archive.archive-card', [
                'data' => $service_reviews,
-                'icon' => 'mdi mdi-face',
+                'icon' => 'mdi mdi-comment-text-outline',
                'bg_class' => 'bg-secondary',
                'label' => 'Commentaires sur service archivés',
                'url' => route('archives.service-reviews.index'),

@@ -7186,7 +7186,7 @@ button {
     color: #ffffff; }
 
 .breadcrumb-item + .breadcrumb-item::before {
-  content: '\f763';
+  content: '\F070B';
   font-family: "Material Design Icons";
   transform: rotate(45deg);
   font-size: 7px;
@@ -8375,7 +8375,7 @@ div.copied {
     border-right: 1px solid #e5e9f2; }
     .navbar .sidebar-offcanvas-toggle:before,
     .navbar .sidebar-toggle:before {
-      content: "\f9a7";
+      content: "\F035C";
       font-family: "Material Design Icons"; }
   .navbar .navbar-toggler i {
     color: #8a909d; }
