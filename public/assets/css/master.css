@@ -46,6 +46,10 @@
     cursor: progress;
 }
 
+.busy-cursor {
+    cursor: not-allowed;
+}
+
 .bootstrap-select .dropdown-toggle:focus {
     outline: 0 !important;
 }
