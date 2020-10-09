@@ -54,6 +54,14 @@ class Category extends Model
     }
 
     /**
+     * @return HasMany
+     */
+    public function articles()
+    {
+        return $this->hasMany('App\Models\Article');
+    }
+
+    /**
      * Check if tag can be deleted
      *
      * @return mixed

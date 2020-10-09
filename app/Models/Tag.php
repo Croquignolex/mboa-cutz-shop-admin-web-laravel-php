@@ -6,11 +6,11 @@ use App\Enums\UserRole;
 use App\Traits\DateTrait;
 use App\Traits\CreatorTrait;
 use App\Traits\SlugRouteTrait;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * @property mixed fr_name
@@ -53,6 +53,14 @@ class Tag extends Model
     public function services()
     {
         return $this->belongsToMany('App\Models\Service');
+    }
+
+    /**
+     * @return BelongsToMany|HasMany
+     */
+    public function articles()
+    {
+        return $this->belongsToMany('App\Models\Article');
     }
 
     /**
