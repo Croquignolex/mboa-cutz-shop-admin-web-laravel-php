@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property mixed image
  * @property mixed image_src
  * @property mixed image_extension
+ * @property mixed can_delete
  */
 class Testimonial extends Model
 {

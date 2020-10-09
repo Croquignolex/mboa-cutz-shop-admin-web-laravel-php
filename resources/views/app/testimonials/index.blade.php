@@ -61,21 +61,25 @@
                                             >
                                                 <i class="mdi mdi-pencil"></i>
                                             </a>
-                                            <button class="btn btn-sm btn-danger"
-                                                    data-toggle="modal"
-                                                    data-target="{{ "#$testimonial->slug-archive-testimonial-modal" }}"
-                                                    title="Archiver"
-                                            >
-                                                <i class="mdi mdi-archive"></i>
-                                            </button>
+                                            @if($testimonial->can_delete)
+                                                <button class="btn btn-sm btn-danger"
+                                                        data-toggle="modal"
+                                                        data-target="{{ "#$testimonial->slug-archive-testimonial-modal" }}"
+                                                        title="Archiver"
+                                                >
+                                                    <i class="mdi mdi-archive"></i>
+                                                </button>
+                                            @endif
                                         </td>
                                     </tr>
 
-                                    @include('partials.archive.archive-confirmation', [
-                                        'name' => $testimonial->fr_name,
-                                        'modal_id' => "$testimonial->slug-archive-testimonial-modal",
-                                        'url' => route('testimonials.destroy', compact('testimonial'))
-                                    ])
+                                    @if($testimonial->can_delete)
+                                        @include('partials.archive.archive-confirmation', [
+                                            'name' => $testimonial->fr_name,
+                                            'modal_id' => "$testimonial->slug-archive-testimonial-modal",
+                                            'url' => route('testimonials.destroy', compact('testimonial'))
+                                        ])
+                                    @endif
                                 @endforeach
                             </tbody>
                         </table>

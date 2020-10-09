@@ -43,6 +43,8 @@ class TestimonialController extends Controller
     public function restore(String $testimonials)
     {
         $trashed_testimonial = Testimonial::withTrashed()->whereSlug($testimonials)->first();
+        if(!$trashed_testimonial->can_delete) return $this->unauthorizedToast();
+
         $trashed_testimonial->restore();
 
         success_toast_alert("Témoignage de $trashed_testimonial->name restoré avec success");

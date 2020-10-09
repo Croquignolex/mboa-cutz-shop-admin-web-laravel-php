@@ -3282,6 +3282,10 @@ input[type="button"].btn-block {
   height: 200px;
 }
 
+.widget-model .rounded-circle img {
+  width: 200px;
+}
+
 .card-img-top {
   width: 100%;
   border-top-left-radius: calc(0.25rem - 1px);
@@ -11089,7 +11093,12 @@ tbody tr td:first-child {
 .widget-model .card-img {
   /*width: 200px;*/
   height: 200px;
-  overflow: hidden; }
+  overflow: hidden;
+}
+
+.widget-model .rounded-circle {
+  width: 200px;
+}
 
 /* Widgets Dropdown */
 .widget-dropdown .dropdown-toggle {

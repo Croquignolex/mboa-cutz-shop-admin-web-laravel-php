@@ -115,6 +115,8 @@ class TestimonialController extends Controller
      */
     public function destroy(Testimonial $testimonial)
     {
+        if(!$testimonial->can_delete) return $this->unauthorizedToast();
+
         $testimonial->delete();
 
         success_toast_alert("Témoignage de $testimonial->name archivée avec success");

@@ -20,6 +20,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property mixed created_at
  * @property mixed image_extension
  * @property mixed creator
+ * @property mixed fr_title
+ * @property mixed slug
  */
 class Article extends Model
 {
