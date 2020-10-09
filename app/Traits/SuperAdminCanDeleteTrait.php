@@ -5,10 +5,10 @@ namespace App\Traits;
 use App\Enums\UserRole;
 use Illuminate\Support\Facades\Auth;
 
-trait SuperAdminCanDelete
+trait SuperAdminCanDeleteTrait
 {
     /**
-     * Check if product review can be deleted
+     * Check if model can be deleted
      *
      * @return mixed
      */

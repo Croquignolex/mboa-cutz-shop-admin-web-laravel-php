@@ -4,8 +4,8 @@ namespace App\Models;
 
 use App\Traits\DateTrait;
 use App\Traits\CreatorTrait;
-use App\Traits\SuperAdminCanDelete;
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\SuperAdminCanDeleteTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class ProductReview extends Model
 {
-    use SoftDeletes, DateTrait, CreatorTrait, SuperAdminCanDelete;
+    use SoftDeletes, DateTrait, CreatorTrait, SuperAdminCanDeleteTrait;
 
     /**
      * The attributes that should be cast.

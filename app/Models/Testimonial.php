@@ -6,6 +6,7 @@ use App\Enums\Constants;
 use App\Traits\DateTrait;
 use App\Traits\CreatorTrait;
 use App\Traits\SlugRouteTrait;
+use App\Traits\SuperAdminOrCreatorCanDeleteTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -22,7 +23,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Testimonial extends Model
 {
-    use SoftDeletes, SlugRouteTrait, DateTrait, CreatorTrait;
+    use SoftDeletes, SlugRouteTrait, DateTrait, CreatorTrait, SuperAdminOrCreatorCanDeleteTrait;
 
     /**
      * The attributes that should be cast.
@@ -56,5 +57,15 @@ class Testimonial extends Model
         }
 
         return testimonial_img_asset($this->image, $this->image_extension);
+    }
+
+    /**
+     * Check if article can be deleted
+     *
+     * @return mixed
+     */
+    public function getCanDeleteAttribute()
+    {
+        return $this->superAdminOrCreatorCanDelete();
     }
 }

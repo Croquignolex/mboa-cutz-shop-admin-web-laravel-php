@@ -10749,7 +10749,6 @@ input[type=radio] {
 #toast-container > div:hover {
   box-shadow: none; }
 
-/*===== TODO LIST ======*/
 .todo-single-item {
   margin-bottom: 2.19em;
   position: relative; }

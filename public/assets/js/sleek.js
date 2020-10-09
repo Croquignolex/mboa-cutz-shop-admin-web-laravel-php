@@ -5,7 +5,7 @@
 3. SIDEBAR MENU
 4. SIDEBAR TOGGLE FOR MOBILE
 5. SIDEBAR TOGGLE FOR VARIOUS SIDEBAR LAYOUT
-6. TODO LIST
+6. TO DO LIST
 7. RIGHT SIDEBAR
 
 ====== End ======*/
@@ -133,7 +133,7 @@ $(document).ready(function() {
     }
   }
 
-  /*======== 6. TODO LIST ========*/
+  /*======== 6. TO DO LIST ========*/
 
   function todoCheckAll() {
     var mdis = document.querySelectorAll(".todo-single-item .mdi");

@@ -2,15 +2,14 @@
 
 namespace App\Models;
 
-use App\Enums\UserRole;
 use App\Enums\Constants;
 use App\Traits\DateTrait;
 use App\Traits\CreatorTrait;
 use App\Traits\SlugRouteTrait;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Traits\SuperAdminOrCreatorCanDeleteTrait;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -24,7 +23,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  */
 class Article extends Model
 {
-    use SoftDeletes, SlugRouteTrait, DateTrait, CreatorTrait;
+    use SoftDeletes, SlugRouteTrait, DateTrait, CreatorTrait, SuperAdminOrCreatorCanDeleteTrait;
 
     /**
      * The attributes that should be cast.
@@ -102,12 +101,6 @@ class Article extends Model
      */
     public function getCanDeleteAttribute()
     {
-        //TODO: complete product can_delete(comments etc...)
-        $connected_user = Auth::user();
-        return (
-            ($connected_user->role->type === UserRole::SUPER_ADMIN) ||
-            ($this->creator === null) ||
-            (Auth::user()->id === $this->creator->id)
-        );
+        return $this->superAdminOrCreatorCanDelete();
     }
 }

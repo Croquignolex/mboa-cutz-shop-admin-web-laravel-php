@@ -2,13 +2,12 @@
 
 namespace App\Models;
 
-use App\Enums\UserRole;
 use App\Traits\DateTrait;
 use App\Traits\CreatorTrait;
 use App\Traits\SlugRouteTrait;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Traits\SuperAdminOrCreatorCanDeleteTrait;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
@@ -18,10 +17,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property mixed creator
  * @property mixed can_delete
  * @property mixed services
+ * @property mixed articles
  */
 class Category extends Model
 {
-    use SoftDeletes, SlugRouteTrait, DateTrait, CreatorTrait;
+    use SoftDeletes, SlugRouteTrait, DateTrait, CreatorTrait, SuperAdminOrCreatorCanDeleteTrait;
 
     /**
      * The attributes that should be cast.
@@ -62,23 +62,19 @@ class Category extends Model
     }
 
     /**
-     * Check if tag can be deleted
+     * Check if category can be deleted
      *
      * @return mixed
      */
     public function getCanDeleteAttribute()
     {
-        $connected_user = Auth::user();
         return (
             (
                 ($this->products->count() === 0) &&
-                ($this->services->count() === 0)
+                ($this->services->count() === 0) &&
+                ($this->articles->count() === 0)
             ) &&
-            (
-                ($connected_user->role->type === UserRole::SUPER_ADMIN) ||
-                ($this->creator === null) ||
-                (Auth::user()->id === $this->creator->id)
-            )
+            $this->superAdminOrCreatorCanDelete()
         );
     }
 }

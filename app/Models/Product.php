@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Traits\SuperAdminOrCreatorCanDeleteTrait;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -34,10 +35,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property mixed tags
  * @property mixed category
  * @property mixed image_src
+ * @property mixed reviews
  */
 class Product extends Model
 {
-    use SoftDeletes, SlugRouteTrait, DateTrait, CreatorTrait, OfferTrait;
+    use SoftDeletes, SlugRouteTrait, DateTrait, CreatorTrait, OfferTrait, SuperAdminOrCreatorCanDeleteTrait;
 
     /**
      * The attributes that should be cast.
@@ -106,12 +108,10 @@ class Product extends Model
      */
     public function getCanDeleteAttribute()
     {
-        //TODO: complete product can_delete(commands, comments etc...)
-        $connected_user = Auth::user();
+        //TODO: complete product can_delete(commands)
         return (
-            ($connected_user->role->type === UserRole::SUPER_ADMIN) ||
-            ($this->creator === null) ||
-            (Auth::user()->id === $this->creator->id)
+            (($this->reviews->count() === 0)) &&
+            $this->superAdminOrCreatorCanDelete()
         );
     }
 }
