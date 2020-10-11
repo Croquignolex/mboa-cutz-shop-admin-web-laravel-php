@@ -27,14 +27,7 @@
                     <td>{{ $article->en_name }}</td>
                     @if($actions)
                         <td class="text-right">{{ $article->comments->count() }}</td>
-                        <td>
-                            @if($article->is_a_new)
-                                <span class="badge badge-pill badge-success mt-1">Nouveau</span><br>
-                            @endif
-                            @if($article->is_featured)
-                                <span class="badge badge-pill badge-info mt-1">En vedette</span>
-                            @endif
-                        </td>
+                        <td class="text-center"><small>@include('partials.articles.articles-status')</small></td>
                     @endif
                     <td>{{ $article->creator_name}}</td>
                     <td class="text-center" style="white-space: nowrap;">

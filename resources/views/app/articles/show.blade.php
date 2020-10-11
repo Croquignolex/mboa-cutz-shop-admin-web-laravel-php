@@ -30,14 +30,7 @@
                         </button>
                     </div>
                     <div class="contact-info">
-                        <p class="text-right">
-                            @if($article->is_a_new)
-                                <span class="badge badge-pill badge-success mt-1">Nouveau</span>
-                            @endif
-                            @if($article->is_featured)
-                                <span class="badge badge-pill badge-info mt-1">En vedette</span>
-                            @endif
-                        </p>
+                        <p class="text-right">@include('partials.articles.articles-status')</p>
 
                         <p class="text-dark font-weight-medium pt-4 mb-2">Nom (francais)</p>
                         <p>{{ $article->fr_name }}</p>
