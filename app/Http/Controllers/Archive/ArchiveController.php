@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Archive;
 use App\Models\Tag;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\Article;
 use App\Models\Service;
 use App\Models\Product;
 use App\Enums\UserRole;
@@ -13,6 +14,7 @@ use Illuminate\View\View;
 use App\Models\Testimonial;
 use App\Models\ProductReview;
 use App\Models\ServiceReview;
+use App\Models\ArticleComment;
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\Foundation\Application;
@@ -45,6 +47,8 @@ class ArchiveController extends Controller
 
         $services = Service::onlyTrashed()->count();
 
+        $articles = Article::onlyTrashed()->count();
+
         $categories = Category::onlyTrashed()->count();
 
         $testimonials = Testimonial::onlyTrashed()->count();
@@ -53,9 +57,11 @@ class ArchiveController extends Controller
 
         $service_reviews = ServiceReview::onlyTrashed()->count();
 
+        $article_comments = ArticleComment::onlyTrashed()->count();
+
         return view('archive.index', compact(
             'admins', 'categories', 'tags', 'testimonials', 'products',
-                'services', 'product_reviews', 'service_reviews'
+                'services', 'product_reviews', 'service_reviews', 'article_comments', 'articles'
             )
         );
     }

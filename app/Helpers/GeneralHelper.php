@@ -140,13 +140,13 @@ if(!function_exists('log_activity'))
 if(!function_exists('format_price'))
 {
     /**
-     * Log user given activity
+     * Format price
      *
      * @param $amount
      * @return string
      */
     function format_price($amount)
     {
-        return number_format($amount, 2, ',', '.');
+        return number_format($amount, 0, ',', '.');
     }
 }

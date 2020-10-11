@@ -52,6 +52,16 @@
                 'url' => route('archives.categories.index'),
             ])
         </div>
+        {{--Articles--}}
+        <div class="col-md-6 col-lg-3">
+            @include('partials.archive.archive-card', [
+               'data' => $articles,
+                'icon' => 'mdi mdi-blinds',
+               'bg_class' => 'bg-dark',
+               'label' => 'Articles archivés',
+               'url' => route('archives.articles.index'),
+           ])
+        </div>
         {{--Tags--}}
         <div class="col-md-6 col-lg-3">
             @include('partials.archive.archive-card', [
@@ -86,10 +96,20 @@
         <div class="col-md-6 col-lg-3">
             @include('partials.archive.archive-card', [
                'data' => $service_reviews,
-                'icon' => 'mdi mdi-comment-text-outline',
+               'icon' => 'mdi mdi-comment-text-outline',
                'bg_class' => 'bg-secondary',
                'label' => 'Commentaires sur service archivés',
                'url' => route('archives.service-reviews.index'),
+           ])
+        </div>
+        {{--Article comments--}}
+        <div class="col-md-6 col-lg-3">
+            @include('partials.archive.archive-card', [
+               'data' => $article_comments,
+               'icon' => 'mdi mdi-comment',
+               'bg_class' => 'bg-dark',
+               'label' => 'Commentaires sur article archivés',
+               'url' => route('archives.article-comments.index'),
            ])
         </div>
     </div>
