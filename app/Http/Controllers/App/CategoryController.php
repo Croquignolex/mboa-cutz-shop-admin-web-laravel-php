@@ -139,7 +139,7 @@ class CategoryController extends Controller
     }
 
     /**
-     * Add service
+     * Add article
      *
      * @param CategoryAddArticleRequest $request
      * @param Category $category

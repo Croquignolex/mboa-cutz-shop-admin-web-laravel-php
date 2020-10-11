@@ -91,6 +91,26 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="card">
+                            <div class="card-header" id="heading-articles">
+                                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse-articles" aria-expanded="false" aria-controls="collapse-articles">
+                                    Services ({{ $articles->total() }})
+                                </button>
+                            </div>
+                            <div id="collapse-articles" class="collapse" aria-labelledby="heading-articles" data-parent="#accordion">
+                                <div class="card-body">
+                                    {{--Services--}}
+                                    <button class="btn btn-primary"
+                                            data-toggle="modal"
+                                            data-target="#add-article-modal"
+                                    >
+                                        <i class="mdi mdi-plus"></i>
+                                        Ajouter un article
+                                    </button>
+                                    @include('partials.articles.articles-list', ['actions' => false])
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -118,6 +138,18 @@
     @endcomponent
     @component('components.add-service-modal', [
         'url' => route('tags.add.service', compact('tag'))
+    ])
+        @include('partials.form.select', [
+            'name' => 'Catégorie*',
+            'id' => 'category',
+            'title' => 'Choisir une catégorie',
+            'value' => old('category'),
+            'options' => $categories,
+            'multi' => false
+        ])
+    @endcomponent
+    @component('components.add-article-modal', [
+        'url' => route('tags.add.article', compact('tag'))
     ])
         @include('partials.form.select', [
             'name' => 'Catégorie*',
