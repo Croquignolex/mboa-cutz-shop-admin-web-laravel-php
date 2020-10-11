@@ -8,7 +8,10 @@
                 <th scope="col">IMAGE</th>
                 <th scope="col">NOM (fr)</th>
                 <th scope="col">NOM (en)</th>
-                @if($actions)<th scope="col">COMMENTAIRES</th>@endif
+                @if($actions)
+                    <th scope="col">COMMENTAIRES</th>
+                    <th scope="col">STATUT</th>
+                @endif
                 <th scope="col">CREER PAR</th>
                 <th scope="col">ACTIONS</th>
             </tr>
@@ -22,7 +25,17 @@
                     </td>
                     <td>{{ $article->fr_name }}</td>
                     <td>{{ $article->en_name }}</td>
-                    @if($actions)<td class="text-right">{{ $article->comments->count() }}</td>@endif
+                    @if($actions)
+                        <td class="text-right">{{ $article->comments->count() }}</td>
+                        <td>
+                            @if($article->is_a_new)
+                                <span class="badge badge-pill badge-success mt-1">Nouveau</span><br>
+                            @endif
+                            @if($article->is_featured)
+                                <span class="badge badge-pill badge-info mt-1">En vedette</span>
+                            @endif
+                        </td>
+                    @endif
                     <td>{{ $article->creator_name}}</td>
                     <td class="text-center" style="white-space: nowrap;">
                         <a href="{{ route('articles.show', compact('article')) }}"

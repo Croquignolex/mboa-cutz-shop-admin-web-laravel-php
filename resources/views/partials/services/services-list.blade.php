@@ -9,7 +9,10 @@
             <th scope="col">NOM (fr)</th>
             <th scope="col">NOM (en)</th>
             <th scope="col">PRIX (FCFA)</th>
-            @if($actions)<th scope="col">NOTE</th>@endif
+            @if($actions)
+                <th scope="col">NOTE</th>
+                <th scope="col">STATUT</th>
+            @endif
             <th scope="col">CREER PAR</th>
             <th scope="col">ACTIONS</th>
         </tr>
@@ -24,7 +27,23 @@
                 <td>{{ $service->fr_name }}</td>
                 <td>{{ $service->en_name }}</td>
                 <td class="text-right">{{ format_price($service->price) }}</td>
-                @if($actions)<td class="text-center" style="white-space: nowrap;">@include('partials.rating-star', ['rate' => $service->rate])</td>@endif
+                @if($actions)
+                    <td class="text-center" style="white-space: nowrap;">@include('partials.rating-star', ['rate' => $service->rate])</td>
+                    <td>
+                        @if($service->is_a_new)
+                            <span class="badge badge-pill badge-success mt-1">Nouveau</span><br>
+                        @endif
+                        @if($service->is_featured)
+                            <span class="badge badge-pill badge-info mt-1">En vedette</span><br>
+                        @endif
+                        @if($service->is_a_discount)
+                            <span class="badge badge-pill badge-secondary mt-1">En promo</span><br>
+                        @endif
+                        @if($service->is_most_asked)
+                            <span class="badge badge-pill badge-primary mt-1">Meilleur reservation</span>
+                        @endif
+                    </td>
+                @endif
                 <td>{{ $service->creator_name}}</td>
                 <td class="text-center" style="white-space: nowrap;">
                     <a href="{{ route('services.show', compact('service')) }}"
