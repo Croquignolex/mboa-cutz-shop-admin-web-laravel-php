@@ -2,8 +2,6 @@
 
 use App\Enums\Constants;
 use App\Enums\ImagePath;
-use App\Enums\UserRole;
-use App\Models\Role;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -51,6 +49,12 @@ if(!function_exists('imageFromBase64AndSave'))
                     'name' => $image_name,
                     'extension' => $image_type
                 ];
+            case ImagePath::ARTICLE_DEFAULT_IMAGE_PATH:
+                Storage::put(article_img_asset($image_name, $image_type), $original_file);
+                return [
+                    'name' => $image_name,
+                    'extension' => $image_type
+                ];
             default: return [
                 'name' => Constants::DEFAULT_IMAGE,
                 'extension' => Constants::DEFAULT_IMAGE_EXTENSION
@@ -89,6 +93,11 @@ if(!function_exists('getUniqueFileName'))
                 return $image_name;
             case ImagePath::TESTIMONIAL_DEFAULT_IMAGE_PATH:
                 if(Storage::exists(testimonial_img_asset($image_name, $image_type))) {
+                    getUniqueImageName(Str::random(40), $image_type, $folder);
+                }
+                return $image_name;
+            case ImagePath::ARTICLE_DEFAULT_IMAGE_PATH:
+                if(Storage::exists(article_img_asset($image_name, $image_type))) {
                     getUniqueImageName(Str::random(40), $image_type, $folder);
                 }
                 return $image_name;

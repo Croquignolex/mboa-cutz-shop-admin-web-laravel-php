@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\App;
 
+use App\Models\ArticleComment;
 use Exception;
 use App\Models\Tag;
 use App\Models\Article;
@@ -102,124 +103,117 @@ class ArticleController extends Controller
     /**
      * Remove product review
      *
-     * @param Product $product
-     * @param ProductReview $review
+     * @param Article $article
+     * @param ArticleComment $comment
      * @return Application|RedirectResponse|Redirector
      * @throws Exception
      */
-    public function removeReview(Product $product, ProductReview $review) {
-        if(!$review->can_delete) return $this->unauthorizedToast();
+    public function removeComment(Article $article, ArticleComment $comment) {
+        if(!$comment->can_delete) return $this->unauthorizedToast();
 
-        $review->delete();
+        $comment->delete();
 
-        $this->rateModel($product);
+        success_toast_alert("Commentaire sur l'article $article->fr_name archivé avec success");
+        log_activity("Commentaire", "Archivage du commentaire sur l'article $article->fr_name");
 
-        success_toast_alert("Commentaire sur le produit $product->fr_name archivé avec success");
-        log_activity("Commentaire", "Archivage du commentaire sur le produit $product->fr_name");
-
-        return redirect(route('products.show', compact('product')));
+        return redirect(route('articles.show', compact('article')));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Product $product
+     * @param Article $article
      * @return Application|RedirectResponse|Response|Redirector
      */
-    public function edit(Product $product)
+    public function edit(Article $article)
     {
         $tags = $this->mapModels(Tag::all());
         $categories = $this->mapModels(Category::all());
-        $selectedTags = $product->tags->map(function (Tag $tag) {
+        $selectedTags = $article->tags->map(function (Tag $tag) {
             return $tag->slug;
         });
 
-        return view('app.products.edit', compact('product', 'categories', 'tags', 'selectedTags'));
+        return view('app.articles.edit', compact('article', 'categories', 'tags', 'selectedTags'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param ProductRequest $request
-     * @param Product $product
+     * @param ArticleRequest $request
+     * @param Article $article
      * @return Application|RedirectResponse|Response|Redirector
      */
-    public function update(ProductRequest $request, Product $product)
+    public function update(ArticleRequest $request, Article $article)
     {
-        $product->update([
+        $article->update([
             'fr_name' => $request->input('fr_name'),
             'en_name' => $request->input('en_name'),
             'fr_description' => $request->input('fr_description'),
             'en_description' => $request->input('en_description'),
 
-            'price' => $request->input('price'),
-            'stock' => $request->input('stock'),
-            'discount' => $request->input('discount'),
-
             'is_new' => $request->input('new') !== null,
             'is_featured' => $request->input('featured') !== null,
-            'is_most_sold' => $request->input('most_sold') !== null,
         ]);
 
         $tags = $request->input('tags');
         $category = $request->input('category');
 
-        if($tags !== null) $product->tags()->sync($this->mapTags($tags));
-        else $product->tags()->detach();
+        if($tags !== null) $article->tags()->sync($this->mapTags($tags));
+        else $article->tags()->detach();
 
-        if($product->category->slug !== $category) {
-            $product->category()->associate(Category::whereSlug($category)->first());
-            $product->save();
+        if($article->category->slug !== $category) {
+            $article->category()->associate(Category::whereSlug($category)->first());
+            $article->save();
         }
 
-        success_toast_alert("Produit $product->fr_name mise à jour avec success");
-        log_activity("Produit", "Mise à jour du produit $product->fr_name");
+        success_toast_alert("Article $article->fr_name mise à jour avec success");
+        log_activity("Article", "Mise à jour de l'article $article->fr_name");
 
-        return redirect(route('products.show', compact('product')));
+        return redirect(route('articles.show', compact('article')));
     }
 
     /**
-     * @param Product $product
+     * @param Article $article
      * @return RedirectResponse
      * @throws Exception
      */
-    public function destroy(Product $product)
+    public function destroy(Article $article)
     {
-        if(!$product->can_delete) return $this->unauthorizedToast();
+        if(!$article->can_delete) return $this->unauthorizedToast();
 
-        $product->delete();
+        $article->delete();
 
-        success_toast_alert("Produit $product->fr_name archivé avec success");
-        log_activity("Produit", "Archivage du produit $product->fr_name");
+        success_toast_alert("Article $article->fr_name archivé avec success");
+        log_activity("Article", "Archivage de l'article $article->fr_name");
 
-        return redirect(route('products.index'));
+        return redirect(route('articles.index'));
     }
 
     /**
      * Update product image
      *
      * @param Base64ImageRequest $request
-     * @param Product $product
+     * @param Article $article
      * @return JsonResponse
      */
-    public function updateImage(Base64ImageRequest $request, Product $product) {
-        // Get current product
-        $product_image_src = $product->image_src;
+    public function updateImage(Base64ImageRequest $request, Article $article) {
+        // Get current article
+        $article_image_src = $article->image_src;
 
         //Delete old file before storing new file
-        if(Storage::exists($product_image_src) && $product->image !== Constants::DEFAULT_IMAGE)
-            Storage::delete($product_image_src);
+        if(Storage::exists($article_image_src) && $article->image !== Constants::DEFAULT_IMAGE)
+            Storage::delete($article_image_src);
 
         // Convert base 64 image to normal image for the server and the data base
-        $product_image_to_save = imageFromBase64AndSave($request->input('base_64_image'), ImagePath::PRODUCT_DEFAULT_IMAGE_PATH);
+        $article_image_to_save = imageFromBase64AndSave($request->input('base_64_image'), ImagePath::ARTICLE_DEFAULT_IMAGE_PATH);
 
         // Save image name in database
-        $product->update([
-            'image' => $product_image_to_save['name'],
-            'image_extension' => $product_image_to_save['extension'],
+        $article->update([
+            'image' => $article_image_to_save['name'],
+            'image_extension' => $article_image_to_save['extension'],
         ]);
 
-        log_activity("Produit", "Mise à jour de la photo du produit $product->fr_name");
-        return response()->json(['message' => "Photo du produit $product->fr_name mise à jour avec succès"]);
+        log_activity("Article", "Mise à jour de la photo de l'article $article->fr_name");
+        return response()->json(['message' => "Photo de l'article $article->fr_name mise à jour avec succès"]);
     }
 }

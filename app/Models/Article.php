@@ -23,6 +23,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property mixed fr_name
  * @property mixed en_name
  * @property mixed slug
+ * @property mixed tags
+ * @property mixed category
+ * @property mixed image_src
+ * @property mixed can_delete
  */
 class Article extends Model
 {
