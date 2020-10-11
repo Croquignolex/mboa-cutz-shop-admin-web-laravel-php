@@ -93,6 +93,28 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="card">
+                            <div class="card-header" id="heading-articles">
+                                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse-articles" aria-expanded="false" aria-controls="collapse-articles">
+                                    Articles ({{ $articles->total() }})
+                                </button>
+                            </div>
+                            <div id="collapse-articles" class="collapse" aria-labelledby="heading-articles" data-parent="#accordion">
+                                <div class="card-body">
+                                    {{--Articles--}}
+                                    <div class="mb-3">
+                                        <button class="btn btn-primary"
+                                                data-toggle="modal"
+                                                data-target="#add-article-modal"
+                                        >
+                                            <i class="mdi mdi-plus"></i>
+                                            Ajouter un article
+                                        </button>
+                                    </div>
+                                    @include('partials.articles.articles-list', ['actions' => false])
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -120,6 +142,18 @@
     @endcomponent
     @component('components.add-service-modal', [
         'url' => route('categories.add.service', compact('category'))
+    ])
+        @include('partials.form.select', [
+            'name' => 'Etiquettes',
+            'id' => 'tags',
+            'title' => 'Choisir des étiquettes',
+            'value' => old('tags') ?? [],
+            'options' => $tags,
+            'multi' => true
+        ])
+    @endcomponent
+    @component('components.add-article-modal', [
+       'url' => route('categories.add.article', compact('category'))
     ])
         @include('partials.form.select', [
             'name' => 'Etiquettes',

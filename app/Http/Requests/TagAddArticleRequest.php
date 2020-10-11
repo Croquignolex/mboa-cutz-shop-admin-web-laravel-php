@@ -6,7 +6,7 @@ use App\Traits\RequestTrait;
 use Illuminate\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CategoryAddServiceRequest extends FormRequest
+class TagAddArticleRequest extends FormRequest
 {
     use RequestTrait;
 
@@ -18,16 +18,12 @@ class CategoryAddServiceRequest extends FormRequest
     public function rules()
     {
         return [
-            'tags' => $this->array,
             'featured' => $this->string,
-            'most_asked' => $this->string,
             'en_description' => $this->string,
             'fr_description' => $this->string,
-            'tags.*' => $this->distinct_string,
-            'price' => $this->required_numeric,
             'fr_name' => $this->required_string,
             'en_name' => $this->required_string,
-            'discount' => $this->required_numeric,
+            'category' => $this->required_string,
         ];
     }
 

@@ -8,6 +8,7 @@
                 <th scope="col">IMAGE</th>
                 <th scope="col">NOM (fr)</th>
                 <th scope="col">NOM (en)</th>
+                @if($actions)<th scope="col">COMMENTAIRES</th>@endif
                 <th scope="col">CREER PAR</th>
                 <th scope="col">ACTIONS</th>
             </tr>
@@ -21,6 +22,7 @@
                     </td>
                     <td>{{ $article->fr_name }}</td>
                     <td>{{ $article->en_name }}</td>
+                    @if($actions)<td class="text-right">{{ $article->comments->count() }}</td>@endif
                     <td>{{ $article->creator_name}}</td>
                     <td class="text-center" style="white-space: nowrap;">
                         <a href="{{ route('articles.show', compact('article')) }}"

@@ -18,7 +18,6 @@ class TagAddServiceRequest extends FormRequest
     public function rules()
     {
         return [
-            'new' => $this->string,
             'featured' => $this->string,
             'most_asked' => $this->string,
             'en_description' => $this->string,

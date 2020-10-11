@@ -14,6 +14,6 @@ class ArticleObserver
      */
     public function creating(Article $article)
     {
-        $article->slug = $article->fr_title;
+        $article->slug = $article->fr_name;
     }
 }
