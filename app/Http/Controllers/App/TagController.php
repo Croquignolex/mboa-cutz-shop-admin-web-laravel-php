@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\App;
 
-use App\Http\Requests\TagAddArticleRequest;
 use Exception;
 use App\Models\Tag;
 use App\Models\Category;
@@ -19,6 +18,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\CategoryRequest;
 use Illuminate\Contracts\View\Factory;
+use App\Http\Requests\TagAddArticleRequest;
 use App\Http\Requests\TagAddProductRequest;
 use App\Http\Requests\TagAddServiceRequest;
 use Illuminate\Contracts\Foundation\Application;

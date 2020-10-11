@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('app.master.title', page_title('Nouveau produit'))
+@section('app.master.title', page_title('Nouvel article'))
 
 @section('app.breadcrumb')
     @include('partials.breadcrumb', [
-        'title' => 'Nouveau produit',
-        'icon' => 'mdi mdi-basket',
-        'chain' => ['Produits', 'Nouveau produit']
+        'title' => 'Nouvel article',
+        'icon' => 'mdi mdi-blinds',
+        'chain' => ['Article', 'Nouvel article']
     ])
 @endsection
 
@@ -16,7 +16,7 @@
             <div class="card card-default">
                 <div class="card-body">
                     <div class="mx-5">@include('partials.error-message')</div>
-                    <form action="{{ route('products.store') }}" method="POST">
+                    <form action="{{ route('articles.store') }}" method="POST">
                         @csrf
                         <div class="row mb-2">
                             <div class="col">
@@ -25,12 +25,6 @@
                                     'id' => 'featured',
                                     'color' => 'info',
                                     'value' => old('featured')
-                                ])
-                                @include('partials.form.toggle', [
-                                    'name' => 'Mailleur vente',
-                                    'id' => 'most_sold',
-                                    'color' => 'primary',
-                                    'value' => old('most_sold')
                                 ])
                             </div>
                         </div>
@@ -49,32 +43,6 @@
                                     'id' => 'en_name',
                                     'type' => 'text',
                                     'value' => old('en_name')
-                                ])
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                @include('partials.form.input', [
-                                    'name' => 'Prix*',
-                                    'id' => 'price',
-                                    'type' => 'number',
-                                    'value' => old('price') ?? 0
-                                ])
-                            </div>
-                            <div class="col-sm-4">
-                                @include('partials.form.input', [
-                                    'name' => 'Reduction (%)*',
-                                    'id' => 'discount',
-                                    'type' => 'number',
-                                    'value' => old('discount') ?? 0
-                                ])
-                            </div>
-                            <div class="col-sm-4">
-                                @include('partials.form.input', [
-                                    'name' => 'Stock*',
-                                    'id' => 'stock',
-                                    'type' => 'number',
-                                    'value' => old('stock') ?? 0
                                 ])
                             </div>
                         </div>

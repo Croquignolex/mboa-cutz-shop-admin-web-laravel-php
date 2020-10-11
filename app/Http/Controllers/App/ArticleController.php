@@ -18,6 +18,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Redirector;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
+use App\Http\Requests\ArticleRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\Facades\Storage;
@@ -59,43 +60,43 @@ class ArticleController extends Controller
         $tags = $this->mapModels(Tag::all());
         $categories = $this->mapModels(Category::all());
 
-        return view('app.products.create', compact('tags', 'categories'));
+        return view('app.articles.create', compact('tags', 'categories'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param ProductRequest $request
+     * @param ArticleRequest $request
      * @return Application|RedirectResponse|Response|Redirector
      */
-    public function store(ProductRequest $request)
+    public function store(ArticleRequest $request)
     {
         $tags = $request->input('tags');
 
-        $product = $this->productStore(
+        $article = $this->articleStore(
             $request,
             Category::whereSlug($request->input('category'))->first(),
             ($tags !== null) ? $this->mapTags($tags) : collect()
         );
 
-        return redirect(route('products.show', compact('product')));
+        return redirect(route('articles.show', compact('article')));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param Product $product
+     * @param Article $article
      * @return Application|Factory|Response|View
      */
-    public function show(Product $product)
+    public function show(Article $article)
     {
-        $reviews = $product
-            ->reviews()
+        $comments = $article
+            ->comments()
             ->orderBy('created_at', 'desc')
             ->paginate(Constants::DEFAULT_PAGE_PAGINATION_ITEMS)
             ->onEachSide(Constants::DEFAULT_PAGE_PAGINATION_EACH_SIDE);
 
-        return view('app.products.show', compact('product', 'reviews'));
+        return view('app.articles.show', compact('article', 'comments'));
     }
 
     /**
