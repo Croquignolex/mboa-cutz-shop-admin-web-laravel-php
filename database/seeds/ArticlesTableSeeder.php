@@ -15,14 +15,14 @@ class ArticlesTableSeeder extends Seeder
     {
         Category::first()->articles()->createMany([
             [
-                'fr_title' => Lorem::word(),
-                'en_title' => Lorem::word(),
+                'fr_name' => Lorem::word(),
+                'en_name' => Lorem::word(),
                 'fr_description' => Lorem::text(),
                 'en_description' => Lorem::text(),
             ],
             [
-                'fr_title' => Lorem::word(),
-                'en_title' => Lorem::word(),
+                'fr_name' => Lorem::word(),
+                'en_name' => Lorem::word(),
                 'fr_description' => Lorem::text(),
                 'en_description' => Lorem::text(),
             ]

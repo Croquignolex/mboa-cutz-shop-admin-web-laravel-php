@@ -40,7 +40,7 @@ class Article extends Model
      * @var array
      */
     protected $fillable = [
-        'fr_title', 'en_title', 'fr_description', 'en_description',
+        'fr_name', 'en_name', 'fr_description', 'en_description',
         'is_featured', 'is_new',
         'image', 'extension'
     ];

@@ -4,16 +4,16 @@ namespace App\Http\Controllers\App;
 
 use Exception;
 use App\Models\Tag;
+use App\Models\Article;
 use App\Models\Product;
 use App\Models\Category;
 use App\Enums\ImagePath;
 use App\Enums\Constants;
 use Illuminate\View\View;
-use App\Traits\ProductStore;
+use App\Traits\ArticleStore;
 use App\Traits\ModelMapping;
 use App\Models\ProductReview;
 use Illuminate\Http\Response;
-use App\Traits\ModelRatingTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Redirector;
 use App\Http\Controllers\Controller;
@@ -24,12 +24,12 @@ use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\Base64ImageRequest;
 use Illuminate\Contracts\Foundation\Application;
 
-class ProductController extends Controller
+class ArticleController extends Controller
 {
-    use ModelMapping, ProductStore, ModelRatingTrait;
+    use ModelMapping, ArticleStore;
 
     /**
-     * ProductController constructor.
+     * ArticleController constructor.
      */
     public function __construct()
     {
@@ -43,11 +43,11 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::orderBy('created_at', 'desc')
+        $articles = Article::orderBy('created_at', 'desc')
             ->paginate(Constants::DEFAULT_PAGE_PAGINATION_ITEMS)
             ->onEachSide(Constants::DEFAULT_PAGE_PAGINATION_EACH_SIDE);
 
-        return view('app.products.index', compact('products'));
+        return view('app.articles.index', compact('articles'));
     }
 
     /**

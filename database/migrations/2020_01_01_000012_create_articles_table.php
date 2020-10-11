@@ -19,8 +19,8 @@ class CreateArticlesTable extends Migration
             $table->string('slug')->unique();
             $table->string('image', 255)->default(Constants::DEFAULT_IMAGE);
             $table->string('image_extension', 50)->default(Constants::DEFAULT_IMAGE_EXTENSION);
-            $table->string('fr_title');
-            $table->string('en_title');
+            $table->string('fr_name');
+            $table->string('en_name');
             $table->text('fr_description')->nullable();
             $table->text('en_description')->nullable();
             $table->boolean('is_new')->default(false);
