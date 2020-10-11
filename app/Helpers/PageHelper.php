@@ -159,6 +159,17 @@ if(!function_exists('services_pages'))
     }
 }
 
+if(!function_exists('articles_pages'))
+{
+    /**
+     * @return Collection
+     */
+    function articles_pages()
+    {
+        return collect(['articles.index', 'articles.create', 'articles.show', 'articles.edit']);
+    }
+}
+
 if(!function_exists('archives_pages'))
 {
     /**

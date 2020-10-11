@@ -165,23 +165,23 @@
                     </ul>
                 </li>
                 {{--Blog--}}
-                <li class="has-sub expand">
-                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#blog" aria-expanded="false" aria-controls="blog">
+                <li class="has-sub expand {{ active_page(articles_pages()) }}">
+                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#articles" aria-expanded="false" aria-controls="articles">
                         <i class="mdi mdi-blinds"></i>
                         <span class="nav-text">Blog</span> <b class="caret"></b>
                     </a>
-                    <ul class="collapse" id="blog" data-parent="#sidebar-menu">
+                    <ul class="collapse {{ active_page_group(articles_pages()) }}" id="articles" data-parent="#sidebar-menu">
                         <div class="sub-menu">
-                            <li class="">
-                                <a class="sidenav-item-link" href="#">
+                            <li class="{{ active_page(collect('articles.index')) }}">
+                                <a class="sidenav-item-link" href="{{ route('articles.index') }}">
                                     <span class="nav-text">
                                         <i class="mdi mdi-playlist-check"></i>
                                         Tous les artcles
                                     </span>
                                 </a>
                             </li>
-                            <li class="">
-                                <a class="sidenav-item-link" href="#">
+                            <li class="{{ active_page(collect('articles.create')) }}">
+                                <a class="sidenav-item-link" href="{{ route('articles.create') }}">
                                     <span class="nav-text">
                                         <i class="mdi mdi-playlist-plus"></i>
                                         Nouvel article
