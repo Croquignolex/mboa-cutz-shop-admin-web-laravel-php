@@ -131,7 +131,7 @@
     </div>
     {{--Modal--}}
     @include('partials.archive.archive-confirmation', [
-        'name' => $service->name,
+        'name' => $service->fr_name,
         'modal_id' => "archive-service-modal",
         'url' => route('services.destroy', compact('service'))
     ])

@@ -31,6 +31,9 @@
                     </div>
                     <div class="contact-info">
                         <p class="text-right">
+                            @if($article->is_a_new)
+                                <span class="badge badge-pill badge-success mt-1">Nouveau</span>
+                            @endif
                             @if($article->is_featured)
                                 <span class="badge badge-pill badge-info mt-1">En vedette</span>
                             @endif
@@ -113,7 +116,7 @@
     </div>
     {{--Modal--}}
     @include('partials.archive.archive-confirmation', [
-        'name' => $article->name,
+        'name' => $article->fr_name,
         'modal_id' => "archive-article-modal",
         'url' => route('articles.destroy', compact('article'))
     ])

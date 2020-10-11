@@ -134,7 +134,7 @@
     </div>
     {{--Modal--}}
     @include('partials.archive.archive-confirmation', [
-        'name' => $product->name,
+        'name' => $product->fr_name,
         'modal_id' => "archive-product-modal",
         'url' => route('products.destroy', compact('product'))
     ])

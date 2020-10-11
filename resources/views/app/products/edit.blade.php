@@ -31,7 +31,7 @@
                                     'name' => 'Nouveau',
                                     'id' => 'new',
                                     'color' => 'success',
-                                    'value' => old('new') ?? $product->is_new
+                                    'value' => old('new') ?? $product->is_a_new
                                 ])
                                 @include('partials.form.toggle', [
                                     'name' => 'Mailleur vente',

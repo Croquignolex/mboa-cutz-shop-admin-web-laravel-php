@@ -31,7 +31,7 @@
                                     'name' => 'Nouveau',
                                     'id' => 'new',
                                     'color' => 'success',
-                                    'value' => old('new') ?? $service->is_new
+                                    'value' => old('new') ?? $service->is_a_new
                                 ])
                                 @include('partials.form.toggle', [
                                     'name' => 'Mailleur réservation',

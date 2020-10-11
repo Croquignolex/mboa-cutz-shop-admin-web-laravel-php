@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('app.master.title', page_title('Modifier produit'))
+@section('app.master.title', page_title('Modifier article'))
 
 @section('app.breadcrumb')
     @include('partials.breadcrumb', [
-        'title' => 'Modifier produit',
-        'icon' => 'mdi mdi-basket',
-        'chain' => ['Produits', 'Modifier produit']
+        'title' => 'Modifier article',
+        'icon' => 'mdi mdi-blinds',
+        'chain' => ['Articles', 'Modifier article']
     ])
 @endsection
 
@@ -16,7 +16,7 @@
             <div class="card card-default">
                 <div class="card-body">
                     <div class="mx-5">@include('partials.error-message')</div>
-                    <form action="{{ route('products.update', compact('product')) }}" method="POST">
+                    <form action="{{ route('articles.update', compact('article')) }}" method="POST">
                         @csrf
                         @method('PUT')
                         <div class="row mb-2">
@@ -25,19 +25,13 @@
                                     'name' => 'En vedette',
                                     'id' => 'featured',
                                     'color' => 'info',
-                                    'value' => old('featured') ?? $product->is_featured
+                                    'value' => old('featured') ?? $article->is_featured
                                 ])
                                 @include('partials.form.toggle', [
                                     'name' => 'Nouveau',
                                     'id' => 'new',
                                     'color' => 'success',
-                                    'value' => old('new') ?? $product->is_new
-                                ])
-                                @include('partials.form.toggle', [
-                                    'name' => 'Mailleur vente',
-                                    'id' => 'most_sold',
-                                    'color' => 'primary',
-                                    'value' => old('most_sold') ?? $product->is_most_sold
+                                    'value' => old('new') ?? $article->is_a_new
                                 ])
                             </div>
                         </div>
@@ -47,7 +41,7 @@
                                     'name' => 'Nom (français)*',
                                     'id' => 'fr_name',
                                     'type' => 'text',
-                                    'value' => old('fr_name') ?? $product->fr_name
+                                    'value' => old('fr_name') ?? $article->fr_name
                                 ])
                             </div>
                             <div class="col-sm-6">
@@ -55,33 +49,7 @@
                                     'name' => 'Nom (anglais)*',
                                     'id' => 'en_name',
                                     'type' => 'text',
-                                    'value' => old('en_name') ?? $product->en_name
-                                ])
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                @include('partials.form.input', [
-                                    'name' => 'Prix*',
-                                    'id' => 'price',
-                                    'type' => 'number',
-                                    'value' => old('price') ?? $product->price
-                                ])
-                            </div>
-                            <div class="col-sm-4">
-                                @include('partials.form.input', [
-                                    'name' => 'Reduction (%)*',
-                                    'id' => 'discount',
-                                    'type' => 'number',
-                                    'value' => old('discount') ?? $product->discount
-                                ])
-                            </div>
-                            <div class="col-sm-4">
-                                @include('partials.form.input', [
-                                    'name' => 'Stock*',
-                                    'id' => 'stock',
-                                    'type' => 'number',
-                                    'value' => old('stock') ?? $product->stock
+                                    'value' => old('en_name') ?? $article->en_name
                                 ])
                             </div>
                         </div>
@@ -91,7 +59,7 @@
                                     'name' => 'Catégorie*',
                                     'id' => 'category',
                                     'title' => 'Choisir une catégorie',
-                                    'value' => old('category') ?? $product->category->slug,
+                                    'value' => old('category') ?? $article->category->slug,
                                     'options' => $categories,
                                     'multi' => false
                                 ])
@@ -112,14 +80,14 @@
                                 @include('partials.form.textarea', [
                                     'name' => 'Description (français)',
                                     'id' => 'fr_description',
-                                    'value' => old('fr_description') ?? $product->fr_description
+                                    'value' => old('fr_description') ?? $article->fr_description
                                 ])
                             </div>
                             <div class="col-sm-6">
                                 @include('partials.form.textarea', [
                                     'name' => 'Description (anglais)',
                                     'id' => 'en_description',
-                                    'value' => old('en_description') ?? $product->en_description
+                                    'value' => old('en_description') ?? $article->en_description
                                 ])
                             </div>
                         </div>
