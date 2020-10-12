@@ -14,9 +14,9 @@ class CategoriesTableSeeder extends Seeder
     public function run()
     {
         Category::create([
-            'fr_name' => Lorem::word(),
-            'en_name' => Lorem::word(),
-            'description' => Lorem::text()
+                'fr_name' => Lorem::word(),
+                'en_name' => Lorem::word(),
+                'description' => Lorem::text()
         ]);
 
         Category::create([

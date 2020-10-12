@@ -37,12 +37,12 @@ class TestimonialController extends Controller
     }
 
     /**
-     * @param String $testimonials
+     * @param Int $testimonial
      * @return Application|Factory|RedirectResponse|View
      */
-    public function restore(String $testimonials)
+    public function restore(Int $testimonial)
     {
-        $trashed_testimonial = Testimonial::withTrashed()->whereSlug($testimonials)->first();
+        $trashed_testimonial = Testimonial::withTrashed()->where('id', $testimonial)->first();
         if(!$trashed_testimonial->can_delete) return $this->unauthorizedToast();
 
         $trashed_testimonial->restore();

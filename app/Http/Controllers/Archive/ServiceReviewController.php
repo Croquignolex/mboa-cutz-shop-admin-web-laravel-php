@@ -43,6 +43,8 @@ class ServiceReviewController extends Controller
     public function restore(Int $review)
     {
         $trashed_service_review = ServiceReview::withTrashed()->where('id', $review)->first();
+        if(!$trashed_service_review->can_delete) return $this->unauthorizedToast();
+
         $trashed_service_review->restore();
         $service = $trashed_service_review->service;
 

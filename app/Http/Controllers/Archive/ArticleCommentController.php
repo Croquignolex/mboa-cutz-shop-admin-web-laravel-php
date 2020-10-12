@@ -43,6 +43,8 @@ class ArticleCommentController extends Controller
     public function restore(Int $comment)
     {
         $trashed_article_comment = ArticleComment::withTrashed()->where('id', $comment)->first();
+        if(!$trashed_article_comment->can_delete) return $this->unauthorizedToast();
+
         $trashed_article_comment->restore();
         $article = $trashed_article_comment->article;
 

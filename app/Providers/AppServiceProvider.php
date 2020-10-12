@@ -9,7 +9,6 @@ use App\Models\Article;
 use App\Models\Product;
 use App\Models\Service;
 use App\Models\Category;
-use App\Models\Testimonial;
 use App\Observers\TagObserver;
 use App\Observers\UserObserver;
 use App\Observers\RoleObserver;
@@ -19,7 +18,6 @@ use App\Observers\ArticleObserver;
 use App\Observers\CategoryObserver;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Schema;
-use App\Observers\TestimonialObserver;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -57,6 +55,5 @@ class AppServiceProvider extends ServiceProvider
         Service::observe(ServiceObserver::class);
         Article::observe(ArticleObserver::class);
         Category::observe(CategoryObserver::class);
-        Testimonial::observe(TestimonialObserver::class);
     }
 }

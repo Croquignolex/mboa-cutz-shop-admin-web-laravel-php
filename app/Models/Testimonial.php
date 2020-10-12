@@ -5,11 +5,10 @@ namespace App\Models;
 use App\Enums\Constants;
 use App\Traits\DateTrait;
 use App\Traits\CreatorTrait;
-use App\Traits\SlugRouteTrait;
-use App\Traits\SuperAdminOrCreatorCanDeleteTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Traits\SuperAdminOrCreatorCanDeleteTrait;
 
 /**
  * @property mixed name
@@ -24,14 +23,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Testimonial extends Model
 {
-    use SoftDeletes, SlugRouteTrait, DateTrait, CreatorTrait, SuperAdminOrCreatorCanDeleteTrait;
+    use SoftDeletes, DateTrait, CreatorTrait, SuperAdminOrCreatorCanDeleteTrait;
 
     /**
      * The attributes that should be cast.
      *
      * @var array
      */
-    protected $guarded = ['slug', 'id', 'creator_id'];
+    protected $guarded = ['id', 'creator_id'];
 
     /**
      * The attributes that are mass assignable.

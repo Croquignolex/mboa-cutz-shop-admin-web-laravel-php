@@ -43,6 +43,8 @@ class ProductController extends Controller
     public function restore(String $product)
     {
         $trashed_product = Product::withTrashed()->whereSlug($product)->first();
+        if(!$trashed_product->can_delete) return $this->unauthorizedToast();
+
         $trashed_product->restore();
 
         success_toast_alert("Produit $trashed_product->fr_name restoré avec success");

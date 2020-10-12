@@ -43,6 +43,8 @@ class ProductReviewController extends Controller
     public function restore(Int $review)
     {
         $trashed_product_review = ProductReview::withTrashed()->where('id', $review)->first();
+        if(!$trashed_product_review->can_delete) return $this->unauthorizedToast();
+
         $trashed_product_review->restore();
         $product = $trashed_product_review->product;
 
