@@ -64,7 +64,7 @@
                                             @if($testimonial->can_delete)
                                                 <button class="btn btn-sm btn-danger"
                                                         data-toggle="modal"
-                                                        data-target="{{ "#$testimonial->slug-archive-testimonial-modal" }}"
+                                                        data-target="{{ "#$testimonial->id-archive-testimonial-modal" }}"
                                                         title="Archiver"
                                                 >
                                                     <i class="mdi mdi-archive"></i>
@@ -75,8 +75,8 @@
 
                                     @if($testimonial->can_delete)
                                         @include('partials.archive.archive-confirmation', [
-                                            'name' => $testimonial->fr_name,
-                                            'modal_id' => "$testimonial->slug-archive-testimonial-modal",
+                                            'name' => $testimonial->name,
+                                            'modal_id' => "$testimonial->id-archive-testimonial-modal",
                                             'url' => route('testimonials.destroy', compact('testimonial'))
                                         ])
                                     @endif

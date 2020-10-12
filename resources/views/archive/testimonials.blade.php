@@ -46,7 +46,7 @@
                                         @if($testimonial->can_delete)
                                             <button class="btn btn-sm btn-success"
                                                     data-toggle="modal"
-                                                    data-target="{{ "#$testimonial->slug-restore-testimonial-modal" }}"
+                                                    data-target="{{ "#$testimonial->id-restore-testimonial-modal" }}"
                                                     title="Restorer"
                                             >
                                                 <i class="mdi mdi-backup-restore"></i>
@@ -59,7 +59,7 @@
                                 @if($testimonial->can_delete)
                                     @include('partials.restore-confirmation', [
                                         'name' => $testimonial->name,
-                                        'modal_id' => "$testimonial->slug-restore-testimonial-modal",
+                                        'modal_id' => "$testimonial->id-restore-testimonial-modal",
                                         'url' => route('archives.testimonials.restore', compact('testimonial'))
                                     ])
                                 @endif
