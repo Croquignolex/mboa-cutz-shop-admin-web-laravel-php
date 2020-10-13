@@ -84,7 +84,7 @@ if(!function_exists('user_img_asset'))
      */
     function user_img_asset($img_file, $extension = Constants::DEFAULT_IMAGE_EXTENSION)
     {
-        return img_file_asset($img_file, $extension,  ImagePath::USER_DEFAULT_IMAGE_PATH);
+        return img_file_asset($img_file, $extension, ImagePath::USER_DEFAULT_IMAGE_PATH);
     }
 }
 
@@ -99,7 +99,7 @@ if(!function_exists('product_img_asset'))
      */
     function product_img_asset($img_file, $extension = Constants::DEFAULT_IMAGE_EXTENSION)
     {
-        return img_file_asset($img_file, $extension,  ImagePath::PRODUCT_DEFAULT_IMAGE_PATH);
+        return img_file_asset($img_file, $extension, ImagePath::PRODUCT_DEFAULT_IMAGE_PATH);
     }
 }
 
@@ -114,7 +114,7 @@ if(!function_exists('service_img_asset'))
      */
     function service_img_asset($img_file, $extension = Constants::DEFAULT_IMAGE_EXTENSION)
     {
-        return img_file_asset($img_file, $extension,  ImagePath::SERVICE_DEFAULT_IMAGE_PATH);
+        return img_file_asset($img_file, $extension, ImagePath::SERVICE_DEFAULT_IMAGE_PATH);
     }
 }
 
@@ -129,7 +129,7 @@ if(!function_exists('article_img_asset'))
      */
     function article_img_asset($img_file, $extension = Constants::DEFAULT_IMAGE_EXTENSION)
     {
-        return img_file_asset($img_file, $extension,  ImagePath::ARTICLE_DEFAULT_IMAGE_PATH);
+        return img_file_asset($img_file, $extension, ImagePath::ARTICLE_DEFAULT_IMAGE_PATH);
     }
 }
 
@@ -144,7 +144,7 @@ if(!function_exists('testimonial_img_asset'))
      */
     function testimonial_img_asset($img_file, $extension = Constants::DEFAULT_IMAGE_EXTENSION)
     {
-        return img_file_asset($img_file, $extension,  ImagePath::TESTIMONIAL_DEFAULT_IMAGE_PATH);
+        return img_file_asset($img_file, $extension, ImagePath::TESTIMONIAL_DEFAULT_IMAGE_PATH);
     }
 }
 

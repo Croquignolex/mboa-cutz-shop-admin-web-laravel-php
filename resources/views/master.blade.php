@@ -47,12 +47,15 @@
         <meta property="og:image" content="{{ img_asset('logo', 'jpg') }}" />
         <meta property="twitter:image" content="{{ img_asset('logo', 'jpg') }}" />
 
-        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500|Poppins:400,500,600,700|Roboto:400,500" rel="stylesheet"/>
+        <link href="https://fonts.googleapis.com/css?family=Cookie" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+
         @if(config('app.env') === 'production')
             <link href="https://cdn.materialdesignicons.com/5.6.55/css/materialdesignicons.min.css" rel="stylesheet" />
         @else
             <link rel="stylesheet" href="{{ css_asset('materialdesignicons.min') }}" type="text/css">
         @endif
+
         <link rel="stylesheet" href="{{ css_asset('toastr.min') }}" type="text/css">
         <link rel="stylesheet" href="{{ css_asset('sleek') }}" type="text/css">
 

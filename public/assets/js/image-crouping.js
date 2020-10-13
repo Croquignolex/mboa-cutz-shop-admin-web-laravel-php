@@ -129,9 +129,10 @@ function resizeImage(imageWith, imageHeight, $uploadCrop) {
     // Load image if the is a preview
     if($uploadCrop) {
         // Get the image result
-        try { resultFile = (imageWith && imageHeight)
-            ? $uploadCrop.getCroppedCanvas({ width: imageWith, height: imageHeight }).toDataURL('image/png')
-            : $uploadCrop.getCroppedCanvas().toDataURL('image/png');
+        try {
+            resultFile = (imageWith && imageHeight)
+                ? $uploadCrop.getCroppedCanvas({ width: imageWith, height: imageHeight }).toDataURL('image/png')
+                : $uploadCrop.getCroppedCanvas().toDataURL('image/png');
         }
         catch (e) {}
         // Get only if the image src exist
