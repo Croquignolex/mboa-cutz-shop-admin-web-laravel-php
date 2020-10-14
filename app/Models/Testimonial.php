@@ -50,7 +50,7 @@ class Testimonial extends Model
      */
     public function getImageSrcAttribute() {
         // Update image with default if file is not found
-        $folder = ImagePath::USER_DEFAULT_IMAGE_PATH;
+        $folder = ImagePath::TESTIMONIAL_DEFAULT_IMAGE_PATH;
         if(!Storage::disk('public')->exists("$folder/$this->image.$this->image_extension")) {
             $this->update([
                 'image' => Constants::DEFAULT_IMAGE,

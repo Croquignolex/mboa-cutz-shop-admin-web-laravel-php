@@ -47,7 +47,7 @@ if(!function_exists('getUniqueFileName'))
      */
     function getUniqueImageName($image_name, $image_extension, $folder)
     {
-        if(!Storage::disk('public')->exists("$folder/$image_name.$image_extension")) {
+        if(Storage::disk('public')->exists("$folder/$image_name.$image_extension")) {
             getUniqueImageName(Str::random(40), $image_extension, $folder);
         }
         return $image_name;
@@ -66,6 +66,6 @@ if(!function_exists('deletePreviousImage'))
     function deletePreviousImage($previous_image_path, $previous_image_name)
     {
         if(Storage::disk('public')->exists($previous_image_path) && $previous_image_name !== Constants::DEFAULT_IMAGE)
-            Storage::delete($previous_image_path);
+            Storage::disk('public')->delete($previous_image_path);
     }
 }
