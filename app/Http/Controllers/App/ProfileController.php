@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\Factory;
-use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\Base64ImageRequest;
 use App\Http\Requests\UserUpdateInfoRequest;
 use App\Http\Requests\UserUpdatePasswordRequest;
@@ -100,17 +99,18 @@ class ProfileController extends Controller
      * @param Base64ImageRequest $request
      * @return JsonResponse
      */
-    public function updateAvatar(Base64ImageRequest $request) {
+    public function updateAvatar(Base64ImageRequest $request)
+    {
         // Get current user
         $user = Auth::user();
-        $user_avatar_src = $user->avatar_src;
-
-        //Delete old file before storing new file
-        if(Storage::exists($user_avatar_src) && $user->avatar !== Constants::DEFAULT_IMAGE)
-            Storage::delete($user_avatar_src);
 
         // Convert base 64 image to normal image for the server and the data base
-        $user_avatar_to_save = imageFromBase64AndSave($request->input('base_64_image'), ImagePath::USER_DEFAULT_IMAGE_PATH);
+        $user_avatar_to_save = imageFromBase64AndSave(
+            $request->input('base_64_image'),
+            $user->avatar,
+            $user->avatar_extension,
+            ImagePath::USER_DEFAULT_IMAGE_PATH
+        );
 
         // Save image name in database
         $user->update([

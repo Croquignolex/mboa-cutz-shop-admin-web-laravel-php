@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\Constants;
+use App\Enums\ImagePath;
 use App\Traits\DateTrait;
 use App\Traits\CreatorTrait;
 use Illuminate\Database\Eloquent\Model;
@@ -49,7 +50,8 @@ class Testimonial extends Model
      */
     public function getImageSrcAttribute() {
         // Update image with default if file is not found
-        if(!Storage::exists(testimonial_img_asset($this->image, $this->image_extension))) {
+        $folder = ImagePath::USER_DEFAULT_IMAGE_PATH;
+        if(!Storage::disk('public')->exists("$folder/$this->image.$this->image_extension")) {
             $this->update([
                 'image' => Constants::DEFAULT_IMAGE,
                 'image_extension' => Constants::DEFAULT_IMAGE_EXTENSION,

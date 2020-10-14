@@ -2,27 +2,23 @@
 
 namespace App\Http\Controllers\App;
 
-use App\Models\ArticleComment;
 use Exception;
 use App\Models\Tag;
 use App\Models\Article;
-use App\Models\Product;
 use App\Models\Category;
 use App\Enums\ImagePath;
 use App\Enums\Constants;
 use Illuminate\View\View;
 use App\Traits\ArticleStore;
 use App\Traits\ModelMapping;
-use App\Models\ProductReview;
 use Illuminate\Http\Response;
+use App\Models\ArticleComment;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Redirector;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ProductRequest;
 use App\Http\Requests\ArticleRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\Factory;
-use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\Base64ImageRequest;
 use Illuminate\Contracts\Foundation\Application;
 
@@ -196,16 +192,15 @@ class ArticleController extends Controller
      * @param Article $article
      * @return JsonResponse
      */
-    public function updateImage(Base64ImageRequest $request, Article $article) {
-        // Get current article
-        $article_image_src = $article->image_src;
-
-        //Delete old file before storing new file
-        if(Storage::exists($article_image_src) && $article->image !== Constants::DEFAULT_IMAGE)
-            Storage::delete($article_image_src);
-
+    public function updateImage(Base64ImageRequest $request, Article $article)
+    {
         // Convert base 64 image to normal image for the server and the data base
-        $article_image_to_save = imageFromBase64AndSave($request->input('base_64_image'), ImagePath::ARTICLE_DEFAULT_IMAGE_PATH);
+        $article_image_to_save = imageFromBase64AndSave(
+            $request->input('base_64_image'),
+            $article->image,
+            $article->image_extension,
+            ImagePath::ARTICLE_DEFAULT_IMAGE_PATH
+        );
 
         // Save image name in database
         $article->update([

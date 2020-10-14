@@ -2,13 +2,12 @@
 
 namespace App\Models;
 
-use App\Enums\UserRole;
+use App\Enums\ImagePath;
 use App\Enums\Constants;
 use App\Traits\DateTrait;
 use App\Traits\OfferTrait;
 use App\Traits\CreatorTrait;
 use App\Traits\SlugRouteTrait;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -91,7 +90,8 @@ class Product extends Model
      */
     public function getImageSrcAttribute() {
         // Update image with default if file is not found
-        if(!Storage::exists(product_img_asset($this->image, $this->image_extension))) {
+        $folder = ImagePath::PRODUCT_DEFAULT_IMAGE_PATH;
+        if(!Storage::disk('public')->exists("$folder/$this->image.$this->image_extension")) {
             $this->update([
                 'image' => Constants::DEFAULT_IMAGE,
                 'image_extension' => Constants::DEFAULT_IMAGE_EXTENSION,

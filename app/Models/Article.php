@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\Constants;
+use App\Enums\ImagePath;
 use App\Traits\DateTrait;
 use App\Traits\CreatorTrait;
 use App\Traits\SlugRouteTrait;
@@ -91,7 +92,8 @@ class Article extends Model
      */
     public function getImageSrcAttribute() {
         // Update image with default if file is not found
-        if(!Storage::exists(article_img_asset($this->image, $this->image_extension))) {
+        $folder = ImagePath::ARTICLE_DEFAULT_IMAGE_PATH;
+        if(!Storage::disk('public')->exists("$folder/$this->image.$this->image_extension")) {
             $this->update([
                 'image' => Constants::DEFAULT_IMAGE,
                 'image_extension' => Constants::DEFAULT_IMAGE_EXTENSION,

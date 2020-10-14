@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\UserRole;
+use App\Enums\ImagePath;
 use App\Enums\Constants;
 use App\Traits\DateTrait;
 use App\Traits\CreatorTrait;
@@ -196,7 +197,8 @@ class User extends Authenticate
      */
     public function getAvatarSrcAttribute() {
         // Update image with default if file is not found
-        if(!Storage::exists(user_img_asset($this->avatar, $this->avatar_extension))) {
+        $folder = ImagePath::USER_DEFAULT_IMAGE_PATH;
+        if(!Storage::disk('public')->exists("$folder/$this->avatar.$this->avatar_extension")) {
             $this->update([
                 'avatar' => Constants::DEFAULT_IMAGE,
                 'avatar_extension' => Constants::DEFAULT_IMAGE_EXTENSION,

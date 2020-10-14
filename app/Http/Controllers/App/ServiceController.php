@@ -20,7 +20,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\ServiceRequest;
 use Illuminate\Contracts\View\Factory;
-use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\Base64ImageRequest;
 use Illuminate\Contracts\Foundation\Application;
 
@@ -200,16 +199,15 @@ class ServiceController extends Controller
      * @param Service $service
      * @return JsonResponse
      */
-    public function updateImage(Base64ImageRequest $request, Service $service) {
-        // Get current product
-        $service_image_src = $service->image_src;
-
-        //Delete old file before storing new file
-        if(Storage::exists($service_image_src) && $service->image !== Constants::DEFAULT_IMAGE)
-            Storage::delete($service_image_src);
-
+    public function updateImage(Base64ImageRequest $request, Service $service)
+    {
         // Convert base 64 image to normal image for the server and the data base
-        $service_image_to_save = imageFromBase64AndSave($request->input('base_64_image'), ImagePath::SERVICE_DEFAULT_IMAGE_PATH);
+        $service_image_to_save = imageFromBase64AndSave(
+            $request->input('base_64_image'),
+            $service->image,
+            $service->image_extension,
+            ImagePath::SERVICE_DEFAULT_IMAGE_PATH
+        );
 
         // Save image name in database
         $service->update([

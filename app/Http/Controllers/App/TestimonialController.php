@@ -14,7 +14,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\Factory;
-use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\Base64ImageRequest;
 use App\Http\Requests\TestimonialRequest;
 use Illuminate\Contracts\Foundation\Application;
@@ -132,16 +131,15 @@ class TestimonialController extends Controller
      * @param Testimonial $testimonial
      * @return JsonResponse
      */
-    public function updateImage(Base64ImageRequest $request, Testimonial $testimonial) {
-        // Get current testimonial
-        $testimonial_image_src = $testimonial->image_src;
-
-        //Delete old file before storing new file
-        if(Storage::exists($testimonial_image_src) && $testimonial->image !== Constants::DEFAULT_IMAGE)
-            Storage::delete($testimonial_image_src);
-
+    public function updateImage(Base64ImageRequest $request, Testimonial $testimonial)
+    {
         // Convert base 64 image to normal image for the server and the data base
-        $testimonial_image_to_save = imageFromBase64AndSave($request->input('base_64_image'), ImagePath::TESTIMONIAL_DEFAULT_IMAGE_PATH);
+        $testimonial_image_to_save = imageFromBase64AndSave(
+            $request->input('base_64_image'),
+            $testimonial->image,
+            $testimonial->image_extension,
+            ImagePath::TESTIMONIAL_DEFAULT_IMAGE_PATH
+        );
 
         // Save image name in database
         $testimonial->update([
