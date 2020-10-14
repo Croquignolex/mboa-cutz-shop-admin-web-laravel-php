@@ -162,8 +162,7 @@ if(!function_exists('file_asset'))
      */
     function file_asset($file, $extension, $path)
     {
-        $public_folder = config('app.folder');
-        return "$public_folder/assets/$path/$file.$extension";
+        return asset("$path/$file.$extension");
     }
 }
 
@@ -179,7 +178,6 @@ if(!function_exists('img_file_asset'))
      */
     function img_file_asset($img_file, $extension, $path)
     {
-        $public_folder = config('app.folder');
-        return "$public_folder/assets/img/$path/$img_file.$extension";
+        return asset("img/$path/$img_file.$extension");
     }
 }

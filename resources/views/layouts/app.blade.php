@@ -38,7 +38,6 @@
 @endpush
 
 @push('master.script')
-    <script src="{{ js_asset('bootstrap.bundle.min') }}" type="application/javascript"></script>
     <script src="{{ js_asset('jquery.slimscroll.min') }}" type="application/javascript"></script>
     <script src="{{ js_asset('sleek') }}" type="application/javascript"></script>
     @stack('app.master.script')
