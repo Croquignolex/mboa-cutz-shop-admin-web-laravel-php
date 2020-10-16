@@ -5,7 +5,6 @@
             {{-- Modal header --}}
             <div class="modal-header">
                 <strong class="modal-title">{{ $modal_title }}</strong>
-                <span aria-hidden="true" class="close" data-dismiss="modal" aria-label="Close">&times;</span>
             </div>
 
             {{ $slot }}

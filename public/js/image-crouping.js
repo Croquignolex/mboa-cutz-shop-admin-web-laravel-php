@@ -6,10 +6,6 @@ let currentUploadImageInput = undefined;
 let copperAspectRatioHeight = undefined;
 let croupModalImgID = 'croup-modal-image';
 
-// Default appearance
-croupModal.modal("hide");
-toggleCroupModalLoader(false)
-
 // Action the upload input
 $("#upload-model-image-input").change(function () {
     inputChangeEventHandle(this)
@@ -110,7 +106,9 @@ function readImageFileFromInput(input) {
                     // asynchronous function so it will execute after
                     reader.onload = function (e) {
                         // Show the cropper modal
-                        croupModal.modal("show");
+                        // croupModal.modal("show");
+                        // Open model with a static backdrop
+                        croupModal.modal({backdrop: 'static', keyboard: false});
                         $(`#${croupModalImgID}`).attr('src', e.target.result);
                         resolve();
                     };

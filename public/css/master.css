@@ -53,3 +53,21 @@
 .bootstrap-select .dropdown-toggle:focus {
     outline: 0 !important;
 }
+
+/* Start erase cropper box */
+.cropper-view-box {
+    outline: rgba(236, 0, 140, 0.75) solid 1px;
+}
+
+.cropper-line {
+    background-color: #ec008c;
+}
+
+.cropper-point {
+    background-color: #ec008c;
+}
+
+.cropper-point.point-se::before {
+    background-color: #ec008c;
+}
+/* End erase cropper box */
