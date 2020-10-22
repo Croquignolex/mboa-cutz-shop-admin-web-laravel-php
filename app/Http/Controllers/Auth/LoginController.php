@@ -130,7 +130,7 @@ class LoginController extends Controller
      */
     protected function authenticated(Request $request, $user)
     {
-        info_toast_alert("Bienvenue {$user->name}");
+        info_toast_alert("Bienvenue {$user->full_name}");
         log_activity("Authentification", "Connexion sur la plateforme");
     }
 

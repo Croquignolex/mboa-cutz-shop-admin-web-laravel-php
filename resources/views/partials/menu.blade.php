@@ -2,7 +2,7 @@
     <div id="sidebar" class="sidebar sidebar-with-footer">
         <div class="app-brand bg-theme">
             <a href="{{ route('dashboard.index') }}">
-                <img src="{{ img_asset('logo', 'jpg') }}" alt="..." width="40">
+                <img src="{{ img_asset('logo-white') }}" alt="..." width="40">
                 <span class="brand-name">{{ config('app.name') }}</span>
             </a>
         </div>

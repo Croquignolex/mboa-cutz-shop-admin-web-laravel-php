@@ -28,11 +28,12 @@ class ServiceController extends Controller
     use ModelMapping, ServiceStore, ModelRatingTrait;
 
     /**
-     * CategoryController constructor.
+     * ServiceController constructor.
      */
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('ajax')->only('updateImage');
     }
 
     /**
