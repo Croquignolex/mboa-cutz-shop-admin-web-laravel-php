@@ -60,6 +60,17 @@ class Service extends Model
     ];
 
     /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'is_new' => 'boolean',
+        'is_featured' => 'boolean',
+        'is_most_asked' => 'boolean',
+    ];
+
+    /**
      * @return BelongsToMany|HasMany
      */
     public function tags()

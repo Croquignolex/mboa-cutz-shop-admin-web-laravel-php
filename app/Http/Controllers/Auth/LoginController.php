@@ -76,7 +76,7 @@ class LoginController extends Controller
         $user = User::where(['email' => $credentials['email']])->first();
         if($user !== null)
         {
-            if($user->role->type !== UserRole::USER) {
+            if($user->role->type !== UserRole::USER && $user->is_confirmed) {
                 return $this->guard()->attempt($this->credentials($request));
             }
         }
@@ -96,18 +96,6 @@ class LoginController extends Controller
         $request->session()->invalidate();
 
         return redirect(route('login'));
-    }
-
-    /**
-     * @param Request $request
-     * @return array
-     */
-    protected function credentials(Request $request)
-    {
-        $credentials = $request->only($this->username(), 'password');
-        Arr::add($credentials, 'is_confirmed', true);
-
-        return $credentials;
     }
 
     /**
