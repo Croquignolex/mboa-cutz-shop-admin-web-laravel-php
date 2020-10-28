@@ -41,6 +41,10 @@ class ArchiveController extends Controller
             })
             ->count();
 
+        $customers = User::onlyTrashed()
+            ->where('role_id', Role::where('type', UserRole::USER)->first()->id)
+            ->count();
+
         $tags = Tag::onlyTrashed()->count();
 
         $products = Product::onlyTrashed()->count();
@@ -60,7 +64,7 @@ class ArchiveController extends Controller
         $article_comments = ArticleComment::onlyTrashed()->count();
 
         return view('archive.index', compact(
-            'admins', 'categories', 'tags', 'testimonials', 'products',
+            'admins', 'categories', 'tags', 'testimonials', 'products', 'customers',
                 'services', 'product_reviews', 'service_reviews', 'article_comments', 'articles'
             )
         );

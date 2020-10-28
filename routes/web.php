@@ -52,9 +52,8 @@ Route::group(['namespace' => 'App'], function() {
     Route::delete('/services/{service}/remove-review/{review}', 'ServiceController@removeReview')->name('services.remove.review');
     Route::delete('/articles/{article}/remove-comment/{comment}', 'ArticleController@removeComment')->name('articles.remove.comment');
 
-    Route::resource('/customers', 'CustomerController')->except(['edit']);
-
     // App resources routes
+    Route::resource('/customers', 'CustomerController')->except(['edit']);
     Route::resources([
         'tags' => 'TagController',
         'admins' => 'AdminController',
@@ -74,6 +73,7 @@ Route::group(['namespace' => 'Archive'], function() {
     Route::get('/archives/products', 'ProductController@index')->name('archives.products.index');
     Route::get('/archives/services', 'ServiceController@index')->name('archives.services.index');
     Route::get('/archives/articles', 'ArticleController@index')->name('archives.articles.index');
+    Route::get('/archives/customers', 'CustomerController@index')->name('archives.customers.index');
     Route::get('/archives/categories', 'CategoryController@index')->name('archives.categories.index');
     Route::get('/archives/testimonials', 'TestimonialController@index')->name('archives.testimonials.index');
     Route::get('/archives/product-reviews', 'ProductReviewController@index')->name('archives.product-reviews.index');
@@ -86,6 +86,7 @@ Route::group(['namespace' => 'Archive'], function() {
     Route::post('/archives/products/{product}/restore', 'ProductController@restore')->name('archives.products.restore');
     Route::post('/archives/services/{service}/restore', 'ServiceController@restore')->name('archives.services.restore');
     Route::post('/archives/articles/{article}/restore', 'ArticleController@restore')->name('archives.articles.restore');
+    Route::post('/archives/customers/{customer}/restore', 'CustomerController@restore')->name('archives.customers.restore');
     Route::post('/archives/categories/{category}/restore', 'CategoryController@restore')->name('archives.categories.restore');
     Route::post('/archives/testimonials/{testimonial}/restore', 'TestimonialController@restore')->name('archives.testimonials.restore');
     Route::post('/archives/product-reviews/{review}/restore', 'ProductReviewController@restore')->name('archives.product-reviews.restore');

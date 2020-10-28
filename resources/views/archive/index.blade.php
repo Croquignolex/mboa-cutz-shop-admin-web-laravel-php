@@ -22,6 +22,16 @@
                 'url' => route('archives.admins.index'),
             ])
         </div>
+        {{--Clients--}}
+        <div class="col-md-6 col-lg-3">
+            @include('partials.archive.archive-card', [
+                'data' => $customers,
+                'bg_class' => 'bg-warning',
+                'icon' => 'mdi mdi-account-group',
+                'label' => 'Clients archivés',
+                'url' => route('archives.customers.index'),
+            ])
+        </div>
         {{--Products--}}
         <div class="col-md-6 col-lg-3">
             @include('partials.archive.archive-card', [
