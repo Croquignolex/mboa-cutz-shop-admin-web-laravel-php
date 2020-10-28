@@ -52,6 +52,8 @@ Route::group(['namespace' => 'App'], function() {
     Route::delete('/services/{service}/remove-review/{review}', 'ServiceController@removeReview')->name('services.remove.review');
     Route::delete('/articles/{article}/remove-comment/{comment}', 'ArticleController@removeComment')->name('articles.remove.comment');
 
+    Route::resource('/customers', 'CustomerController')->except(['edit']);
+
     // App resources routes
     Route::resources([
         'tags' => 'TagController',
@@ -59,7 +61,6 @@ Route::group(['namespace' => 'App'], function() {
         'products' => 'ProductController',
         'articles' => 'ArticleController',
         'services' => 'ServiceController',
-        'customers' => 'CustomerController',
         'categories' => 'CategoryController',
         'testimonials' => 'TestimonialController',
     ]);

@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('app.master.title', page_title('Détails administrateur'))
+@section('app.master.title', page_title('Détails client'))
 
 @section('app.breadcrumb')
     @include('partials.breadcrumb', [
-        'title' => 'Détails administrateur',
-        'icon' => 'mdi mdi-account-multiple',
-        'chain' => ['Administrateurs', 'Détails administrateur']
+        'title' => 'Détails client',
+        'icon' => 'mdi mdi-account-group',
+        'chain' => ['Clients', 'Détails client']
     ])
 @endsection
 
@@ -17,23 +17,18 @@
             <div class="card card-default">
                 <div class="card-body">
                     <div class="mb-3">
-                        @if($admin->can_edit)
-                            <a class="btn btn-warning" href="{{ route('admins.edit', compact('admin')) }}">
-                                <i class="mdi mdi-pencil"></i>
-                                Modifier
-                            </a>
-                        @endif
-                        @if($admin->can_delete)
-                            <button class="btn btn-danger"
-                                    data-toggle="modal"
-                                    data-target="{{ "#archive-admin-modal" }}"
-                            >
-                                <i class="mdi mdi-archive"></i>
-                                Archiver
-                            </button>
-                        @endif
+                        <form action="{{ route('customers.update', compact('customer')) }}" method="POST" id="status-toggle-form">
+                            @csrf
+                            @method('PUT')
+                            @include('partials.form.toggle', [
+                                'name' => $customer->badge_text,
+                                'id' => 'confirm',
+                                'color' => 'success',
+                                'value' => $customer->is_confirmed
+                           ])
+                        </form>
                     </div>
-                    @include('partials.user.user-info', ['user' => $admin, 'can_update_avatar' => false])
+                    @include('partials.user.user-info', ['user' => $customer, 'can_update_avatar' => false])
                 </div>
             </div>
         </div>
@@ -41,18 +36,19 @@
         <div class="col-lg-7 col-xl-8">
             <div class="card card-default">
                 <div class="card-body">
-                    <h5>Journal d'activités ({{ $logs->total() }})</h5>
-                    @include('partials.user.user-logs-list', compact('logs'))
+                    <h5>Commandes (0)</h5>
                 </div>
             </div>
         </div>
     </div>
-    {{--Modal--}}
-    @if($admin->can_delete)
-        @include('partials.archive.archive-confirmation', [
-            'name' => $admin->full_name,
-            'modal_id' => "archive-admin-modal",
-            'url' => route('admins.destroy', compact('admin'))
-        ])
-    @endif
 @endsection
+
+@push('app.master.script')
+    <script type="application/javascript">
+        $(document).ready(function() {
+            $('#confirm').click(function() {
+                $('#status-toggle-form').submit()
+            });
+        });
+    </script>
+@endpush

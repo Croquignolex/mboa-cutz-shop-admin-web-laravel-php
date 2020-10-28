@@ -89,7 +89,7 @@ if(!function_exists('customers_pages'))
      */
     function customers_pages()
     {
-        return collect(['customers.index', 'customers.create', 'customers.show', 'customers.edit']);
+        return collect(['customers.index', 'customers.create', 'customers.show']);
     }
 }
 

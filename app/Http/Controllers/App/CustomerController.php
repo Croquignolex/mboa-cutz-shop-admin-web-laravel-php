@@ -2,20 +2,19 @@
 
 namespace App\Http\Controllers\App;
 
-use Exception;
+use App\Http\Requests\AdminUpdateRequest;
 use App\Models\Role;
 use App\Models\User;
 use App\Enums\UserRole;
 use App\Enums\Constants;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Redirector;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\Factory;
-use App\Http\Requests\AdminUpdateRequest;
-use App\Http\Requests\AdminCreateRequest;
+use App\Http\Requests\CustomerCreateRequest;
 use Illuminate\Contracts\Foundation\Application;
 
 class CustomerController extends Controller
@@ -56,150 +55,41 @@ class CustomerController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param AdminCreateRequest $request
+     * @param CustomerCreateRequest $request
      * @return Application|RedirectResponse|Response|Redirector
      */
-    public function store(AdminCreateRequest $request)
+    public function store(CustomerCreateRequest $request)
     {
-        $role = Role::where('type', $request->input('role'))->first();
         $user = Role::where('type', UserRole::USER)->first()->users()->create($request->all());
 
-        if(!$this->can_grant_privileges($user, $role)) return $this->unauthorizedToast();
+        success_toast_alert("Client $user->full_name créer avec success");
+        log_activity("Client", "Création du client $user->full_name");
 
-        $user->role()->associate($role);
-        $user->creator()->associate(Auth::user());
-        $user->save();
-
-        success_toast_alert("Administrateur $user->full_name créer avec success");
-        log_activity("Administrateur", "Création de l'administrateur $user->full_name");
-
-        return redirect(route('admins.index'));
+        return redirect(route('customers.index'));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param User $admin
+     * @param User $customer
      * @return Application|Factory|RedirectResponse|View
      */
-    public function show(User $admin)
+    public function show(User $customer)
     {
-        if(!$admin->can_show) return $this->unauthorizedToast();
-
-        $logs = $admin
-            ->logs()
-            ->orderBy('created_at', 'desc')
-            ->paginate(Constants::DEFAULT_PAGE_PAGINATION_ITEMS)
-            ->onEachSide(Constants::DEFAULT_PAGE_PAGINATION_EACH_SIDE);
-
-        return view('app.admins.show', compact('admin', 'logs'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param User $admin
-     * @return Application|RedirectResponse|Response|Redirector
-     */
-    public function edit(User $admin)
-    {
-        if(!$admin->can_edit) return $this->unauthorizedToast();
-
-        $roles = $this->user_accessible_roles();
-
-        $role = $admin->role->type;
-
-        return view('app.admins.edit', compact('admin', 'roles', 'role'));
+        return view('app.customers.show', compact('customer'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param AdminUpdateRequest $request
-     * @param User $admin
-     * @return Application|RedirectResponse|Response|Redirector
+     * @param Request $request
+     * @param User $customer
+     * @return RedirectResponse
      */
-    public function update(AdminUpdateRequest $request, User $admin)
+    public function update(Request $request, User $customer)
     {
-        if(!$admin->can_edit) return $this->unauthorizedToast();
-
-        $admin->update($request->all());
-
-        if($admin->role->type !== $request->input('role')) {
-            $role = Role::where('type', $request->input('role'))->first();
-
-            if(!$this->can_grant_privileges($admin, $role)) return $this->unauthorizedToast();
-
-            $admin->role()->associate($role);
-            $admin->save();
-
-        }
-
-        success_toast_alert("Administrateur $admin->full_name mis à jour avec success");
-        log_activity("Administrateur", "Mise à jour de l'administrateur $admin->full_name");
-
-        return redirect(route('admins.show', compact('admin')));
-    }
-
-    /**
-     * @param User $admin
-     * @return Application|Factory|RedirectResponse|View
-     * @throws Exception
-     */
-    public function destroy(User $admin)
-    {
-        if(!$admin->can_delete) return $this->unauthorizedToast();
-
-        $admin->delete();
-
-        success_toast_alert("Administrateur $admin->full_name archivé avec success");
-        log_activity("Administrateur", "Archivage de l'administrateur $admin->full_name");
-
-        return redirect(route('admins.index'));
-    }
-
-    /**
-     * User can grant required privilege
-     *
-     * @param User $user
-     * @param $role
-     * @return bool
-     */
-    private function can_grant_privileges(User $user, $role) {
-        return (
-            ($role !== null) &&
-            (
-                (($role->type === UserRole::SUPER_ADMIN) && $user->can_grant_super_admin_user) ||
-                (($role->type === UserRole::ADMIN) && $user->can_grant_admin_user)
-            )
-        );
-    }
-
-    /**
-     * Get user accessible roles
-     *
-     * @return array[]
-     */
-    private function user_accessible_roles() {
-        $admin_role = Role::where('type', UserRole::ADMIN)->first();
-        $super_admin_role = Role::where('type', UserRole::SUPER_ADMIN)->first();
-
-        $roles =  [
-            [
-                "value" => $admin_role->type,
-                "label" => $admin_role->name,
-                'class' => "badge badge-pill badge-$admin_role->badge_color"
-            ]
-        ];
-
-        if(Auth::user()->role->type === UserRole::SUPER_ADMIN)  {
-            $roles[] = [
-                "value" => $super_admin_role->type,
-                "label" => $super_admin_role->name,
-                'class' => "badge badge-pill badge-$super_admin_role->badge_color"
-            ];
-        }
-
-        return $roles;
+        $customer->is_confirmed = !$customer->is_confirmed;
+        $customer->save();
+        return back();
     }
 }
