@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('app.master.title', page_title('Nouvel administrateur'))
+@section('app.master.title', page_title('Nouveau client'))
 
 @section('app.breadcrumb')
     @include('partials.breadcrumb', [
-        'title' => 'Nouvel administrateur',
-        'icon' => 'mdi mdi-account-multiple',
-        'chain' => ['Administrateurs', 'Nouvel administrateur']
+        'title' => 'Nouveau client',
+        'icon' => 'mdi mdi-account-group',
+        'chain' => ['Clients', 'Nouveau client']
     ])
 @endsection
 
@@ -15,21 +15,9 @@
         <div class="col">
             <div class="card card-default">
                 <div class="card-body">
-                    <div class="mx-5">@include('partials.error-message')</div>
-                    <form action="{{ route('admins.store') }}" method="POST">
+                    <div class="mx-5">@include('partials.toast-message')</div>
+                    <form action="{{ route('customers.store') }}" method="POST">
                         @csrf
-                        <div class="row">
-                            <div class="col-sm-4">
-                                @include('partials.form.select', [
-                                    'name' => 'Role*',
-                                    'id' => 'role',
-                                    'title' => 'Choisir un role',
-                                    'value' => old('role'),
-                                    'options' => $roles,
-                                    'multi' => false
-                                ])
-                            </div>
-                        </div>
                         <div class="row">
                             <div class="col-sm-4">
                                 @include('partials.form.input', [
@@ -103,7 +91,7 @@
                                     'value' =>  old('country'),
                                 ])
                             </div>
-                            <div class="col-sm-8">
+                            <div class="col-sm-6">
                                 @include('partials.form.textarea', [
                                    'name' => 'Description',
                                    'id' => 'description',

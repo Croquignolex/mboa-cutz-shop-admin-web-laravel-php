@@ -50,9 +50,7 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        $roles = $this->user_accessible_roles();
-
-        return view('app.admins.create', compact('roles'));
+        return view('app.customers.create');
     }
 
     /**

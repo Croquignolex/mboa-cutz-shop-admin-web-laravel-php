@@ -6,7 +6,7 @@
     <form action="{{ $url }}" method="POST">
         @csrf
         <div class="modal-body">
-            <div class="mx-5">@include('partials.error-message')</div>
+            <div class="mx-5">@include('partials.toast-message')</div>
             {{ $slot }}
         </div>
 
