@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\App;
 
-use App\Http\Requests\AdminUpdateRequest;
 use App\Models\Role;
 use App\Models\User;
 use App\Enums\UserRole;
 use App\Enums\Constants;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Redirector;
 use App\Http\Controllers\Controller;
@@ -91,5 +90,22 @@ class CustomerController extends Controller
         $customer->is_confirmed = !$customer->is_confirmed;
         $customer->save();
         return back();
+    }
+
+    /**
+     * @param User $customer
+     * @return Application|Factory|RedirectResponse|View
+     * @throws \Exception
+     */
+    public function destroy(User $customer)
+    {
+        if(!$customer->can_delete) return $this->unauthorizedToast();
+
+        $customer->delete();
+
+        success_toast_alert("Client $customer->full_name archivé avec success");
+        log_activity("Client", "Archivage du client $customer->full_name");
+
+        return redirect(route('customers.index'));
     }
 }

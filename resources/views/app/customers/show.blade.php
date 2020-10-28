@@ -20,12 +20,28 @@
                         <form action="{{ route('customers.update', compact('customer')) }}" method="POST" id="status-toggle-form">
                             @csrf
                             @method('PUT')
-                            @include('partials.form.toggle', [
-                                'name' => $customer->badge_text,
-                                'id' => 'confirm',
-                                'color' => 'success',
-                                'value' => $customer->is_confirmed
-                           ])
+                            <div class="row">
+                                <div class="col">
+                                    @if($customer->can_delete)
+                                        <button class="btn btn-danger"
+                                                data-toggle="modal"
+                                                type="button"
+                                                data-target="{{ "#archive-customer-modal" }}"
+                                        >
+                                            <i class="mdi mdi-archive"></i>
+                                            Archiver
+                                        </button>
+                                    @endif
+                                </div>
+                                <div class="col text-right">
+                                    @include('partials.form.toggle', [
+                                        'name' => $customer->badge_text,
+                                        'id' => 'status-toggle',
+                                        'color' => 'success',
+                                        'value' => $customer->is_confirmed
+                                    ])
+                                </div>
+                            </div>
                         </form>
                     </div>
                     @include('partials.user.user-info', ['user' => $customer, 'can_update_avatar' => false])
@@ -41,12 +57,20 @@
             </div>
         </div>
     </div>
+    {{--Modal--}}
+    @if($customer->can_delete)
+        @include('partials.archive.archive-confirmation', [
+             'name' => $customer->full_name,
+             'modal_id' => "archive-customer-modal",
+             'url' => route('customers.destroy', compact('customer'))
+        ])
+    @endif
 @endsection
 
 @push('app.master.script')
     <script type="application/javascript">
         $(document).ready(function() {
-            $('#confirm').click(function() {
+            $('#status-toggle').click(function() {
                 $('#status-toggle-form').submit()
             });
         });

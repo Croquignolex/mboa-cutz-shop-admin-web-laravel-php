@@ -63,8 +63,25 @@
                                             >
                                                 <i class="mdi mdi-eye"></i>
                                             </a>
+                                            @if($customer->can_delete)
+                                                <button class="btn btn-sm btn-danger"
+                                                        data-toggle="modal"
+                                                        data-target="{{ "#$customer->slug-archive-customer-modal" }}"
+                                                        title="Archiver"
+                                                >
+                                                    <i class="mdi mdi-archive"></i>
+                                                </button>
+                                            @endif
                                         </td>
                                     </tr>
+
+                                    @if($customer->can_delete)
+                                        @include('partials.archive.archive-confirmation', [
+                                            'name' => $customer->full_name,
+                                            'modal_id' => "$customer->slug-archive-customer-modal",
+                                            'url' => route('customers.destroy', compact('customer'))
+                                        ])
+                                    @endif
                                 @endforeach
                             </tbody>
                         </table>
