@@ -46,6 +46,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property mixed can_restore
  * @property mixed can_grant_super_admin_user
  * @property mixed can_grant_admin_user
+ * @property mixed is_confirmed
  */
 class User extends Authenticate
 {
@@ -213,6 +214,26 @@ class User extends Authenticate
         }
 
         return user_img_asset($this->avatar, $this->avatar_extension);
+    }
+
+    /**
+     * Badge color form user confirmation status
+     *
+     * @return mixed
+     */
+    public function getBadgeColorAttribute()
+    {
+        return $this->is_confirmed ? "success" : "danger";
+    }
+
+    /**
+     * Badge color form user confirmation status
+     *
+     * @return mixed
+     */
+    public function getBadgeTextAttribute()
+    {
+        return $this->is_confirmed ? "Activé" : "Désactivé";
     }
 
     /**

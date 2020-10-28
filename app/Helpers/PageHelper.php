@@ -82,6 +82,17 @@ if(!function_exists('seo_authors'))
     }
 }
 
+if(!function_exists('customers_pages'))
+{
+    /**
+     * @return Collection
+     */
+    function customers_pages()
+    {
+        return collect(['customers.index', 'customers.create', 'customers.show', 'customers.edit']);
+    }
+}
+
 if(!function_exists('articles_pages'))
 {
     /**

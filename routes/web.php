@@ -59,6 +59,7 @@ Route::group(['namespace' => 'App'], function() {
         'products' => 'ProductController',
         'articles' => 'ArticleController',
         'services' => 'ServiceController',
+        'customers' => 'CustomerController',
         'categories' => 'CategoryController',
         'testimonials' => 'TestimonialController',
     ]);

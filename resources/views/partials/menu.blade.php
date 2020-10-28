@@ -30,23 +30,23 @@
                     </a>
                 </li>
                 {{--Customers--}}
-                <li class="has-sub expand">
+                <li class="has-sub expand {{ active_page(customers_pages()) }}">
                     <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#customers" aria-expanded="false" aria-controls="customers">
                         <i class="mdi mdi-account-group"></i>
                         <span class="nav-text">Clients</span> <b class="caret"></b>
                     </a>
-                    <ul class="collapse" id="customers" data-parent="#sidebar-menu">
+                    <ul class="collapse {{ active_page_group(customers_pages()) }}" id="customers" data-parent="#sidebar-menu">
                         <div class="sub-menu">
-                            <li class="">
-                                <a class="sidenav-item-link" href="#">
+                            <li class="{{ active_page(collect('customers.index')) }}">
+                                <a class="sidenav-item-link" href="{{ route('customers.index') }}">
                                     <span class="nav-text">
                                         <i class="mdi mdi-playlist-check"></i>
                                         Tous les clients
                                     </span>
                                 </a>
                             </li>
-                            <li class="">
-                                <a class="sidenav-item-link" href="#">
+                            <li class="{{ active_page(collect('customers.create')) }}">
+                                <a class="sidenav-item-link" href="{{ route('customers.create') }}">
                                     <span class="nav-text">
                                         <i class="mdi mdi-playlist-plus"></i>
                                         Nouveau client
