@@ -1,3 +1,4 @@
+@inject('contactService', 'App\Services\ContactService')
 <header class="main-header " id="header">
     <nav class="navbar navbar-static-top navbar-expand-lg">
         <button id="sidebar-toggler" class="sidebar-toggle">
@@ -11,13 +12,15 @@
                         <i class="mdi mdi-bell-ring-outline"></i>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-right">
-                        <li class="dropdown-header">1 Nouveau message</li>
-                        <li>
-                            <a href="#">
-                                <i class="mdi mdi-email"></i> Bonnjour Team MBOACUTZ
-                                <span class=" font-size-12 d-inline-block float-right"><i class="mdi mdi-clock-outline"></i> 12/06/2020 10:50</span>
-                            </a>
-                        </li>
+                        <li class="dropdown-header">{{ $contactService->unreadMessagesNumber() }} Nouveau messages</li>
+
+                        @foreach($contactService->unreadMessagesToDisplay() as $contact)
+                            <li class="m-4">
+                                <i class="mdi mdi-email"></i> {{ text_format($contact->subject, 10) }}
+                                <span class=" font-size-12 d-inline-block float-right"><i class="mdi mdi-clock-outline"></i> {{ $contact->creation_date }}</span>
+                            </li>
+                        @endforeach
+
                         <li class="dropdown-footer">
                             <a class="text-center" href="#"> Tout voir </a>
                         </li>
@@ -30,8 +33,8 @@
                     <ul class="dropdown-menu dropdown-menu-right">
                         <li class="dropdown-header">
                             <div class="d-inline-block">
-                                {{ text_format(auth()->user()->full_name, 20) }}
-                                <small class="pt-1">{{ text_format(auth()->user()->email, 25) }}</small>
+                                {{ text_format(auth()->user()->full_name, 18) }}
+                                <small class="pt-1">{{ text_format(auth()->user()->email, 20) }}</small>
                                 <small>
                                     <span class="badge badge-pill badge-{{ auth()->user()->role->badge_color }} mt-2">
                                         {{ auth()->user()->role->name }}

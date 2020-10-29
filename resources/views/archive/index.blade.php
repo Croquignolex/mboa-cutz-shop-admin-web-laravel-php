@@ -107,7 +107,7 @@
             @include('partials.archive.archive-card', [
                'data' => $service_reviews,
                'icon' => 'mdi mdi-comment-text-outline',
-               'bg_class' => 'bg-secondary',
+               'bg_class' => 'bg-primary',
                'label' => 'Commentaires sur service archivés',
                'url' => route('archives.service-reviews.index'),
            ])
@@ -117,7 +117,7 @@
             @include('partials.archive.archive-card', [
                'data' => $article_comments,
                'icon' => 'mdi mdi-comment',
-               'bg_class' => 'bg-dark',
+               'bg_class' => 'bg-danger',
                'label' => 'Commentaires sur article archivés',
                'url' => route('archives.article-comments.index'),
            ])
