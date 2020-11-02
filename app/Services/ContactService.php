@@ -31,6 +31,6 @@ class ContactService
      * @return Contact[]|Collection
      */
     private function unreadMessages() {
-        return Contact::all()->sortByDesc('updated_at');
+        return Contact::where('is_read', false)->orderBy('updated_at', 'desc')->get();
     }
 }
