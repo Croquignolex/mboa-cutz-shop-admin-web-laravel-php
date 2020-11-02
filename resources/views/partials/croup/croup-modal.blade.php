@@ -19,7 +19,7 @@
                 Enrégistrer
             </button>
         </div>
-        <div class="card-body align-items-center justify-content-center" id="croup-modal-loader" hidden>
+        <div class="card-body align-items-center justify-content-center" id="croup-modal-loader">
             <div class="sk-wave">
                 <div class="rect1"></div>
                 <div class="rect2"></div>
