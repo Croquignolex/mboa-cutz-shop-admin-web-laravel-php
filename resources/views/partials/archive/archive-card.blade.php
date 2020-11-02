@@ -1,9 +1,11 @@
 <a href="{{ $url }}">
-    <div class="card widget-block p-4 rounded {{ $bg_class }} border">
-        <div class="card-block">
-            <i class="{{ $icon }} mr-4 text-white"></i>
-            <h4 class="text-white my-2">{{ $data }}</h4>
-            <p class="text-white">{{ $label }}</p>
+    <div class="media widget-media p-4 bg-white border">
+        <div class="icon rounded-circle mr-4 {{ $bg_class }}">
+            <i class="{{ $icon }} text-white"></i>
+        </div>
+        <div class="media-body align-self-center">
+            <h4 class="mb-2">{{ $data }}</h4>
+            <p>{{ $label }}</p>
         </div>
     </div>
 </a>

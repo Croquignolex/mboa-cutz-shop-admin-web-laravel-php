@@ -11,27 +11,29 @@ use App\Enums\Constants;
 use Illuminate\View\View;
 use App\Traits\ProductStore;
 use App\Traits\ModelMapping;
+use App\Models\ProductReview;
 use Illuminate\Http\Response;
+use App\Traits\ModelRatingTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Redirector;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\Factory;
-use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\Base64ImageRequest;
 use Illuminate\Contracts\Foundation\Application;
 
 class ProductController extends Controller
 {
-    use ModelMapping, ProductStore;
+    use ModelMapping, ProductStore, ModelRatingTrait;
 
     /**
-     * CategoryController constructor.
+     * ProductController constructor.
      */
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('ajax')->only('updateImage');
     }
 
     /**
@@ -94,6 +96,27 @@ class ProductController extends Controller
             ->onEachSide(Constants::DEFAULT_PAGE_PAGINATION_EACH_SIDE);
 
         return view('app.products.show', compact('product', 'reviews'));
+    }
+
+    /**
+     * Remove product review
+     *
+     * @param Product $product
+     * @param ProductReview $review
+     * @return Application|RedirectResponse|Redirector
+     * @throws Exception
+     */
+    public function removeReview(Product $product, ProductReview $review) {
+        if(!$review->can_delete) return $this->unauthorizedToast();
+
+        $review->delete();
+
+        $this->rateModel($product);
+
+        success_toast_alert("Commentaire sur le produit $product->fr_name archivé avec success");
+        log_activity("Commentaire", "Archivage du commentaire sur le produit $product->fr_name");
+
+        return redirect(route('products.show', compact('product')));
     }
 
     /**
@@ -178,16 +201,15 @@ class ProductController extends Controller
      * @param Product $product
      * @return JsonResponse
      */
-    public function updateImage(Base64ImageRequest $request, Product $product) {
-        // Get current product
-        $product_image_src = $product->image_src;
-
-        //Delete old file before storing new file
-        if(Storage::exists($product_image_src) && $product->image !== Constants::DEFAULT_IMAGE)
-            Storage::delete($product_image_src);
-
+    public function updateImage(Base64ImageRequest $request, Product $product)
+    {
         // Convert base 64 image to normal image for the server and the data base
-        $product_image_to_save = imageFromBase64AndSave($request->input('base_64_image'), ImagePath::PRODUCT_DEFAULT_IMAGE_PATH);
+        $product_image_to_save = imageFromBase64AndSave(
+            $request->input('base_64_image'),
+            $product->image,
+            $product->image_extension,
+            ImagePath::PRODUCT_DEFAULT_IMAGE_PATH
+        );
 
         // Save image name in database
         $product->update([

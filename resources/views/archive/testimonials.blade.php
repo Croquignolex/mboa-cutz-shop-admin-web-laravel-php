@@ -43,22 +43,26 @@
                                     <td>{{ $testimonial->en_description}}</td>
                                     <td>{{ $testimonial->creator_name}}</td>
                                     <td class="text-center">
-                                        <button class="btn btn-sm btn-success"
-                                                data-toggle="modal"
-                                                data-target="{{ "#$testimonial->slug-restore-testimonial-modal" }}"
-                                                title="Restorer"
-                                        >
-                                            <i class="mdi mdi-backup-restore"></i>
-                                            Restorer
-                                        </button>
+                                        @if($testimonial->can_delete)
+                                            <button class="btn btn-sm btn-success"
+                                                    data-toggle="modal"
+                                                    data-target="{{ "#$testimonial->id-restore-testimonial-modal" }}"
+                                                    title="Restorer"
+                                            >
+                                                <i class="mdi mdi-backup-restore"></i>
+                                                Restorer
+                                            </button>
+                                        @endif
                                     </td>
                                 </tr>
 
-                                @include('partials.restore-confirmation', [
-                                    'name' => $testimonial->name,
-                                    'modal_id' => "$testimonial->slug-restore-testimonial-modal",
-                                    'url' => route('archives.testimonials.restore', compact('testimonial'))
-                                ])
+                                @if($testimonial->can_delete)
+                                    @include('partials.restore-confirmation', [
+                                        'name' => $testimonial->name,
+                                        'modal_id' => "$testimonial->id-restore-testimonial-modal",
+                                        'url' => route('archives.testimonials.restore', compact('testimonial'))
+                                    ])
+                                @endif
                             @endforeach
                             </tbody>
                         </table>

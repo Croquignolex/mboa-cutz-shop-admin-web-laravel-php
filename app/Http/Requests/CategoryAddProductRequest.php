@@ -19,7 +19,6 @@ class CategoryAddProductRequest extends FormRequest
     {
         return [
             'tags' => $this->array,
-            'new' => $this->string,
             'featured' => $this->string,
             'most_sold' => $this->string,
             'en_description' => $this->string,

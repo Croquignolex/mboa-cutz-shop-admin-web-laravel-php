@@ -8,6 +8,7 @@ use App\Enums\Constants;
 use App\Models\Category;
 use Illuminate\View\View;
 use App\Traits\ServiceStore;
+use App\Traits\ArticleStore;
 use App\Traits\ProductStore;
 use App\Traits\ModelMapping;
 use Illuminate\Http\Response;
@@ -17,13 +18,14 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\CategoryRequest;
 use Illuminate\Contracts\View\Factory;
+use App\Http\Requests\CategoryAddArticleRequest;
 use App\Http\Requests\CategoryAddServiceRequest;
 use App\Http\Requests\CategoryAddProductRequest;
 use Illuminate\Contracts\Foundation\Application;
 
 class CategoryController extends Controller
 {
-    use ModelMapping, ProductStore, ServiceStore;
+    use ModelMapping, ProductStore, ServiceStore, ArticleStore;
 
     /**
      * CategoryController constructor.
@@ -93,9 +95,15 @@ class CategoryController extends Controller
             ->paginate(Constants::DEFAULT_PAGE_PAGINATION_ITEMS)
             ->onEachSide(Constants::DEFAULT_PAGE_PAGINATION_EACH_SIDE);
 
+        $articles = $category
+            ->articles()
+            ->orderBy('created_at', 'desc')
+            ->paginate(Constants::DEFAULT_PAGE_PAGINATION_ITEMS)
+            ->onEachSide(Constants::DEFAULT_PAGE_PAGINATION_EACH_SIDE);
+
         $tags = $this->mapModels(Tag::all());
 
-        return view('app.categories.show', compact('category', 'products', 'services', 'tags'));
+        return view('app.categories.show', compact('category', 'products', 'services', 'articles', 'tags'));
     }
 
     /**
@@ -126,6 +134,22 @@ class CategoryController extends Controller
         $tags = $request->input('tags');
 
         $this->serviceStore($request, $category, ($tags !== null) ? $this->mapTags($tags) : collect());
+
+        return redirect(route('categories.show', compact('category')));
+    }
+
+    /**
+     * Add article
+     *
+     * @param CategoryAddArticleRequest $request
+     * @param Category $category
+     * @return Application|RedirectResponse|Redirector
+     */
+    public function addArticle(CategoryAddArticleRequest $request, Category $category)
+    {
+        $tags = $request->input('tags');
+
+        $this->articleStore($request, $category, ($tags !== null) ? $this->mapTags($tags) : collect());
 
         return redirect(route('categories.show', compact('category')));
     }

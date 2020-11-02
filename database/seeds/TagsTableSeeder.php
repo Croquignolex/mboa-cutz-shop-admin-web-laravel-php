@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Article;
 use App\Models\Product;
 use App\Models\Service;
 use Faker\Provider\Lorem;
@@ -28,6 +29,19 @@ class TagsTableSeeder extends Seeder
         ]);
 
         Service::first()->tags()->createMany([
+            [
+                'fr_name' => Lorem::word(),
+                'en_name' => Lorem::word(),
+                'description' => Lorem::text()
+            ],
+            [
+                'fr_name' => Lorem::word(),
+                'en_name' => Lorem::word(),
+                'description' => Lorem::text()
+            ],
+        ]);
+
+        Article::first()->tags()->createMany([
             [
                 'fr_name' => Lorem::word(),
                 'en_name' => Lorem::word(),

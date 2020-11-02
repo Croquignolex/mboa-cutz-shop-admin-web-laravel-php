@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\UserRole;
+use App\Enums\ImagePath;
 use App\Enums\Constants;
 use App\Traits\DateTrait;
 use App\Traits\CreatorTrait;
@@ -45,6 +46,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property mixed can_restore
  * @property mixed can_grant_super_admin_user
  * @property mixed can_grant_admin_user
+ * @property mixed is_confirmed
  */
 class User extends Authenticate
 {
@@ -68,6 +70,13 @@ class User extends Authenticate
         'address', 'email', 'avatar',
         'avatar_extension'
     ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = ['is_confirmed' => 'boolean'];
 
     /**
      * User role
@@ -196,7 +205,8 @@ class User extends Authenticate
      */
     public function getAvatarSrcAttribute() {
         // Update image with default if file is not found
-        if(!Storage::exists(user_img_asset($this->avatar, $this->avatar_extension))) {
+        $folder = ImagePath::USER_DEFAULT_IMAGE_PATH;
+        if(!Storage::disk('public')->exists("$folder/$this->avatar.$this->avatar_extension")) {
             $this->update([
                 'avatar' => Constants::DEFAULT_IMAGE,
                 'avatar_extension' => Constants::DEFAULT_IMAGE_EXTENSION,
@@ -204,6 +214,26 @@ class User extends Authenticate
         }
 
         return user_img_asset($this->avatar, $this->avatar_extension);
+    }
+
+    /**
+     * Badge color form user confirmation status
+     *
+     * @return mixed
+     */
+    public function getBadgeColorAttribute()
+    {
+        return $this->is_confirmed ? "success" : "danger";
+    }
+
+    /**
+     * Badge color form user confirmation status
+     *
+     * @return mixed
+     */
+    public function getBadgeTextAttribute()
+    {
+        return $this->is_confirmed ? "Activé" : "Désactivé";
     }
 
     /**

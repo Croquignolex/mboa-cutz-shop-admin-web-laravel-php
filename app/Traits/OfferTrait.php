@@ -5,7 +5,7 @@ namespace App\Traits;
 trait OfferTrait
 {
     /**
-     * Product duration tag
+     * Model duration tag
      *
      * @return bool
      */
@@ -15,7 +15,7 @@ trait OfferTrait
     }
 
     /**
-     * Products discount tag
+     * Model discount tag
      *
      * @return bool
      */
