@@ -21,13 +21,15 @@
                             <i class="mdi mdi-pencil"></i>
                             Modifier
                         </a>
-                        <button class="btn btn-danger"
-                                data-toggle="modal"
-                                data-target="{{ "#archive-testimonial-modal" }}"
-                        >
-                            <i class="mdi mdi-archive"></i>
-                            Archiver
-                        </button>
+                        @if($testimonial->can_delete)
+                            <button class="btn btn-danger"
+                                    data-toggle="modal"
+                                    data-target="{{ "#archive-testimonial-modal" }}"
+                            >
+                                <i class="mdi mdi-archive"></i>
+                                Archiver
+                            </button>
+                        @endif
                     </div>
                     <div class="contact-info">
                         <p class="text-dark font-weight-medium pt-4 mb-2">Nom</p>
@@ -57,11 +59,13 @@
         </div>
     </div>
     {{--Modal--}}
-    @include('partials.archive.archive-confirmation', [
-        'name' => $testimonial->name,
-        'modal_id' => "archive-testimonial-modal",
-        'url' => route('testimonials.destroy', compact('testimonial'))
-    ])
+    @if($testimonial->can_delete)
+        @include('partials.archive.archive-confirmation', [
+            'name' => $testimonial->name,
+            'modal_id' => "archive-testimonial-modal",
+            'url' => route('testimonials.destroy', compact('testimonial'))
+        ])
+    @endif
 @endsection
 
 @include('partials.croup.croup-scripts')

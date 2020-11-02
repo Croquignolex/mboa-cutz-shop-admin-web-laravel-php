@@ -43,6 +43,8 @@ class ServiceController extends Controller
     public function restore(String $service)
     {
         $trashed_service = Service::withTrashed()->whereSlug($service)->first();
+        if(!$trashed_service->can_delete) return $this->unauthorizedToast();
+
         $trashed_service->restore();
 
         success_toast_alert("Service $trashed_service->fr_name restoré avec success");

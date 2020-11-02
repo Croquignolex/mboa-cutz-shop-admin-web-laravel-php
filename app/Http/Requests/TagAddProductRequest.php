@@ -18,7 +18,6 @@ class TagAddProductRequest extends FormRequest
     public function rules()
     {
         return [
-            'new' => $this->string,
             'featured' => $this->string,
             'most_sold' => $this->string,
             'en_description' => $this->string,

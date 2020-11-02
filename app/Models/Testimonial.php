@@ -3,12 +3,13 @@
 namespace App\Models;
 
 use App\Enums\Constants;
+use App\Enums\ImagePath;
 use App\Traits\DateTrait;
 use App\Traits\CreatorTrait;
-use App\Traits\SlugRouteTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Traits\SuperAdminOrCreatorCanDeleteTrait;
 
 /**
  * @property mixed name
@@ -19,17 +20,18 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property mixed image
  * @property mixed image_src
  * @property mixed image_extension
+ * @property mixed can_delete
  */
 class Testimonial extends Model
 {
-    use SoftDeletes, SlugRouteTrait, DateTrait, CreatorTrait;
+    use SoftDeletes, DateTrait, CreatorTrait, SuperAdminOrCreatorCanDeleteTrait;
 
     /**
      * The attributes that should be cast.
      *
      * @var array
      */
-    protected $guarded = ['slug', 'id', 'creator_id'];
+    protected $guarded = ['id', 'creator_id'];
 
     /**
      * The attributes that are mass assignable.
@@ -48,7 +50,8 @@ class Testimonial extends Model
      */
     public function getImageSrcAttribute() {
         // Update image with default if file is not found
-        if(!Storage::exists(testimonial_img_asset($this->image, $this->image_extension))) {
+        $folder = ImagePath::TESTIMONIAL_DEFAULT_IMAGE_PATH;
+        if(!Storage::disk('public')->exists("$folder/$this->image.$this->image_extension")) {
             $this->update([
                 'image' => Constants::DEFAULT_IMAGE,
                 'image_extension' => Constants::DEFAULT_IMAGE_EXTENSION,
@@ -56,5 +59,15 @@ class Testimonial extends Model
         }
 
         return testimonial_img_asset($this->image, $this->image_extension);
+    }
+
+    /**
+     * Check if article can be deleted
+     *
+     * @return mixed
+     */
+    public function getCanDeleteAttribute()
+    {
+        return $this->superAdminOrCreatorCanDelete();
     }
 }

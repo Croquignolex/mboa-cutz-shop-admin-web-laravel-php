@@ -15,7 +15,7 @@
         <div class="col">
             <div class="card card-default">
                 <div class="card-body">
-                    <div class="mx-5">@include('partials.error-message')</div>
+                    <div class="mx-5">@include('partials.toast-message')</div>
                     <form action="{{ route('categories.update', compact('category')) }}" method="POST">
                         @csrf
                         @method('PUT')

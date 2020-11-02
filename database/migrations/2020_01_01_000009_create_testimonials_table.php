@@ -16,7 +16,6 @@ class CreateTestimonialsTable extends Migration
     {
         Schema::create('testimonials', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('slug')->unique();
             $table->string('image', 255)->default(Constants::DEFAULT_IMAGE);
             $table->string('image_extension', 50)->default(Constants::DEFAULT_IMAGE_EXTENSION);
             $table->string('name');

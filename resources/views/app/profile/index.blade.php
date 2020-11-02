@@ -23,7 +23,7 @@
             </div>
             <div class="col-lg-7 col-xl-8">
                 <div class="profile-content-right py-4">
-                    <div class="mx-5">@include('partials.error-message')</div>
+                    <div class="mx-5">@include('partials.toast-message')</div>
                     <ul class="nav nav-tabs px-3 px-xl-5 nav-style-border" id="myTab" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" id="info-tab" data-toggle="tab" href="#info" role="tab" aria-controls="info" aria-selected="true">Informations</a>

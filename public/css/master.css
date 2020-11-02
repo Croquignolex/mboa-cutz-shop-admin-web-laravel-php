@@ -1,0 +1,73 @@
+.bg-theme-dark {
+    background-color: #181818;
+}
+
+.bg-theme {
+    background-color: #ec008c;
+}
+
+.btn-theme-dark {
+    background-color: #181818;
+    color: white;
+}
+
+.btn-theme {
+    background-color: #ec008c;
+    color: white;
+}
+
+.btn-theme-dark:hover {
+    background-color: #ec008c;
+    color: white;
+}
+
+.btn-theme:hover {
+    background-color: #181818;
+    color: white;
+}
+
+.home-particles canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.text-theme {
+    color: #ec008c;
+}
+
+.bg-theme {
+    background-color: #ec008c;
+}
+
+.hand-cursor {
+    cursor: progress !important;
+}
+
+.busy-cursor {
+    cursor: not-allowed !important;
+}
+
+.bootstrap-select .dropdown-toggle:focus {
+    outline: 0 !important;
+}
+
+/* Start erase cropper box */
+.cropper-view-box {
+    outline: rgba(236, 0, 140, 0.75) solid 1px;
+}
+
+.cropper-line {
+    background-color: #ec008c;
+}
+
+.cropper-point {
+    background-color: #ec008c;
+}
+
+.cropper-point.point-se::before {
+    background-color: #ec008c;
+}
+/* End erase cropper box */

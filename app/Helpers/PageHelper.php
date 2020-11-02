@@ -82,6 +82,17 @@ if(!function_exists('seo_authors'))
     }
 }
 
+if(!function_exists('customers_pages'))
+{
+    /**
+     * @return Collection
+     */
+    function customers_pages()
+    {
+        return collect(['customers.index', 'customers.create', 'customers.show']);
+    }
+}
+
 if(!function_exists('articles_pages'))
 {
     /**
@@ -159,6 +170,17 @@ if(!function_exists('services_pages'))
     }
 }
 
+if(!function_exists('articles_pages'))
+{
+    /**
+     * @return Collection
+     */
+    function articles_pages()
+    {
+        return collect(['articles.index', 'articles.create', 'articles.show', 'articles.edit']);
+    }
+}
+
 if(!function_exists('archives_pages'))
 {
     /**
@@ -166,6 +188,11 @@ if(!function_exists('archives_pages'))
      */
     function archives_pages()
     {
-        return collect(['archives.index', 'archives.admins.index']);
+        return collect([
+            'archives.index', 'archives.tags.index', 'archives.admins.index',
+            'archives.products.index', 'archives.services.index', 'archives.articles.index',
+            'archives.customers.index', 'archives.categories.index', 'archives.testimonials.index',
+            'archives.product-reviews.index', 'archives.service-reviews.index', 'archives.article-comments.index',
+        ]);
     }
 }

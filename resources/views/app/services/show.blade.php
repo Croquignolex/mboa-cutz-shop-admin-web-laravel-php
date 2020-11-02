@@ -30,20 +30,7 @@
                         </button>
                     </div>
                     <div class="contact-info">
-                        <p class="text-right">
-                            @if($service->is_a_new)
-                                <span class="badge badge-pill badge-success mt-1">Nouveau</span>
-                            @endif
-                            @if($service->is_featured)
-                                <span class="badge badge-pill badge-info mt-1">En vedette</span>
-                            @endif
-                            @if($service->is_a_discount)
-                                <span class="badge badge-pill badge-secondary mt-1">En promo</span>
-                            @endif
-                            @if($service->is_most_asked)
-                                <span class="badge badge-pill badge-primary mt-1">Meilleur reservation</span>
-                            @endif
-                        </p>
+                        <p class="text-right">@include('partials.services.services-status')</p>
                         <p class="text-right text-theme" style="white-space: nowrap;">
                             @include('partials.rating-star', ['rate' => $service->rate])
                         </p>
@@ -120,7 +107,7 @@
                             <div id="collapse-comments" class="collapse" aria-labelledby="heading-comments" data-parent="#accordion">
                                 <div class="card-body">
                                     {{--Comments--}}
-                                    @include('partials.reviews-list')
+                                    @include('partials.services.service-reviews-list')
                                 </div>
                             </div>
                         </div>
@@ -131,7 +118,7 @@
     </div>
     {{--Modal--}}
     @include('partials.archive.archive-confirmation', [
-        'name' => $service->name,
+        'name' => $service->fr_name,
         'modal_id' => "archive-service-modal",
         'url' => route('services.destroy', compact('service'))
     ])

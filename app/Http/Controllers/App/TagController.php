@@ -7,6 +7,7 @@ use App\Models\Tag;
 use App\Models\Category;
 use App\Enums\Constants;
 use Illuminate\View\View;
+use App\Traits\ArticleStore;
 use App\Traits\ModelMapping;
 use App\Traits\ProductStore;
 use App\Traits\ServiceStore;
@@ -17,13 +18,14 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\CategoryRequest;
 use Illuminate\Contracts\View\Factory;
+use App\Http\Requests\TagAddArticleRequest;
 use App\Http\Requests\TagAddProductRequest;
 use App\Http\Requests\TagAddServiceRequest;
 use Illuminate\Contracts\Foundation\Application;
 
 class TagController extends Controller
 {
-    use ModelMapping, ProductStore, ServiceStore;
+    use ModelMapping, ProductStore, ServiceStore, ArticleStore;
     /**
      * CategoryController constructor.
      */
@@ -92,9 +94,15 @@ class TagController extends Controller
             ->paginate(Constants::DEFAULT_PAGE_PAGINATION_ITEMS)
             ->onEachSide(Constants::DEFAULT_PAGE_PAGINATION_EACH_SIDE);
 
+        $articles = $tag
+            ->articles()
+            ->orderBy('created_at', 'desc')
+            ->paginate(Constants::DEFAULT_PAGE_PAGINATION_ITEMS)
+            ->onEachSide(Constants::DEFAULT_PAGE_PAGINATION_EACH_SIDE);
+
         $categories = $this->mapModels(Category::all());
 
-        return view('app.tags.show', compact('tag', 'products', 'services', 'categories'));
+        return view('app.tags.show', compact('tag', 'products', 'services', 'articles', 'categories'));
     }
 
     /**
@@ -121,6 +129,20 @@ class TagController extends Controller
     public function addService(TagAddServiceRequest $request, Tag $tag)
     {
         $this->serviceStore($request, Category::whereSlug($request->input('category'))->first(), collect([$tag->id]));
+
+        return redirect(route('tags.show', compact('tag')));
+    }
+
+    /**
+     * Add article
+     *
+     * @param TagAddArticleRequest $request
+     * @param Tag $tag
+     * @return Application|RedirectResponse|Redirector
+     */
+    public function addArticle(TagAddArticleRequest $request, Tag $tag)
+    {
+        $this->articleStore($request, Category::whereSlug($request->input('category'))->first(), collect([$tag->id]));
 
         return redirect(route('tags.show', compact('tag')));
     }

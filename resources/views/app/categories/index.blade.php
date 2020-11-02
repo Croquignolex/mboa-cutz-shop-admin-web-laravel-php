@@ -33,6 +33,7 @@
                                 <th scope="col">NOM (en)</th>
                                 <th scope="col">PRODUITS</th>
                                 <th scope="col">SERVICES</th>
+                                <th scope="col">ARTICLES</th>
                                 <th scope="col">CREER PAR</th>
                                 <th scope="col">ACTIONS</th>
                             </tr>
@@ -45,6 +46,7 @@
                                         <td>{{ $category->en_name }}</td>
                                         <td class="text-right">{{ $category->products->count() }}</td>
                                         <td class="text-right">{{ $category->services->count() }}</td>
+                                        <td class="text-right">{{ $category->articles->count() }}</td>
                                         <td>{{ $category->creator_name}}</td>
                                         <td class="text-center" style="white-space: nowrap;">
                                             <a href="{{ route('categories.show', compact('category')) }}"

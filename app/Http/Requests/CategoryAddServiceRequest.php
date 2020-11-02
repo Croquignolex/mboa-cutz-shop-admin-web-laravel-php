@@ -19,7 +19,6 @@ class CategoryAddServiceRequest extends FormRequest
     {
         return [
             'tags' => $this->array,
-            'new' => $this->string,
             'featured' => $this->string,
             'most_asked' => $this->string,
             'en_description' => $this->string,

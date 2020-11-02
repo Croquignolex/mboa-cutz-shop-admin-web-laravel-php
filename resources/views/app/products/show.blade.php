@@ -30,20 +30,7 @@
                         </button>
                     </div>
                     <div class="contact-info">
-                        <p class="text-right">
-                            @if($product->is_a_new)
-                                <span class="badge badge-pill badge-success mt-1">Nouveau</span>
-                            @endif
-                            @if($product->is_featured)
-                                <span class="badge badge-pill badge-info mt-1">En vedette</span>
-                            @endif
-                            @if($product->is_a_discount)
-                                <span class="badge badge-pill badge-secondary mt-1">En promo</span>
-                            @endif
-                            @if($product->is_most_sold)
-                                <span class="badge badge-pill badge-primary mt-1">Meilleur vente</span>
-                            @endif
-                        </p>
+                        <p class="text-right">@include('partials.products.products-status')</p>
                         <p class="text-right text-theme" style="white-space: nowrap;">
                             @include('partials.rating-star', ['rate' => $product->rate])
                         </p>
@@ -123,7 +110,7 @@
                             <div id="collapse-comments" class="collapse" aria-labelledby="heading-comments" data-parent="#accordion">
                                 <div class="card-body">
                                     {{--Comments--}}
-                                    @include('partials.reviews-list')
+                                    @include('partials.products.product-reviews-list')
                                 </div>
                             </div>
                         </div>
@@ -134,7 +121,7 @@
     </div>
     {{--Modal--}}
     @include('partials.archive.archive-confirmation', [
-        'name' => $product->name,
+        'name' => $product->fr_name,
         'modal_id' => "archive-product-modal",
         'url' => route('products.destroy', compact('product'))
     ])

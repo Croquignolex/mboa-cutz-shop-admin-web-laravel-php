@@ -2,16 +2,16 @@
 
 namespace App\Models;
 
-use App\Enums\UserRole;
+use App\Enums\ImagePath;
 use App\Enums\Constants;
 use App\Traits\DateTrait;
 use App\Traits\OfferTrait;
 use App\Traits\CreatorTrait;
 use App\Traits\SlugRouteTrait;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Traits\SuperAdminOrCreatorCanDeleteTrait;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -34,10 +34,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property mixed tags
  * @property mixed category
  * @property mixed image_src
+ * @property mixed reviews
  */
 class Service extends Model
 {
-    use SoftDeletes, SlugRouteTrait, DateTrait, CreatorTrait, OfferTrait;
+    use SoftDeletes, SlugRouteTrait, DateTrait, CreatorTrait, OfferTrait, SuperAdminOrCreatorCanDeleteTrait;
 
     /**
      * The attributes that should be cast.
@@ -56,6 +57,17 @@ class Service extends Model
         'is_featured', 'is_new', 'is_most_asked',
         'rate', 'price', 'discount',
         'image', 'extension'
+    ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'is_new' => 'boolean',
+        'is_featured' => 'boolean',
+        'is_most_asked' => 'boolean',
     ];
 
     /**
@@ -89,7 +101,8 @@ class Service extends Model
      */
     public function getImageSrcAttribute() {
         // Update image with default if file is not found
-        if(!Storage::exists(service_img_asset($this->image, $this->image_extension))) {
+        $folder = ImagePath::SERVICE_DEFAULT_IMAGE_PATH;
+        if(!Storage::disk('public')->exists("$folder/$this->image.$this->image_extension")) {
             $this->update([
                 'image' => Constants::DEFAULT_IMAGE,
                 'image_extension' => Constants::DEFAULT_IMAGE_EXTENSION,
@@ -106,12 +119,10 @@ class Service extends Model
      */
     public function getCanDeleteAttribute()
     {
-        //TODO: complete product can_delete(commands, comments etc...)
-        $connected_user = Auth::user();
+        //TODO: complete product can_delete(commands)
         return (
-            ($connected_user->role->type === UserRole::SUPER_ADMIN) ||
-            ($this->creator === null) ||
-            (Auth::user()->id === $this->creator->id)
+            (($this->reviews->count() === 0)) &&
+            $this->superAdminOrCreatorCanDelete()
         );
     }
 }

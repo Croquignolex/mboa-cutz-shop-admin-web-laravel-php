@@ -15,7 +15,7 @@
         <div class="col">
             <div class="card card-default">
                 <div class="card-body">
-                    <div class="mx-5">@include('partials.error-message')</div>
+                    <div class="mx-5">@include('partials.toast-message')</div>
                     <form action="{{ route('admins.store') }}" method="POST">
                         @csrf
                         <div class="row">
@@ -103,7 +103,7 @@
                                     'value' =>  old('country'),
                                 ])
                             </div>
-                            <div class="col-sm-8">
+                            <div class="col-sm-6">
                                 @include('partials.form.textarea', [
                                    'name' => 'Description',
                                    'id' => 'description',

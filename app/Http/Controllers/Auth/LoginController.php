@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Models\Log;
 use App\Models\User;
 use App\Enums\UserRole;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
@@ -78,7 +76,7 @@ class LoginController extends Controller
         $user = User::where(['email' => $credentials['email']])->first();
         if($user !== null)
         {
-            if($user->role->type !== UserRole::USER) {
+            if($user->role->type !== UserRole::USER && $user->is_confirmed) {
                 return $this->guard()->attempt($this->credentials($request));
             }
         }
@@ -101,18 +99,6 @@ class LoginController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @return array
-     */
-    protected function credentials(Request $request)
-    {
-        $credentials = $request->only($this->username(), 'password');
-        Arr::add($credentials, 'is_confirmed', true);
-
-        return $credentials;
-    }
-
-    /**
      * Get the failed login response instance.
      *
      * @param Request $request
@@ -132,7 +118,7 @@ class LoginController extends Controller
      */
     protected function authenticated(Request $request, $user)
     {
-        info_toast_alert("Bienvenue {$user->name}");
+        info_toast_alert("Bienvenue {$user->full_name}");
         log_activity("Authentification", "Connexion sur la plateforme");
     }
 

@@ -21,7 +21,7 @@
                             Nouveau produit
                         </a>
                     </div>
-                    @include('partials.products-list', ['actions' => true])
+                    @include('partials.products.products-list', ['actions' => true])
                 </div>
             </div>
         </div>

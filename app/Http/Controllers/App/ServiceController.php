@@ -12,26 +12,28 @@ use Illuminate\View\View;
 use App\Traits\ServiceStore;
 use App\Traits\ModelMapping;
 use Illuminate\Http\Response;
+use App\Models\ServiceReview;
+use App\Traits\ModelRatingTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Redirector;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\ServiceRequest;
 use Illuminate\Contracts\View\Factory;
-use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\Base64ImageRequest;
 use Illuminate\Contracts\Foundation\Application;
 
 class ServiceController extends Controller
 {
-    use ModelMapping, ServiceStore;
+    use ModelMapping, ServiceStore, ModelRatingTrait;
 
     /**
-     * CategoryController constructor.
+     * ServiceController constructor.
      */
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('ajax')->only('updateImage');
     }
 
     /**
@@ -94,6 +96,27 @@ class ServiceController extends Controller
             ->onEachSide(Constants::DEFAULT_PAGE_PAGINATION_EACH_SIDE);
 
         return view('app.services.show', compact('service', 'reviews'));
+    }
+
+    /**
+     * Remove product review
+     *
+     * @param Service $service
+     * @param ServiceReview $review
+     * @return Application|RedirectResponse|Redirector
+     * @throws Exception
+     */
+    public function removeReview(Service $service, ServiceReview $review) {
+        if(!$review->can_delete) return $this->unauthorizedToast();
+
+        $review->delete();
+
+        $this->rateModel($service);
+
+        success_toast_alert("Commentaire sur le service $service->fr_name archivé avec success");
+        log_activity("Commentaire", "Archivage du commentaire sur le service $service->fr_name");
+
+        return redirect(route('services.show', compact('service')));
     }
 
     /**
@@ -177,16 +200,15 @@ class ServiceController extends Controller
      * @param Service $service
      * @return JsonResponse
      */
-    public function updateImage(Base64ImageRequest $request, Service $service) {
-        // Get current product
-        $service_image_src = $service->image_src;
-
-        //Delete old file before storing new file
-        if(Storage::exists($service_image_src) && $service->image !== Constants::DEFAULT_IMAGE)
-            Storage::delete($service_image_src);
-
+    public function updateImage(Base64ImageRequest $request, Service $service)
+    {
         // Convert base 64 image to normal image for the server and the data base
-        $service_image_to_save = imageFromBase64AndSave($request->input('base_64_image'), ImagePath::SERVICE_DEFAULT_IMAGE_PATH);
+        $service_image_to_save = imageFromBase64AndSave(
+            $request->input('base_64_image'),
+            $service->image,
+            $service->image_extension,
+            ImagePath::SERVICE_DEFAULT_IMAGE_PATH
+        );
 
         // Save image name in database
         $service->update([

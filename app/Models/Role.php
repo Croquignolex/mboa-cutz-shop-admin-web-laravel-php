@@ -39,7 +39,7 @@ class Role extends Model
     {
         if($this->type === UserRole::ADMIN) return "Administrateur";
         if($this->type === UserRole::SUPER_ADMIN) return "Super admin";
-        else return "Utilisateur";
+        else return "Client";
     }
 
     /**

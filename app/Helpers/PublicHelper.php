@@ -42,7 +42,7 @@ if(!function_exists('img_asset'))
      */
     function img_asset($img_file, $extension = Constants::DEFAULT_IMAGE_EXTENSION)
     {
-        return file_asset($img_file, $extension, 'img');
+        return asset("storage/$img_file.$extension");
     }
 }
 
@@ -57,7 +57,7 @@ if(!function_exists('favicon_img_asset'))
      */
     function favicon_img_asset($img_file, $extension = Constants::DEFAULT_IMAGE_EXTENSION)
     {
-        return img_file_asset($img_file, $extension, 'favicons');
+        return storage_asset($img_file, $extension, 'favicons');
     }
 }
 
@@ -69,7 +69,7 @@ if(!function_exists('favicon_file_asset'))
      */
     function favicon_file_asset($file)
     {
-        return img_file_asset($file, 'json', 'favicons');
+        return storage_asset($file, 'json', 'favicons');
     }
 }
 
@@ -84,7 +84,7 @@ if(!function_exists('user_img_asset'))
      */
     function user_img_asset($img_file, $extension = Constants::DEFAULT_IMAGE_EXTENSION)
     {
-        return img_file_asset($img_file, $extension,  ImagePath::USER_DEFAULT_IMAGE_PATH);
+        return storage_asset($img_file, $extension, ImagePath::USER_DEFAULT_IMAGE_PATH);
     }
 }
 
@@ -99,7 +99,7 @@ if(!function_exists('product_img_asset'))
      */
     function product_img_asset($img_file, $extension = Constants::DEFAULT_IMAGE_EXTENSION)
     {
-        return img_file_asset($img_file, $extension,  ImagePath::PRODUCT_DEFAULT_IMAGE_PATH);
+        return storage_asset($img_file, $extension, ImagePath::PRODUCT_DEFAULT_IMAGE_PATH);
     }
 }
 
@@ -114,7 +114,22 @@ if(!function_exists('service_img_asset'))
      */
     function service_img_asset($img_file, $extension = Constants::DEFAULT_IMAGE_EXTENSION)
     {
-        return img_file_asset($img_file, $extension,  ImagePath::SERVICE_DEFAULT_IMAGE_PATH);
+        return storage_asset($img_file, $extension, ImagePath::SERVICE_DEFAULT_IMAGE_PATH);
+    }
+}
+
+if(!function_exists('article_img_asset'))
+{
+    /**
+     * Dynamic product image asset file path
+     *
+     * @param $img_file
+     * @param $extension
+     * @return string
+     */
+    function article_img_asset($img_file, $extension = Constants::DEFAULT_IMAGE_EXTENSION)
+    {
+        return storage_asset($img_file, $extension, ImagePath::ARTICLE_DEFAULT_IMAGE_PATH);
     }
 }
 
@@ -129,7 +144,7 @@ if(!function_exists('testimonial_img_asset'))
      */
     function testimonial_img_asset($img_file, $extension = Constants::DEFAULT_IMAGE_EXTENSION)
     {
-        return img_file_asset($img_file, $extension,  ImagePath::TESTIMONIAL_DEFAULT_IMAGE_PATH);
+        return storage_asset($img_file, $extension, ImagePath::TESTIMONIAL_DEFAULT_IMAGE_PATH);
     }
 }
 
@@ -147,24 +162,22 @@ if(!function_exists('file_asset'))
      */
     function file_asset($file, $extension, $path)
     {
-        $public_folder = config('app.folder');
-        return "$public_folder/assets/$path/$file.$extension";
+        return asset("$path/$file.$extension");
     }
 }
 
-if(!function_exists('img_file_asset'))
+if(!function_exists('storage_asset'))
 {
     /**
-     * Dynamic product image asset file path
+     * Dynamic image asset file path
      *
-     * @param $img_file
+     * @param $file
      * @param $extension
      * @param $path
      * @return string
      */
-    function img_file_asset($img_file, $extension, $path)
+    function storage_asset($file, $extension, $path)
     {
-        $public_folder = config('app.folder');
-        return "$public_folder/assets/img/$path/$img_file.$extension";
+        return asset("storage/$path/$file.$extension");
     }
 }
