@@ -21,13 +21,15 @@
                             <i class="mdi mdi-pencil"></i>
                             Modifier
                         </a>
-                        <button class="btn btn-danger"
-                                data-toggle="modal"
-                                data-target="{{ "#archive-article-modal" }}"
-                        >
-                            <i class="mdi mdi-archive"></i>
-                            Archiver
-                        </button>
+                        @if($article->can_delete)
+                            <button class="btn btn-danger"
+                                    data-toggle="modal"
+                                    data-target="{{ "#archive-article-modal" }}"
+                            >
+                                <i class="mdi mdi-archive"></i>
+                                Archiver
+                            </button>
+                        @endif
                     </div>
                     <div class="contact-info">
                         <p class="text-right">@include('partials.articles.articles-status')</p>
@@ -108,11 +110,13 @@
         </div>
     </div>
     {{--Modal--}}
-    @include('partials.archive.archive-confirmation', [
-        'name' => $article->fr_name,
-        'modal_id' => "archive-article-modal",
-        'url' => route('articles.destroy', compact('article'))
-    ])
+    @if($article->can_delete)
+        @include('partials.archive.archive-confirmation', [
+            'name' => $article->fr_name,
+            'modal_id' => "archive-article-modal",
+            'url' => route('articles.destroy', compact('article'))
+        ])
+    @endif
 @endsection
 
 @include('partials.croup.croup-scripts')
