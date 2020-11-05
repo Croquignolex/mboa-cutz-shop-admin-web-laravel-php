@@ -1,34 +1,18 @@
 /* ====== Index ======
 
-1. SCROLLBAR SIDEBAR
-2. BACKDROP
-3. SIDEBAR MENU
-4. SIDEBAR TOGGLE FOR MOBILE
-5. SIDEBAR TOGGLE FOR VARIOUS SIDEBAR LAYOUT
-6. TO DO LIST
-7. RIGHT SIDEBAR
+1. BACKDROP
+2. SIDEBAR MENU
+3. SIDEBAR TOGGLE FOR MOBILE
+4. SIDEBAR TOGGLE FOR VARIOUS SIDEBAR LAYOUT
+5. TODO LIST
+6. RIGHT SIDEBAR
 
 ====== End ======*/
 
 $(document).ready(function() {
   "use strict";
 
-  /*======== 1. SCROLLBAR SIDEBAR ========*/
-  $(".sidebar-scrollbar")
-    .slimScroll({
-      opacity: 0,
-      height: "100%",
-      color: "#808080",
-      size: "5px",
-      wheelStep: 10
-    })
-    .mouseover(function () {
-      $(this)
-        .next(".slimScrollBar")
-        .css("opacity", 0.5);
-    });
-
-  /*======== 2. BACKDROP ========*/
+  /*======== 1. BACKDROP ========*/
   if ($(window).width() < 768) {
     var shadowClass = $(".mobile-sticky-body-overlay");
     $(".sidebar-toggle").on("click", function() {
@@ -43,7 +27,7 @@ $(document).ready(function() {
     });
   }
 
-  /*======== 3. SIDEBAR MENU ========*/
+  /*======== 2. SIDEBAR MENU ========*/
   $(".sidebar .nav > .has-sub > a").click(function(){
     $(this).parent().siblings().removeClass('expand')
     $(this).parent().toggleClass('expand')
@@ -54,24 +38,24 @@ $(document).ready(function() {
   })
 
 
-  /*======== 4. SIDEBAR TOGGLE FOR MOBILE ========*/
+  /*======== 3. SIDEBAR TOGGLE FOR MOBILE ========*/
   if ($(window).width() < 768) {
     $(document).on("click", ".sidebar-toggle", function(e) {
       e.preventDefault();
       var min = "sidebar-minified",
-        min_out = "sidebar-minified-out",
-        body = "#body";
+          min_out = "sidebar-minified-out",
+          body = "#body";
       $(body).hasClass(min)
-        ? $(body)
-            .removeClass(min)
-            .addClass(min_out)
-        : $(body)
-            .addClass(min)
-            .removeClass(min_out)
+          ? $(body)
+              .removeClass(min)
+              .addClass(min_out)
+          : $(body)
+              .addClass(min)
+              .removeClass(min_out)
     });
   }
 
-  /*======== 5. SIDEBAR TOGGLE FOR VARIOUS SIDEBAR LAYOUT ========*/
+  /*======== 4. SIDEBAR TOGGLE FOR VARIOUS SIDEBAR LAYOUT ========*/
   var body = $("#body");
   if ($(window).width() >= 768) {
     window.isMinified = false;
@@ -79,12 +63,12 @@ $(document).ready(function() {
 
     $("#sidebar-toggler").on("click", function () {
       if (
-        body.hasClass("sidebar-fixed-offcanvas") ||
-        body.hasClass("sidebar-static-offcanvas")
+          body.hasClass("sidebar-fixed-offcanvas") ||
+          body.hasClass("sidebar-static-offcanvas")
       ) {
         $(this)
-          .addClass("sidebar-offcanvas-toggle")
-          .removeClass("sidebar-toggle");
+            .addClass("sidebar-offcanvas-toggle")
+            .removeClass("sidebar-toggle");
         if (window.isCollapsed === false) {
           body.addClass("sidebar-collapse");
           window.isCollapsed = true;
@@ -100,16 +84,16 @@ $(document).ready(function() {
       }
 
       if (
-        body.hasClass("sidebar-fixed") ||
-        body.hasClass("sidebar-static")
+          body.hasClass("sidebar-fixed") ||
+          body.hasClass("sidebar-static")
       ) {
         $(this)
-          .addClass("sidebar-toggle")
-          .removeClass("sidebar-offcanvas-toggle");
+            .addClass("sidebar-toggle")
+            .removeClass("sidebar-offcanvas-toggle");
         if (window.isMinified === false) {
           body
-            .removeClass("sidebar-collapse sidebar-minified-out")
-            .addClass("sidebar-minified");
+              .removeClass("sidebar-collapse sidebar-minified-out")
+              .addClass("sidebar-minified");
           window.isMinified = true;
           window.isCollapsed = false;
         } else {
@@ -123,18 +107,17 @@ $(document).ready(function() {
 
   if ($(window).width() >= 768 && $(window).width() < 992) {
     if (
-      body.hasClass("sidebar-fixed") ||
-      body.hasClass("sidebar-static")
+        body.hasClass("sidebar-fixed") ||
+        body.hasClass("sidebar-static")
     ) {
       body
-        .removeClass("sidebar-collapse sidebar-minified-out")
-        .addClass("sidebar-minified");
+          .removeClass("sidebar-collapse sidebar-minified-out")
+          .addClass("sidebar-minified");
       window.isMinified = true;
     }
   }
 
-  /*======== 6. TO DO LIST ========*/
-
+  /*======== 5. TODO LIST ========*/
   function todoCheckAll() {
     var mdis = document.querySelectorAll(".todo-single-item .mdi");
     mdis.forEach(function(fa) {
@@ -147,9 +130,9 @@ $(document).ready(function() {
 
   if (document.querySelector("#todo")) {
     var list = document.querySelector("#todo-list"),
-      todoInput = document.querySelector("#todo-input"),
-      todoInputForm = todoInput.querySelector("form"),
-      item = todoInputForm.querySelector("input");
+        todoInput = document.querySelector("#todo-input"),
+        todoInputForm = todoInput.querySelector("form"),
+        item = todoInputForm.querySelector("input");
 
     document.querySelector("#add-task").addEventListener("click", function(e) {
       e.preventDefault();
@@ -163,14 +146,14 @@ $(document).ready(function() {
         return;
       }
       list.innerHTML =
-        '<div class="todo-single-item d-flex flex-row justify-content-between">' +
-        '<i class="mdi"></i>' +
-        '<span>' +
-        item.value +
-        '</span>' +
-        '<span class="badge badge-primary">Today</span>' +
-        '</div>' +
-        list.innerHTML;
+          '<div class="todo-single-item d-flex flex-row justify-content-between">' +
+          '<i class="mdi"></i>' +
+          '<span>' +
+          item.value +
+          '</span>' +
+          '<span class="badge badge-primary">Today</span>' +
+          '</div>' +
+          list.innerHTML;
       item.value = "";
       //Close input field
       todoInput.classList.toggle("d-block");
@@ -180,7 +163,7 @@ $(document).ready(function() {
     todoCheckAll();
   }
 
-  /*======== 7. RIGHT SIDEBAR ========*/
+  /*======== 6. RIGHT SIDEBAR ========*/
   if ($(window).width() < 1025) {
     body.addClass('right-sidebar-toggoler-out');
 
