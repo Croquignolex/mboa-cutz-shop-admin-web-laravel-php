@@ -1,11 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\App;
+namespace App\Http\Controllers\Archive;
 
-use Exception;
 use App\Models\Contact;
 use App\Enums\Constants;
-use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
@@ -30,29 +28,28 @@ class ContactController extends Controller
      */
     public function index()
     {
-        Contact::where('is_read', false)->update(['is_read' => true]);
-
-        $contacts = Contact::orderBy('created_at', 'desc')
+        $contacts = Contact::onlyTrashed()
+            ->orderBy('updated_at', 'desc')
             ->paginate(Constants::DEFAULT_PAGE_PAGINATION_ITEMS)
             ->onEachSide(Constants::DEFAULT_PAGE_PAGINATION_EACH_SIDE);
 
-        return view('app.contacts', compact('contacts'));
+        return view('archive.contacts', compact('contacts'));
     }
 
     /**
-     * @param Contact $contact
-     * @return RedirectResponse
-     * @throws Exception
+     * @param Int $contact
+     * @return Application|Factory|RedirectResponse|View
      */
-    public function destroy(Contact $contact)
+    public function restore(Int $contact)
     {
-        if(!$contact->can_delete) return $this->unauthorizedToast();
+        $trashed_contacts = Contact::withTrashed()->where('id', $contact)->first();
+        if(!$trashed_contacts->can_delete) return $this->unauthorizedToast();
 
-        $contact->delete();
+        $trashed_contacts->restore();
 
-        success_toast_alert("Message de contact $contact->subject archivée avec success");
-        log_activity("Message", "Archivage du message de contact $contact->subject");
+        success_toast_alert("Message de contact $trashed_contacts->subject restoré avec success");
+        log_activity("Message", "Restoration du message de contact $trashed_contacts->subject");
 
-        return redirect(route('contacts.index'));
+        return redirect(route('archives.contacts.index'));
     }
 }
