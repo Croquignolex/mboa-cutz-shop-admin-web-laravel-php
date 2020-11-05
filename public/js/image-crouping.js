@@ -48,12 +48,12 @@ function inputChangeEventHandle(_input) {
 
                 if(ratio === 'square') {
                     aspectRadio = 4/4;
-                    // copperAspectRatioWidth = 300;
-                    // copperAspectRatioHeight = 300;
+                    copperAspectRatioWidth = 360;
+                    copperAspectRatioHeight = 360;
                 } else if(ratio === 'rectangle') {
                     aspectRadio = 16/9;
-                    // copperAspectRatioWidth = 800;
-                    // copperAspectRatioHeight = 600;
+                    copperAspectRatioWidth = 640;
+                    copperAspectRatioHeight = 360;
                 } else aspectRadio = null;
 
                 // Init cropper
