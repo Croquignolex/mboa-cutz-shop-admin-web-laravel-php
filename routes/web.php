@@ -54,6 +54,7 @@ Route::group(['namespace' => 'App'], function() {
 
     // App resources routes
     Route::resource('/customers', 'CustomerController')->except(['edit']);
+    Route::resource('/contacts', 'ContactController')->only(['index', 'destroy']);
     Route::resources([
         'tags' => 'TagController',
         'admins' => 'AdminController',
