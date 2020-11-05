@@ -69,7 +69,7 @@
 
         <script src="{{ js_asset('jquery.min') }}" type="application/javascript"></script>
         <script src="{{ js_asset('toastr.min') }}" type="application/javascript"></script>
-        <script src="{{ js_asset('bootstrap.bundle.min') }}" type="application/javascript"></script>
+        <script src="{{ js_asset('bootstrap') }}" type="application/javascript"></script>
 
         @stack('master.script')
 

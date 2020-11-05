@@ -2,18 +2,6 @@ $(document).ready(function() {
     // Disable submit button while submit
     $('button[type="submit"]').click(function() {
         $(this).addClass('disabled busy-cursor')
-        // $(this).hide()
-        /*$(this).before(`
-            <div class="card-body align-items-center justify-content-center" id="croup-modal-loader">
-                <div class="sk-wave">
-                    <div class="rect1"></div>
-                    <div class="rect2"></div>
-                    <div class="rect3"></div>
-                    <div class="rect4"></div>
-                    <div class="rect5"></div>
-                </div>
-            </div>
-        `)*/
     });
     // Init tooltips
     $(function () {
