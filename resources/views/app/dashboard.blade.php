@@ -21,6 +21,7 @@
                         @include('partials.loader.white-loader', ['id' => 'register-customer-loader'])
                     </h3>
                     <p>Client inscrits</p>
+                    <a href="{{ route('customers.index') }}" class="text-dark-hover-white">Détails...</a>
                 </div>
                 <div class="widget-chart w-50">
                     <canvas id="register-customer-chart" data-url="{{ route('dashboard.register.customer') }}"></canvas>
