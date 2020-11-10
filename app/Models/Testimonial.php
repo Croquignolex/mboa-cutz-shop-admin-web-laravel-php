@@ -62,7 +62,7 @@ class Testimonial extends Model
     }
 
     /**
-     * Check if article can be deleted
+     * Check if testimonial can be deleted
      *
      * @return mixed
      */

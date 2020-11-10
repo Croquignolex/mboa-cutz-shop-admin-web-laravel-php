@@ -68,22 +68,14 @@
         @yield('master.body')
 
         <script src="{{ js_asset('jquery.min') }}" type="application/javascript"></script>
+        <script src="{{ js_asset('popper.min') }}" type="application/javascript"></script>
+        <script src="{{ js_asset('bootstrap.min') }}" type="application/javascript"></script>
         <script src="{{ js_asset('toastr.min') }}" type="application/javascript"></script>
-        <script src="{{ js_asset('bootstrap.bundle.min') }}" type="application/javascript"></script>
 
         @stack('master.script')
 
         <script src="{{ js_asset('master') }}" type="application/javascript"></script>
 
-        @if(session()->has('toast.alert'))
-            <script>
-                callToaster(
-                    "{{ session('toast.title') }}",
-                    "{{ session('toast.message') }}",
-                    "{{ session('toast.type') }}",
-                    "{{ session('toast.delay') }}"
-                );
-            </script>
-        @endif
+        @include('partials.flash-alert')
     </body>
 </html>

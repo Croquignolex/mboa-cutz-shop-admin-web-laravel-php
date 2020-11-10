@@ -28,6 +28,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property mixed category
  * @property mixed image_src
  * @property mixed can_delete
+ * @property mixed comments
  */
 class Article extends Model
 {
@@ -121,6 +122,9 @@ class Article extends Model
      */
     public function getCanDeleteAttribute()
     {
-        return $this->superAdminOrCreatorCanDelete();
+        return (
+            (($this->comments->count() === 0)) &&
+            $this->superAdminOrCreatorCanDelete()
+        );
     }
 }

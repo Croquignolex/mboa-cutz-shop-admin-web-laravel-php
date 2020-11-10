@@ -16,13 +16,15 @@
 
                         @foreach($contactService->unreadMessagesToDisplay() as $contact)
                             <li class="m-4">
-                                <i class="mdi mdi-email"></i> {{ text_format($contact->subject, 10) }}
-                                <span class=" font-size-12 d-inline-block float-right"><i class="mdi mdi-clock-outline"></i> {{ $contact->creation_date }}</span>
+                                <i class="mdi mdi-email"></i> <span class="text-theme">{{ text_format($contact->subject, 30) }}</span>
+                                <p>{{ text_format($contact->message, 65) }} </p>
+                                <span class=" font-size-12 d-inline-block float-right text-theme"><i class="mdi mdi-clock-outline"></i> {{ $contact->creation_date }}</span>
                             </li>
+                            @if(!$loop->last)<li class="dropdown-divider"></li>@endif
                         @endforeach
 
                         <li class="dropdown-footer">
-                            <a class="text-center" href="#"> Tout voir </a>
+                            <a class="text-center" href="{{ route('contacts.index') }}"> Tout voir </a>
                         </li>
                     </ul>
                 </li>

@@ -5,10 +5,15 @@ namespace App\Models;
 use App\Traits\DateTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Traits\SuperAdminOrCreatorCanDeleteTrait;
 
+/**
+ * @property mixed subject
+ * @property mixed can_delete
+ */
 class Contact extends Model
 {
-    use SoftDeletes, DateTrait;
+    use SoftDeletes, DateTrait, SuperAdminOrCreatorCanDeleteTrait;
 
     /**
      * The attributes that aren't mass assignable.
@@ -30,4 +35,14 @@ class Contact extends Model
      * @var array
      */
     protected $casts = ['is_read' => 'boolean'];
+
+    /**
+     * Check if contact message can be deleted
+     *
+     * @return mixed
+     */
+    public function getCanDeleteAttribute()
+    {
+        return $this->superAdminOrCreatorCanDelete();
+    }
 }

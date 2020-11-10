@@ -38,8 +38,12 @@
     color: #ec008c;
 }
 
-.bg-theme {
-    background-color: #ec008c;
+.text-dark-hover-white {
+    color: #181818;
+}
+
+.text-dark-hover-white:hover {
+    color: white;
 }
 
 .hand-cursor {

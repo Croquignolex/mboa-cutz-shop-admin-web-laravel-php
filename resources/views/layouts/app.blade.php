@@ -2,15 +2,19 @@
 
 @section('master.title')@yield('app.master.title')@endsection
 
-@section('master.class', 'sidebar-fixed sidebar-dark header-light header-fixed')
+@section('master.class', 'header-fixed sidebar-fixed sidebar-dark header-light')
 
 @section('master.body')
     <div class="wrapper">
+        {{--Menu content--}}
         @include('partials.menu')
+        {{--Page--}}
         <div class="page-wrapper">
+            {{--Navbar--}}
             @include('partials.navbar')
             <div class="content-wrapper">
                 <div class="content">
+                    {{--Page content--}}
                     @yield('app.breadcrumb')
                     @yield('app.master.body')
                 </div>
