@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Archive;
 use App\Models\Tag;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\Contact;
 use App\Models\Article;
 use App\Models\Service;
 use App\Models\Product;
@@ -47,6 +48,8 @@ class ArchiveController extends Controller
 
         $tags = Tag::onlyTrashed()->count();
 
+        $contacts = Contact::onlyTrashed()->count();
+
         $products = Product::onlyTrashed()->count();
 
         $services = Service::onlyTrashed()->count();
@@ -65,7 +68,7 @@ class ArchiveController extends Controller
 
         return view('archive.index', compact(
             'admins', 'categories', 'tags', 'testimonials', 'products', 'customers',
-                'services', 'product_reviews', 'service_reviews', 'article_comments', 'articles'
+                'services', 'product_reviews', 'service_reviews', 'article_comments', 'articles', 'contacts'
             )
         );
     }

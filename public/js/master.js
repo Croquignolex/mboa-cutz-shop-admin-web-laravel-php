@@ -1,27 +1,17 @@
+/*======== START GLOBAL INIT ========*/
 $(document).ready(function() {
     // Disable submit button while submit
     $('button[type="submit"]').click(function() {
         $(this).addClass('disabled busy-cursor')
-        // $(this).hide()
-        /*$(this).before(`
-            <div class="card-body align-items-center justify-content-center" id="croup-modal-loader">
-                <div class="sk-wave">
-                    <div class="rect1"></div>
-                    <div class="rect2"></div>
-                    <div class="rect3"></div>
-                    <div class="rect4"></div>
-                    <div class="rect5"></div>
-                </div>
-            </div>
-        `)*/
     });
     // Init tooltips
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
     });
 });
+/*======== END GLOBAL INIT ========*/
 
-// Ajax request
+/*======== START AJAX REQUEST ========*/
 function ajaxRequest(requestData, requestUrl, requestType = 'POST') {
     $.ajaxSetup({
         headers: {
@@ -44,8 +34,9 @@ function ajaxRequest(requestData, requestUrl, requestType = 'POST') {
         });
     });
 }
+/*======== END START AJAX REQUEST ========*/
 
-// Call toaster
+/*======== START CALL TOASTER ========*/
 function callToaster(title, message, type, delay) {
     toastr.options = {
         closeButton: true,
@@ -69,7 +60,9 @@ function callToaster(title, message, type, delay) {
     else if(type === 'success') toastr.success(message, title);
     else if(type === 'warning') toastr.warning(message, title);
 }
+/*======== END CALL TOASTER ========*/
 
+/*======== START CALL TOASTER FUNC ========*/
 // Call danger toaster
 function dangerToaster(message) {
     callToaster('Erreur', message, "danger", 10000)
@@ -79,3 +72,4 @@ function dangerToaster(message) {
 function successToaster(message) {
     callToaster('Succès', message, "success", 5000)
 }
+/*======== END CALL TOASTER FUNC ========*/

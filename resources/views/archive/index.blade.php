@@ -122,5 +122,15 @@
                'url' => route('archives.article-comments.index'),
            ])
         </div>
+        {{--Contact messages--}}
+        <div class="col-md-6 col-lg-3">
+            @include('partials.archive.archive-card', [
+               'data' => $contacts,
+               'icon' => 'mdi mdi-email-open-multiple',
+               'bg_class' => 'bg-secondary',
+               'label' => 'Commentaires sur article archivés',
+               'url' => route('archives.contacts.index'),
+           ])
+        </div>
     </div>
 @endsection
