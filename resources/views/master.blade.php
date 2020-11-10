@@ -76,15 +76,6 @@
 
         <script src="{{ js_asset('master') }}" type="application/javascript"></script>
 
-        @if(session()->has('toast.alert'))
-            <script>
-                callToaster(
-                    "{{ session('toast.title') }}",
-                    "{{ session('toast.message') }}",
-                    "{{ session('toast.type') }}",
-                    "{{ session('toast.delay') }}"
-                );
-            </script>
-        @endif
+        @include('partials.flash-alert')
     </body>
 </html>
