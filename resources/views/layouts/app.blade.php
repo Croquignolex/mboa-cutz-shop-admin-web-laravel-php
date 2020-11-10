@@ -5,7 +5,6 @@
 @section('master.class', 'header-fixed sidebar-fixed sidebar-dark header-light')
 
 @section('master.body')
-    <div class="mobile-sticky-body-overlay"></div>
     <div class="wrapper">
         {{--Menu content--}}
         @include('partials.menu')
