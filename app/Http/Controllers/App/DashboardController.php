@@ -38,19 +38,22 @@ class DashboardController extends Controller
     {
         $customers = User::where('role_id', Role::where('type', UserRole::USER)->first()->id)->get();
 
-        $current = [];
-        $previous = [];
+        $data = [];
         $value = $customers->count();
 
         for($i = 0; $i < 7; $i++)
         {
-            $currentLoopDay = now()->startOfWeek()->addDays($i);
-            $previousLoopDay = now()->subDays(7)->startOfWeek()->addDays($i);
-            $current[] = count($customers->whereBetween('created_at', [$currentLoopDay, $currentLoopDay->endOfDay()])->all());
-            $previous[] = count($customers->whereBetween('created_at', [$previousLoopDay, $previousLoopDay->endOfDay()])->all());
+            $loopDay = now()->startOfWeek()->addDays($i);
+
+            $data[] = $customers->filter(function ($item) use ($i) {
+                //dd($loopDay, $loopDay->endOfDay(), $item->created_at, ($item->created_at->greaterThanOrEqualTo($loopDay)) && ($item->created_at->lessThanOrEqualTo($loopDay->endOfDay())));
+                return (
+                    ($item->created_at->greaterThanOrEqualTo(now()->startOfWeek()->addDays($i))) &&
+                    ($item->created_at->lessThanOrEqualTo(now()->startOfWeek()->addDays($i)->endOfDay()))
+                );
+            })->count();
         }
 
-        $data = compact('previous', 'current');
         return response()->json(compact('value', 'data'));
     }
 

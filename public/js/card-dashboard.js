@@ -29,14 +29,14 @@ $(function() {
                 registerCustomerValue.text(response.value);
 
                 const {data, options} = registerCustomerChartData(response.data);
-                new Chart(registerCustomerChartCanvas, { type: 'line', data, options});
+                new Chart(registerCustomerChartCanvas, { type: 'bar', data, options});
             })
             .catch(() => {
                 registerCustomerLoader.hide();
                 registerCustomerValue.show();
                 registerCustomerValue.text("Erreur");
-                const {data, options} = registerCustomerChartData({previous: emptyWeek, current: emptyWeek});
-                new Chart(registerCustomerChartCanvas, { type: 'line', data, options});
+                const {data, options} = registerCustomerChartData(emptyWeek);
+                new Chart(registerCustomerChartCanvas, { type: 'bar', data, options});
             });
     }
     // Extract register customer char data
@@ -44,42 +44,29 @@ $(function() {
         return {
             data: {
                 labels: weekLabels,
-                datasets : [
-                    {
-                        borderWidth: 1,
-                        label: "Semaine passé",
-                        data: chartData.previous,
-                        borderColor: "rgba(255, 99, 132, 1)",
-                        backgroundColor: "rgba(255, 99, 132, 0.2)",
-                        hoverBackgroundColor: "rgba(255, 99, 132, 0.5)"
-                    },
-                    {
-                        borderWidth: 1,
-                        data: chartData.current,
-                        label: "Semaine actuelle",
-                        borderColor: "rgba(54, 162, 235, 1)",
-                        backgroundColor: "rgba(54, 162, 235, 0.2)",
-                        hoverBackgroundColor: "rgba(54, 162, 235, 0.5)"
-                    }
-                ]
+                datasets : [{data: chartData, backgroundColor: "#ffffff"}]
             },
             options: {
                 scales: {
-                    yAxes: [{
-                        ticks: { beginAtZero: true, display: false},
-                        gridLines: {drawBorder: false, display: false} },
+                    yAxes: [
+                        {
+                            ticks: { beginAtZero: true, display: false},
+                            gridLines: {drawBorder: false, display: false}
+                        }
                     ],
-                    xAxes: [{
-                        barPercentage: 1.8,
-                        categoryPercentage: 0.2,
-                        ticks: { beginAtZero: true, display: false},
-                        gridLines: {drawBorder: false, display: false} },
+                    xAxes: [
+                        {
+                            barPercentage: 1.8,
+                            categoryPercentage: 0.2,
+                            ticks: { beginAtZero: true, display: false},
+                            gridLines: {drawBorder: false, display: false}
+                        }
                     ]
                 },
                 responsive: true,
-                maintainAspectRatio: false,
                 legend: { display: false },
-                elements: { point: { radius: 0 } }
+                tooltips: {enabled: false},
+                maintainAspectRatio: false,
             }
         }
     }
