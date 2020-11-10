@@ -25,7 +25,6 @@
                 <div class="widget-chart w-50">
                     <canvas id="register-customer-chart" data-url="{{ route('dashboard.register.customer') }}"></canvas>
                 </div>
-                <button type="button" class="close" id="register-customer-reload"><i class="mdi mdi-reload text-white"></i></button>
             </div>
         </div>
     </div>
