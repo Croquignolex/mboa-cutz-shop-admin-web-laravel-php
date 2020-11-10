@@ -27,6 +27,7 @@ Route::group(['namespace' => 'App'], function() {
     Route::get('/profile', 'ProfileController@index')->name('profile.index');
     Route::get('/profile/logs', 'ProfileController@logs')->name('profile.logs');
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard.index');
+    Route::get('/dashboard/register-customer', 'DashboardController@registerCustomer')->name('dashboard.register.customer');
 
     // App POST routes
     Route::post('/timezone', 'DashboardController@timezoneAjax');

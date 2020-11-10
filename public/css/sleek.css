@@ -8379,7 +8379,7 @@ div.copied {
     border-right: 1px solid #e5e9f2; }
     .navbar .sidebar-offcanvas-toggle:before,
     .navbar .sidebar-toggle:before {
-      content: "\F035C";
+      content: "\F09A8";
       font-family: "Material Design Icons"; }
   .navbar .navbar-toggler i {
     color: #8a909d; }
@@ -9654,6 +9654,10 @@ div.copied {
   display: inline-block;
   -webkit-animation: sk-stretchdelay 1.2s infinite ease-in-out;
   animation: sk-stretchdelay 1.2s infinite ease-in-out; }
+
+.sk-wave-white > div {
+  background-color: rgba(255, 255, 255, 0.7);
+}
 
 .sk-wave .rect2 {
   -webkit-animation-delay: -1.1s;
