@@ -148,6 +148,21 @@ if(!function_exists('testimonial_img_asset'))
     }
 }
 
+if(!function_exists('event_img_asset'))
+{
+    /**
+     * Dynamic event image asset file path
+     *
+     * @param $img_file
+     * @param $extension
+     * @return string
+     */
+    function event_img_asset($img_file, $extension = Constants::DEFAULT_IMAGE_EXTENSION)
+    {
+        return storage_asset($img_file, $extension, ImagePath::EVENT_DEFAULT_IMAGE_PATH);
+    }
+}
+
 // ***********************************************************************************
 
 if(!function_exists('file_asset'))
