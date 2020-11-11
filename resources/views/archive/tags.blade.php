@@ -24,7 +24,7 @@
                             <tr>
                                 <th scope="col">DATE</th>
                                 <th scope="col">NOM (fr)</th>
-                                <th scope="col">NOM (en)</th>
+                                <th scope="col">NOM (EN)</th>
                                 <th scope="col">CREER PAR</th>
                                 <th scope="col">ACTIONS</th>
                             </tr>

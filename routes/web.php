@@ -36,6 +36,7 @@ Route::group(['namespace' => 'App'], function() {
     Route::post('/profile/update-avatar', 'ProfileController@updateAvatar')->name('profile.update.avatar');
     Route::post('/profile/update-password', 'ProfileController@updatePassword')->name('profile.update.password');
 
+    Route::post('/events/{event}/update-image', 'EventController@updateImage')->name('events.update.image');
     Route::post('/products/{product}/update-image', 'ProductController@updateImage')->name('products.update.image');
     Route::post('/services/{service}/update-image', 'ServiceController@updateImage')->name('services.update.image');
     Route::post('/articles/{article}/update-image', 'ArticleController@updateImage')->name('articles.update.image');
@@ -59,6 +60,7 @@ Route::group(['namespace' => 'App'], function() {
     Route::resources([
         'tags' => 'TagController',
         'admins' => 'AdminController',
+        'events' => 'EventController',
         'products' => 'ProductController',
         'articles' => 'ArticleController',
         'services' => 'ServiceController',
@@ -72,6 +74,7 @@ Route::group(['namespace' => 'Archive'], function() {
     Route::get('/archives', 'ArchiveController@index')->name('archives.index');
     Route::get('/archives/tags', 'TagController@index')->name('archives.tags.index');
     Route::get('/archives/admins', 'AdminController@index')->name('archives.admins.index');
+    Route::get('/archives/events', 'EventController@index')->name('archives.events.index');
     Route::get('/archives/products', 'ProductController@index')->name('archives.products.index');
     Route::get('/archives/services', 'ServiceController@index')->name('archives.services.index');
     Route::get('/archives/articles', 'ArticleController@index')->name('archives.articles.index');
@@ -85,6 +88,7 @@ Route::group(['namespace' => 'Archive'], function() {
 
     // App POST routes
     Route::post('/archives/tags/{tag}/restore', 'TagController@restore')->name('archives.tags.restore');
+    Route::post('/archives/events/{event}/restore', 'EventController@restore')->name('archives.events.restore');
     Route::post('/archives/admins/{admin}/restore', 'AdminController@restore')->name('archives.admins.restore');
     Route::post('/archives/products/{product}/restore', 'ProductController@restore')->name('archives.products.restore');
     Route::post('/archives/services/{service}/restore', 'ServiceController@restore')->name('archives.services.restore');

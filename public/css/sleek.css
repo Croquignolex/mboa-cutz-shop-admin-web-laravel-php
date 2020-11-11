@@ -2713,7 +2713,7 @@ input[type="button"].btn-block {
       border-color: #ccdcff; }
   .custom-file-input:disabled ~ .custom-file-label {
     background-color: #e9ecef; }
-  .custom-file-input:lang(en) ~ .custom-file-label::after {
+  .custom-file-input:lang(EN) ~ .custom-file-label::after {
     content: "Browse"; }
 
 .custom-file-label {

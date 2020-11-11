@@ -30,7 +30,7 @@
                             <tr>
                                 <th scope="col">DATE</th>
                                 <th scope="col">NOM (fr)</th>
-                                <th scope="col">NOM (en)</th>
+                                <th scope="col">NOM (EN)</th>
                                 <th scope="col">PRODUITS</th>
                                 <th scope="col">SERVICES</th>
                                 <th scope="col">ARTICLES</th>

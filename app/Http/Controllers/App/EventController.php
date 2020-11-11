@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\App;
 
 use Exception;
+use App\Models\Event;
 use App\Enums\ImagePath;
 use App\Enums\Constants;
 use Illuminate\View\View;
@@ -18,10 +19,10 @@ use App\Http\Requests\Base64ImageRequest;
 use App\Http\Requests\TestimonialRequest;
 use Illuminate\Contracts\Foundation\Application;
 
-class TestimonialController extends Controller
+class EventController extends Controller
 {
     /**
-     * CategoryController constructor.
+     * EventController constructor.
      */
     public function __construct()
     {
@@ -36,20 +37,21 @@ class TestimonialController extends Controller
      */
     public function index()
     {
-        $testimonials = Testimonial::orderBy('created_at', 'desc')
+        $events = Event::orderBy('created_at', 'desc')
             ->paginate(Constants::DEFAULT_PAGE_PAGINATION_ITEMS)
             ->onEachSide(Constants::DEFAULT_PAGE_PAGINATION_EACH_SIDE);
 
-        return view('app.testimonials.index', compact('testimonials'));
+        return view('app.events.index', compact('events'));
     }
 
     /**
      * Show the form for creating a new resource.
+     *
      * @return Application|Factory|Response|View
      */
     public function create()
     {
-        return view('app.testimonials.create');
+        return view('app.events.create');
     }
 
     /**
@@ -72,23 +74,23 @@ class TestimonialController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Testimonial $testimonial
+     * @param Event $event
      * @return Application|Factory|Response|View
      */
-    public function show(Testimonial $testimonial)
+    public function show(Event $event)
     {
-        return view('app.testimonials.show', compact('testimonial'));
+        return view('app.events.show', compact('event'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Testimonial $testimonial
+     * @param Event $event
      * @return Application|RedirectResponse|Response|Redirector
      */
-    public function edit(Testimonial $testimonial)
+    public function edit(Event $event)
     {
-        return view('app.testimonials.edit', compact('testimonial'));
+        return view('app.events.edit', compact('event'));
     }
 
     /**
@@ -109,46 +111,46 @@ class TestimonialController extends Controller
     }
 
     /**
-     * @param Testimonial $testimonial
+     * @param Event $event
      * @return RedirectResponse
      * @throws Exception
      */
-    public function destroy(Testimonial $testimonial)
+    public function destroy(Event $event)
     {
-        if(!$testimonial->can_delete) return $this->unauthorizedToast();
+        if(!$event->can_delete) return $this->unauthorizedToast();
 
-        $testimonial->delete();
+        $event->delete();
 
-        success_toast_alert("Témoignage de $testimonial->name archivé avec success");
-        log_activity("Témoignage", "Archivage du témoignage de $testimonial->name");
+        success_toast_alert("Evènement $event->fr_name archivé avec success");
+        log_activity("Evènement", "Archivage de l'évènement $event->fr_name");
 
-        return redirect(route('testimonials.index'));
+        return redirect(route('events.index'));
     }
 
     /**
-     * Update testimonial image
+     * Update event image
      *
      * @param Base64ImageRequest $request
-     * @param Testimonial $testimonial
+     * @param Event $event
      * @return JsonResponse
      */
-    public function updateImage(Base64ImageRequest $request, Testimonial $testimonial)
+    public function updateImage(Base64ImageRequest $request, Event $event)
     {
         // Convert base 64 image to normal image for the server and the data base
-        $testimonial_image_to_save = imageFromBase64AndSave(
+        $event_image_to_save = imageFromBase64AndSave(
             $request->input('base_64_image'),
-            $testimonial->image,
-            $testimonial->image_extension,
+            $event->image,
+            $event->image_extension,
             ImagePath::TESTIMONIAL_DEFAULT_IMAGE_PATH
         );
 
         // Save image name in database
-        $testimonial->update([
-            'image' => $testimonial_image_to_save['name'],
-            'image_extension' => $testimonial_image_to_save['extension'],
+        $event->update([
+            'image' => $event_image_to_save['name'],
+            'image_extension' => $event_image_to_save['extension'],
         ]);
 
-        log_activity("Témoignage", "Mise à jour de la photo du témoignage de $testimonial->name");
-        return response()->json(['message' => "Photo du témoignage de $testimonial->name mise à jour avec succès"]);
+        log_activity("Evènement", "Mise à jour de la photo de l'évènement de $event->fr_name");
+        return response()->json(['message' => "Photo du témoignage de l'évènement $event->fr_name mise à jour avec succès"]);
     }
 }

@@ -7,7 +7,7 @@
                 <th scope="col">DATE</th>
                 <th scope="col">IMAGE</th>
                 <th scope="col">NOM (fr)</th>
-                <th scope="col">NOM (en)</th>
+                <th scope="col">NOM (EN)</th>
                 <th scope="col">PRIX (FCFA)</th>
                 <th scope="col">STOCK</th>
                 @if($actions)

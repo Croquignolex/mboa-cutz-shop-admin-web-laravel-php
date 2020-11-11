@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('app.master.title', page_title('Etiquettes'))
+@section('app.master.title', page_title('Evènements'))
 
 @section('app.breadcrumb')
     @include('partials.breadcrumb', [
-        'title' => "Etiquettes ({$tags->total()})",
-        'icon' => 'mdi mdi-tag-multiple',
-        'chain' => ['Etiquettes']
+        'title' => "Evènements ({$events->total()})",
+        'icon' => 'mdi mdi-string-lights',
+        'chain' => ['Evènements']
     ])
 @endsection
 
@@ -16,55 +16,53 @@
             <div class="card card-default">
                 <div class="card-body">
                     <div class="mb-3">
-                        <a class="btn btn-primary" href="{{ route('tags.create') }}">
+                        <a class="btn btn-primary" href="{{ route('events.create') }}">
                             <i class="mdi mdi-plus"></i>
-                            Nouvelle étiquette
+                            Nouvel évènement
                         </a>
                     </div>
 
-                    <div class="mb-3">{{ $tags->links() }}</div>
+                    <div class="mb-3">{{ $events->links() }}</div>
 
                     <div class="table-responsive">
                         <table class="table table-bordered table-hover">
                             <thead>
                             <tr>
                                 <th scope="col">DATE</th>
-                                <th scope="col">NOM (fr)</th>
+                                <th scope="col">IMAGE</th>
+                                <th scope="col">NOM (FR)</th>
                                 <th scope="col">NOM (EN)</th>
-                                <th scope="col">PRODUITS</th>
-                                <th scope="col">SERVICES</th>
-                                <th scope="col">ARTICLES</th>
                                 <th scope="col">CREER PAR</th>
                                 <th scope="col">ACTIONS</th>
                             </tr>
                             </thead>
                             <tbody>
-                                @foreach ($tags as $tag)
+                                @foreach ($events as $event)
                                     <tr>
-                                        <td>{{ $tag->creation_date }}</td>
-                                        <td>{{ $tag->fr_name }}</td>
-                                        <td>{{ $tag->en_name }}</td>
-                                        <td class="text-right">{{ $tag->products->count() }}</td>
-                                        <td class="text-right">{{ $tag->services->count() }}</td>
-                                        <td class="text-right">{{ $tag->articles->count() }}</td>
-                                        <td>{{ $tag->creator_name}}</td>
+                                        <td>{{ $event->creation_date }}</td>
+                                        <td class="text-center">
+                                            <img class="rounded-circle w-45" src="{{ $event->image_src }}" alt="..." />
+                                        </td>
+                                        <td>{{ $event->fr_name }}</td>
+                                        <td>{{ $event->en_name }}</td>
+                                        <td>{{ $event->creator_name}}</td>
                                         <td class="text-center" style="white-space: nowrap;">
-                                            <a href="{{ route('tags.show', compact('tag')) }}"
+                                            <a href="{{ route('events.show', compact('event')) }}"
                                                class="btn btn-sm btn-primary"
                                                title="Détails"
                                             >
                                                 <i class="mdi mdi-eye"></i>
                                             </a>
-                                            <a href="{{ route('tags.edit', compact('tag')) }}"
+                                            <a href="{{ route('events.edit', compact('event')) }}"
                                                class="btn btn-sm btn-warning"
                                                title="Modifier"
                                             >
                                                 <i class="mdi mdi-pencil"></i>
                                             </a>
-                                            @if($tag->can_delete)
+                                            @if($event->can_delete)
                                                 <button class="btn btn-sm btn-danger"
                                                         data-toggle="modal"
-                                                        data-target="{{ "#$tag->slug-archive-tag-modal" }}"
+                                                        data-target="{{ "#$event->id-archive-event-modal" }}"
                                                         title="Archiver"
                                                 >
                                                     <i class="mdi mdi-archive"></i>
@@ -73,11 +71,11 @@
                                         </td>
                                     </tr>
 
-                                    @if($tag->can_delete)
+                                    @if($event->can_delete)
                                         @include('partials.archive.archive-confirmation', [
-                                            'name' => $tag->fr_name,
-                                            'modal_id' => "$tag->slug-archive-tag-modal",
-                                            'url' => route('tags.destroy', compact('tag'))
+                                            'name' => $event->fr_name,
+                                            'modal_id' => "$event->id-archive-event-modal",
+                                            'url' => route('events.destroy', compact('event'))
                                         ])
                                     @endif
                                 @endforeach
@@ -85,7 +83,7 @@
                         </table>
                     </div>
 
-                    <div>{{ $tags->links() }}</div>
+                    <div>{{ $events->links() }}</div>
                 </div>
             </div>
         </div>

@@ -32,7 +32,7 @@
                                 <th scope="col">IMAGE</th>
                                 <th scope="col">NOM</th>
                                 <th scope="col">DESCRIPTION (FR)</th>
-                                <th scope="col">DESCRIPTION (en)</th>
+                                <th scope="col">DESCRIPTION (EN)</th>
                                 <th scope="col">CREER PAR</th>
                                 <th scope="col">ACTIONS</th>
                             </tr>

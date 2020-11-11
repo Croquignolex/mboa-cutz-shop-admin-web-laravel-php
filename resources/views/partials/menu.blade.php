@@ -164,6 +164,33 @@
                         </div>
                     </ul>
                 </li>
+                {{--Event--}}
+                <li class="has-sub expand {{ active_page(events_pages()) }}">
+                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#events" aria-expanded="false" aria-controls="events">
+                        <i class="mdi mdi-string-lights"></i>
+                        <span class="nav-text">Evènements</span> <b class="caret"></b>
+                    </a>
+                    <ul class="collapse {{ active_page_group(events_pages()) }}" id="events" data-parent="#sidebar-menu">
+                        <div class="sub-menu">
+                            <li class="{{ active_page(collect('events.index')) }}">
+                                <a class="sidenav-item-link" href="{{ route('events.index') }}">
+                                    <span class="nav-text">
+                                        <i class="mdi mdi-playlist-check"></i>
+                                        Tous les évènements
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="{{ active_page(collect('events.create')) }}">
+                                <a class="sidenav-item-link" href="{{ route('events.create') }}">
+                                    <span class="nav-text">
+                                        <i class="mdi mdi-playlist-plus"></i>
+                                        Nouvel évènement
+                                    </span>
+                                </a>
+                            </li>
+                        </div>
+                    </ul>
+                </li>
                 {{--Blog--}}
                 <li class="has-sub expand {{ active_page(articles_pages()) }}">
                     <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#articles" aria-expanded="false" aria-controls="articles">
