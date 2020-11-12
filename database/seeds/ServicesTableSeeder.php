@@ -13,19 +13,19 @@ class ServicesTableSeeder extends Seeder
      */
     public function run()
     {
-        Category::first()->services()->createMany([
-            [
-                'fr_name' => Lorem::word(),
-                'en_name' => Lorem::word(),
-                'fr_description' => Lorem::text(),
-                'en_description' => Lorem::text(),
-            ],
-            [
-                'fr_name' => Lorem::word(),
-                'en_name' => Lorem::word(),
-                'fr_description' => Lorem::text(),
-                'en_description' => Lorem::text(),
-            ]
-        ]);
+        Category::first()->services()->createMany([$this->getRowData(), $this->getRowData()]);
+    }
+
+    /**
+     * @return array
+     */
+    private function getRowData()
+    {
+        return [
+            'fr_name' => Lorem::word(),
+            'en_name' => Lorem::word(),
+            'fr_description' => Lorem::text(),
+            'en_description' => Lorem::text(),
+        ];
     }
 }

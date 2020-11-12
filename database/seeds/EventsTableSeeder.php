@@ -13,18 +13,23 @@ class EventsTableSeeder extends Seeder
      */
     public function run()
     {
-        Event::create([
-            'fr_name' => Lorem::word(),
-            'en_name' => Lorem::word(),
-            'fr_description' => Lorem::text(),
-            'en_description' => Lorem::text(),
-        ]);
+        Event::create($this->getRowData());
+        Event::create($this->getRowData());
+    }
 
-        Event::create([
-            'fr_name' => Lorem::word(),
-            'en_name' => Lorem::word(),
+    /**
+     * @return array
+     */
+    private function getRowData()
+    {
+        return [
+            'started_at' => now(),
+            'fr_name' => Lorem::words(2),
+            'en_name' => Lorem::words(2),
             'fr_description' => Lorem::text(),
             'en_description' => Lorem::text(),
-        ]);
+            'localisation' => Lorem::words(3),
+            'ended_at' => now()->addDays(3),
+        ];
     }
 }

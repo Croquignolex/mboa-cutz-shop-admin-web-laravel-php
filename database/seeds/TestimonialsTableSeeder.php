@@ -13,16 +13,19 @@ class TestimonialsTableSeeder extends Seeder
      */
     public function run()
     {
-        Testimonial::create([
-                'name' => Lorem::sentence(2),
-                'fr_description' => Lorem::text(),
-                'en_description' => Lorem::text()
-        ]);
+        Testimonial::create($this->getRowData());
+        Testimonial::create($this->getRowData());
+    }
 
-        Testimonial::create([
-            'name' => Lorem::sentence(2),
+    /**
+     * @return array
+     */
+    private function getRowData()
+    {
+        return [
             'fr_description' => Lorem::text(),
-            'en_description' => Lorem::text()
-        ]);
+            'en_description' => Lorem::text(),
+            'name' => Lorem::sentence(2),
+        ];
     }
 }

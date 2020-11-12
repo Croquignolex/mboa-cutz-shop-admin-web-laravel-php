@@ -11,7 +11,7 @@ trait DateTrait
      */
     public function getCreationDateAttribute()
     {
-        $date =  $this->created_at;
+        $date = $this->created_at;
         $date->setTimezone(session('timezone'));
         return $date->format('d/m/Y H:i');
     }
@@ -23,7 +23,7 @@ trait DateTrait
      */
     public function getLastUpdateDateAttribute()
     {
-        $date =  $this->updated_at;
+        $date = $this->updated_at;
         $date->setTimezone(session('timezone'));
         return $date->format('d/m/Y H:i');
     }

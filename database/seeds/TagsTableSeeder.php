@@ -15,43 +15,20 @@ class TagsTableSeeder extends Seeder
      */
     public function run()
     {
-        Product::first()->tags()->createMany([
-            [
-                'fr_name' => Lorem::word(),
-                'en_name' => Lorem::word(),
-                'description' => Lorem::text()
-            ],
-            [
-                'fr_name' => Lorem::word(),
-                'en_name' => Lorem::word(),
-                'description' => Lorem::text()
-            ],
-        ]);
+        Product::first()->tags()->createMany([$this->getRowData(), $this->getRowData()]);
+        Service::first()->tags()->createMany([$this->getRowData(), $this->getRowData()]);
+        Article::first()->tags()->createMany([$this->getRowData(), $this->getRowData()]);
+    }
 
-        Service::first()->tags()->createMany([
-            [
-                'fr_name' => Lorem::word(),
-                'en_name' => Lorem::word(),
-                'description' => Lorem::text()
-            ],
-            [
-                'fr_name' => Lorem::word(),
-                'en_name' => Lorem::word(),
-                'description' => Lorem::text()
-            ],
-        ]);
-
-        Article::first()->tags()->createMany([
-            [
-                'fr_name' => Lorem::word(),
-                'en_name' => Lorem::word(),
-                'description' => Lorem::text()
-            ],
-            [
-                'fr_name' => Lorem::word(),
-                'en_name' => Lorem::word(),
-                'description' => Lorem::text()
-            ],
-        ]);
+    /**
+     * @return array
+     */
+    private function getRowData()
+    {
+        return [
+            'description' => Lorem::text(),
+            'fr_name' => Lorem::words(2),
+            'en_name' => Lorem::words(2),
+        ];
     }
 }

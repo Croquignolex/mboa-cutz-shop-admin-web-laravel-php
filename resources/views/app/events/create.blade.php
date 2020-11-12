@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('app.master.title', page_title('Nouveau témoignage'))
+@section('app.master.title', page_title('Nouveau évènements'))
 
 @section('app.breadcrumb')
     @include('partials.breadcrumb', [
-        'title' => 'Nouveau témoignage',
-        'icon' => 'mdi mdi-face',
-        'chain' => ['Témoignages', 'Nouveau témoignage']
+        'title' => 'Nouvel évènement',
+        'icon' => 'mdi mdi-string-lights',
+        'chain' => ['Evènements', 'Nouvel évènement']
     ])
 @endsection
 
@@ -16,15 +16,23 @@
             <div class="card card-default">
                 <div class="card-body">
                     <div class="mx-5">@include('partials.toast-message')</div>
-                    <form action="{{ route('testimonials.store') }}" method="POST">
+                    <form action="{{ route('events.store') }}" method="POST">
                         @csrf
                         <div class="row">
                             <div class="col-sm-6">
                                 @include('partials.form.input', [
-                                    'name' => 'Nom*',
-                                    'id' => 'name',
+                                    'name' => 'Nom (français)*',
+                                    'id' => 'fr_name',
                                     'type' => 'text',
-                                    'value' => old('name')
+                                    'value' => old('fr_name')
+                                ])
+                            </div>
+                            <div class="col-sm-6">
+                                @include('partials.form.input', [
+                                    'name' => 'Nom (anglais)*',
+                                    'id' => 'en_name',
+                                    'type' => 'text',
+                                    'value' => old('en_name')
                                 ])
                             </div>
                         </div>

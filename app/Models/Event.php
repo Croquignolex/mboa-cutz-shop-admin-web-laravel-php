@@ -24,6 +24,10 @@ use App\Traits\SuperAdminOrCreatorCanDeleteTrait;
  * @property mixed created_at
  * @property mixed creator
  * @property mixed image_src
+ * @property mixed started_at
+ * @property mixed ended_at
+ * @property mixed localisation
+ * @property mixed map
  */
 class Event extends Model
 {
@@ -43,6 +47,8 @@ class Event extends Model
      */
     protected $fillable = [
         'fr_name', 'en_name', 'fr_description', 'en_description',
+        'started_at', 'ended_at',
+        'localisation', 'map',
         'image', 'extension',
     ];
 
@@ -62,6 +68,30 @@ class Event extends Model
         }
 
         return event_img_asset($this->image, $this->image_extension);
+    }
+
+    /**
+     * Start date
+     *
+     * @return mixed
+     */
+    public function getStartDateAttribute()
+    {
+        $date = $this->started_at;
+        $date->setTimezone(session('timezone'));
+        return $date->format('d/m/Y H:i');
+    }
+
+    /**
+     * End date
+     *
+     * @return mixed
+     */
+    public function getEndDateAttribute()
+    {
+        $date = $this->ended_at;
+        $date->setTimezone(session('timezone'));
+        return $date->format('d/m/Y H:i');
     }
 
     /**

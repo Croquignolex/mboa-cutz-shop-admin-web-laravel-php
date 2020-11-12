@@ -13,16 +13,19 @@ class CategoriesTableSeeder extends Seeder
      */
     public function run()
     {
-        Category::create([
-                'fr_name' => Lorem::word(),
-                'en_name' => Lorem::word(),
-                'description' => Lorem::text()
-        ]);
+        Category::create($this->getRowData());
+        Category::create($this->getRowData());
+    }
 
-        Category::create([
-            'fr_name' => Lorem::word(),
-            'en_name' => Lorem::word(),
-            'description' => Lorem::text()
-        ]);
+    /**
+     * @return array
+     */
+    private function getRowData()
+    {
+        return [
+            'description' => Lorem::text(),
+            'fr_name' => Lorem::words(2),
+            'en_name' => Lorem::words(2),
+        ];
     }
 }

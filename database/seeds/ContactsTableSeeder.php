@@ -13,20 +13,21 @@ class ContactsTableSeeder extends Seeder
      */
     public function run()
     {
-        Contact::create([
-                'name' => Lorem::word(),
-                'email' => Lorem::word(),
-                'phone' => Lorem::word(),
-                'subject' => Lorem::word(),
-                'message' => Lorem::text(),
-        ]);
+        Contact::create($this->getRowData());
+        Contact::create($this->getRowData());
+    }
 
-        Contact::create([
-            'name' => Lorem::word(),
+    /**
+     * @return array
+     */
+    private function getRowData()
+    {
+        return [
             'email' => Lorem::word(),
             'phone' => Lorem::word(),
-            'subject' => Lorem::word(),
             'message' => Lorem::text(),
-        ]);
+            'name' => Lorem::words(2),
+            'subject' => Lorem::words(3),
+        ];
     }
 }
