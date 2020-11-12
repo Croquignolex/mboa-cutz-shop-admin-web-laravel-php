@@ -4,7 +4,7 @@
     <table class="table table-bordered table-hover">
         <thead>
             <tr>
-                <th scope="col">DATE</th>
+                                    <th scope="col">CREATION</th>
                 <th scope="col">COMMENTAIRE</th>
                 <th scope="col">CREER PAR</th>
                 <th scope="col">ACTION</th>
@@ -13,7 +13,7 @@
         <tbody>
             @foreach ($comments as $comment)
                 <tr>
-                    <td>{{ $comment->creation_date }}</td>
+                                        <td style="white-space: nowrap;">{{ $comment->creation_date }}</td>
                     <td>{{ $comment->description }}</td>
                     <td>{{ $comment->creator_name}}</td>
                     <td class="text-center">

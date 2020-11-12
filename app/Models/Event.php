@@ -47,10 +47,17 @@ class Event extends Model
      */
     protected $fillable = [
         'fr_name', 'en_name', 'fr_description', 'en_description',
+        'fr_localisation', 'en_localisation', 'map',
         'started_at', 'ended_at',
-        'localisation', 'map',
         'image', 'extension',
     ];
+
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = ['started_at', 'ended_at'];
 
     /**
      * Event image src
@@ -79,7 +86,7 @@ class Event extends Model
     {
         $date = $this->started_at;
         $date->setTimezone(session('timezone'));
-        return $date->format('d/m/Y H:i');
+        return $date->format('d M, Y à H:i');
     }
 
     /**
@@ -91,7 +98,7 @@ class Event extends Model
     {
         $date = $this->ended_at;
         $date->setTimezone(session('timezone'));
-        return $date->format('d/m/Y H:i');
+        return $date->format('d M, Y à H:i');
     }
 
     /**

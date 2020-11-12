@@ -22,7 +22,7 @@
                         <table class="table table-bordered table-hover">
                             <thead>
                             <tr>
-                                <th scope="col">DATE</th>
+                                    <th scope="col">CREATION</th>
                                 <th scope="col">AVATAR</th>
                                 <th scope="col">ROLE</th>
                                 <th scope="col">PRENOM</th>
@@ -36,7 +36,7 @@
                             <tbody>
                             @foreach ($admins as $admin)
                                 <tr>
-                                    <td>{{ $admin->creation_date }}</td>
+                                        <td style="white-space: nowrap;">{{ $admin->creation_date }}</td>
                                     <td class="text-center">
                                         <img class="rounded-circle w-45" src="{{ $admin->avatar_src }}" alt="..." />
                                     </td>

@@ -21,7 +21,8 @@ class CreateEventsTable extends Migration
             $table->string('image_extension', 50)->default(Constants::DEFAULT_IMAGE_EXTENSION);
             $table->string('fr_name');
             $table->string('en_name');
-            $table->string('localisation');
+            $table->string('fr_localisation');
+            $table->string('en_localisation');
             $table->text('map')->nullable();
             $table->dateTime('started_at');
             $table->dateTime('ended_at');

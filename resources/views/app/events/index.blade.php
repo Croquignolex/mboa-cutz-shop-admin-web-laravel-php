@@ -28,10 +28,12 @@
                         <table class="table table-bordered table-hover">
                             <thead>
                             <tr>
-                                <th scope="col">DATE</th>
+                                    <th scope="col">CREATION</th>
                                 <th scope="col">IMAGE</th>
                                 <th scope="col">NOM (FR)</th>
                                 <th scope="col">NOM (EN)</th>
+                                <th scope="col">DEBUT</th>
+                                <th scope="col">FIN</th>
                                 <th scope="col">CREER PAR</th>
                                 <th scope="col">ACTIONS</th>
                             </tr>
@@ -39,12 +41,14 @@
                             <tbody>
                                 @foreach ($events as $event)
                                     <tr>
-                                        <td>{{ $event->creation_date }}</td>
+                                        <td style="white-space: nowrap;">{{ $event->creation_date }}</td>
                                         <td class="text-center">
                                             <img class="rounded-circle w-45" src="{{ $event->image_src }}" alt="..." />
                                         </td>
                                         <td>{{ $event->fr_name }}</td>
                                         <td>{{ $event->en_name }}</td>
+                                        <td>{{ $event->start_date }}</td>
+                                        <td>{{ $event->end_date }}</td>
                                         <td>{{ $event->creator_name}}</td>
                                         <td class="text-center" style="white-space: nowrap;">
                                             <a href="{{ route('events.show', compact('event')) }}"

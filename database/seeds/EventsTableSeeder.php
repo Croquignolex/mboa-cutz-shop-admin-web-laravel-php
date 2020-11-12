@@ -29,7 +29,8 @@ class EventsTableSeeder extends Seeder
             'ended_at' => now()->addDays(3),
             'fr_name' => Lorem::words(2, true),
             'en_name' => Lorem::words(2, true),
-            'localisation' => Lorem::words(3, true),
+            'fr_localisation' => Lorem::words(3, true),
+            'en_localisation' => Lorem::words(3, true),
         ];
     }
 }

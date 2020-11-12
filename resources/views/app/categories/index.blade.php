@@ -28,7 +28,7 @@
                         <table class="table table-bordered table-hover">
                             <thead>
                             <tr>
-                                <th scope="col">DATE</th>
+                                    <th scope="col">CREATION</th>
                                 <th scope="col">NOM (fr)</th>
                                 <th scope="col">NOM (EN)</th>
                                 <th scope="col">PRODUITS</th>
@@ -41,7 +41,7 @@
                             <tbody>
                                 @foreach ($categories as $category)
                                     <tr>
-                                        <td>{{ $category->creation_date }}</td>
+                                        <td style="white-space: nowrap;">{{ $category->creation_date }}</td>
                                         <td>{{ $category->fr_name }}</td>
                                         <td>{{ $category->en_name }}</td>
                                         <td class="text-right">{{ $category->products->count() }}</td>

@@ -27,20 +27,20 @@
                     <div class="table-responsive">
                         <table class="table table-bordered table-hover">
                             <thead>
-                            <tr>
-                                <th scope="col">DATE</th>
-                                <th scope="col">IMAGE</th>
-                                <th scope="col">NOM</th>
-                                <th scope="col">DESCRIPTION (FR)</th>
-                                <th scope="col">DESCRIPTION (EN)</th>
-                                <th scope="col">CREER PAR</th>
-                                <th scope="col">ACTIONS</th>
-                            </tr>
+                                <tr>
+                                    <th scope="col">CREATION</th>
+                                    <th scope="col">IMAGE</th>
+                                    <th scope="col">NOM</th>
+                                    <th scope="col">DESCRIPTION (FR)</th>
+                                    <th scope="col">DESCRIPTION (EN)</th>
+                                    <th scope="col">CREER PAR</th>
+                                    <th scope="col">ACTIONS</th>
+                                </tr>
                             </thead>
                             <tbody>
                                 @foreach ($testimonials as $testimonial)
                                     <tr>
-                                        <td>{{ $testimonial->creation_date }}</td>
+                                        <td style="white-space: nowrap;">{{ $testimonial->creation_date }}</td>
                                         <td class="text-center">
                                             <img class="rounded-circle w-45" src="{{ $testimonial->image_src }}" alt="..." />
                                         </td>

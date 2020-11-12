@@ -13,7 +13,7 @@ trait DateTrait
     {
         $date = $this->created_at;
         $date->setTimezone(session('timezone'));
-        return $date->format('d/m/Y H:i');
+        return $date->format('d M, Y à H:i');
     }
 
     /**
@@ -25,6 +25,6 @@ trait DateTrait
     {
         $date = $this->updated_at;
         $date->setTimezone(session('timezone'));
-        return $date->format('d/m/Y H:i');
+        return $date->format('d M, Y à H:i');
     }
 }

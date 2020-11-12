@@ -4,7 +4,7 @@
     <table class="table table-bordered table-hover">
         <thead>
         <tr>
-            <th scope="col">DATE</th>
+                                    <th scope="col">CREATION</th>
             <th scope="col">TITRE</th>
             <th scope="col">DESCRIPTION</th>
         </tr>
@@ -12,7 +12,7 @@
         <tbody>
         @foreach ($logs as $log)
             <tr>
-                <td>{{ $log->creation_date }}</td>
+                                        <td style="white-space: nowrap;">{{ $log->creation_date }}</td>
                 <td>{{ $log->title }}</td>
                 <td>{{ $log->description }}</td>
             </tr>

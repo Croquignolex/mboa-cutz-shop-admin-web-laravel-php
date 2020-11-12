@@ -22,7 +22,7 @@
                         <table class="table table-bordered table-hover">
                             <thead>
                             <tr>
-                                <th scope="col">DATE</th>
+                                    <th scope="col">CREATION</th>
                                 <th scope="col">NOM (fr)</th>
                                 <th scope="col">NOM (EN)</th>
                                 <th scope="col">CREER PAR</th>
@@ -32,7 +32,7 @@
                             <tbody>
                             @foreach ($tags as $tag)
                                 <tr>
-                                    <td>{{ $tag->creation_date }}</td>
+                                        <td style="white-space: nowrap;">{{ $tag->creation_date }}</td>
                                     <td>{{ $tag->fr_name }}</td>
                                     <td>{{ $tag->en_name }}</td>
                                     <td>{{ $tag->creator_name}}</td>

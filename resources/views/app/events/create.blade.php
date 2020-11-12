@@ -38,6 +38,24 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-6">
+                                @include('partials.form.input', [
+                                    'name' => 'Nom (français)*',
+                                    'id' => 'fr_name',
+                                    'type' => 'text',
+                                    'value' => old('fr_name')
+                                ])
+                            </div>
+                            <div class="col-sm-6">
+                                @include('partials.form.input', [
+                                    'name' => 'Nom (anglais)*',
+                                    'id' => 'en_name',
+                                    'type' => 'text',
+                                    'value' => old('en_name')
+                                ])
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
                                 @include('partials.form.textarea', [
                                     'name' => 'Description (français)',
                                     'id' => 'fr_description',
