@@ -24,12 +24,12 @@ class EventsTableSeeder extends Seeder
     {
         return [
             'started_at' => now(),
-            'fr_name' => Lorem::words(2),
-            'en_name' => Lorem::words(2),
             'fr_description' => Lorem::text(),
             'en_description' => Lorem::text(),
-            'localisation' => Lorem::words(3),
             'ended_at' => now()->addDays(3),
+            'fr_name' => Lorem::words(2, true),
+            'en_name' => Lorem::words(2, true),
+            'localisation' => Lorem::words(3, true),
         ];
     }
 }

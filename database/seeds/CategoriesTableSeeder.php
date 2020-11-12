@@ -24,8 +24,8 @@ class CategoriesTableSeeder extends Seeder
     {
         return [
             'description' => Lorem::text(),
-            'fr_name' => Lorem::words(2),
-            'en_name' => Lorem::words(2),
+            'fr_name' => Lorem::words(2, true),
+            'en_name' => Lorem::words(2, true),
         ];
     }
 }

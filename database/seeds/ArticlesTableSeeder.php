@@ -22,10 +22,10 @@ class ArticlesTableSeeder extends Seeder
     private function getRowData()
     {
         return  [
-            'fr_name' => Lorem::words(2),
-            'en_name' => Lorem::words(2),
             'fr_description' => Lorem::text(),
             'en_description' => Lorem::text(),
+            'fr_name' => Lorem::words(2, true),
+            'en_name' => Lorem::words(2, true),
         ];
     }
 }

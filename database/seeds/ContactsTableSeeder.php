@@ -26,8 +26,8 @@ class ContactsTableSeeder extends Seeder
             'email' => Lorem::word(),
             'phone' => Lorem::word(),
             'message' => Lorem::text(),
-            'name' => Lorem::words(2),
-            'subject' => Lorem::words(3),
+            'name' => Lorem::words(2, true),
+            'subject' => Lorem::words(3, true),
         ];
     }
 }
