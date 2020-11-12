@@ -43,14 +43,17 @@ class DashboardController extends Controller
 
         for($i = 0; $i < 7; $i++)
         {
-            $loopDay = now()->startOfWeek()->addDays($i);
-
             $data[] = $customers->filter(function ($item) use ($i) {
-                //dd($loopDay, $loopDay->endOfDay(), $item->created_at, ($item->created_at->greaterThanOrEqualTo($loopDay)) && ($item->created_at->lessThanOrEqualTo($loopDay->endOfDay())));
+
+                $timezone_creation_date = $item->created_at->setTimezone(session('timezone'));
+                $timezone_min_date = now()->setTimezone(session('timezone'))->startOfWeek()->addDays($i);
+                $timezone_max_date = now()->setTimezone(session('timezone'))->startOfWeek()->addDays($i)->endOfDay();
+
                 return (
-                    ($item->created_at->greaterThanOrEqualTo(now()->startOfWeek()->addDays($i))) &&
-                    ($item->created_at->lessThanOrEqualTo(now()->startOfWeek()->addDays($i)->endOfDay()))
+                    $timezone_creation_date->greaterThanOrEqualTo($timezone_min_date) &&
+                    $timezone_creation_date->lessThanOrEqualTo($timezone_max_date)
                 );
+
             })->count();
         }
 
