@@ -40,18 +40,18 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 @include('partials.form.input', [
-                                    'name' => 'Lieux (français)*',
-                                    'id' => 'fr_localisation',
+                                    'name' => 'Nom (français)*',
+                                    'id' => 'fr_name',
                                     'type' => 'text',
-                                    'value' => old('fr_localisation')
+                                    'value' => old('fr_name')
                                 ])
                             </div>
                             <div class="col-sm-6">
                                 @include('partials.form.input', [
-                                    'name' => 'Lieux (anglais)*',
-                                    'id' => 'en_localisation',
+                                    'name' => 'Nom (anglais)*',
+                                    'id' => 'en_name',
                                     'type' => 'text',
-                                    'value' => old('en_localisation')
+                                    'value' => old('en_name')
                                 ])
                             </div>
                         </div>
@@ -88,6 +88,13 @@
                                     'name' => 'Description (anglais)',
                                     'id' => 'en_description',
                                     'value' => old('en_description')
+                                ])
+                            </div>
+                            <div class="col-sm-12">
+                                @include('partials.form.textarea', [
+                                    'name' => 'Lien de la map Google',
+                                    'id' => 'map',
+                                    'value' => old('map')
                                 ])
                             </div>
                         </div>
