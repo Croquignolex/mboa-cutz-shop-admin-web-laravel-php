@@ -36,24 +36,45 @@
                                 ])
                             </div>
                         </div>
+                        {{-- **************************************************** --}}
                         <div class="row">
                             <div class="col-sm-6">
                                 @include('partials.form.input', [
-                                    'name' => 'Nom (français)*',
-                                    'id' => 'fr_name',
+                                    'name' => 'Lieux (français)*',
+                                    'id' => 'fr_localisation',
                                     'type' => 'text',
-                                    'value' => old('fr_name')
+                                    'value' => old('fr_localisation')
                                 ])
                             </div>
                             <div class="col-sm-6">
                                 @include('partials.form.input', [
-                                    'name' => 'Nom (anglais)*',
-                                    'id' => 'en_name',
+                                    'name' => 'Lieux (anglais)*',
+                                    'id' => 'en_localisation',
                                     'type' => 'text',
-                                    'value' => old('en_name')
+                                    'value' => old('en_localisation')
                                 ])
                             </div>
                         </div>
+                        {{-- **************************************************** --}}
+                        <div class="row">
+                            <div class="col-sm-6">
+                                @include('partials.form.input', [
+                                    'name' => 'Lieux (français)*',
+                                    'id' => 'fr_localisation',
+                                    'type' => 'text',
+                                    'value' => old('fr_localisation')
+                                ])
+                            </div>
+                            <div class="col-sm-6">
+                                @include('partials.form.input', [
+                                    'name' => 'Lieux (anglais)*',
+                                    'id' => 'en_localisation',
+                                    'type' => 'text',
+                                    'value' => old('en_localisation')
+                                ])
+                            </div>
+                        </div>
+                        {{-- **************************************************** --}}
                         <div class="row">
                             <div class="col-sm-6">
                                 @include('partials.form.textarea', [
