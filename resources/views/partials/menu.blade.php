@@ -164,7 +164,7 @@
                         </div>
                     </ul>
                 </li>
-                {{--Event--}}
+                {{--Events--}}
                 <li class="has-sub expand {{ active_page(events_pages()) }}">
                     <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#events" aria-expanded="false" aria-controls="events">
                         <i class="mdi mdi-string-lights"></i>
@@ -185,6 +185,33 @@
                                     <span class="nav-text">
                                         <i class="mdi mdi-playlist-plus"></i>
                                         Nouvel évènement
+                                    </span>
+                                </a>
+                            </li>
+                        </div>
+                    </ul>
+                </li>
+                {{--Gallery--}}
+                <li class="has-sub expand {{ active_page(pictures_pages()) }}">
+                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#pictures" aria-expanded="false" aria-controls="pictures">
+                        <i class="mdi mdi-image-multiple"></i>
+                        <span class="nav-text">Gallery</span> <b class="caret"></b>
+                    </a>
+                    <ul class="collapse {{ active_page_group(pictures_pages()) }}" id="pictures" data-parent="#sidebar-menu">
+                        <div class="sub-menu">
+                            <li class="{{ active_page(collect('pictures.index')) }}">
+                                <a class="sidenav-item-link" href="{{ route('pictures.index') }}">
+                                    <span class="nav-text">
+                                        <i class="mdi mdi-playlist-check"></i>
+                                        Tous les photos
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="{{ active_page(collect('pictures.create')) }}">
+                                <a class="sidenav-item-link" href="{{ route('pictures.create') }}">
+                                    <span class="nav-text">
+                                        <i class="mdi mdi-playlist-plus"></i>
+                                        Nouvelle photo
                                     </span>
                                 </a>
                             </li>

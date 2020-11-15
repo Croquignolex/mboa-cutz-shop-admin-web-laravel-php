@@ -192,6 +192,17 @@ if(!function_exists('events_pages'))
     }
 }
 
+if(!function_exists('pictures_pages'))
+{
+    /**
+     * @return Collection
+     */
+    function pictures_pages()
+    {
+        return collect(['pictures.index', 'pictures.create', 'pictures.show', 'pictures.edit']);
+    }
+}
+
 if(!function_exists('archives_pages'))
 {
     /**

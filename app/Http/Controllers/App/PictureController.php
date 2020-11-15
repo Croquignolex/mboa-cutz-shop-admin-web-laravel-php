@@ -42,7 +42,7 @@ class PictureController extends Controller
             ->paginate(Constants::DEFAULT_PAGE_PAGINATION_ITEMS)
             ->onEachSide(Constants::DEFAULT_PAGE_PAGINATION_EACH_SIDE);
 
-        return view('app.events.index', compact('pictures'));
+        return view('app.pictures.index', compact('pictures'));
     }
 
     /**
