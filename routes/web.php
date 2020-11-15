@@ -40,6 +40,7 @@ Route::group(['namespace' => 'App'], function() {
     Route::post('/products/{product}/update-image', 'ProductController@updateImage')->name('products.update.image');
     Route::post('/services/{service}/update-image', 'ServiceController@updateImage')->name('services.update.image');
     Route::post('/articles/{article}/update-image', 'ArticleController@updateImage')->name('articles.update.image');
+    Route::post('/pictures/{picture}/update-image', 'PictureController@updateImage')->name('pictures.update.image');
     Route::post('/testimonials/{testimonial}/update-image', 'TestimonialController@updateImage')->name('testimonials.update.image');
 
     Route::post('/categories/{category}/add-product', 'CategoryController@addProduct')->name('categories.add.product');
@@ -64,6 +65,7 @@ Route::group(['namespace' => 'App'], function() {
         'products' => 'ProductController',
         'articles' => 'ArticleController',
         'services' => 'ServiceController',
+        'pictures' => 'PictureController',
         'categories' => 'CategoryController',
         'testimonials' => 'TestimonialController',
     ]);
