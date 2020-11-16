@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\App;
 
+use App\Http\Requests\PictureRequest;
 use Exception;
 use App\Models\Event;
 use App\Models\Picture;
@@ -52,35 +53,35 @@ class PictureController extends Controller
      */
     public function create()
     {
-        return view('app.events.create');
+        return view('app.pictures.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param TestimonialRequest $request
+     * @param PictureRequest $request
      * @return Application|RedirectResponse|Response|Redirector
      */
-    public function store(TestimonialRequest $request)
+    public function store(PictureRequest $request)
     {
-        $testimonial = Auth::user()->created_testimonials()->create($request->all());
+        $picture = Auth::user()->created_pictures()->create($request->all());
 
-        $name = $request->input('name');
-        success_toast_alert("Témoignage de $name créer avec succès");
-        log_activity("Témoignage", "Création du témoignage de $name");
+        $name = text_format($request->input('fr_description'), 30);
+        success_toast_alert("Image avec la description $name créer avec succès");
+        log_activity("Gallery", "Création de l'image avec la description $name");
 
-        return redirect(route('testimonials.show', compact('testimonial')));
+        return redirect(route('pictures.show', compact('picture')));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param Event $event
+     * @param Picture $picture
      * @return Application|Factory|Response|View
      */
-    public function show(Event $event)
+    public function show(Picture $picture)
     {
-        return view('app.events.show', compact('event'));
+        return view('app.pictures.show', compact('picture'));
     }
 
     /**

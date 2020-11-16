@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('app.master.title', page_title('Détails témoignage'))
+@section('app.master.title', page_title('Détails image'))
 
 @section('app.breadcrumb')
     @include('partials.breadcrumb', [
-        'title' => 'Détails témoignage',
-        'icon' => 'mdi mdi-face',
-        'chain' => ['Témoignages', 'Détails témoignage']
+        'title' => 'Détails image',
+        'icon' => 'mdi mdi-image-multiple',
+        'chain' => ['Gallery', 'Détails image']
     ])
 @endsection
 
@@ -17,14 +17,14 @@
             <div class="card card-default">
                 <div class="card-body">
                     <div class="mb-3">
-                        <a class="btn btn-warning" href="{{ route('testimonials.edit', compact('testimonial')) }}">
+                        <a class="btn btn-warning" href="{{ route('pictures.edit', compact('picture')) }}">
                             <i class="mdi mdi-pencil"></i>
                             Modifier
                         </a>
-                        @if($testimonial->can_delete)
+                        @if($picture->can_delete)
                             <button class="btn btn-danger"
                                     data-toggle="modal"
-                                    data-target="{{ "#archive-testimonial-modal" }}"
+                                    data-target="{{ "#archive-picture-modal" }}"
                             >
                                 <i class="mdi mdi-archive"></i>
                                 Archiver
@@ -32,14 +32,11 @@
                         @endif
                     </div>
                     <div class="contact-info">
-                        <p class="text-dark font-weight-medium pt-4 mb-2">Nom</p>
-                        <p>{{ $testimonial->name }}</p>
-
                         <p class="text-dark font-weight-medium pt-4 mb-2">Description (francais)</p>
-                        <p>{{ $testimonial->fr_description }}</p>
+                        <p>{{ $picture->fr_description }}</p>
 
                         <p class="text-dark font-weight-medium pt-4 mb-2">Description (anglais)</p>
-                        <p>{{ $testimonial->en_description }}</p>
+                        <p>{{ $picture->en_description }}</p>
                     </div>
                 </div>
             </div>
@@ -49,21 +46,21 @@
             <div class="card card-default">
                 <div class="card-body">
                     @include('partials.model-image-edit', [
-                        'round_image' => true,
-                        'model' => $testimonial,
+                        'round_image' => false,
+                        'model' => $picture,
                         'croup_ratio' => 'square',
-                        'url' => route('testimonials.update.image', compact('testimonial'))
+                        'url' => route('pictures.update.image', compact('picture'))
                     ])
                 </div>
             </div>
         </div>
     </div>
     {{--Modal--}}
-    @if($testimonial->can_delete)
+    @if($picture->can_delete)
         @include('partials.archive.archive-confirmation', [
-            'name' => $testimonial->name,
-            'modal_id' => "archive-testimonial-modal",
-            'url' => route('testimonials.destroy', compact('testimonial'))
+            'name' => $picture->fr_description,
+            'modal_id' => "archive-picture-modal",
+            'url' => route('pictures.destroy', compact('picture'))
         ])
     @endif
 @endsection
