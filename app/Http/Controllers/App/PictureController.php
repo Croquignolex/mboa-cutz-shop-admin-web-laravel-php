@@ -2,23 +2,20 @@
 
 namespace App\Http\Controllers\App;
 
-use App\Http\Requests\PictureRequest;
 use Exception;
-use App\Models\Event;
 use App\Models\Picture;
 use App\Enums\ImagePath;
 use App\Enums\Constants;
 use Illuminate\View\View;
-use App\Models\Testimonial;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Redirector;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\PictureRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\Factory;
 use App\Http\Requests\Base64ImageRequest;
-use App\Http\Requests\TestimonialRequest;
 use Illuminate\Contracts\Foundation\Application;
 
 class PictureController extends Controller
@@ -98,18 +95,19 @@ class PictureController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param TestimonialRequest $request
-     * @param Testimonial $testimonial
+     * @param PictureRequest $request
+     * @param Picture $picture
      * @return Application|RedirectResponse|Response|Redirector
      */
-    public function update(TestimonialRequest $request, Testimonial $testimonial)
+    public function update(PictureRequest $request, Picture $picture)
     {
-        $testimonial->update($request->all());
+        $picture->update($request->all());
 
-        success_toast_alert("Témoignage de $testimonial->name mise à jour avec success");
-        log_activity("Témoignage", "Mise à jour du témoignage de $testimonial->name");
+        $name = text_format($picture->fr_description, 30);
+        success_toast_alert("Image avec la description $name mise à jour avec success");
+        log_activity("Gallery", "Mise à jour de l'image avec la description $name");
 
-        return redirect(route('testimonials.show', compact('testimonial')));
+        return redirect(route('pictures.show', compact('picture')));
     }
 
     /**

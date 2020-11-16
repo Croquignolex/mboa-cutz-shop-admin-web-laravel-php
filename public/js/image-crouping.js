@@ -23,7 +23,6 @@ $("#modal-save-image").click(function () {
     // Save crouped image into backend
     ajaxRequest({ base_64_image: base64Image }, currentUploadImageInput.data('url'))
         .then((data) => {
-            console.log({currentUploadImageInput})
             previewImage(base64Image, currentUploadImageInput.data('class'));
             croupModal.modal("hide");
             successToaster(data.message);
@@ -159,7 +158,6 @@ function toggleCroupModalLoader(toggleStatus) {
 // Preview image after croup
 function previewImage(base64Image, imageClass) {
     try {
-        console.log({base64Image, imageClass})
         $(`.${imageClass}`).replaceWith(`<img alt="..." src="${base64Image}" class="img-responsive ${imageClass}" />`);
     } catch (ex) {
         dangerToaster("Une erreur s'est passé dans le script"); console.log(ex)

@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('app.master.title', page_title('Modifier témoignage'))
+@section('app.master.title', page_title('Modifier image'))
 
 @section('app.breadcrumb')
     @include('partials.breadcrumb', [
-        'title' => 'Modifier témoignage',
-        'icon' => 'mdi mdi-face',
-        'chain' => ['Témoignages', 'Modifier témoignage']
+        'title' => 'Modifier image',
+        'icon' => 'mdi mdi-image-multiple',
+        'chain' => ['Gallery', 'Modifier image']
     ])
 @endsection
 
@@ -16,32 +16,22 @@
             <div class="card card-default">
                 <div class="card-body">
                     <div class="mx-5">@include('partials.toast-message')</div>
-                    <form action="{{ route('testimonials.update', compact('testimonial')) }}" method="POST">
+                    <form action="{{ route('pictures.update', compact('picture')) }}" method="POST">
                         @csrf
                         @method('PUT')
-                        <div class="row">
-                            <div class="col-sm-6">
-                                @include('partials.form.input', [
-                                    'name' => 'Nom*',
-                                    'id' => 'name',
-                                    'type' => 'text',
-                                    'value' => old('name') ?? $testimonial->name
-                                ])
-                            </div>
-                        </div>
                         <div class="row">
                             <div class="col-sm-6">
                                 @include('partials.form.textarea', [
                                     'name' => 'Description (français)',
                                     'id' => 'fr_description',
-                                    'value' => old('fr_description') ?? $testimonial->fr_description
+                                    'value' => old('fr_description') ?? $picture->fr_description
                                 ])
                             </div>
                             <div class="col-sm-6">
                                 @include('partials.form.textarea', [
                                     'name' => 'Description (anglais)',
                                     'id' => 'en_description',
-                                    'value' => old('en_description') ?? $testimonial->en_description
+                                    'value' => old('en_description') ?? $picture->en_description
                                 ])
                             </div>
                         </div>
