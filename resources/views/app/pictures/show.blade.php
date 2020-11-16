@@ -48,7 +48,7 @@
                     @include('partials.model-image-edit', [
                         'round_image' => false,
                         'model' => $picture,
-                        'croup_ratio' => 'square',
+                        'croup_ratio' => 'unknown',
                         'url' => route('pictures.update.image', compact('picture'))
                     ])
                 </div>

@@ -39,7 +39,7 @@ class PictureController extends Controller
      */
     public function index()
     {
-        $pictures = Picture::orderBy('created_at', 'desc')
+        $pictures = Picture::orderBy('updated_at', 'desc')
             ->paginate(Constants::DEFAULT_PAGE_PAGINATION_ITEMS)
             ->onEachSide(Constants::DEFAULT_PAGE_PAGINATION_EACH_SIDE);
 
@@ -87,12 +87,12 @@ class PictureController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Event $event
+     * @param Picture $picture
      * @return Application|RedirectResponse|Response|Redirector
      */
-    public function edit(Event $event)
+    public function edit(Picture $picture)
     {
-        return view('app.events.edit', compact('event'));
+        return view('app.pictures.edit', compact('picture'));
     }
 
     /**
@@ -113,46 +113,48 @@ class PictureController extends Controller
     }
 
     /**
-     * @param Event $event
+     * @param Picture $picture
      * @return RedirectResponse
      * @throws Exception
      */
-    public function destroy(Event $event)
+    public function destroy(Picture $picture)
     {
-        if(!$event->can_delete) return $this->unauthorizedToast();
+        if(!$picture->can_delete) return $this->unauthorizedToast();
 
-        $event->delete();
+        $picture->delete();
 
-        success_toast_alert("Evènement $event->fr_name archivé avec success");
-        log_activity("Evènement", "Archivage de l'évènement $event->fr_name");
+        $name = text_format($picture->fr_description, 30);
+        success_toast_alert("Image avec la description $name archivée avec success");
+        log_activity("Gallery", "Archivage de l'image avec la description $name");
 
-        return redirect(route('events.index'));
+        return redirect(route('pictures.index'));
     }
 
     /**
-     * Update event image
+     * Update picture image
      *
      * @param Base64ImageRequest $request
-     * @param Event $event
+     * @param Picture $picture
      * @return JsonResponse
      */
-    public function updateImage(Base64ImageRequest $request, Event $event)
+    public function updateImage(Base64ImageRequest $request, Picture $picture)
     {
         // Convert base 64 image to normal image for the server and the data base
-        $event_image_to_save = imageFromBase64AndSave(
+        $picture_image_to_save = imageFromBase64AndSave(
             $request->input('base_64_image'),
-            $event->image,
-            $event->image_extension,
-            ImagePath::TESTIMONIAL_DEFAULT_IMAGE_PATH
+            $picture->image,
+            $picture->image_extension,
+            ImagePath::PICTURE_DEFAULT_IMAGE_PATH
         );
 
         // Save image name in database
-        $event->update([
-            'image' => $event_image_to_save['name'],
-            'image_extension' => $event_image_to_save['extension'],
+        $picture->update([
+            'image' => $picture_image_to_save['name'],
+            'image_extension' => $picture_image_to_save['extension'],
         ]);
 
-        log_activity("Evènement", "Mise à jour de la photo de l'évènement de $event->fr_name");
-        return response()->json(['message' => "Photo du témoignage de l'évènement $event->fr_name mise à jour avec succès"]);
+        $name = text_format($picture->fr_description, 30);
+        log_activity("Gallery", "Mise à jour de l'image avec la description $name");
+        return response()->json(['message' => "Photo de l'image avec la description $name mise à jour avec succès"]);
     }
 }

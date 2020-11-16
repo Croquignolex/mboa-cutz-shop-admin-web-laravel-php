@@ -41,7 +41,7 @@
                                     <tr>
                                         <td style="white-space: nowrap;">{{ $picture->creation_date }}</td>
                                         <td class="text-center">
-                                            <img class="rounded-circle w-45" src="{{ $picture->image_src }}" alt="..." />
+                                            <img class="w-45" src="{{ $picture->image_src }}" alt="..." />
                                         </td>
                                         <td>{{ $picture->fr_description }}</td>
                                         <td>{{ $picture->en_description }}</td>

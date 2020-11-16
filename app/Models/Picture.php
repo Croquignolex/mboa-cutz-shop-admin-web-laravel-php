@@ -19,6 +19,7 @@ use App\Traits\SuperAdminOrCreatorCanDeleteTrait;
  * @property mixed created_at
  * @property mixed creator
  * @property mixed image_src
+ * @property mixed can_delete
  */
 class Picture extends Model
 {
