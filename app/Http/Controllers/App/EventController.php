@@ -2,24 +2,21 @@
 
 namespace App\Http\Controllers\App;
 
-use App\Http\Requests\EventRequest;
 use Exception;
 use App\Models\Event;
 use App\Enums\ImagePath;
 use App\Enums\Constants;
-use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 use Illuminate\View\View;
-use App\Models\Testimonial;
 use Illuminate\Http\Response;
+use Illuminate\Support\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Redirector;
+use App\Http\Requests\EventRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\Factory;
 use App\Http\Requests\Base64ImageRequest;
-use App\Http\Requests\TestimonialRequest;
 use Illuminate\Contracts\Foundation\Application;
 
 class EventController extends Controller
@@ -117,18 +114,18 @@ class EventController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param TestimonialRequest $request
-     * @param Testimonial $testimonial
+     * @param EventRequest $request
+     * @param Event $event
      * @return Application|RedirectResponse|Response|Redirector
      */
-    public function update(TestimonialRequest $request, Testimonial $testimonial)
+    public function update(EventRequest $request, Event $event)
     {
-        $testimonial->update($request->all());
+        $event->update($request->all());
 
-        success_toast_alert("Témoignage de $testimonial->name mise à jour avec success");
-        log_activity("Témoignage", "Mise à jour du témoignage de $testimonial->name");
+        success_toast_alert("Evènement $event->fr_name mis à jour avec success");
+        log_activity("Evènement", "Mise à jour de l'évènement $event->fr_name");
 
-        return redirect(route('testimonials.show', compact('testimonial')));
+        return redirect(route('events.show', compact('event')));
     }
 
     /**

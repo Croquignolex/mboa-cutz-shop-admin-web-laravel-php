@@ -44,7 +44,7 @@
                                         <td style="white-space: nowrap;">{{ $event->creation_date }}</td>
                                         <td class="text-center">
                                             <img class="w-45" src="{{ $event->image_src }}" alt="..." />
-                                Improve         </td>
+                                        </td>
                                         <td>{{ $event->fr_name }}</td>
                                         <td>{{ $event->en_name }}</td>
                                         <td>{{ $event->start_date }}</td>
