@@ -20,18 +20,10 @@
                         @csrf
                         <div class="row">
                             <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="date-input1">Date Range</label>
-                                    <input type="text" name="datetimes" class="form-control datetimes" />
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                @include('partials.form.input', [
-                                    'name' => 'Nom (anglais)*',
-                                    'id' => 'en_name',
-                                    'type' => 'text',
-                                    'value' => old('en_name')
-                                ])
+                                @include('partials.form.date-range', [
+                                   'name' => 'Durée*',
+                                   'id' => 'range',
+                               ])
                             </div>
                         </div>
                         {{-- **************************************************** --}}
@@ -109,20 +101,15 @@
 @endpush
 
 @push('app.master.script')
+    <script src="{{ js_asset('moment.min') }}" type="application/javascript"></script>
     <script src="{{ js_asset('daterangepicker') }}" type="application/javascript"></script>
     <script>
-        if ($('.datetimes').length)
-        {
-            $('.datetimes').daterangepicker(
-                {
-                    timePicker: true,
-                    startDate: moment().startOf('hour'),
-                    endDate: moment().startOf('hour').add(32, 'hour'),
-                    locale:
-                        {
-                            format: 'M/DD hh:mm A'
-                        }
-                });
-        }
+        $('#range').daterangepicker({
+            timePicker: true,
+            timePicker24Hour: true,
+            startDate: moment().startOf('hour'),
+            endDate: moment().startOf('hour').add(72, 'hour'),
+            locale: {format: 'DD MMM, YYYY à hh:mm'}
+        });
     </script>
 @endpush

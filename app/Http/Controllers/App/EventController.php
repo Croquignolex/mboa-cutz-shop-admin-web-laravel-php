@@ -6,6 +6,7 @@ use Exception;
 use App\Models\Event;
 use App\Enums\ImagePath;
 use App\Enums\Constants;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Models\Testimonial;
 use Illuminate\Http\Response;
@@ -60,8 +61,9 @@ class EventController extends Controller
      * @param TestimonialRequest $request
      * @return Application|RedirectResponse|Response|Redirector
      */
-    public function store(TestimonialRequest $request)
+    public function store(Request $request)
     {
+        dd($request);
         $testimonial = Auth::user()->created_testimonials()->create($request->all());
 
         $name = $request->input('name');
