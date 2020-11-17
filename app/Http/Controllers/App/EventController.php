@@ -162,7 +162,7 @@ class EventController extends Controller
             $request->input('base_64_image'),
             $event->image,
             $event->image_extension,
-            ImagePath::TESTIMONIAL_DEFAULT_IMAGE_PATH
+            ImagePath::EVENT_DEFAULT_IMAGE_PATH
         );
 
         // Save image name in database
@@ -172,6 +172,6 @@ class EventController extends Controller
         ]);
 
         log_activity("Evènement", "Mise à jour de la photo de l'évènement de $event->fr_name");
-        return response()->json(['message' => "Photo du témoignage de l'évènement $event->fr_name mise à jour avec succès"]);
+        return response()->json(['message' => "Photo de l'évènement $event->fr_name mise à jour avec succès"]);
     }
 }
