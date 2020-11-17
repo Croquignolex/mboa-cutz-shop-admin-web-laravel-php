@@ -21,7 +21,7 @@
                         <table class="table table-bordered table-hover">
                             <thead>
                             <tr>
-                                <th scope="col">DATE</th>
+                                    <th scope="col">CREATION</th>
                                 <th scope="col">NOM & PRENOM</th>
                                 <th scope="col">TELEPHONE</th>
                                 <th scope="col">EMAIL</th>
@@ -33,7 +33,7 @@
                             <tbody>
                             @foreach ($contacts as $contact)
                                 <tr>
-                                    <td>{{ $contact->creation_date }}</td>
+                                        <td style="white-space: nowrap;">{{ $contact->creation_date }}</td>
                                     <td>{{ $contact->name }}</td>
                                     <td>{{ $contact->phone }}</td>
                                     <td>{{ $contact->email }}</td>

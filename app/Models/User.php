@@ -130,6 +130,26 @@ class User extends Authenticate
     }
 
     /**
+     * User events
+     *
+     * @return HasMany
+     */
+    public function created_events()
+    {
+        return $this->hasMany('App\Models\Event', 'creator_id');
+    }
+
+    /**
+     * User picture
+     *
+     * @return HasMany
+     */
+    public function created_pictures()
+    {
+        return $this->hasMany('App\Models\Picture', 'creator_id');
+    }
+
+    /**
      * User products
      *
      * @return HasMany

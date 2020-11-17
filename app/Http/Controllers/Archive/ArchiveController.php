@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Archive;
 use App\Models\Tag;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\Event;
+use App\Models\Picture;
 use App\Models\Contact;
 use App\Models\Article;
 use App\Models\Service;
@@ -47,28 +49,23 @@ class ArchiveController extends Controller
             ->count();
 
         $tags = Tag::onlyTrashed()->count();
-
+        $events = Event::onlyTrashed()->count();
         $contacts = Contact::onlyTrashed()->count();
-
         $products = Product::onlyTrashed()->count();
-
         $services = Service::onlyTrashed()->count();
-
         $articles = Article::onlyTrashed()->count();
-
+        $pictures = Picture::onlyTrashed()->count();
         $categories = Category::onlyTrashed()->count();
-
         $testimonials = Testimonial::onlyTrashed()->count();
-
         $product_reviews = ProductReview::onlyTrashed()->count();
-
         $service_reviews = ServiceReview::onlyTrashed()->count();
-
         $article_comments = ArticleComment::onlyTrashed()->count();
 
         return view('archive.index', compact(
-            'admins', 'categories', 'tags', 'testimonials', 'products', 'customers',
-                'services', 'product_reviews', 'service_reviews', 'article_comments', 'articles', 'contacts'
+            'pictures', 'events', 'admins',
+                'categories', 'tags', 'testimonials',
+                'products', 'customers', 'services', 'product_reviews',
+                'service_reviews', 'article_comments', 'articles', 'contacts'
             )
         );
     }

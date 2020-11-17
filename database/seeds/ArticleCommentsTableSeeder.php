@@ -13,9 +13,14 @@ class ArticleCommentsTableSeeder extends Seeder
      */
     public function run()
     {
-        Article::first()->comments()->createMany([
-            ['description' => Lorem::text()],
-            ['description' => Lorem::text()]
-        ]);
+        Article::first()->comments()->createMany([$this->getRowData(), $this->getRowData()]);
+    }
+
+    /**
+     * @return array
+     */
+    private function getRowData()
+    {
+        return ['description' => Lorem::text()];
     }
 }
