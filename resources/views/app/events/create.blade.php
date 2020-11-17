@@ -20,12 +20,10 @@
                         @csrf
                         <div class="row">
                             <div class="col-sm-6">
-                                @include('partials.form.input', [
-                                    'name' => 'Nom (français)*',
-                                    'id' => 'fr_name',
-                                    'type' => 'text',
-                                    'value' => old('fr_name')
-                                ])
+                                <div class="form-group">
+                                    <label for="date-input1">Date Range</label>
+                                    <input type="text" name="datetimes" class="form-control datetimes" />
+                                </div>
                             </div>
                             <div class="col-sm-6">
                                 @include('partials.form.input', [
@@ -105,3 +103,26 @@
         </div>
     </div>
 @endsection
+
+@push('app.master.style')
+    <link rel="stylesheet" href="{{ css_asset('daterangepicker') }}" type="text/css">
+@endpush
+
+@push('app.master.script')
+    <script src="{{ js_asset('daterangepicker') }}" type="application/javascript"></script>
+    <script>
+        if ($('.datetimes').length)
+        {
+            $('.datetimes').daterangepicker(
+                {
+                    timePicker: true,
+                    startDate: moment().startOf('hour'),
+                    endDate: moment().startOf('hour').add(32, 'hour'),
+                    locale:
+                        {
+                            format: 'M/DD hh:mm A'
+                        }
+                });
+        }
+    </script>
+@endpush
