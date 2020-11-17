@@ -37,7 +37,7 @@
             @include('partials.archive.archive-card', [
                 'data' => $products,
                 'bg_class' => 'bg-info',
-                 'icon' => 'mdi mdi-basket',
+                'icon' => 'mdi mdi-basket',
                 'label' => 'Produits archivés',
                 'url' => route('archives.products.index'),
             ])
@@ -46,10 +46,30 @@
         <div class="col-md-6 col-lg-3">
             @include('partials.archive.archive-card', [
                 'data' => $services,
-                'bg_class' => 'bg-secondary',
-                 'icon' => 'mdi mdi-shopping',
+                'bg_class' => 'bg-success',
+                'icon' => 'mdi mdi-shopping',
                 'label' => 'Services archivés',
                 'url' => route('archives.services.index'),
+            ])
+        </div>
+        {{--Events--}}
+        <div class="col-md-6 col-lg-3">
+            @include('partials.archive.archive-card', [
+                'data' => $events,
+                'bg_class' => 'bg-dark',
+                'icon' => 'mdi mdi-string-lights',
+                'label' => 'Evènements archivés',
+                'url' => route('archives.events.index'),
+            ])
+        </div>
+        {{--Pictures--}}
+        <div class="col-md-6 col-lg-3">
+            @include('partials.archive.archive-card', [
+                'data' => $pictures,
+                'bg_class' => 'bg-secondary',
+                'icon' => 'mdi mdi-image-multiple',
+                'label' => 'Images archivées',
+                'url' => route('archives.pictures.index'),
             ])
         </div>
         {{--Categories--}}
@@ -57,7 +77,7 @@
             @include('partials.archive.archive-card', [
                 'data' => $categories,
                 'bg_class' => 'bg-danger',
-                 'icon' => 'mdi mdi-database',
+                'icon' => 'mdi mdi-database',
                 'label' => 'Catégories archivées',
                 'url' => route('archives.categories.index'),
             ])
@@ -66,7 +86,7 @@
         <div class="col-md-6 col-lg-3">
             @include('partials.archive.archive-card', [
                'data' => $articles,
-                'icon' => 'mdi mdi-blinds',
+               'icon' => 'mdi mdi-blinds',
                'bg_class' => 'bg-dark',
                'label' => 'Articles archivés',
                'url' => route('archives.articles.index'),
@@ -78,7 +98,7 @@
                 'data' => $tags,
                 'bg_class' => 'bg-success',
                 'label' => 'Etiquettes archivées',
-                 'icon' => 'mdi mdi-tag-multiple',
+                'icon' => 'mdi mdi-tag-multiple',
                 'url' => route('archives.tags.index'),
             ])
         </div>
@@ -86,7 +106,7 @@
         <div class="col-md-6 col-lg-3">
             @include('partials.archive.archive-card', [
                'data' => $testimonials,
-                'icon' => 'mdi mdi-face',
+               'icon' => 'mdi mdi-face',
                'bg_class' => 'bg-warning',
                'label' => 'Témoignages archivés',
                'url' => route('archives.testimonials.index'),
@@ -96,7 +116,7 @@
         <div class="col-md-6 col-lg-3">
             @include('partials.archive.archive-card', [
                'data' => $product_reviews,
-                'icon' => 'mdi mdi-comment-text',
+               'icon' => 'mdi mdi-comment-text',
                'bg_class' => 'bg-info',
                'label' => 'Commentaires sur produit archivés',
                'url' => route('archives.product-reviews.index'),
@@ -128,7 +148,7 @@
                'data' => $contacts,
                'icon' => 'mdi mdi-email-open-multiple',
                'bg_class' => 'bg-secondary',
-               'label' => 'Commentaires sur article archivés',
+               'label' => 'Messages de contact archivés',
                'url' => route('archives.contacts.index'),
            ])
         </div>

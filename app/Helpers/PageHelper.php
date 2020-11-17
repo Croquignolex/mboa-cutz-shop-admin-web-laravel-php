@@ -181,6 +181,28 @@ if(!function_exists('articles_pages'))
     }
 }
 
+if(!function_exists('events_pages'))
+{
+    /**
+     * @return Collection
+     */
+    function events_pages()
+    {
+        return collect(['events.index', 'events.create', 'events.show', 'events.edit']);
+    }
+}
+
+if(!function_exists('pictures_pages'))
+{
+    /**
+     * @return Collection
+     */
+    function pictures_pages()
+    {
+        return collect(['pictures.index', 'pictures.create', 'pictures.show', 'pictures.edit']);
+    }
+}
+
 if(!function_exists('archives_pages'))
 {
     /**

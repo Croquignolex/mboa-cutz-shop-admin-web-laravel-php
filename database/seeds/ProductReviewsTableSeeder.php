@@ -13,9 +13,14 @@ class ProductReviewsTableSeeder extends Seeder
      */
     public function run()
     {
-        Product::first()->reviews()->createMany([
-            ['description' => Lorem::text()],
-            ['description' => Lorem::text()]
-        ]);
+        Product::first()->reviews()->createMany([$this->getRowData(), $this->getRowData()]);
+    }
+
+    /**
+     * @return array
+     */
+    private function getRowData()
+    {
+        return ['description' => Lorem::text()];
     }
 }

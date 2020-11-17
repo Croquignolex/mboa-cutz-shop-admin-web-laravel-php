@@ -35,6 +35,7 @@
                                 ])
                             </div>
                         </div>
+                        {{-- **************************************************** --}}
                         <div class="row">
                             <div class="col-sm-6">
                                 @include('partials.form.input', [
@@ -53,6 +54,7 @@
                                 ])
                             </div>
                         </div>
+                        {{-- **************************************************** --}}
                         <div class="row">
                             <div class="col-sm-6">
                                 @include('partials.form.select', [
@@ -75,6 +77,7 @@
                                 ])
                             </div>
                         </div>
+                        {{-- **************************************************** --}}
                         <div class="row">
                             <div class="col-sm-6">
                                 @include('partials.form.textarea', [

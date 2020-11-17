@@ -119,7 +119,7 @@ class TestimonialController extends Controller
 
         $testimonial->delete();
 
-        success_toast_alert("Témoignage de $testimonial->name archivée avec success");
+        success_toast_alert("Témoignage de $testimonial->name archivé avec success");
         log_activity("Témoignage", "Archivage du témoignage de $testimonial->name");
 
         return redirect(route('testimonials.index'));

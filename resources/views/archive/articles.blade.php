@@ -22,10 +22,10 @@
                         <table class="table table-bordered table-hover">
                             <thead>
                                 <tr>
-                                    <th scope="col">DATE</th>
+                                    <th scope="col">CREATION</th>
                                     <th scope="col">IMAGE</th>
                                     <th scope="col">NOM (fr)</th>
-                                    <th scope="col">NOM (en)</th>
+                                    <th scope="col">NOM (EN)</th>
                                     <th scope="col">CREER PAR</th>
                                     <th scope="col">ACTIONS</th>
                                 </tr>
@@ -33,7 +33,7 @@
                             <tbody>
                                 @foreach ($articles as $article)
                                     <tr>
-                                        <td>{{ $article->creation_date }}</td>
+                                        <td style="white-space: nowrap;">{{ $article->creation_date }}</td>
                                         <td class="text-center">
                                             <img class="w-45" src="{{ $article->image_src }}" alt="..." />
                                         </td>
