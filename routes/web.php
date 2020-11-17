@@ -37,6 +37,7 @@ Route::group(['namespace' => 'App'], function() {
     Route::post('/profile/update-password', 'ProfileController@updatePassword')->name('profile.update.password');
 
     Route::post('/events/{event}/update-image', 'EventController@updateImage')->name('events.update.image');
+    Route::post('/events/{event}/update-image', 'EventController@updateImage')->name('events.update.image');
     Route::post('/products/{product}/update-image', 'ProductController@updateImage')->name('products.update.image');
     Route::post('/services/{service}/update-image', 'ServiceController@updateImage')->name('services.update.image');
     Route::post('/articles/{article}/update-image', 'ArticleController@updateImage')->name('articles.update.image');

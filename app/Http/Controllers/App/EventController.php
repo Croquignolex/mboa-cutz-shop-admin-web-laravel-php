@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\App;
 
+use App\Http\Requests\EventRequest;
 use Exception;
 use App\Models\Event;
 use App\Enums\ImagePath;
 use App\Enums\Constants;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\View\View;
 use App\Models\Testimonial;
 use Illuminate\Http\Response;
@@ -58,19 +60,36 @@ class EventController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param TestimonialRequest $request
+     * @param EventRequest $request
      * @return Application|RedirectResponse|Response|Redirector
      */
-    public function store(Request $request)
+    public function store(EventRequest $request)
     {
-        dd($request);
-        $testimonial = Auth::user()->created_testimonials()->create($request->all());
+        // Extract date
+        $range = $request->input('range');
+        $range_tab = explode(' - ', $range);
+        $started_at = Carbon::createFromFormat('d M, Y à H:i', $range_tab[0], session('timezone'));
+        $ended_at = Carbon::createFromFormat('d M, Y à H:i', $range_tab[1], session('timezone'));
+        $started_at->setTimezone('UTC');
+        $ended_at->setTimezone('UTC');
 
-        $name = $request->input('name');
-        success_toast_alert("Témoignage de $name créer avec succès");
-        log_activity("Témoignage", "Création du témoignage de $name");
+        $event = Auth::user()->created_events()->create([
+            'ended_at' => $ended_at,
+            'started_at' => $started_at,
+            'map' => $request->input('map'),
+            'fr_name' => $request->input('fr_name'),
+            'en_name' => $request->input('en_name'),
+            'fr_description' => $request->input('fr_description'),
+            'en_description' => $request->input('en_description'),
+            'fr_localisation' => $request->input('fr_localisation'),
+            'en_localisation' => $request->input('en_localisation'),
+        ]);
 
-        return redirect(route('testimonials.show', compact('testimonial')));
+        $name = $request->input('fr_name');
+        success_toast_alert("Evènement $name créer avec succès");
+        log_activity("Evènement", "Création de l'évènement $name");
+
+        return redirect(route('events.show', compact('event')));
     }
 
     /**
