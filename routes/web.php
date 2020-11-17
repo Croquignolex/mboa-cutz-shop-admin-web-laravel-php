@@ -82,7 +82,6 @@ Route::group(['namespace' => 'Archive'], function() {
     Route::get('/archives/articles', 'ArticleController@index')->name('archives.articles.index');
     Route::get('/archives/contacts', 'ContactController@index')->name('archives.contacts.index');
     Route::get('/archives/pictures', 'PictureController@index')->name('archives.pictures.index');
-    Route::get('/archives/events', 'EventCommentController@index')->name('archives.events.index');
     Route::get('/archives/customers', 'CustomerController@index')->name('archives.customers.index');
     Route::get('/archives/categories', 'CategoryController@index')->name('archives.categories.index');
     Route::get('/archives/testimonials', 'TestimonialController@index')->name('archives.testimonials.index');
@@ -92,7 +91,6 @@ Route::group(['namespace' => 'Archive'], function() {
 
     // App POST routes
     Route::post('/archives/tags/{tag}/restore', 'TagController@restore')->name('archives.tags.restore');
-    Route::post('/archives/events/{event}/restore', 'EventController@restore')->name('archives.events.restore');
     Route::post('/archives/events/{event}/restore', 'EventController@restore')->name('archives.events.restore');
     Route::post('/archives/admins/{admin}/restore', 'AdminController@restore')->name('archives.admins.restore');
     Route::post('/archives/pictures/{picture}/restore', 'PictureController@restore')->name('archives.pictures.restore');

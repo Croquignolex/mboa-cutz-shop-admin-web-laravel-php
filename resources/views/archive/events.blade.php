@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('app.master.title', page_title('Evènements'))
+@section('app.master.title', page_title('Evènements archivés'))
 
 @section('app.breadcrumb')
     @include('partials.breadcrumb', [
-        'title' => "Evènements ({$events->total()})",
+        'title' => "Evènements archivés ({$events->total()})",
         'icon' => 'mdi mdi-string-lights',
-        'chain' => ['Evènements']
+        'chain' => ['Archives', 'Evènements archivés']
     ])
 @endsection
 
@@ -15,12 +15,6 @@
         <div class="col">
             <div class="card card-default">
                 <div class="card-body">
-                    <div class="mb-3">
-                        <a class="btn btn-primary" href="{{ route('events.create') }}">
-                            <i class="mdi mdi-plus"></i>
-                            Nouvel évènement
-                        </a>
-                    </div>
 
                     <div class="mb-3">{{ $events->links() }}</div>
 
@@ -50,36 +44,25 @@
                                         <td>{{ $event->start_date }}</td>
                                         <td>{{ $event->end_date }}</td>
                                         <td>{{ $event->creator_name}}</td>
-                                        <td class="text-center" style="white-space: nowrap;">
-                                            <a href="{{ route('events.show', compact('event')) }}"
-                                               class="btn btn-sm btn-primary"
-                                               title="Détails"
-                                            >
-                                                <i class="mdi mdi-eye"></i>
-                                            </a>
-                                            <a href="{{ route('events.edit', compact('event')) }}"
-                                               class="btn btn-sm btn-warning"
-                                               title="Modifier"
-                                            >
-                                                <i class="mdi mdi-pencil"></i>
-                                            </a>
+                                        <td class="text-center">
                                             @if($event->can_delete)
-                                                <button class="btn btn-sm btn-danger"
+                                                <button class="btn btn-sm btn-success"
                                                         data-toggle="modal"
-                                                        data-target="{{ "#$event->id-archive-event-modal" }}"
-                                                        title="Archiver"
+                                                        data-target="{{ "#$event->slug-restore-event-modal" }}"
+                                                        title="Restorer"
                                                 >
-                                                    <i class="mdi mdi-archive"></i>
+                                                    <i class="mdi mdi-backup-restore"></i>
+                                                    Restorer
                                                 </button>
                                             @endif
                                         </td>
                                     </tr>
 
                                     @if($event->can_delete)
-                                        @include('partials.archive.archive-confirmation', [
+                                        @include('partials.restore-confirmation', [
                                             'name' => $event->fr_name,
-                                            'modal_id' => "$event->id-archive-event-modal",
-                                            'url' => route('events.destroy', compact('event'))
+                                            'modal_id' => "$event->slug-restore-event-modal",
+                                            'url' => route('archives.events.restore', compact('event'))
                                         ])
                                     @endif
                                 @endforeach
