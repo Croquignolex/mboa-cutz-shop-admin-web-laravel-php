@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('app.master.title', page_title('Gallery'))
+@section('app.master.title', page_title('Images archivées'))
 
 @section('app.breadcrumb')
     @include('partials.breadcrumb', [
-        'title' => "Gallery ({$pictures->total()})",
+        'title' => "Images archivées ({$pictures->total()})",
         'icon' => 'mdi mdi-image-multiple',
-        'chain' => ['Gallery']
+        'chain' => ['Archives', 'Images archivées']
     ])
 @endsection
 
@@ -15,12 +15,6 @@
         <div class="col">
             <div class="card card-default">
                 <div class="card-body">
-                    <div class="mb-3">
-                        <a class="btn btn-primary" href="{{ route('pictures.create') }}">
-                            <i class="mdi mdi-plus"></i>
-                            Nouvel image
-                        </a>
-                    </div>
 
                     <div class="mb-3">{{ $pictures->links() }}</div>
 
@@ -46,36 +40,25 @@
                                         <td>{{ $picture->fr_description }}</td>
                                         <td>{{ $picture->en_description }}</td>
                                         <td>{{ $picture->creator_name}}</td>
-                                        <td class="text-center" style="white-space: nowrap;">
-                                            <a href="{{ route('pictures.show', compact('picture')) }}"
-                                               class="btn btn-sm btn-primary"
-                                               title="Détails"
-                                            >
-                                                <i class="mdi mdi-eye"></i>
-                                            </a>
-                                            <a href="{{ route('pictures.edit', compact('picture')) }}"
-                                               class="btn btn-sm btn-warning"
-                                               title="Modifier"
-                                            >
-                                                <i class="mdi mdi-pencil"></i>
-                                            </a>
+                                        <td class="text-center">
                                             @if($picture->can_delete)
-                                                <button class="btn btn-sm btn-danger"
+                                                <button class="btn btn-sm btn-success"
                                                         data-toggle="modal"
-                                                        data-target="{{ "#$picture->id-archive-picture-modal" }}"
-                                                        title="Archiver"
+                                                        data-target="{{ "#$picture->id-restore-picture-modal" }}"
+                                                        title="Restorer"
                                                 >
-                                                    <i class="mdi mdi-archive"></i>
+                                                    <i class="mdi mdi-backup-restore"></i>
+                                                    Restorer
                                                 </button>
                                             @endif
                                         </td>
                                     </tr>
 
                                     @if($picture->can_delete)
-                                        @include('partials.archive.archive-confirmation', [
+                                        @include('partials.restore-confirmation', [
                                             'name' => $picture->fr_description,
-                                            'modal_id' => "$picture->id-archive-picture-modal",
-                                            'url' => route('pictures.destroy', compact('picture'))
+                                            'modal_id' => "$picture->id-restore-picture-modal",
+                                            'url' => route('archives.pictures.restore', compact('picture'))
                                         ])
                                     @endif
                                 @endforeach
