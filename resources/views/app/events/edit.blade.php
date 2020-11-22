@@ -116,9 +116,10 @@
         $('#range').daterangepicker({
             timePicker: true,
             timePicker24Hour: true,
-            startDate: moment(startDate, 'DD MMM, YYYY à hh:mm'),
-            endDate: moment(startEnd, 'DD MMM, YYYY à hh:mm'),
-            locale: {format: 'DD MMM, YYYY à hh:mm'}
+            timePickerIncrement: 15,
+            startDate: moment(startDate, 'DD MMM, YYYY à H:mm'),
+            endDate: moment(startEnd, 'DD MMM, YYYY à H:mm'),
+            locale: {format: 'DD MMM, YYYY à H:mm'}
         });
     </script>
 @endpush
