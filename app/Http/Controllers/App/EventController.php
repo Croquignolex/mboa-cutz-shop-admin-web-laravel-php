@@ -65,8 +65,10 @@ class EventController extends Controller
         // Extract date
         $range = $request->input('range');
         $range_tab = explode(' - ', $range);
-        $started_at = Carbon::createFromFormat('d M, Y à H:i', $range_tab[0], session('timezone'));
+
         $ended_at = Carbon::createFromFormat('d M, Y à H:i', $range_tab[1], session('timezone'));
+        $started_at = Carbon::createFromFormat('d M, Y à H:i', $range_tab[0], session('timezone'));
+
         $started_at->setTimezone('UTC');
         $ended_at->setTimezone('UTC');
 
@@ -120,7 +122,27 @@ class EventController extends Controller
      */
     public function update(EventRequest $request, Event $event)
     {
-        $event->update($request->all());
+        // Extract date
+        $range = $request->input('range');
+        $range_tab = explode(' - ', $range);
+
+        $ended_at = Carbon::createFromFormat('d M, Y à H:i', $range_tab[1], session('timezone'));
+        $started_at = Carbon::createFromFormat('d M, Y à H:i', $range_tab[0], session('timezone'));
+
+        $started_at->setTimezone('UTC');
+        $ended_at->setTimezone('UTC');
+
+        $event->update([
+            'ended_at' => $ended_at,
+            'started_at' => $started_at,
+            'map' => $request->input('map'),
+            'fr_name' => $request->input('fr_name'),
+            'en_name' => $request->input('en_name'),
+            'fr_description' => $request->input('fr_description'),
+            'en_description' => $request->input('en_description'),
+            'fr_localisation' => $request->input('fr_localisation'),
+            'en_localisation' => $request->input('en_localisation'),
+        ]);
 
         success_toast_alert("Evènement $event->fr_name mis à jour avec success");
         log_activity("Evènement", "Mise à jour de l'évènement $event->fr_name");

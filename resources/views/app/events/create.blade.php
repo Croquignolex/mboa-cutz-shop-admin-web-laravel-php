@@ -107,9 +107,10 @@
         $('#range').daterangepicker({
             timePicker: true,
             timePicker24Hour: true,
+            timePickerIncrement: 15,
             startDate: moment().startOf('hour'),
             endDate: moment().startOf('hour').add(72, 'hour'),
-            locale: {format: 'DD MMM, YYYY à hh:mm'}
+            locale: {format: 'DD MMM, YYYY à H:mm'}
         });
     </script>
 @endpush
