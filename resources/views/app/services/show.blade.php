@@ -94,7 +94,7 @@
                                     @include('partials.model-image-edit', [
                                         'model' => $service,
                                         'round_image' => false,
-                                        'croup_ratio' => 'rectangle',
+                                        'croup_ratio' => 'unknown',
                                         'url' => route('services.update.image', compact('service'))
                                     ])
                                 </div>
