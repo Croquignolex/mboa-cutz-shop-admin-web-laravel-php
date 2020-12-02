@@ -96,3 +96,22 @@
 @endsection
 
 @include('partials.select-scripts')
+
+@push('app.master.style')
+    @if(config('app.env') === 'production')
+        <link href="//cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">
+    @else
+        <link rel="stylesheet" href="{{ css_asset('quill.snow') }}" type="text/css">
+    @endif
+@endpush
+
+@push('app.master.script')
+    @if(config('app.env') === 'production')
+        <script src="//cdn.quilljs.com/1.3.7/quill.min.js"></script>
+    @else
+        <script src="{{ js_asset('quill.min') }}" type="application/javascript"></script>
+    @endif
+    <script type="application/javascript">
+
+    </script>
+@endpush
