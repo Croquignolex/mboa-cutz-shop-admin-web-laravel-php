@@ -80,18 +80,18 @@
                         {{-- **************************************************** --}}
                         <div class="row">
                             <div class="col-sm-6">
-                                @include('partials.form.textarea', [
+                                @include('partials.form.editor', [
                                     'name' => 'Description (français)',
                                     'id' => 'fr_description',
                                     'value' => old('fr_description') ?? $article->fr_description
-                                ])
+                                 ])
                             </div>
                             <div class="col-sm-6">
-                                @include('partials.form.textarea', [
+                                @include('partials.form.editor', [
                                     'name' => 'Description (anglais)',
                                     'id' => 'en_description',
                                     'value' => old('en_description') ?? $article->en_description
-                                ])
+                                 ])
                             </div>
                         </div>
                         @include('partials.form.submit')
@@ -103,3 +103,4 @@
 @endsection
 
 @include('partials.select-scripts')
+@include('partials.editor-description-scripts')

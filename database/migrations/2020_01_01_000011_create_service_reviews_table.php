@@ -15,7 +15,7 @@ class CreateServiceReviewsTable extends Migration
     {
         Schema::create('service_reviews', function (Blueprint $table) {
             $table->increments('id');
-            $table->text('description')->nullable();
+            $table->longText('description')->nullable();
             $table->unsignedTinyInteger('rate')->default(0);
             $table->unsignedInteger('creator_id')->nullable();
             $table->unsignedInteger('service_id');
