@@ -23,11 +23,11 @@ class CreateEventsTable extends Migration
             $table->string('en_name');
             $table->string('fr_localisation');
             $table->string('en_localisation');
-            $table->text('map')->nullable();
+            $table->longText('map')->nullable();
             $table->dateTime('started_at');
             $table->dateTime('ended_at');
-            $table->text('fr_description')->nullable();
-            $table->text('en_description')->nullable();
+            $table->longText('fr_description')->nullable();
+            $table->longText('en_description')->nullable();
             $table->unsignedInteger('creator_id')->nullable();
             $table->softDeletes();
             $table->timestamps();

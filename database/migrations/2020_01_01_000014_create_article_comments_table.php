@@ -15,7 +15,7 @@ class CreateArticleCommentsTable extends Migration
     {
         Schema::create('article_comments', function (Blueprint $table) {
             $table->increments('id');
-            $table->text('description')->nullable();
+            $table->longText('description')->nullable();
             $table->unsignedInteger('creator_id')->nullable();
             $table->unsignedInteger('article_id');
             $table->softDeletes();

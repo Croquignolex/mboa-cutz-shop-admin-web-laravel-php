@@ -18,7 +18,7 @@ class CreateTagsTable extends Migration
             $table->string('slug')->unique();
             $table->string('fr_name');
             $table->string('en_name');
-            $table->text('description')->nullable();
+            $table->longText('description')->nullable();
             $table->unsignedInteger('creator_id')->nullable();
             $table->softDeletes();
             $table->timestamps();

@@ -61,10 +61,10 @@
                         </p>
 
                         <p class="text-dark font-weight-medium pt-4 mb-2">Description (francais)</p>
-                        <p>{{ $article->fr_description }}</p>
+                        <div class="overflow-hidden">{!! $article->fr_description !!}</div>
 
                         <p class="text-dark font-weight-medium pt-4 mb-2">Description (anglais)</p>
-                        <p>{{ $article->en_description }}</p>
+                        <div class="overflow-hidden">{!! $article->en_description !!}</div>
                     </div>
                 </div>
             </div>
