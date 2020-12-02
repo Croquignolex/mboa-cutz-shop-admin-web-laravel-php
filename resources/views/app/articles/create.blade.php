@@ -73,18 +73,18 @@
                         {{-- **************************************************** --}}
                         <div class="row">
                             <div class="col-sm-6">
-                                @include('partials.form.textarea', [
+                                @include('partials.form.editor', [
                                     'name' => 'Description (français)',
                                     'id' => 'fr_description',
                                     'value' => old('fr_description')
-                                ])
+                                 ])
                             </div>
                             <div class="col-sm-6">
-                                @include('partials.form.textarea', [
+                                @include('partials.form.editor', [
                                     'name' => 'Description (anglais)',
                                     'id' => 'en_description',
                                     'value' => old('en_description')
-                                ])
+                                 ])
                             </div>
                         </div>
                         @include('partials.form.submit')
@@ -96,22 +96,4 @@
 @endsection
 
 @include('partials.select-scripts')
-
-@push('app.master.style')
-    @if(config('app.env') === 'production')
-        <link href="//cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">
-    @else
-        <link rel="stylesheet" href="{{ css_asset('quill.snow') }}" type="text/css">
-    @endif
-@endpush
-
-@push('app.master.script')
-    @if(config('app.env') === 'production')
-        <script src="//cdn.quilljs.com/1.3.7/quill.min.js"></script>
-    @else
-        <script src="{{ js_asset('quill.min') }}" type="application/javascript"></script>
-    @endif
-    <script type="application/javascript">
-
-    </script>
-@endpush
+@include('partials.editor-description-scripts')
