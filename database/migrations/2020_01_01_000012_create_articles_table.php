@@ -21,8 +21,8 @@ class CreateArticlesTable extends Migration
             $table->string('image_extension', 50)->default(Constants::DEFAULT_IMAGE_EXTENSION);
             $table->string('fr_name');
             $table->string('en_name');
-            $table->text('fr_description')->nullable();
-            $table->text('en_description')->nullable();
+            $table->longText('fr_description')->nullable();
+            $table->longText('en_description')->nullable();
             $table->boolean('is_new')->default(false);
             $table->boolean('is_featured')->default(false);
             $table->unsignedInteger('creator_id')->nullable();

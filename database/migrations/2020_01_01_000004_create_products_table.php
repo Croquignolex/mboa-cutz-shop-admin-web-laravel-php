@@ -21,8 +21,8 @@ class CreateProductsTable extends Migration
             $table->string('image_extension', 50)->default(Constants::DEFAULT_IMAGE_EXTENSION);
             $table->string('fr_name');
             $table->string('en_name');
-            $table->text('fr_description')->nullable();
-            $table->text('en_description')->nullable();
+            $table->longText('fr_description')->nullable();
+            $table->longText('en_description')->nullable();
             $table->unsignedInteger('stock')->default(0);
             $table->unsignedBigInteger('price')->default(0);
             $table->unsignedTinyInteger('rate')->default(0);
